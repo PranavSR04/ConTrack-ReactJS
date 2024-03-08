@@ -14,7 +14,7 @@ const NavBar = () => {
 					ConTrack
 				</NavbarBrand>
 				<NavItem>
-					<a href="#notification" className={styles.notification}>
+					<a href="#notification" className={styles.notification} >
 						<Badge count={5}  overflowCount={30} showZero={false} offset={[4, 10]} classNames={{ indicator: styles.notificationCounter }}>
 							<Avatar shape="square"  size={30}> <IoMdNotifications size={30}/></Avatar>
 						</Badge>
