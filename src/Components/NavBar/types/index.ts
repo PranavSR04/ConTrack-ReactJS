@@ -1,3 +1,4 @@
-export type NavBarHandlerPropType = {
+export type NavBarPropType = {
+    username :string | undefined
 
 }

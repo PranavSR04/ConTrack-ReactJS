@@ -1,7 +1,21 @@
-import axios, { AxiosError } from 'axios';
-import { userDetailsType } from "../../../Features/Login/types";
+import axios, { AxiosError } from "axios";
+import { LoginResponse, userDetailsType } from "../../../Features/Login/types";
+import axiosInstance from "../../../Config/AxiosConfig";
 
-export const postLogin = async ({ usermail, password }: userDetailsType): Promise<{message:string} | AxiosError> => {
-    return await axios.post("https://90ade0cb-a8dd-4023-bc45-f557d8be138a.mock.pstmn.io/login", { usermail, password })
-        .then(data => data.data)
+export const postLogin = async ({
+	email_id,
+	password,
+}: userDetailsType): Promise<LoginResponse | AxiosError> => {
+	return await axiosInstance
+		.post("api/auth/login", { email_id, password })
+		.then((responce) => responce.data)
+		.catch((err) => err);
+};
+
+export const postLogout = async (): Promise<void | AxiosError> => {
+    console.log("hello");
+    return await axiosInstance  
+        .post("api/auth/logout")
+        .then(() => {})
+        .catch((error) => error);
 };

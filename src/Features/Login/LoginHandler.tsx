@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
 import Login from "./Login";
-import { userDetailsType } from "./types";
+import {LoginResponse, userDetailsType } from "./types";
 import { type FormProps } from "antd";
+import { useNavigate } from "react-router";
+import { Auth } from "../../Components/AuthContext/AuthContext";
+import { AxiosError } from "axios";
 
 const LoginHandler = () => {
-	const onFinish: FormProps<userDetailsType>["onFinish"] = (values) => {
+    
+    const {login}= useContext(Auth);
+
+    const navigate=useNavigate();
+
+	const onFinish: FormProps<userDetailsType>["onFinish"] = async (values) => {
 		console.log("Success:", values);
 		console.log(values);
+        console.log(values.email_id);
+        console.log(values.password);
+        let userDetails:userDetailsType={email_id:values.email_id,password:values.password}
+        let responce:LoginResponse = await login(userDetails as userDetailsType);
+        if(responce instanceof AxiosError){
+            console.log(responce);
+           }
+           else{
+            console.log(responce);
+            console.log(responce.access_token);
+            navigate("/Dashboard");
+    
+           }
+
+    
 	};
 
 	const onFinishFailed: FormProps<userDetailsType>["onFinishFailed"] = (
