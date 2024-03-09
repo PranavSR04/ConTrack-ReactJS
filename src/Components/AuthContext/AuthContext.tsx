@@ -6,9 +6,10 @@ import {
 } from "../../Features/Login/types";
 import { AuthContextType } from "./types";
 import { AxiosError } from "axios";
-import { postLogin, postLogout } from "./api/postLogin";
+import { postLogin } from "./api/postLogin";
 import { useNavigate } from "react-router";
 import { error } from "console";
+import { postLogout } from "./api/postLogout";
 
 export const Auth = createContext<AuthContextType>({
 	accessToken: "",

@@ -1,10 +1,12 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import RevenueProjection from './RevenueProjection'
 import { Auth } from '../../Components/AuthContext/AuthContext';
+import { fetchRevenueProjection } from './api/getRevenueProjection';
 
 const RevenueProjectionHandler = () => {
 
     const {logout}= useContext(Auth);
+    const [revuneData,setRevenueData]=useState();
     const access_token = localStorage.getItem('access_token');
     const handleLogout = async () => {
         try {
@@ -15,6 +17,15 @@ const RevenueProjectionHandler = () => {
           console.error('Error during logout:', error);
         }
       };
+
+      
+        const fetRevenue = async () =>{
+          const data = await fetchRevenueProjection();
+          console.log(data);
+        }
+        
+
+
     
     
 
@@ -23,8 +34,11 @@ const RevenueProjectionHandler = () => {
   return (
    <RevenueProjection
    handleLogout={handleLogout}
+   fetRevenue={fetRevenue}
    />
   )
 }
 
 export default RevenueProjectionHandler
+
+

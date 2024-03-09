@@ -9,9 +9,7 @@ function App() {
     <>
     <NavBarHandler />
     <RevenueProjectionHandler />
-    
-
-    
+ 
     </>
     
   );

@@ -1,3 +1,27 @@
 .revueneProjection{
     margin-top: 10px;
+    margin-left: 30rem;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.chart_container {
+    width: 700px;
+    display: flex;
+}
+
+.small_column {
+    width: 40px;
+}
+
+.large_column {
+    max-width: 900px;
+    overflow-x: scroll;
+}
+
+.container {
+    width: calc(1000px - 40px);
+    height: 500px;
 }
