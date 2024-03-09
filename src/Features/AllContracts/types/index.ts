@@ -1,8 +1,13 @@
-import { FilterConfirmProps, SortOrder } from 'antd/lib/table/interface';
+import { FilterConfirmProps, SortOrder, TablePaginationConfig } from 'antd/lib/table/interface';
 
 export interface Condition {
     [field:string]: string;
   }
+ export  interface paginations {
+    current: number;
+    pageSize: number;
+    total: number;
+}
 
  export interface ContractData {
     id:string;
@@ -28,5 +33,9 @@ export interface Condition {
 
 export interface AllContractsPropType{
   columns:TableColumn[];
-  
+  data:ContractData[];
+  pagination:paginations;
+  handleTableChange:(pagination:TablePaginationConfig)=> void;
+  actionClicked:boolean;
+  loading:boolean
 }

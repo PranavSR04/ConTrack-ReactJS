@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Spin, Table, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { FilterConfirmProps } from 'antd/lib/table/interface';
+import { FilterConfirmProps, TablePaginationConfig } from 'antd/lib/table/interface';
 import styles from './contractsList.module.css'  ;
 import { fetchDataFromApi } from './api/getContracts';
 import { ContractData ,TableColumn} from './types';
 import AllContracts from './AllContracts';
 import { AllContractsPropType } from './types';
 const AllContractsHandler = () => {
-    const [data, setData] = useState<any[]>([]); 
+    const [data, setData] = useState<ContractData[]>([]); 
   const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
   const [loading, setLoading] = useState(false);
   const [isEmptySearch, setIsEmptySearch] = useState(false);
+  const [actionClicked, setActionClicked]= useState(false);
 
   const [pagination, setPagination] = useState({
     current: 1,
@@ -37,8 +38,14 @@ const AllContractsHandler = () => {
       setLoading(false);
     }
   };
-  const handleTableChange = (pagination: any) => {
-    setPagination(pagination);
+  const handleTableChange = (pagination: TablePaginationConfig) => {
+    if ('current' in pagination && 'pageSize' in pagination) {
+      setPagination({
+        current: pagination.current || 1,
+        pageSize: pagination.pageSize || 10,
+        total: pagination.total || 0,
+      });
+    }
   
   };
   const onSearch = ( selectedKeys: string, selectedField: string) => {
@@ -97,11 +104,11 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
   ...getColumnSearchProps(key),
 }));
 
-  let actionClicked = false;
 
   const oneditPage = (e: string) => {
-    actionClicked = true;
-    window.alert(e);
+    setActionClicked(true);
+    window.alert('edit');
+    window.alert(actionClicked);
   };
 
   columns.push({
@@ -119,7 +126,6 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
       } else if (status === 'Closed') {
         className = 'status-closed';
       }  
-
       return <Tag className={className} >{status}</Tag>;
     },
   });
@@ -143,6 +149,13 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
     <>
       <AllContracts 
       columns={columns}
+      data={data}
+      pagination={pagination}
+     handleTableChange={handleTableChange}
+     actionClicked={actionClicked}
+     loading={loading}
+      
+
       />
     </>
   )
