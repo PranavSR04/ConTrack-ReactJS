@@ -5,12 +5,11 @@ import { ColumnsType } from 'antd/es/table';
 import { FilterConfirmProps } from 'antd/lib/table/interface';
 import styles from './contractsList.module.css'  ;
 import { fetchDataFromApi } from './api/getContracts';
-import { AllContractsPropType, ContractData ,TableColumn} from './types';
-
-//This is the current working code
-
-const AllContracts = ({columns}:AllContractsPropType) => {
-  const [data, setData] = useState<any[]>([]); 
+import { ContractData ,TableColumn} from './types';
+import AllContracts from './AllContracts';
+import { AllContractsPropType } from './types';
+const AllContractsHandler = () => {
+    const [data, setData] = useState<any[]>([]); 
   const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
   const [loading, setLoading] = useState(false);
   const [isEmptySearch, setIsEmptySearch] = useState(false);
@@ -89,6 +88,15 @@ const AllContracts = ({columns}:AllContractsPropType) => {
 
   const desiredColumnKeys = ['contract_ref_id', 'client_name', 'start_date', 'end_date', 'contract_type'];
 
+const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
+  title: customHeadings[key],
+  dataIndex: key,
+  key,
+  sorter: (a: ContractData, b: ContractData) => (a[key as keyof ContractData]).localeCompare(b[key as keyof ContractData]),
+  sortDirections: ['ascend', 'descend'],
+  ...getColumnSearchProps(key),
+}));
+
   let actionClicked = false;
 
   const oneditPage = (e: string) => {
@@ -96,42 +104,48 @@ const AllContracts = ({columns}:AllContractsPropType) => {
     window.alert(e);
   };
 
+  columns.push({
+    title: 'Status',
+    dataIndex: 'contract_status',
+    key: 'contract_status',
+    sorter: (a: ContractData, b: ContractData) => a.contract_status.localeCompare(b.contract_status),
+    sortDirections: ['ascend', 'descend'],
+    ...getColumnSearchProps('contract_status'),
+    render: (status: string) => {
+      // let color = 'green'; // Default color
+      let className = 'status-active';
+      if (status === 'On Progress') {
+        className = 'status-onprogress';
+      } else if (status === 'Closed') {
+        className = 'status-closed';
+      }  
+
+      return <Tag className={className} >{status}</Tag>;
+    },
+  });
+  
+  columns.push({
+    title: 'Action',
+    key: 'action',
+    render: (text:any, record:ContractData) => (
+      <span>
+        <EditOutlined
+          style={{ fontSize: '16px', color: '#DC143C' }}
+          onClick={() => {
+            oneditPage(record.id);
+          }}
+        />
+      </span>
+    ),
+  });
+
   return (
     <>
-    <h2 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h2>
-    <div className={styles['contracts-table']}>
-     <Button className={styles['contracts-addContract']}>+ Add Contract</Button>
-     <Table<ContractData> className={styles['contracts-tableHead']}
-     columns={columns as ColumnsType<ContractData>}
-     dataSource={data.map((item) => ({ ...item, key: item.id }))}
-     pagination={{
-      ...pagination,
-      position: ['bottomCenter'],
-      itemRender: (current, type, originalElement) => {
-        if (type === 'page') {
-          return (
-            <a style={{ background: current === pagination.current ? '#DC143C' : '',color: current === pagination.current ? 'white' : '' }}>
-              {current}
-            </a>
-          );
-        }
-        return originalElement;
-      },
-    }}
-     onChange={handleTableChange}
-     onRow={(record) => ({
-     onClick: (e) => {
-      e.preventDefault();
-      if (!actionClicked) {
-        window.alert(record.id);
-      }
-    },
-  })} size='middle'>
-</Table>
-      {loading && <Spin size="large" />}
-      </div>
+      <AllContracts 
+      columns={columns}
+      />
     </>
-  );
-};
+  )
+}
 
-export default AllContracts;
+export default AllContractsHandler
