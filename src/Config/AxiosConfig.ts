@@ -7,20 +7,23 @@ const axiosInstance = axios.create({
 });
  
 // Define the exclude paths (paths where token should not be added)
-const excludePaths = ['/login'];
+const excludePaths = ['api/auth/login'];
  
 // Add a request interceptor to the axios instance
 axiosInstance.interceptors.request.use(
   (config:InternalAxiosRequestConfig<any>) => {
     // Check if the request URL matches any of the exclude paths
+    console.log('Request URL:', config.url);
     const isExcludedPath = excludePaths.some((path) => config.url?.includes(path));
+    console.log('Is excluded path?', isExcludedPath);
  
     // If the path is not excluded, add the Bearer token to the header
     if (!isExcludedPath) {
       const authToken = localStorage.getItem("access_token"); // Replace with your actual JWT token
+      console.log(authToken);
       config.headers.Authorization = `Bearer ${authToken}`;
     }
- 
+    console.log(config);
     return config;
   },
   (error) => {

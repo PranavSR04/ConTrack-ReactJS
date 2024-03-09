@@ -4,8 +4,9 @@ import styles from "./NavBar.module.css";
 import { Avatar, Badge } from "antd";
 import { IoMdNotifications } from "react-icons/io";
 import logo from "../../img/Subtract.png";
+import { NavBarPropType } from "./types";
 
-const NavBar = () => {
+const NavBar = ({username}:NavBarPropType) => {
 	return (
 		<>
 			<Nav className={styles.navbar}>
@@ -19,7 +20,7 @@ const NavBar = () => {
 							<Avatar shape="square"  size={30}> <IoMdNotifications size={30}/></Avatar>
 						</Badge>
 					</a>
-					<NavbarText>Ganesh Babu</NavbarText>
+					<NavbarText>{username}</NavbarText>
 					<NavbarText className={styles.designation}>, Vice President</NavbarText>
 				</NavItem>
 			</Nav>

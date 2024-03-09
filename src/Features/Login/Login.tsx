@@ -24,7 +24,7 @@ const Login = (
 					>
 						<Form.Item<userDetailsType>
 							label="Usermail"
-							name="usermail"
+							name="email_id"
 							rules={[
 								{ required: true, message: "Please input your mail id!" },
 							]}

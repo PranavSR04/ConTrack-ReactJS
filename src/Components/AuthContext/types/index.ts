@@ -1,8 +1,9 @@
 import { AxiosError } from "axios";
-import { userDetailsType } from "../../../Features/Login/types";
+import { LoginResponse, UserType, userDetailsType } from "../../../Features/Login/types";
 
 export type AuthContextType={
-	mail:string;
-	login:(details:userDetailsType)=>Promise<{message:string} |AxiosError>;
-	logout:()=>void;
+	accessToken:string ;
+	currentUser:UserType | undefined;
+	login: (userDetails: userDetailsType) => Promise<LoginResponse | AxiosError>;
+	logout: () => Promise<void | AxiosError>
 }
