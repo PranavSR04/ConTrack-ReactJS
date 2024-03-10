@@ -36,6 +36,7 @@ export interface ManageUsersPropType{
   selectedRoleId: number | undefined
   deleteConfirmationVisible: boolean
   selectedUser: User | null
+  loading: boolean
 
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 import UpdateModal from './UpdateModal';
 import userTableStyles from './ManagerUsers.module.css'
-import { Table, Modal, message, Input, Button, Select, AutoComplete, TablePaginationConfig,PaginationProps } from "antd";
+import { Table,Spin, Modal, message, Input, Button, Select, AutoComplete, TablePaginationConfig,PaginationProps } from "antd";
 import { ManageUserHandlerPropType, ManageUsersPropType } from './types';
 
 
@@ -27,8 +27,9 @@ const ManageUsers = (
     editModalVisible,
     selectedRoleId,
     deleteConfirmationVisible,
-    selectedUser
-    }:ManageUsersPropType) => {
+    selectedUser,
+    loading
+  }:ManageUsersPropType) => {
   return (
 <>
     <div className={` ${userTableStyles.wholeTable} `}>
@@ -74,6 +75,8 @@ const ManageUsers = (
               rowClassName={rowClassName}
               pagination={pagination}
               onChange={handlePageChange}
+              loading={{ indicator: <div><Spin /></div>, spinning:loading}}
+
               // }
             />
         </div>

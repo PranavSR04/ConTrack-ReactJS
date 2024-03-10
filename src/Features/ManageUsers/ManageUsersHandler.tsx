@@ -42,6 +42,7 @@ const ManageUsersHandler = () => {
   //To list the users in the table 
   const fetchUserData = async (page :number , pageSize :number ,searchQuery1?:string) => {
     try {
+      setLoading(true)
       const response =await getUserList(page, pageSize,searchQuery1)
       const result = response.data;
       console.log(result);
@@ -379,6 +380,7 @@ const ManageUsersHandler = () => {
      selectedRoleId={selectedRoleId}
      deleteConfirmationVisible={deleteConfirmationVisible}
      selectedUser={selectedUser}
+     loading={loading}
      />
   )
 }
