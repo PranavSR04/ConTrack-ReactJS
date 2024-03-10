@@ -13,7 +13,7 @@ const AllContractsHandler = () => {
   const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
   const [loading, setLoading] = useState(false);
   const [isEmptySearch, setIsEmptySearch] = useState(false);
-  const [actionClicked, setActionClicked]= useState(false);
+  const [actionClicked, setActionClicked]= useState<boolean>(false);
 
   const [pagination, setPagination] = useState({
     current: 1,
@@ -73,8 +73,7 @@ const AllContractsHandler = () => {
           }}
         />
         <Button onClick={() => {
-          clearSearch();
-              
+          clearSearch();          
               }}>Clear All Search</Button>
       </div>
       )
@@ -105,7 +104,7 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
 }));
 
 
-  const oneditPage = (e: string) => {
+  const oneditPage = (id: string) => {
     setActionClicked(true);
     window.alert('edit');
     window.alert(actionClicked);

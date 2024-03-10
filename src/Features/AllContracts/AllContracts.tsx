@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { EditOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Input, Spin, Table, Tag } from 'antd';
+
+import { Button, Spin, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { FilterConfirmProps, TablePaginationConfig } from 'antd/lib/table/interface';
 import styles from './contractsList.module.css'  ;
-import { fetchDataFromApi } from './api/getContracts';
-import { AllContractsPropType, ContractData ,TableColumn, paginations} from './types';
+import { AllContractsPropType, ContractData } from './types';
 
 //This is the current working code
 
