@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import { Line } from "@ant-design/plots";
 import { fetchRevenueProjection } from "./api/getRevenueProjection";
 import { RevenueProjectionData } from "./types";
@@ -11,6 +10,7 @@ const DemoLine = () => {
 	useEffect(() => {
 		fetRevenue();
 		console.log(data);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const fetRevenue = async () => {

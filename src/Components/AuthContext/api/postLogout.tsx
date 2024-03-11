@@ -1,5 +1,4 @@
-import axios, { AxiosError } from "axios";
-import { LoginResponse, userDetailsType } from "../../../Features/Login/types";
+import { AxiosError } from "axios";
 import axiosInstance from "../../../Config/AxiosConfig";
 
 export const postLogout = async (): Promise<void | AxiosError> => {

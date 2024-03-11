@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext,useState } from "react";
 import {
 	LoginResponse,
 	UserType,
@@ -8,7 +8,6 @@ import { AuthContextType } from "./types";
 import { AxiosError } from "axios";
 import { postLogin } from "./api/postLogin";
 import { useNavigate } from "react-router";
-import { error } from "console";
 import { postLogout } from "./api/postLogout";
 
 export const Auth = createContext<AuthContextType>({

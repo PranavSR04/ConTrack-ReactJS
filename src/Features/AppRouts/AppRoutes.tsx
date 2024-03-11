@@ -4,7 +4,7 @@ import {
 	Route,
 	Navigate,
 } from "react-router-dom";
-import AuthContext, { Auth } from "../../Components/AuthContext/AuthContext";
+import AuthContext from "../../Components/AuthContext/AuthContext";
 import LoginHandler from "../Login/LoginHandler";
 import App from "../../App";
 
