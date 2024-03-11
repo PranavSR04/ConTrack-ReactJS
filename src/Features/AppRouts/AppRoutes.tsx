@@ -18,6 +18,7 @@ const AppRoutes = () => {
 						<Route path="/" element={<Navigate to="/login" />} />
 						<Route path="/login" element={<LoginHandler />}></Route>
 						<Route path="/Dashboard" element={<App />}></Route>
+						<Route path="/Contracts" element={<App />}></Route>
 					</Routes>
 				</AuthContext>
 			</BrowserRouter>

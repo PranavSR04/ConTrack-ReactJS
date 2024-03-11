@@ -1,0 +1,81 @@
+.maincontainer__milestones{
+    margin-top: 2rem;
+    box-shadow: 5px 5px 5px 5px rgb(195, 195, 195);
+    border: solid 1px #828282;
+    background-color: white;
+    font-family: "Montserrat", sans-serif;
+    width: 95%;
+}
+
+.maincontainer__milestones h2{
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.maincontainer__milestones__body{
+    display: flex;
+    justify-content: space-between;
+}
+
+.maincontainer__milestones__body__card{
+    display: flex;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    height: 10rem;
+}
+
+.maincontainer__milestones__body__left{
+    z-index: 3;
+    font-size: 2rem;
+    margin-left: 1rem;
+    margin-top: 2rem;
+}
+
+.maincontainer__milestones__body__right{
+    z-index: 3;
+    font-size: 2rem;
+    margin-right: 1rem;
+    margin-top: 2rem;
+}
+
+.maincontainer__milestones__body__card__individual{
+    border: solid 1px #828282;
+    box-shadow: 5px 5px 5px 5px rgb(195, 195, 195);
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 22rem;
+    height: initial;
+    font-family: "Montserrat", sans-serif;
+    z-index: 2;
+}
+
+.maincontainer__milestones__body__card__individual__desc h4{
+    font-weight: 500;
+}
+
+.maincontainer__milestones__body__card__individual__amount h4{
+    font-weight: 400;
+}
+
+.maincontainer__milestone__body__card__individual__popup{
+    margin: 2rem 0rem;
+}
+
+.maincontainer__milestone__body__card__individual__popup__data h3{
+    font-weight: 400;
+    font-size: large;
+}
+
+.maincontainer__milestones__card__complete{
+    background-color: #B7F4B2;
+}
+
+.maincontainer__milestones__card__incomplete{
+    background-color: #E7E7E7;
+}
+
+.maincontainer__milestone__body__card__individual__popup:hover{
+    transition: opacity 5s ease-in-out;
+}
+
+  

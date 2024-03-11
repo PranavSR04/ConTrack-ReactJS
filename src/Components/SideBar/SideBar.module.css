@@ -1,0 +1,69 @@
+  .container{
+    display:flex;
+  }
+  .container_sidebar{
+    padding-top: 1rem;
+    background: #ffffff;
+    /* height: 100vh; */
+    width: 13rem;
+   
+  }
+  .container_sidebar_logout {
+    background-color: black;
+    width: 13rem;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .isactive{
+    background: #2f81ed3d;
+    color: #077bff;
+    display: flex;
+    padding: 1px 10px;
+    gap: 15px;
+    transition: all 1s;
+    position: relative;
+    text-decoration: none;
+  }
+  .isactive::after {
+    content: ''; 
+    position: absolute;
+    height: 100%; 
+    width: 5px; 
+    background-color:#2F80ED;
+    top: 0;
+    right: 0; 
+    
+  }
+  .not_active{
+    display: flex;
+    color: #828282; 
+    padding: 1px 10px;
+    gap: 15px;
+    transition: all 0.5s;
+    text-decoration: none;
+  }
+  .container_sidebar_icon{
+    font-size: 1.2rem;
+    padding-bottom: .5rem;
+  }
+  .container_sidebar_link_text{
+    font-size: .9rem;
+    color: #6d6b6b; 
+    padding-top: .4rem;
+  }
+  .container_sidebar_logout_link{
+    display: flex;
+    color: #ffffff;
+    padding-left: 5px;
+    gap: 15px;
+    text-decoration: none;
+  }
+  .container_sidebar_logout_link_text{
+    font-size: .9rem;
+    padding-top: .4rem;
+  }
+  .container_outsideSideBar{
+    background-color: #F4F4F4;
+    width: 84%;
+  }

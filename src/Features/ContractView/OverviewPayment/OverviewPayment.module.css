@@ -1,0 +1,49 @@
+.maincontainer__overviewpayment{
+    margin-top: 2rem;
+    display: flex;
+}
+
+.maincontainer__overviewpayment__overview{
+    width: 45%;
+    box-shadow: 5px 5px 5px 5px rgb(195, 195, 195);
+    border: solid 1px #828282;
+    background-color: white;
+    font-family: "Montserrat", sans-serif;
+}
+
+.maincontainer__overviewpayment__title h4{
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.maincontainer__overviewpayment__content__list{
+    display: flex;
+    margin-top: 0.3rem;
+    justify-content: space-between;
+}
+
+.maincontainer__overviewpayment__content__list__value{
+    font-weight: 300;
+    text-transform: capitalize;
+}
+
+.maincontainer__overviewpayment__payment {
+    width: 45%;
+    margin-left: 3rem;
+    border: solid 1px #828282;
+    box-shadow: 5px 5px 5px 5px rgb(195, 195, 195);
+    background-color: white;
+    font-family: "Montserrat", sans-serif;
+}
+  
+  .maincontainer__overviewpayment__payment__h2 {
+    margin: 20px 40px;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+.maincontainer__overviewpayment__revenue h4{
+    font-weight: 500;
+    padding-top: 1rem;
+    font-size: 4rem;
+}
