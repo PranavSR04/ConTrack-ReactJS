@@ -1,0 +1,19 @@
+.status-onprogress{
+    background-color:rgba(143, 205, 247, 0.418);
+}
+.status-active{
+    background-color:rgba(129, 241, 163, 0.562);
+}
+
+.status-closed{
+    background-color:rgba(253, 129, 129, 0.493);
+}
+.ant-tag{
+    width: 81px;
+    text-align: center;
+    border-radius: 6px;
+}
+.ant-pagination .ant-pagination-item-active {
+    border-color: #DC143C;
+    border-radius: 11%;
+}
