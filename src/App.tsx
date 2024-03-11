@@ -1,15 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import NavBar from './Components/NavBar/NavBar';
-import AddContract from './Features/AddContract/AddContract';
+import React from "react";
+import "./App.css";
+import styles from "./App.module.css";
+import RevenueProjectionHandler from "./Features/RevenueProjection/RevenueProjectionHandler";
+import NavBarHandler from "./Components/NavBar/NavBarHandler";
+import SideBar from "./Components/SideBar/SideBar";
+import AddContract from "./Features/AddContract/AddContract";
 
 function App() {
   return (
-    <>
-      <NavBar />
+    <div className={styles.body}>
+      <NavBarHandler />
+      <SideBar />
       <AddContract />
-    </>
+    </div>
   );
 }
 

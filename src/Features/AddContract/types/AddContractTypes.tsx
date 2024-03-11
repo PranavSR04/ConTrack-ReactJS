@@ -1,7 +1,7 @@
 export interface Milestone {
   milestones: string | null;
   expectedCompletionDate: Date | null;
-  paymentPercentage: number | null;
+  paymentPercentage?: number | null;
   paymentAmount: number | null;
 }
 
@@ -17,6 +17,6 @@ export interface ContractDetails {
   totalContractValue: number | null;
   milestones: Milestone[];
   associatedMembers: string[];
-  workSchedule: string | null;
+  workSchedule: File | null;
   commentsRemarks: string | null;
 }
