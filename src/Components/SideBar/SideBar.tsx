@@ -13,7 +13,7 @@ import { SideBarPropType } from './types';
       { path: '/Contracts', name: 'Contracts', icon: <FaCopy /> },
       { path: '/mycontracts', name: 'MyContracts', icon: <FaFileAlt /> },
       { path: '/revenue', name: 'Revenue', icon: <FaRegChartBar /> },
-      { path: '/manageusers', name: 'ManageUser', icon: <FaUserCog /> }
+      { path: '/ManageUser', name: 'ManageUser', icon: <FaUserCog /> }
     ];
   const onClickActive=(index:number)=>
   {

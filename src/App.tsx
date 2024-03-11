@@ -10,7 +10,9 @@ function App() {
   return (
     <>
     <NavBarHandler/>
+    <SideBar>
     <ManageUsersHandler/>
+    </SideBar>
     </>
   );
 }

@@ -39,8 +39,8 @@ const ManageUsersHandler = () => {
   const [updateUserId, setupdateUserId] = useState<number | undefined>(undefined);
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 10,
-    total: 6,
+    pageSize: 3,
+    total: 0,
   });
   const [userToBeUpdated,setUserToBeUpdated]=useState<string>("")
 
@@ -48,15 +48,16 @@ const ManageUsersHandler = () => {
   const fetchUserData = async (page :number , pageSize :number ,searchQuery1?:string) => {
     try {
       setLoading(true)
-      const response =await getUserList(page, pageSize,searchQuery1)
+      const response =await getUserList(pagination.current, pagination.pageSize,searchQuery1)
       const result = response.data;
       console.log(result);
-      console.log('parameter',searchQuery)
-      // setPagination({
-      //   ...pagination,
-      //   current: page,
-      //   total: response.data.total,
-      // });
+      console.log('parameter', searchQuery)
+      console.log('Entire response', response); // Log the entire response to inspect its structure
+      console.log("page total", response.data.data.total); 
+      setPagination({
+        ...pagination,
+        total: response.data.data.total
+      });
 
       setUserUpdated(false)
 
@@ -233,9 +234,9 @@ const ManageUsersHandler = () => {
     // Log the updated value of selectedRoleId
   }, [selectedRoleId]); 
 
-  useEffect(() => {
-    fetchRoles();
-  }, []);
+  // useEffect(() => {
+  //   fetchRoles();
+  // }, []);
 
   const addUserToSystem = async (employee_id: number, role_id: number) => {
     try {
@@ -338,27 +339,26 @@ const ManageUsersHandler = () => {
     setSearchQuery(value);
   };
 
-    useEffect(() => {
-      // Fetch data on mount or when a user is searched
-      fetchUserData(pagination.current, pagination.pageSize, searchQuery);
-      setUserAdded(false);
-    }, [searchQuery,pagination.current, pagination.pageSize]);
+    // useEffect(() => {
+    //   // Fetch data on mount or when a user is searched
+    //   fetchUserData(pagination.current, pagination.pageSize, searchQuery);
+    //   setUserAdded(false);
+    // }, [searchQuery,pagination.current, pagination.pageSize]);
     
     useEffect(() => {
       // Fetch data when a user is added/updated 
-      if (userAdded || (!userAdded && render.current) || userUpdated || userDeleted) {
+      if (userAdded || userUpdated || userDeleted) {
         render.current = false;
         fetchUserData(pagination.current, pagination.pageSize, searchQuery);
       }
-    }, [userAdded, searchQuery, userUpdated,userDeleted, pagination.current, pagination.pageSize]);
+    }, [userAdded, userUpdated, userDeleted]);
     
     const handlePageChange = (pagination:any) => {
-      fetchUserData(pagination.page, pagination.pageSize);
-  
+      // fetchUserData(pagination.page, pagination.pageSize);
       // Update the current page in the state
       setPagination({
         ...pagination,
-        current: pagination.page,
+        current: pagination.current,
       });    
     };
 
