@@ -1,52 +1,150 @@
 import { Button, DatePicker, Form, Input, Upload } from 'antd'
-import { PlusOutlined } from '@ant-design/icons';
+import { FilePdfOutlined, PlusOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea'
 import React from 'react'
 import styles from '../Msa.module.css'
-const AddMsa = () => {
+import { AddMsaPropsType } from './types';
+const AddMsa = (
+  {SubmitAddMsa,
+    fileName,
+    msaRefId,
+    handleFileUpload,
+    handleInputChange,
+    handleDateChange,
+    handleEndDateChange
+  }:AddMsaPropsType) => {
   return (
     <>
     <div className={styles.AddMsa}>
     <div>
-        <h3>ADD MASTER SERVICE AGREEMENT</h3>
+        <h3 className={styles.AddMsa_Heading}>ADD MASTER SERVICE AGREEMENT</h3>
     </div>
-    <div>
+    <div className={styles.AddMsaDetails}>
+        <h4 className={styles.AddMsaDetails_Heading}>Master Service Agreement Details</h4>
     <Form
     //   form={form}
       name="complex-form"
-    //   onFinish={onFinish}
+    // onFinish={onFinish}
+    encType='multipart/form-data'
       style={{ maxWidth: 600 }}
       >
-        <Form.Item name="msa_ref_id" required>MSA Reference ID <br/>
-        <Input name="msa_ref_id" />
+        <div className={styles.AddMsaDetails_row1}>
+        <Form.Item 
+        className={styles.AddMsaDetails_row1_col1}
+        name="msa_ref_id" 
+        >MSA Reference ID <br/>
+        <Input 
+        name="msa_ref_id" 
+        value={msaRefId}
+        readOnly
+        className={styles.AddMsaDetails_inputs}
+        />
       </Form.Item>
-      <Form.Item name="client_name"  required>Client Name<br/>
-        <Input name="client_name" />
+      <Form.Item 
+    className={styles.AddMsaDetails_row1_col2}
+      name="client_name"  
+      required>Client Name
+      <span className={styles.AddMsaDetails_star}>*</span>
+      <br/>
+        <Input
+         name="client_name" 
+         className={styles.AddMsaDetails_inputs}
+         onChange={handleInputChange}/>
       </Form.Item>
-      <Form.Item name="region"  required>Region<br/>
-        <Input name="region" />
+      <Form.Item 
+        className={styles.AddMsaDetails_row1_col3}
+
+      name="region"  
+      required>Region
+      <span className={styles.AddMsaDetails_star}>*</span>
+      <br/>
+        <Input 
+        name="region" 
+        className={styles.AddMsaDetails_inputs}
+        onChange={handleInputChange}/>
       </Form.Item>
-      <Form.Item name="start_date"  required>Start Date<br/>
-        <DatePicker/>
-      </Form.Item><Form.Item name="end_date" required>End Date<br/>
-        <DatePicker />
+      </div>
+      <div className={styles.AddMsaDetails_row2}>
+      <Form.Item 
+              className={styles.AddMsaDetails_row2_col1}
+
+      name="start_date"  
+      required>Start Date
+      <span className={styles.AddMsaDetails_star}>*</span>
+      <br/>
+        <DatePicker
+        format="DD-MM-YYYY"
+        className={styles.AddMsaDetails_inputs}
+        onChange={handleDateChange}/>
       </Form.Item>
-      <Form.Item name="file" label="Upload">
-          <Upload 
+      <Form.Item 
+              className={styles.AddMsaDetails_row2_col2}
+
+      name="end_date" 
+      required>End Date
+      <span className={styles.AddMsaDetails_star}>*</span>
+      <br/>
+        <DatePicker 
+        format="DD-MM-YYYY"
+        className={styles.AddMsaDetails_inputs}
+        onChange={handleEndDateChange}/>
+      </Form.Item>
+      </div>
+      <div className={styles.AddMsaDetails_row3}>
+
+      <Form.Item 
+      name="file" 
+      className={styles.AddMsaDetails_row3_col1}
+      >Upload Master Service Agreement
+      <span className={styles.AddMsaDetails_star}>*</span>
+      <br/>
+          {/* <Upload 
           action="" 
           listType="picture-card"
-          fileList={[]}>
+          fileList={[]}
+          customRequest={handleFileUpload}
+          > */}
+            {fileName?
+            <div>
+            <FilePdfOutlined className={styles.AddMsaDetails_row3_col1_fileicon}/>
+            <br/><p className={styles.AddMsaDetails_row3_col1_filename}>
+              {fileName}
+              </p>
+            </div>
+            :
+            <Upload 
+          action="" 
+          listType="picture-card"
+          fileList={[]}
+          customRequest={handleFileUpload}
+          >
             <button style={{ border: 0, background: 'none' }} type="button">
               <PlusOutlined />
               <div style={{ marginTop: 8 }}>Upload</div>
             </button>
-          </Upload>
+            </Upload>
+            }
+            {/* <button style={{ border: 0, background: 'none' }} type="button">
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </button> */}
+          {/* </Upload> */}
         </Form.Item>
-      <Form.Item name="comments">Comments/Remarks<br/>
-        <TextArea rows={4} name="comments" />
+      <Form.Item 
+      name="comments"
+      className={styles.AddMsaDetails_row3_col2}
+      >Comments/Remarks
+      <span className={styles.AddMsaDetails_star}>*</span>
+      <br/>
+        <TextArea rows={4} name="comments" onChange={handleInputChange}/>
       </Form.Item>
-      <Button type="primary" htmlType="submit">
-            Submit
+      </div>
+      <Button
+      className={styles.AddMsaDetails_Button}
+      type="primary" 
+      htmlType="submit"
+      onClick={SubmitAddMsa}>
+            Add MSA
           </Button>
       </Form>
     </div>
