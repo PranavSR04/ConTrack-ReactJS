@@ -4,7 +4,7 @@ import { getContractData } from '../FixedFee/api/getContractData';
 import { DocumentsHandlerType } from './types';
 import { Addendum } from '../FixedFee/types';
 
-const DocumentsHandler = () => {
+const DocumentsHandler = ({id}:any) => {
     const [contractDocuments, setContractDocuments] = useState<string>("");
     const [contractRefId, setContractRefId] = useState<string>("");
     const [clientName, setClientName] = useState<string>("")
@@ -15,7 +15,7 @@ const DocumentsHandler = () => {
       let responses;
       const fetchData = async () => {
         try {
-          responses = await getContractData();
+          responses = await getContractData(id);
           console.log("Contracts response: ", responses);
           getContractDocuments(responses);
           setLoading(false);

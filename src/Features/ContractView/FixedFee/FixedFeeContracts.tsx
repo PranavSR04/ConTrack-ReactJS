@@ -6,14 +6,14 @@ import MilestonesHandler from '../Milestones/MilestonesHandler'
 import MemberCommentsHandler from '../MemberComments/MemberCommentsHandler'
 import DocumentsHandler from '../Documents/DocumentsHandler'
 
-const FixedFeeContracts = () => {
+const FixedFeeContracts = ({id}:any) => {
   return (
     <div  className={`${styles.maincontainer}`}>
-      <HeaderHandler />
-      <OverviewPaymentHandler/>
-      <MilestonesHandler/>
-      <MemberCommentsHandler/>
-      <DocumentsHandler/>
+      <HeaderHandler id={id}/>
+      <OverviewPaymentHandler id={id}/>
+      <MilestonesHandler id={id}/>
+      <MemberCommentsHandler id={id}/>
+      <DocumentsHandler id={id}/>
     </div>
   )
 }
