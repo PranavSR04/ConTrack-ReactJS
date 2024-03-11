@@ -68,6 +68,13 @@
     justify-content: center;
   }
 
+  .myCustomAlertPopup {
+    background-color: #f0f0f0;
+    width: 12rem;
+    height: 24rem;
+  }
+  
+
   
   
   /* Optional: Style the Yes/No buttons */

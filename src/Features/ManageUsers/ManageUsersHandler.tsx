@@ -12,6 +12,8 @@ import { getRolesList } from "./api/getRolesList";
 import { addUser } from "./api/postAddUser";
 import { deleteUser } from "./api/putDeleteUser";
 import { updateUser } from "./api/putUpdateUser";
+import Swal,{SweetAlertCustomClass } from 'sweetalert2';
+import { message } from "antd";
 
 const ManageUsersHandler = () => {
 
@@ -31,6 +33,8 @@ const ManageUsersHandler = () => {
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | undefined>(undefined);
   const [userAdded, setUserAdded]=useState<boolean>(false)
   const [userUpdated, setUserUpdated]=useState<boolean>(false)
+  const [userDeleted, setUserDeleted]=useState<boolean>(false)
+
   const render=useRef(true);
   const [updateUserId, setupdateUserId] = useState<number | undefined>(undefined);
   const [pagination, setPagination] = useState({
@@ -38,6 +42,7 @@ const ManageUsersHandler = () => {
     pageSize: 10,
     total: 6,
   });
+  const [userToBeUpdated,setUserToBeUpdated]=useState<string>("")
 
   //To list the users in the table 
   const fetchUserData = async (page :number , pageSize :number ,searchQuery1?:string) => {
@@ -47,11 +52,11 @@ const ManageUsersHandler = () => {
       const result = response.data;
       console.log(result);
       console.log('parameter',searchQuery)
-      setPagination({
-        ...pagination,
-        current: page,
-        total: response.data.total,
-      });
+      // setPagination({
+      //   ...pagination,
+      //   current: page,
+      //   total: response.data.total,
+      // });
 
       setUserUpdated(false)
 
@@ -180,7 +185,6 @@ const ManageUsersHandler = () => {
   
   const debouncedFetchData = debounce(fetchEmployeeList, 2000);
 
-
   useEffect(() => {
   }, [dropdownOptions]);
 
@@ -238,6 +242,7 @@ const ManageUsersHandler = () => {
       setLoading(true);
       await addUser(employee_id,role_id)
       setUserAdded(true);
+
       //toaster call
     } catch (error) {
       console.error("Error adding user to the system:", error);
@@ -255,34 +260,77 @@ const ManageUsersHandler = () => {
     }
   }
 
+  const showUpdateChoice =(record: User)=>{
+    if(record.role_access==="Full Access"){
+      setUserToBeUpdated("Super Admin")
+      Swal.fire({
+        title: 'Super Admin cannot be updated',
+        customClass: {
+          popup:` ${userTableStyles.myCustomAlertPopup}`,
+        } as SweetAlertCustomClass, 
+      });
+    }
+   else{
+    setupdateUserId(record.id)
+    setEditModalVisible(true);
+   }
+  }
+
+  const handleUpdateUser = async (selectedRoleId: number | undefined) => {
+    try {
+      setLoading(true);
+      if (updateUserId && selectedRoleId !== undefined) {
+        updateUser(updateUserId,selectedRoleId)
+        console.log('User Role updated succesfully')
+        setUserUpdated(true)
+      }
+    
+    } catch (error) {
+      console.error("Error updating user:", error);
+    } finally {
+      setLoading(false);
+      setEditModalVisible(false);
+    }
+  };
+
+  //Modal for delete confirmation
   const showDeleteConfirmation = (record: User): void => {
+    if(record.role_access==="Full Access"){
+      console.log('Super Admin',selectedUser)
+      alert("Cannot delete Super Admin user.");
+    }
+    else{
     setSelectedUser(record);
     setDeleteConfirmationVisible(true);
+    }
   };
 
   const hideDeleteConfirmation = (): void => {
     setDeleteConfirmationVisible(false);
   };
 
+  //
   const handleDelete = async (selectedUser:User):Promise<void>=> {
     try {
       await deleteUser(selectedUser)
-      console.log(`${selectedUser!.user_name} with user id: ${selectedUser!.id} deleted successfully`);
-  
+      setUserDeleted(true)
       // Update the dataSource to remove the deleted user
-      setDataSource((prevDataSource) =>
-        prevDataSource.filter(
-          (user) => user.id !== selectedUser!.id
-        )
-      );
+      // setDataSource((prevDataSource) =>
+      //   prevDataSource.filter(
+      //     (user) => user.id !== selectedUser!.id
+      //   )
+      // );
+
+      setDataSource(dataSource)
+    
     } catch (error:any) {
       console.error("Error deleting user:", error);
       console.log("Failed to delete user");
     } finally {
       hideDeleteConfirmation();
     }
-
     hideDeleteConfirmation();
+  
   };
 
   //setting the User to be searched
@@ -298,11 +346,11 @@ const ManageUsersHandler = () => {
     
     useEffect(() => {
       // Fetch data when a user is added/updated 
-      if (userAdded || (!userAdded && render.current) || userUpdated) {
+      if (userAdded || (!userAdded && render.current) || userUpdated || userDeleted) {
         render.current = false;
         fetchUserData(pagination.current, pagination.pageSize, searchQuery);
       }
-    }, [userAdded, searchQuery, userUpdated,pagination.current, pagination.pageSize]);
+    }, [userAdded, searchQuery, userUpdated,userDeleted, pagination.current, pagination.pageSize]);
     
     const handlePageChange = (pagination:any) => {
       fetchUserData(pagination.page, pagination.pageSize);
@@ -318,27 +366,6 @@ const ManageUsersHandler = () => {
     setEditModalVisible(false);
     // Optionally, you can reset the editedUser state if needed
     setEditedUser(null);
-  };
-
-  const showUpdateChoice =(record: User)=>{
-    setupdateUserId(record.id)
-    setEditModalVisible(true);
-  }
-
-  const handleUpdateUser = async (selectedRoleId: number | undefined) => {
-    try {
-      setLoading(true);
-      if (updateUserId && selectedRoleId !== undefined) {
-        updateUser(updateUserId,selectedRoleId)
-        console.log('User Role updated succesfully')
-        setUserUpdated(true)
-      }
-    } catch (error) {
-      console.error("Error updating user:", error);
-    } finally {
-      setLoading(false);
-      setEditModalVisible(false);
-    }
   };
 
   useEffect(() => {

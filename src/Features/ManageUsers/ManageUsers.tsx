@@ -76,7 +76,6 @@ const ManageUsers = (
               pagination={pagination}
               onChange={handlePageChange}
               loading={{ indicator: <div><Spin /></div>, spinning:loading}}
-
               // }
             />
         </div>
