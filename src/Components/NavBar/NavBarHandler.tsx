@@ -25,9 +25,9 @@ const NavBarHandler = () => {
 	console.log(username);
 
 	return (
-		<Affix >
+		
 			<NavBar username={username} />
-		</Affix>
+		
 	);
 };
 

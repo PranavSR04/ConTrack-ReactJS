@@ -10,6 +10,7 @@ import {
 import { RevenueProjectionPropType } from "./types";
 import LineChartHandler from "./LineChartHandler";
 import { HiOutlineFilter } from "react-icons/hi";
+import DemoLine from "./DemoLine";
 
 
 const RevenueProjection = ({
@@ -110,6 +111,7 @@ const RevenueProjection = ({
 							filter={filter}
 							selectedFilters={selectedFilters}
 						/>
+						{/* <DemoLine/> */}
 					</Card>
 				</Card>
 			</div>
