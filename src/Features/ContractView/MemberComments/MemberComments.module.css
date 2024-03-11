@@ -15,7 +15,7 @@
 
 .maincontainer__membercomments__members__title h2{
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .maincontainer__membercomments__members__body{
@@ -29,11 +29,12 @@
     width: fit-content;
     height: fit-content;
     border: solid 1px #b9b9b9;
-    padding: 0.4rem 0.4rem 0rem 0.4rem;
+    padding: 0.3rem 0.3rem 0rem 0.3rem;
 }
 
 .maincontainer__membercomments__members__body__wrapper__data p{
     font-family: "Montserrat", sans-serif;
+    font-size: 0.6rem;
 }
 
 .maincontainer__membercomments__comments{
@@ -47,7 +48,7 @@
 
 .maincontainer__membercomments__comments__title h2{
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .maincontainer__membercomments__comments__body{
@@ -57,7 +58,7 @@
 
 .maincontainer__membercomments__comments__body p{
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .maincontainer__membercomments__members__body__wrapper{

@@ -5,10 +5,11 @@
     background-color: white;
     font-family: "Montserrat", sans-serif;
     width: 95%;
+    height: 14rem;
 }
 
 .maincontainer__milestones h2{
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
@@ -19,6 +20,7 @@
 
 .maincontainer__milestones__body__card{
     display: flex;
+    margin-top: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
     height: 10rem;
@@ -28,14 +30,14 @@
     z-index: 3;
     font-size: 2rem;
     margin-left: 1rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .maincontainer__milestones__body__right{
     z-index: 3;
     font-size: 2rem;
     margin-right: 1rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .maincontainer__milestones__body__card__individual{
@@ -51,6 +53,7 @@
 
 .maincontainer__milestones__body__card__individual__desc h4{
     font-weight: 500;
+    font-size: medium;
 }
 
 .maincontainer__milestones__body__card__individual__amount h4{

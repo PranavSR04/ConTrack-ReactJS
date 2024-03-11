@@ -13,13 +13,17 @@
 
 .maincontainer__overviewpayment__title h4{
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .maincontainer__overviewpayment__content__list{
     display: flex;
     margin-top: 0.3rem;
     justify-content: space-between;
+}
+
+.maincontainer__overviewpayment__content__list h5{
+    font-size: 0.9rem;
 }
 
 .maincontainer__overviewpayment__content__list__value{
@@ -38,12 +42,12 @@
   
   .maincontainer__overviewpayment__payment__h2 {
     margin: 20px 40px;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
   }
   
 .maincontainer__overviewpayment__revenue h4{
     font-weight: 500;
     padding-top: 1rem;
-    font-size: 4rem;
+    font-size: 3.2rem;
 }

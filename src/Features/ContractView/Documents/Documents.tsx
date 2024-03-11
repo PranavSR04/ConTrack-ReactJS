@@ -1,4 +1,4 @@
-import { Card } from 'antd'
+import { Button, Card } from 'antd'
 import React from 'react'
 import { DocumentsPropType } from './types'
 import styles from './Documents.module.css'
@@ -6,6 +6,7 @@ import { FilePdfFilled } from '@ant-design/icons'
 
 const Documents = ({contractDocuments, contractRefId, clientName, loading, addendums}:DocumentsPropType) => {
   return (
+    <>
     <Card className={`${styles.maincontainer__documents}`} loading={loading}>          
         <div className={`${styles.maincontainer__documents__title}`}>
             <h2>Documents</h2>
@@ -25,6 +26,10 @@ const Documents = ({contractDocuments, contractRefId, clientName, loading, adden
             ))}
         </div>
     </Card>
+    <Button type="primary" danger style={{ marginTop:"2rem"}}>
+      Close Contract
+    </Button>
+    </>
   )
 }
 

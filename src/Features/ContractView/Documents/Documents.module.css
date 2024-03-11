@@ -9,7 +9,7 @@
 
 .maincontainer__documents__title h2{
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .maincontainer__documents__body{
@@ -31,4 +31,5 @@
     color: black;
     text-decoration: none;
     margin: 0.5rem;
+    font-size: 0.9rem;
 }
