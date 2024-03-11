@@ -33,7 +33,7 @@ const ManageUsers = (
   return (
 <>  
     <h2 className={`${userTableStyles.pageTitle}`}>
-      Manage Users
+      MANAGE USER
     </h2>
     <div className={` ${userTableStyles.wholeTable} `}>
         <AutoComplete

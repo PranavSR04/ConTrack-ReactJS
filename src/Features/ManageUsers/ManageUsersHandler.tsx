@@ -159,7 +159,7 @@ const ManageUsersHandler = () => {
   //To get the Users List on loading the page
   useEffect(() => {
     fetchUserData(pagination.current, pagination.pageSize, searchQuery);
-  }, [pagination.current, pagination.pageSize]);
+  }, [pagination.current, pagination.pageSize,searchQuery]);
 
   //To get the Employee list in dropdwown
   const fetchEmployeeList = async (searchValue: string) => {
