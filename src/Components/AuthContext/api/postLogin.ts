@@ -12,10 +12,3 @@ export const postLogin = async ({
 		.catch((err) => err);
 };
 
-export const postLogout = async (): Promise<void | AxiosError> => {
-    console.log("hello");
-    return await axiosInstance  
-        .post("api/auth/logout")
-        .then(() => {})
-        .catch((error) => error);
-};
