@@ -29,34 +29,10 @@ const RevenueProjection = ({
 	selectedFilters,
 }: RevenueProjectionPropType) => {
 	console.log(filter);
-	// const onChange = (list: CheckboxValueType[]) => {
-	//   console.log(list)
-	// };
-	// const onCheckAllChange = (e: { target: { checked: any; }; }) => {
-	//   console.log(e.target.checked ? plainOptions : []);
-	//   console.log(e);
-	// };
-	// const plainOptions = ['Apple', 'Pear', 'Orange'];
-
-	// const options = [
-	//   { label: 'Apple', value: 'Apple' },
-	//   { label: 'Pear', value: 'Pear' },
-	//   { label: 'Orange', value: 'Orange' },
-	// ];
-
-	// const optionsWithDisabled = [
-	//   { label: 'Apple', value: 'Apple' },
-	//   { label: 'Pear', value: 'Pear' },
-	//   { label: 'Orange', value: 'Orange', disabled: false },
-	// ];
-
+	
 	return (
 		<div className={styles.revueneProjection}>
-			{/* <Button type="primary" onClick={handleLogout}>
-				Logout
-			</Button> */}
-			
-
+			<h2 className={styles.revueneProjection__heading}>Revenue Projection</h2>
 			<div>
 				<Card title={`${filter} Revenue Projection`} className={styles.card}>
 					<ConfigProvider
