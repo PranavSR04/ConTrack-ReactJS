@@ -3,11 +3,12 @@ import { Button, Spin, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import styles from './contractsList.module.css'  ;
 import { AllContractsPropType, ContractData } from './types';
+import { useNavigate } from 'react-router';
 
 //This is the current working code
 
 const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading}:AllContractsPropType) => {
- 
+  const navigate=useNavigate();
   return (
     <>
     <h2 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h2>
@@ -35,7 +36,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
      onClick: (e) => {
       e.preventDefault();
       if (!actionClicked) {
-        window.alert(record.id);
+        navigate(`/${record.id}`);
       }
     },
   })} size='middle'>

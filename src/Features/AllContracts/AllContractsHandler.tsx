@@ -8,12 +8,14 @@ import { fetchDataFromApi } from './api/getContracts';
 import { ContractData ,TableColumn} from './types';
 import AllContracts from './AllContracts';
 import { AllContractsPropType } from './types';
+import { useNavigate } from 'react-router';
 const AllContractsHandler = () => {
-    const [data, setData] = useState<ContractData[]>([]); 
+  const [data, setData] = useState<ContractData[]>([]); 
   const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
   const [loading, setLoading] = useState(false);
   const [isEmptySearch, setIsEmptySearch] = useState(false);
   const [actionClicked, setActionClicked]= useState<boolean>(false);
+  const navigate=useNavigate();
 
   const [pagination, setPagination] = useState({
     current: 1,
@@ -107,7 +109,7 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
   const oneditPage = (id: string) => {
     setActionClicked(true);
     window.alert('edit');
-    window.alert(actionClicked);
+    navigate(`editContract/${id}`)
   };
 
   columns.push({

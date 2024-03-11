@@ -1,45 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, notification, Space } from 'antd';
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
-const Toast: React.FC = () => {
+const Toast = () => {
   let actionMessage="user deleted successfully";
   let messageType='success';
 
   const [noti, contextHolder] = notification.useNotification();
 
-  const openNotificationWithIcon = (type: NotificationType) => {
+  const openNotificationWithIcon = (type: NotificationType, message:string) => {
     noti[type]({
-      message: 'Notification Title',
-      description:
-        'This is the toaster message.',
+      message: message,
+      // description:
+      //   'This is the sub message.',
+      placement: 'bottomRight',
+      // style: { backgroundColor: 'crimson' }
     });
-    switch(messageType){
-      case 'success':
-        openNotificationWithIcon('success');
-        console.log('success');
-        break;
-      case 'fail':
-        console.log('f');
-        break;
-      case 'notifi':
-        console.log('N');
-        break;
-    }
   };
+  
+  useEffect(() => {
+    const dynamicMessage = 'User deleted successfully';
+    const dynamicType = 'success';
+    openNotificationWithIcon(dynamicType, dynamicMessage);
+
+  }, []); 
 
   return (
     <>
       {contextHolder}
-      <Space>
-        
-        <Button onClick={() => openNotificationWithIcon('success')}>Success</Button>
-        <br /><br /><br />
-        <Button onClick={() => openNotificationWithIcon('info')}>Info</Button>
-        <Button onClick={() => openNotificationWithIcon('warning')}>Warning</Button>
-        <Button onClick={() => openNotificationWithIcon('error')}>Error</Button>
-      </Space>
+
     </>
   );
 };
