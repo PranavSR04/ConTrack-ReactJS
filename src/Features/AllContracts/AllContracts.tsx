@@ -14,7 +14,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
     <h2 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h2>
     <div className={styles['contracts-table']}>
      <Button className={styles['contracts-addContract']}>+ Add Contract</Button>
-     <Table<ContractData> className={styles['contracts-tableHead']}
+     <Table className={styles['contracts-tableHead']}
      columns={columns as ColumnsType<ContractData>}
      dataSource={data.map((item) => ({ ...item, key: item.id }))}
      pagination={{
@@ -36,7 +36,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
      onClick: (e) => {
       e.preventDefault();
       if (!actionClicked) {
-        navigate(`/${record.id}`);
+        navigate(`/fixedfee`,{state:{id:record.id as string}});
       }
     },
   })} size='small'>
