@@ -25,7 +25,7 @@ import { Auth } from '../../Components/AuthContext/AuthContext';
       { path: '/AllContracts', name: 'Contracts', icon: <FaCopy /> },
       { path: '/MyContracts', name: 'MyContracts', icon: <FaFileAlt /> },
       { path: '/revenue', name: 'Revenue', icon: <FaRegChartBar /> },
-      { path: '/manageusers', name: 'ManageUser', icon: <FaUserCog /> }
+      { path: '/ManageUser', name: 'ManageUser', icon: <FaUserCog /> }
     ];
   const onClickActive=(index:number)=>
   {

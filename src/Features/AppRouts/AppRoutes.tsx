@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AuthContext from "../../Components/AuthContext/AuthContext";
 import LoginHandler from "../Login/LoginHandler";
 import App from "../../App";
+import ManageUsersHandler from "../ManageUsers/ManageUsersHandler";
 import AllContractsHandler from "../AllContracts/AllContractsHandler";
 import NavContext from "../../Components/NavContext/NavContext";
 
@@ -22,6 +23,8 @@ const AppRoutes = () => {
               <Route path="/dashboard" element={<><NavBarHandler/><SideBar></SideBar></>}></Route>
 			  <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
               <Route path="/revenue" element={<><NavBarHandler/><SideBar><RevenueProjectionHandler/></SideBar></>}></Route>
+			  <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>
+
 			  <Route path="/allContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
 			  <Route path="/myContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
 					
