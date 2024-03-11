@@ -1,9 +1,19 @@
-import axios, { AxiosError } from "axios";
+import axiosInstance from "../../../Config/AxiosConfig";
 
 
-export const fetchRevenueProjection = async (id?:number) =>{
-    return await axios 
-    .get(`http://127.0.0.1:8000/api/revenue/projection/${id}`)
-    .then((res) => res.data)
-    .catch((err) => err);
+export const fetchRevenueProjection = async (id?:number,requestBody?: any) =>{
+    let url = 'api/revenue/projection/';
+    console.log(requestBody);
+    if (id !== undefined) {
+        url += id;
+    }
+    const config = {
+        
+        params: requestBody
+    };
+    
+    return await axiosInstance
+        .get(url,config)
+        .then((res) => res.data)
+        .catch((err) => err);
 }
