@@ -16,12 +16,17 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
     display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    overflow-y: auto;
+    height: 8rem;
 }
 
 .maincontainer__documents__body__contract{
     display: flex;
     border: solid 1px #b9b9b9;
     width: fit-content;
+    height: 5rem;
     padding: 1rem;
     margin: 0.5rem;
     border-radius: 0.5rem
@@ -32,4 +37,16 @@
     text-decoration: none;
     margin: 0.5rem;
     font-size: 0.9rem;
+}
+
+.addendumLink{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; 
+    text-decoration: none;
+}
+
+.maincontainer__documents__buttons{
+    display: flex;
 }

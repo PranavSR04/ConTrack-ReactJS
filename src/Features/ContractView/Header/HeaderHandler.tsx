@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { getContractData } from "../FixedFee/api/getContractData";
 import { HeadingHandlerType } from "./types";
+import { LocationStateProps } from "../FixedFee/types";
 
-const HeaderHandler = ({id}:any) => {
+const HeaderHandler = ({id}:LocationStateProps) => {
   const [error, setError] = useState<string>("");
   const [contractRefId, setContractRefId] = useState<string>("");
   const [clientName, setClientName] = useState<string>("");

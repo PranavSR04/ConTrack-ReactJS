@@ -16,6 +16,7 @@ const AppRoutes = () => {
         <AuthContext>
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
+			  <Route path="/home" element={<Navigate to="/login" />} />
               <Route path="/login" element={<LoginHandler />}></Route>
               <Route path="/dashboard" element={<><NavBarHandler/><SideBar></SideBar></>}></Route>
 			  <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>

@@ -24,6 +24,13 @@ const Header = ({
             Edit
           </button>
         </div>
+        <div className={`${styles.maincontainer__header__title__export}`}>
+          <button
+            className={`${styles.maincontainer__header__title__export__button}`}
+          >
+            Export
+          </button>
+        </div>
       </div>
       <div className={`${styles.maincontainer__header__subheading}`}>
         <div className={`${styles.maincontainer__header__subheading__box}`}>

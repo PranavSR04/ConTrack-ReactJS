@@ -13,4 +13,14 @@ export interface DocumentsPropType{
     clientName: string;
     loading: boolean;
     addendums: Addendum[];
+    visible: boolean;
+    onCancel: ()=>void;
+    closeContract:()=>void;
+    modalPopUp: () => void;
+}
+
+export interface CloseContractModalPropsType{
+    visible: boolean;
+    onCancel: ()=>void;
+    closeContract: ()=>void;
 }
