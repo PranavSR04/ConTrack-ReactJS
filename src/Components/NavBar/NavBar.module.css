@@ -1,36 +1,31 @@
-.navbar{
-    min-height: 55px;
-    max-height: 55px;
-    padding-left: 1rem;
-    padding-right: 2rem;
-    background-color: black;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    justify-content: space-between;   
-    align-items: center; 
-    display: flex;
-    z-index: 100;
-    width: 100vw;
-    position: sticky;
-
+.navbar {
+  height: var(--app-margin-top);
+  padding-left: 1rem !important;
+  padding-right: 2rem !important;
+  background-color: black;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  z-index: 100;
+  width: 100vw;
+  position: fixed;
 }
 .designation {
-    font-size: smaller;
-    color: #999; 
-   
+  font-size: smaller;
+  color: #999;
 }
 
-.logo{
-    width: 20%;
-    margin-right: .4rem;
+.logo {
+  width: 20%;
+  margin-right: 0.4rem;
 }
 .notification{
     margin-right: 2rem;
     cursor: pointer;
 }
-.notificationCounter{
- background-color: aqua;
-    
-
+.notificationCounter {
+  background-color: aqua;
 }

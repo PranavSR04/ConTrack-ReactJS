@@ -16,7 +16,7 @@ const NavBar = ({username}:NavBarPropType) => {
 		<>
 			<Nav className={styles.navbar}>
 				<NavbarBrand href="#dashboard">
-					<img src={logo} alt="contrack logo" className={styles.logo}/>
+					<img src={logo} alt="contrack logo" className={styles.logo} />
 					ConTrack
 				</NavbarBrand>
 				<NavItem>
@@ -27,7 +27,9 @@ const NavBar = ({username}:NavBarPropType) => {
 					</a>
 					<NotificationListHandler/>
 					<NavbarText>{username}</NavbarText>
-					<NavbarText className={styles.designation}>, Vice President</NavbarText>
+					<NavbarText className={styles.designation}>
+						, Vice President
+					</NavbarText>
 				</NavItem>
 			</Nav>
 		</>
