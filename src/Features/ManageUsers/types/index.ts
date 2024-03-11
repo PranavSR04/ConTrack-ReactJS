@@ -37,7 +37,9 @@ export interface ManageUsersPropType{
   deleteConfirmationVisible: boolean
   selectedUser: User | null
   loading: boolean
-
+  userAdded:boolean
+  userUpdated:boolean
+  userDeleted:boolean
 }
 
 export interface ManageUserHandlerPropType{

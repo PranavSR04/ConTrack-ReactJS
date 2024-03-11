@@ -4,6 +4,7 @@ import UpdateModal from './UpdateModal';
 import userTableStyles from './ManagerUsers.module.css'
 import { Table,Spin, Modal, message, Input, Button, Select, AutoComplete, TablePaginationConfig,PaginationProps } from "antd";
 import { ManageUserHandlerPropType, ManageUsersPropType } from './types';
+import Toast from '../../Components/Toast/Toast';
 
 
 const ManageUsers = (
@@ -28,7 +29,10 @@ const ManageUsers = (
     selectedRoleId,
     deleteConfirmationVisible,
     selectedUser,
-    loading
+    userAdded,
+    loading,
+    userUpdated,
+    userDeleted
   }:ManageUsersPropType) => {
   return (
 <>  
@@ -62,6 +66,27 @@ const ManageUsers = (
        >
         ADD USER
       </Button>
+      
+      {userAdded? 
+      <Toast
+      message={"User Added Successfully"}
+      messageType={"success"}
+      />:<></>
+      }
+
+      {userUpdated? 
+        <Toast
+        message={"User Updated Successfully"}
+        messageType={"success"}
+        />:<></>
+        }
+
+      {userDeleted? 
+        <Toast
+        message={"User Deleted Successfully"}
+        messageType={"warning"}
+        />:<></>
+        }
 
       <div className={`${userTableStyles.mainListContainer}`}>
 

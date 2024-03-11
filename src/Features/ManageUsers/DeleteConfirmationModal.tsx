@@ -15,7 +15,7 @@ const DeleteConfirmationModal = ({ visible, onCancel, onConfirm, userName }: Del
   return (
     <Modal
       title={title}
-      open={visible} // Update to use 'open' instead of 'visible'
+      open={visible}
       onCancel={onCancel}
       className={userTableStyles.customDeleteConfirmation}
       footer={[

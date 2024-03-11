@@ -13,6 +13,7 @@ import { addUser } from "./api/postAddUser";
 import { deleteUser } from "./api/putDeleteUser";
 import { updateUser } from "./api/putUpdateUser";
 import Swal,{SweetAlertCustomClass } from 'sweetalert2';
+import Toast from "../../Components/Toast/Toast";
 import { message } from "antd";
 
 const ManageUsersHandler = () => {
@@ -59,9 +60,8 @@ const ManageUsersHandler = () => {
         total: response.data.data.total
       });
 
-      setUserUpdated(false)
+      // setUserUpdated(false)
 
-      
       const list: User[] = result.data.data || [];
       //Storing the first user to get the columns title
       const firstObject: User = list[0] || {};
@@ -243,6 +243,9 @@ const ManageUsersHandler = () => {
       setLoading(true);
       await addUser(employee_id,role_id)
       setUserAdded(true);
+      setTimeout(() => {
+        setUserAdded(false);
+      }, 5000);
 
       //toaster call
     } catch (error) {
@@ -284,8 +287,10 @@ const ManageUsersHandler = () => {
         updateUser(updateUserId,selectedRoleId)
         console.log('User Role updated succesfully')
         setUserUpdated(true)
+        setTimeout(() => {
+          setUserUpdated(false);
+        }, 5000);
       }
-    
     } catch (error) {
       console.error("Error updating user:", error);
     } finally {
@@ -315,14 +320,10 @@ const ManageUsersHandler = () => {
     try {
       await deleteUser(selectedUser)
       setUserDeleted(true)
-      // Update the dataSource to remove the deleted user
-      // setDataSource((prevDataSource) =>
-      //   prevDataSource.filter(
-      //     (user) => user.id !== selectedUser!.id
-      //   )
-      // );
-
       setDataSource(dataSource)
+      setTimeout(() => {
+        setUserDeleted(false);
+      }, 5000);
     
     } catch (error:any) {
       console.error("Error deleting user:", error);
@@ -407,7 +408,10 @@ const ManageUsersHandler = () => {
      selectedRoleId={selectedRoleId}
      deleteConfirmationVisible={deleteConfirmationVisible}
      selectedUser={selectedUser}
+     userAdded={userAdded}
      loading={loading}
+     userUpdated={userUpdated}
+     userDeleted={userDeleted}
      />
   )
 }
