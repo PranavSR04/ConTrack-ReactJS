@@ -1,15 +1,20 @@
 import React from 'react';
 
 import './App.css';
-import NavBar from './Components/NavBar/NavBar';
+import RevenueProjectionHandler from './Features/RevenueProjection/RevenueProjectionHandler';
+import NavBarHandler from './Components/NavBar/NavBarHandler';
 
-const App = () => {
+import AddMsa from './Features/MSA/AddMsa/AddMsa';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+function App() {
   return (
     <>
-    <NavBar/>
-
+    <NavBarHandler />
+    {/* <RevenueProjectionHandler /> */}
+    
     </>
+    
   );
 }
 
