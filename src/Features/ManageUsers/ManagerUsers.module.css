@@ -3,6 +3,13 @@
 
 }
 
+.pageTitle{
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-left:16rem;
+  margin-top: 1.3rem
+}
+
 .oddRow {
     background-color:#f6fbfe /* Set the background color for even rows */
   }
@@ -18,8 +25,8 @@
  
   .wholeTable {
     /* Add your styling for the table wrapper here */
-    width: 70%;
-    margin-left: 15.625rem;
+    width: 90%;
+    margin-left: 16rem;
     margin-top : 1rem;
     border-radius: 8px;
     /* border-radius: 5px; */

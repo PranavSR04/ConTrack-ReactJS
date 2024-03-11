@@ -19,6 +19,8 @@ const AppRoutes = () => {
               <Route path="/Dashboard" element={<><NavBarHandler/><SideBar></SideBar></>}></Route>
 			  <Route path="/fixedfee" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
               <Route path="/revenue" element={<><NavBarHandler/><SideBar><RevenueProjectionHandler/></SideBar></>}></Route>
+			  <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>
+
             </Routes>
         </AuthContext>
       </BrowserRouter>

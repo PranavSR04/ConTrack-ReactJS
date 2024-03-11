@@ -31,7 +31,10 @@ const ManageUsers = (
     loading
   }:ManageUsersPropType) => {
   return (
-<>
+<>  
+    <h2 className={`${userTableStyles.pageTitle}`}>
+      Manage Users
+    </h2>
     <div className={` ${userTableStyles.wholeTable} `}>
         <AutoComplete
             className={`${userTableStyles.searchEmployeeBox}`}
