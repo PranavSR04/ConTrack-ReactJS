@@ -26,7 +26,7 @@ const Documents = ({contractDocuments, contractRefId, clientName, loading, adden
             ))}
         </div>
     </Card>
-    <Button type="primary" danger style={{ marginTop:"2rem"}}>
+    <Button type="primary" danger style={{ marginTop:"2rem",  marginBottom:"2rem"}}>
       Close Contract
     </Button>
     </>
