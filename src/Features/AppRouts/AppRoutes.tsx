@@ -3,6 +3,7 @@ import AuthContext from "../../Components/AuthContext/AuthContext";
 import LoginHandler from "../Login/LoginHandler";
 import App from "../../App";
 import AllContractsHandler from "../AllContracts/AllContractsHandler";
+import NavContext from "../../Components/NavContext/NavContext";
 
 import RevenueProjectionHandler from "../RevenueProjection/RevenueProjectionHandler";
 import NavBarHandler from "../../Components/NavBar/NavBarHandler";
@@ -14,6 +15,7 @@ const AppRoutes = () => {
     <div>
       <BrowserRouter>
         <AuthContext>
+				<NavContext>
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
               <Route path="/login" element={<LoginHandler />}></Route>
@@ -24,6 +26,7 @@ const AppRoutes = () => {
 			  <Route path="/myContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
 					
             </Routes>
+					</NavContext>
         </AuthContext>
       </BrowserRouter>
     </div>
