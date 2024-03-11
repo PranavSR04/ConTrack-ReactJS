@@ -19,8 +19,9 @@ const AppRoutes = () => {
 						<Route path="/" element={<Navigate to="/login" />} />
 						<Route path="/login" element={<LoginHandler />}></Route>
 						<Route path="/Dashboard" element={<></>}></Route>
-						<Route path="/revenue" element={<RevenueProjectionHandler />}
-						></Route>
+						<Route path="/revenue" element={<RevenueProjectionHandler />}></Route>
+						<Route path="/AllContracts" element={<AllContractsHandler />}></Route>
+						<Route path="/MyContracts" element={<AllContractsHandler />}></Route>
 					</Routes>
 				</AuthContext>
 			</BrowserRouter>

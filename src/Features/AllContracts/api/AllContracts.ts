@@ -1,21 +1,18 @@
-// api.ts
-
+import axiosInstance from "../../../Config/AxiosConfig";
 import { Condition } from "../types";
-
 
 export const fetchDataFromApi = async (searchConditions: Condition, currentPage: number, pageSize: number) => {
     try {
         let  queryString:string[]=[];
         
         for(let condition in searchConditions){
-let query=`${condition}=${searchConditions[condition]}`
-queryString.push(query)
+      let query=`${condition}=${searchConditions[condition]}`
+      queryString.push(query)
         }
-        let queryStrin=queryString.join("&")
+        let queryStrings=queryString.join("&") //join the search queries
         
-        //let apicall=`http://127.0.0.1:8000/api/contract/getlist?${queryStrin}&page=${currentPage}&per_page=${pageSize}`
-        console.log('search query',queryStrin)
-      const response = await fetch(`http://127.0.0.1:8000/api/contract/getlist?${queryStrin}&page=${currentPage}&per_page=${pageSize}`);
+      console.log('search query',queryStrings)
+      const response = await fetch(`http://127.0.0.1:8000/api/contract/getlist?${queryStrings}&page=${currentPage}&per_page=${pageSize}`);
   
       if (!response.ok) {
         throw new Error('Failed to fetch data');

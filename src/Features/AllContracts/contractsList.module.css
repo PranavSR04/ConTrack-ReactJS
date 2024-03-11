@@ -10,22 +10,22 @@
     color:#3471c5;
 }
 .contracts-table{
-    margin-top: 2%;
-    margin-left: 1%;
-    margin-right: 3%;
+    margin-top: 1%;
     margin-bottom: 2%;
     padding-left: 3%;
     padding-right: 3%;
     border-width: 10cm;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 14rem;
+    margin-right: 1.5rem;
    
 }
 .contracts-h1{
-    
-    margin-left: 1%;
     padding-top: 1%;
     padding-left: 3%;
     margin-bottom: 0%;
+    margin-left: 14rem;
+    margin-right: 1.5rem;
 }
 
 .ant-pagination .ant-pagination-item-active {

@@ -1,9 +1,9 @@
 // api.ts
 
-import { Condition } from ".";
+import { Condition } from "../types";
 
 
-export const fetchDataFromApi = async (searchConditions: Condition, currentPage: number, pageSize: number, userId:number) => {
+export const fetchMyContractsApi = async (searchConditions: Condition, currentPage: number, pageSize: number, userId:number) => {
     try {
       let  queryString:string[]=[];
         
@@ -14,7 +14,7 @@ export const fetchDataFromApi = async (searchConditions: Condition, currentPage:
       let queryStrings=queryString.join("&") //join the search queries
       
     console.log('search query',queryStrings)
-      const response = await fetch(`http://127.0.0.1:8000/api/contract/myContracts/${userId}?${queryStrings}&page=${currentPage}&per_page=${pageSize}`);
+      const response = await fetch(`http://127.0.0.1:8000/api/contracts/myContracts/${userId}?${queryStrings}&page=${currentPage}&per_page=${pageSize}`);
   
       if (!response.ok) {
         throw new Error('Failed to fetch data');

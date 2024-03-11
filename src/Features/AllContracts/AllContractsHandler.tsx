@@ -4,7 +4,8 @@ import { Button, Input, Spin, Table, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { FilterConfirmProps, TablePaginationConfig } from 'antd/lib/table/interface';
 import styles from './contractsList.module.css'  ;
-import { fetchDataFromApi } from './api/getContracts';
+import { fetchDataFromApi } from './api/AllContracts';
+import { fetchMyContractsApi } from './api/MyContracts';
 import { ContractData ,TableColumn} from './types';
 import AllContracts from './AllContracts';
 import { AllContractsPropType } from './types';
@@ -16,6 +17,7 @@ const AllContractsHandler = () => {
   const [isEmptySearch, setIsEmptySearch] = useState(false);
   const [actionClicked, setActionClicked]= useState<boolean>(false);
   const navigate=useNavigate();
+  
 
   const [pagination, setPagination] = useState({
     current: 1,
@@ -24,11 +26,31 @@ const AllContractsHandler = () => {
   });
   useEffect(() => {
     fetchData(); // Fetch initial data
-  }, [searchConditions, pagination.current, pagination.pageSize]); // Refetch data when searchText or searchField changes
+  }, [searchConditions, pagination.current, pagination.pageSize, window.location.href]); // Refetch data when searchText or searchField changes
+
+
 
   const fetchData = async () => {
     try {
       setLoading(true);
+      let location=window.location.href; //get the url path
+      let locationPaths=location.split('/');
+      let pagePath=locationPaths[locationPaths.length-1]; //get the corresponding page path.
+      console.log('location',pagePath);
+//get Api for MyContracts
+      if(pagePath==='MyContracts'){
+        console.log('MyC');
+        const result = await fetchMyContractsApi(searchConditions, pagination.current, pagination.pageSize,1);
+      setData(result.data);
+      console.log('result:',result.data)
+      console.log('toatal page',result.total);
+      setPagination({
+        ...pagination,
+        total: result.total,
+      });
+      }
+      else{
+        //get Api for All contracts
       const result = await fetchDataFromApi(searchConditions, pagination.current, pagination.pageSize);
       setData(result.data);
       console.log('result:',result.data)
@@ -37,6 +59,8 @@ const AllContractsHandler = () => {
         ...pagination,
         total: result.total,
       });
+      }
+      
     } finally {
       setLoading(false);
     }
