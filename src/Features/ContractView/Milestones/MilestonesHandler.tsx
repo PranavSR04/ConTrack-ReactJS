@@ -4,7 +4,7 @@ import { getContractData } from "../FixedFee/api/getContractData";
 import { Milestone } from "../FixedFee/types";
 import { MilestonesHandlerType } from "./types";
 
-const MilestonesHandler = () => {
+const MilestonesHandler = ({id}:any) => {
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const cardsPerPage: number = 2;
@@ -14,7 +14,7 @@ const MilestonesHandler = () => {
     let responses;
     const fetchData = async () => {
       try {
-        responses = await getContractData();
+        responses = await getContractData(id);
         // console.log(responses);
         getContractMilestones(responses);
         setLoading(false);

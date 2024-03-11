@@ -3,7 +3,7 @@ import MemberComments from "./MemberComments";
 import { getContractData } from "../FixedFee/api/getContractData";
 import { AssociatedUsersType, MemberCommentsHandlerType } from "./types";
 
-const MemberCommentsHandler = () => {
+const MemberCommentsHandler = ({id}:any) => {
   const [comments, setComments] = useState<string>("");
   const [associatedUsers, setAssociatedUsers] = useState<AssociatedUsersType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -12,7 +12,7 @@ const MemberCommentsHandler = () => {
     let responses;
     const fetchData = async () => {
       try {
-        responses = await getContractData();
+        responses = await getContractData(id);
         console.log("member remark response: ", responses);
         getMemberComments(responses);
         setLoading(false);
