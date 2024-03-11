@@ -17,11 +17,11 @@ const AppRoutes = () => {
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
               <Route path="/login" element={<LoginHandler />}></Route>
-              <Route path="/Dashboard" element={<><NavBarHandler/><SideBar></SideBar></>}></Route>
-			  <Route path="/fixedfee" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
+              <Route path="/dashboard" element={<><NavBarHandler/><SideBar></SideBar></>}></Route>
+			  <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
               <Route path="/revenue" element={<><NavBarHandler/><SideBar><RevenueProjectionHandler/></SideBar></>}></Route>
-			  <Route path="/AllContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
-			  <Route path="/MyContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
+			  <Route path="/allContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
+			  <Route path="/myContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
 					
             </Routes>
         </AuthContext>

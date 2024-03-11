@@ -36,7 +36,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
      onClick: (e) => {
       e.preventDefault();
       if (!actionClicked) {
-        navigate(`/fixedfee`,{state:{id:record.id as string}});
+        navigate(`/contract`,{state:{id:record.id as string}});
       }
     },
   })} size='small'>
