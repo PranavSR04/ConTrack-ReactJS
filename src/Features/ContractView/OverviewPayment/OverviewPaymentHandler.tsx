@@ -3,7 +3,7 @@ import OverviewPayment from "./OverviewPayment";
 import { getContractData } from "../FixedFee/api/getContractData";
 import { OverviewHandlerType } from "./types";
 
-const OverviewPaymentHandler = () => {
+const OverviewPaymentHandler = ({id}:any) => {
   const [dateOfSignature, setDateOfSignature] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
@@ -16,7 +16,7 @@ const OverviewPaymentHandler = () => {
     let responses;
     const fetchData = async () => {
       try {
-        responses = await getContractData();
+        responses = await getContractData(id);
         getOverview(responses);
         setLoading(false);
         // setTimeout(() => {

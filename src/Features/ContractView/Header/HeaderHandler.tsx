@@ -3,7 +3,7 @@ import Header from "./Header";
 import { getContractData } from "../FixedFee/api/getContractData";
 import { HeadingHandlerType } from "./types";
 
-const HeaderHandler = () => {
+const HeaderHandler = ({id}:any) => {
   const [error, setError] = useState<string>("");
   const [contractRefId, setContractRefId] = useState<string>("");
   const [clientName, setClientName] = useState<string>("");
@@ -15,7 +15,7 @@ const HeaderHandler = () => {
     let responses;
     const fetchData = async () => {
       try {
-        responses = await getContractData();
+        responses = await getContractData(id);
         // console.log(responses);
         getContractHeading(responses);
       } catch (error) {

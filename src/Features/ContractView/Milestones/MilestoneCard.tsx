@@ -12,6 +12,7 @@ const MilestoneCard = ({
 }: MilestoneCardPropType) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [convertedEndDate, setConvertedEndDate] = useState<string>("")
 
   const handleHover = () => {
     setIsHovered(true);
@@ -19,7 +20,7 @@ const MilestoneCard = ({
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-  };;
+  };
 
   useEffect(() => {
     // Converting milestoneEndDate to a Date object for comparison
@@ -31,6 +32,12 @@ const MilestoneCard = ({
     if (isDateReached) {
       setIsCompleted(true);
     }
+
+    // Converting "yyyy-mm-dd" into "dd-mm-yyyy" format
+    let newDate = milestoneEndDate;
+    let parts = newDate.split("-");
+    let formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+    setConvertedEndDate(formattedDate);
   }, []);
 
   return (
@@ -39,32 +46,39 @@ const MilestoneCard = ({
         key={milestoneId}
         className={`${styles.maincontainer__milestones__body__card__individual} 
         ${
-          isCompleted ? styles.maincontainer__milestones__card__complete : styles.maincontainer__milestones__card__incomplete
+          isCompleted
+            ? styles.maincontainer__milestones__card__complete
+            : styles.maincontainer__milestones__card__incomplete
         }`}
-        onMouseEnter={()=>handleHover()}
-        onMouseLeave={()=>handleMouseLeave()}
+        onMouseEnter={() => handleHover()}
+        onMouseLeave={() => handleMouseLeave()}
       >
-        <div className={`${styles.maincontainer__milestones__body__card__individual__desc}`}>
+        <div
+          className={`${styles.maincontainer__milestones__body__card__individual__desc}`}
+        >
           <h4>{milestoneDesc}</h4>
         </div>
-        {/* <div className={`${styles.maincontainer__milestones__body__card__individual__amount}`}>
-          <h4>Milestone Revenue: {milestoneAmount}</h4>
-        </div> */}
         {isHovered && (
           <div
             className={`${styles.maincontainer__milestone__body__card__individual__popup} `}
           >
-            <div
+            {/* <div
               className={`${styles.maincontainer__milestone__body__card__individual__popup__data}`}
             >
               <h3>Payment Percentage</h3>
               <p>{milestonePercentage}%</p>
+            </div> */}
+            <div
+              className={`${styles.maincontainer__milestone__body__card__individual__popup__data}`}
+            >
+              <h3>Milestone Revenue</h3>
+              <p>$ {milestoneAmount}</p>
             </div>
             <div
               className={`${styles.maincontainer__milestone__body__card__individual__popup__data}`}
             >
               <h3>Expected Completion Date</h3>
-              <p>{milestoneEndDate}</p>
+              <p>{convertedEndDate}</p>
             </div>
           </div>
         )}
