@@ -1,0 +1,35 @@
+.maincontainer__documents{
+    margin-top: 2rem;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.253);
+    border: solid 1px #828282;
+    background-color: white;
+    font-family: "Montserrat", sans-serif;
+    width: 95%;
+}
+
+.maincontainer__documents__title h2{
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.maincontainer__documents__body{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.maincontainer__documents__body__contract{
+    display: flex;
+    border: solid 1px #b9b9b9;
+    width: fit-content;
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem
+}
+
+.maincontainer__documents__body__contract a{
+    color: black;
+    text-decoration: none;
+    margin: 0.5rem;
+    font-size: 0.9rem;
+}
