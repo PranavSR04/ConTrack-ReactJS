@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import styles from './App.module.css'
 import RevenueProjectionHandler from './Features/RevenueProjection/RevenueProjectionHandler';
 import NavBarHandler from './Components/NavBar/NavBarHandler';
 import SideBar from './Components/SideBar/SideBar';
@@ -7,16 +8,13 @@ import SideBar from './Components/SideBar/SideBar';
 
 function App() {
   return (
-    <>
+    <div className={styles.body}>
     <NavBarHandler />
-    <SideBar>
-    <RevenueProjectionHandler />
-    </SideBar>
+    <SideBar/>
     
     
-
-    
-    </>
+ 
+    </div>
     
   );
 }
