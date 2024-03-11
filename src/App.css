@@ -8,7 +8,9 @@
 .App {
   text-align: center;
   font-family: "Montserrat", sans-serif;
-  height: 100vh;  background-color: #282c34;
+  /* height: 100vh;  */
+  overflow-y: scroll;
+  background-color: #282c34;
 }
 
 .App-logo {
