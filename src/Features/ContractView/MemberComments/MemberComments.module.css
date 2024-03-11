@@ -7,7 +7,7 @@
 .maincontainer__membercomments__members{
     width: 50%;
     margin-right: 1rem;
-    box-shadow: 5px 5px 5px 5px rgb(195, 195, 195);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.253);
     border: solid 1px #828282;
     background-color: white;
     font-family: "Montserrat", sans-serif;
@@ -40,7 +40,7 @@
 .maincontainer__membercomments__comments{
     width: 50%;
     margin-left: 1rem;
-    box-shadow: 5px 5px 5px 5px rgb(195, 195, 195);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.253);
     border: solid 1px #828282;
     background-color: white;
     font-family: "Montserrat", sans-serif;

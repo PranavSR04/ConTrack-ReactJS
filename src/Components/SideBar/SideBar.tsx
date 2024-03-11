@@ -41,8 +41,7 @@ import { SideBarPropType } from './types';
       <div className={styles.container_outsideSideBar}>
         {children}
       </div>
-      
-   </div>
+    </div>
   )
 }
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
+import { Affix } from "antd";
 
 const NavBarHandler = () => {
 	const [username, setUsername] = useState<string>();
@@ -23,7 +24,11 @@ const NavBarHandler = () => {
 	}, []);
 	console.log(username);
 
-	return <NavBar username={username} />;
+	return (
+		
+			<NavBar username={username} />
+
+	);
 };
 
 export default NavBarHandler;

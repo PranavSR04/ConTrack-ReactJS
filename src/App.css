@@ -1,11 +1,14 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~bootstrap/dist/css/bootstrap.css";
 
+:root{
+  --app-margin-top:55px;
+}
 
 .App {
   text-align: center;
   font-family: "Montserrat", sans-serif;
-  height: 100vh;
+  height: 100vh;  background-color: #282c34;
 }
 
 .App-logo {
