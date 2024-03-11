@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AuthContext from "../../Components/AuthContext/AuthContext";
 import LoginHandler from "../Login/LoginHandler";
-import App from "../../App";
 import RevenueProjectionHandler from "../RevenueProjection/RevenueProjectionHandler";
 import NavBarHandler from "../../Components/NavBar/NavBarHandler";
 import SideBar from "../../Components/SideBar/SideBar";
