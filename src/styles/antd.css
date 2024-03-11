@@ -14,3 +14,7 @@
     text-align: center;
     border-radius: 6px;
 }
+.ant-pagination .ant-pagination-item-active {
+    border-color: #DC143C;
+    border-radius: 11%;
+}

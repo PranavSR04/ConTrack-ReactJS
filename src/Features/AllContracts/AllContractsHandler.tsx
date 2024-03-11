@@ -32,6 +32,7 @@ const AllContractsHandler = () => {
       const result = await fetchDataFromApi(searchConditions, pagination.current, pagination.pageSize);
       setData(result.data);
       console.log('result:',result.data)
+      console.log('toatal page',result.total);
       setPagination({
         ...pagination,
         total: result.total,

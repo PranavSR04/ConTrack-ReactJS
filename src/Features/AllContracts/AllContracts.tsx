@@ -23,7 +23,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
       itemRender: (current, type, originalElement) => {
         if (type === 'page') {
           return (
-            <a style={{ background: current === pagination.current ? '#DC143C' : '',color: current === pagination.current ? 'white' : '' }}>
+            <a style={{ background: current === pagination.current ? '#DC143C' : '',color: current === pagination.current ? 'white' : '',borderBlockColor: '#DC143C' ,border: 'none' }}>
               {current}
             </a>
           );
@@ -39,7 +39,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
         navigate(`/${record.id}`);
       }
     },
-  })} size='middle'>
+  })} size='small'>
 </Table>
       {loading && <Spin size="large" />}
       </div>
