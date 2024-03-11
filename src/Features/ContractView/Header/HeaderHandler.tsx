@@ -13,17 +13,18 @@ const HeaderHandler = ({id}:any) => {
 
   useEffect(() => {
     let responses;
-    const fetchData = async () => {
+    const fetchData = async (id:string) => {
       try {
         responses = await getContractData(id);
-        // console.log(responses);
+        console.log("head response",responses);
+        console.log("id:", id)
         getContractHeading(responses);
       } catch (error) {
         console.log("Error: ", error);
       }
     };
-    fetchData();
-  }, []);
+    fetchData(id);
+  }, [id]);
 
   const getContractHeading: HeadingHandlerType['getContractHeading']=(responses)=>{
     if (responses && responses.data && responses.data.length > 0){
