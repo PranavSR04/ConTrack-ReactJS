@@ -17,7 +17,7 @@ const AppRoutes = () => {
 					<Routes>
 						<Route path="/" element={<Navigate to="/login" />} />
 						<Route path="/login" element={<LoginHandler />}></Route>
-						<Route path="/Dashboard" element={<App />}></Route>
+						<Route path="/Dashboard" element={<></>}></Route>
 						<Route path="/ManageUser" element={<ManageUsersHandler/>}></Route>
 						<Route path="/revenue" element={<RevenueProjectionHandler />}
 						></Route>
