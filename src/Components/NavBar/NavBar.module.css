@@ -27,6 +27,7 @@
 }
 .notification{
     margin-right: 2rem;
+    cursor: pointer;
 }
 .notificationCounter{
  background-color: aqua;

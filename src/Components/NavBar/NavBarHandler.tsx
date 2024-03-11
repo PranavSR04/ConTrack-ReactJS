@@ -3,7 +3,8 @@ import NavBar from "./NavBar";
 
 const NavBarHandler = () => {
 	const [username, setUsername] = useState<string>();
-
+	
+	
 	useEffect(() => {
 		const storedUserString = localStorage.getItem("user");
 		if (storedUserString !== null) {
@@ -23,7 +24,7 @@ const NavBarHandler = () => {
 	}, []);
 	console.log(username);
 
-	return <NavBar username={username} />;
+	return <NavBar username={username}  />;
 };
 
 export default NavBarHandler;

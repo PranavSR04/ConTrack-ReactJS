@@ -1,4 +1,4 @@
 export type NavBarPropType = {
-    username :string | undefined
+    username :string | undefined;
 
 }
