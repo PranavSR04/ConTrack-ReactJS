@@ -11,7 +11,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
   const navigate=useNavigate();
   return (
     <>
-    <h2 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h2>
+    <h3 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h3>
     <div className={styles['contracts-table']}>
      <Button className={styles['contracts-addContract']}>+ Add Contract</Button>
      <Table className={styles['contracts-tableHead']}
@@ -32,14 +32,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
       },
     }}
      onChange={handleTableChange }
-     onRow={(record) => ({
-     onClick: (e) => {
-      e.preventDefault();
-      if (!actionClicked) {
-        navigate(`/fixedfee`,{state:{id:record.id as string}});
-      }
-    },
-  })} size='small'>
+    size='small'>
 </Table>
       {loading && <Spin size="large" />}
       </div>
