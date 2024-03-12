@@ -20,7 +20,7 @@ import { Auth } from '../../Components/AuthContext/AuthContext';
   const[isActiveIndex,setIsActiveIndex]=useState<number>();
   const sideBarItem = 
     [
-      { path: '/', name: 'Dashboard', icon: <FaBars /> },
+      { path: '/dashboard', name: 'Dashboard', icon: <FaBars /> },
       { path: '/msa', name: 'MSA', icon: <FaFileAlt /> },
       { path: '/AllContracts', name: 'Contracts', icon: <FaCopy /> },
       { path: '/MyContracts', name: 'MyContracts', icon: <FaFileAlt /> },
