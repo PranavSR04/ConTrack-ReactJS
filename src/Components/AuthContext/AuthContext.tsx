@@ -39,12 +39,19 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 		console.log(userDetails);
 		const response: LoginResponse = await postLogin(userDetails);
 		if (!(response instanceof AxiosError)) {
-			console.log(response.user);
+			console.log("Logged User Details",response.contrackUser);
 			setCurrentUser(response.user);
             setAccessToken(response.access_token);
             localStorage.clear();
+
             localStorage.setItem("access_token", response.access_token);
 			localStorage.setItem("user_id",response.contrackUser.id.toString());
+			const userDesignation = response.contrackUser.user_designation;
+			
+			// Check if user_designation is not null before storing in localStorage
+			if (userDesignation !== null) 
+			  localStorage.setItem("user_designation", userDesignation.toString());
+
 			localStorage.setItem("role_id",response.contrackUser.role_id.toString());
 			localStorage.setItem("user", JSON.stringify(response.user));
 		}else{

@@ -8,7 +8,7 @@ import { NavBarPropType } from "./types";
 import { NavCon } from "../NavContext/NavContext";
 import NotificationListHandler from "../NotificationList/NotificationListHandler";
 
-const NavBar = ({username}:NavBarPropType) => {
+const NavBar = ({username,designation}:NavBarPropType) => {
 	const{showDrawer}=useContext(NavCon);
     const{activeNotificationCount}=useContext(NavCon);
 
@@ -27,9 +27,9 @@ const NavBar = ({username}:NavBarPropType) => {
 					</a>
 					<NotificationListHandler/>
 					<NavbarText>{username}</NavbarText>
-					<NavbarText className={styles.designation}>
-						, Vice President
-					</NavbarText>
+						{designation && (
+							<NavbarText className={styles.designation}>{designation}</NavbarText>
+						)}
 				</NavItem>
 			</Nav>
 		</>

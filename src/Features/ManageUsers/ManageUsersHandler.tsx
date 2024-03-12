@@ -1,63 +1,80 @@
-import React,{useRef} from "react";
+import React, { useRef } from "react";
 import { useEffect, useState } from "react";
-import axios,{AxiosResponse,AxiosPromise,AxiosError} from "axios";
+import axios, { AxiosResponse, AxiosPromise, AxiosError } from "axios";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { debounce } from 'lodash';
+import { debounce } from "lodash";
 import { TableColumn, User, RoleOption, ActionColumn, Employee } from "./types";
 import ManageUsers from "./ManageUsers";
-import userTableStyles from './ManagerUsers.module.css'
+import userTableStyles from "./ManagerUsers.module.css";
 import { getUserList } from "./api/getUserList";
 import { getEmployeeList } from "./api/getEmployeeList";
 import { getRolesList } from "./api/getRolesList";
 import { addUser } from "./api/postAddUser";
 import { deleteUser } from "./api/putDeleteUser";
 import { updateUser } from "./api/putUpdateUser";
-import Swal,{SweetAlertCustomClass } from 'sweetalert2';
+import Swal, { SweetAlertCustomClass } from "sweetalert2";
 import Toast from "../../Components/Toast/Toast";
 import { message } from "antd";
 
 const ManageUsersHandler = () => {
-
   const [columns, setColumns] = useState<TableColumn[]>([]);
   const [dataSource, setDataSource] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState<boolean>(false);
+  const [deleteConfirmationVisible, setDeleteConfirmationVisible] =
+    useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editedUser, setEditedUser] = useState<User | null>(null);
   const [roleOptions, setRoleOptions] = useState<RoleOption[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchEmployee, setSearchEmployee] = useState("")
-  const [dropdownOptions, setDropdownOptions] = useState<{ value: string }[]>([]);
-  const [selectedRole, setSelectedRole] = useState<string>('');
-  const [selectedRoleId, setSelectedRoleId] = useState<number | undefined>(undefined);
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | undefined>(undefined);
-  const [userAdded, setUserAdded]=useState<boolean>(false)
-  const [userUpdated, setUserUpdated]=useState<boolean>(false)
-  const [userDeleted, setUserDeleted]=useState<boolean>(false)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchEmployee, setSearchEmployee] = useState("");
+  const [dropdownOptions, setDropdownOptions] = useState<{ value: string }[]>(
+    []
+  );
+  const [selectedRole, setSelectedRole] = useState<string>("");
+  const [selectedRoleId, setSelectedRoleId] = useState<number | undefined>(
+    undefined
+  );
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<
+    number | undefined
+  >(undefined);
+  const [userAdded, setUserAdded] = useState<boolean>(false);
+  const [userUpdated, setUserUpdated] = useState<boolean>(false);
+  const [userDeleted, setUserDeleted] = useState<boolean>(false);
 
-  const render=useRef(true);
-  const [updateUserId, setupdateUserId] = useState<number | undefined>(undefined);
+  const render = useRef(true);
+  const [updateUserId, setupdateUserId] = useState<number | undefined>(
+    undefined
+  );
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 3,
     total: 0,
   });
+
   const [userToBeUpdated,setUserToBeUpdated]=useState<string>("")
 
-  //To list the users in the table 
-  const fetchUserData = async (page :number , pageSize :number ,searchQuery1?:string) => {
+  //To list the users in the table
+  const fetchUserData = async (
+    page: number,
+    pageSize: number,
+    searchQuery1?: string
+  ) => {
     try {
-      setLoading(true)
-      const response =await getUserList(pagination.current, pagination.pageSize,searchQuery1)
+      setLoading(true);
+      const response = await getUserList(
+        pagination.current,
+        pagination.pageSize,
+        searchQuery1
+      );
       const result = response.data;
       console.log(result);
-      console.log('parameter', searchQuery)
-      console.log('Entire response', response); // Log the entire response to inspect its structure
-      console.log("page total", response.data.data.total); 
+      console.log("parameter", searchQuery);
+      console.log("Entire response", response); // Log the entire response to inspect its structure
+      console.log("page total", response.data.data.total);
       setPagination({
         ...pagination,
-        total: response.data.data.total
+        total: response.data.data.total,
       });
 
       // setUserUpdated(false)
@@ -71,7 +88,7 @@ const ManageUsersHandler = () => {
         // Customize column titles based on the 'key'
         let customTitle: string;
         //Not to display ID in the table
-        if (key !== "id") { 
+        if (key !== "id") {
           switch (key) {
             case "user_name":
               customTitle = "Name";
@@ -108,24 +125,23 @@ const ManageUsersHandler = () => {
             width: key === "id" ? 0 : undefined,
           };
           cols.push(col);
+        }
       }
-    }
-      
+
       // Add "Action" column with "Edit" and "Delete" icons
       const actionColumn: ActionColumn = {
         title: <span style={{ fontWeight: "bold" }}>Action</span>,
         dataIndex: "action",
         render: (_, record: User) => (
-          <>  
+          <>
             <EditOutlined
               className={`${userTableStyles.actionIcon}`}
-              onClick={(e) =>{
-                //Keeping the user list visible 
+              onClick={(e) => {
+                //Keeping the user list visible
                 e.stopPropagation();
                 // updateUser(record)
-                showUpdateChoice(record)
-              }
-            }
+                showUpdateChoice(record);
+              }}
             />
             <DeleteOutlined
               className={`${userTableStyles.actionIcon}`}
@@ -141,15 +157,15 @@ const ManageUsersHandler = () => {
       cols.push(actionColumn);
       setColumns(cols);
 
-    // Initialize dataSource once with the mapped list
-    setDataSource(
-      list.map((data: User) => ({
+      // Initialize dataSource once with the mapped list
+      setDataSource(
+        list.map((data: User) => ({
           id: data.id,
           user_name: data.user_name,
           role_access: data.role_access,
           contracts_count: data.contracts_count,
-      }))
-  );
+        }))
+      );
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -159,45 +175,45 @@ const ManageUsersHandler = () => {
   //To get the Users List on loading the page
   useEffect(() => {
     fetchUserData(pagination.current, pagination.pageSize, searchQuery);
-  }, [pagination.current, pagination.pageSize,searchQuery]);
+  }, [pagination.current, pagination.pageSize, searchQuery]);
 
   //To get the Employee list in dropdwown
   const fetchEmployeeList = async (searchValue: string) => {
     try {
       setLoading(true);
       setDropdownOptions([]);
-      const response: AxiosResponse<Employee[]> =await  getEmployeeList(searchValue);
+      const response: AxiosResponse<Employee[]> = await getEmployeeList(
+        searchValue
+      );
       const result = response.data;
       const uniqueOptions = new Set(
         result.map((res: Employee) => ({
-           id: res.id,
-           value: `${res.id}. ${res.first_name} ${res.middle_name} ${res.last_name}` 
-           }
-          ))
+          id: res.id,
+          value: `${res.id}. ${res.first_name} ${res.middle_name} ${res.last_name}`,
+        }))
       );
-          setDropdownOptions(Array.from(uniqueOptions));
-      console.log('Original',dropdownOptions);
+      setDropdownOptions(Array.from(uniqueOptions));
+      console.log("Original", dropdownOptions);
     } catch (error) {
-      console.error('Error fetching data with search:', error);
+      console.error("Error fetching data with search:", error);
     } finally {
       setLoading(false);
     }
   };
-  
+
   const debouncedFetchData = debounce(fetchEmployeeList, 2000);
 
-  useEffect(() => {
-  }, [dropdownOptions]);
+  useEffect(() => {}, [dropdownOptions]);
 
-  const onSelectEmployee = (data : string ) => {
+  const onSelectEmployee = (data: string) => {
     // Check if data is defined and has the value property
-    const parts = data.split('.');
+    const parts = data.split(".");
     const extractedId = parseInt(parts[0], 10);
-    console.log('Employee ID :', extractedId);
-    setSelectedEmployeeId(extractedId)
+    console.log("Employee ID :", extractedId);
+    setSelectedEmployeeId(extractedId);
   };
 
-  const getEmployee = (value:string) :void=> {
+  const getEmployee = (value: string): void => {
     setSearchEmployee(value);
   };
 
@@ -210,13 +226,21 @@ const ManageUsersHandler = () => {
       console.log(result);
 
       const accessValues = result
-        .filter((res: { role_name: string, role_access: string, id:number  }) => res.role_name !== "Super Admin") // Exclude "Admin" role
-        .map((res: { role_name: string,role_access: string, id:number }) => ({access:res.role_access, id:res.id }));
+        .filter(
+          (res: { role_name: string; role_access: string; id: number }) =>
+            res.role_name !== "Super Admin"
+        ) // Exclude "Admin" role
+        .map((res: { role_name: string; role_access: string; id: number }) => ({
+          access: res.role_access,
+          id: res.id,
+        }));
 
-      const formattedOptions = accessValues.map((data:{access:string, id:number}) => ({
-        value: data.id,
-        label:data.access
-      }));
+      const formattedOptions = accessValues.map(
+        (data: { access: string; id: number }) => ({
+          value: data.id,
+          label: data.access,
+        })
+      );
       setRoleOptions(formattedOptions);
 
       // Set the initial value to the first role
@@ -232,7 +256,7 @@ const ManageUsersHandler = () => {
 
   useEffect(() => {
     // Log the updated value of selectedRoleId
-  }, [selectedRoleId]); 
+  }, [selectedRoleId]);
 
   // useEffect(() => {
   //   fetchRoles();
@@ -241,7 +265,7 @@ const ManageUsersHandler = () => {
   const addUserToSystem = async (employee_id: number, role_id: number) => {
     try {
       setLoading(true);
-      await addUser(employee_id,role_id)
+      await addUser(employee_id, role_id);
       setUserAdded(true);
       setTimeout(() => {
         setUserAdded(false);
@@ -257,36 +281,37 @@ const ManageUsersHandler = () => {
 
   const handleAddUser = () => {
     if (selectedEmployeeId && selectedRoleId) {
-      console.log('Add:',selectedEmployeeId,selectedRoleId)
+      console.log("Add:", selectedEmployeeId, selectedRoleId);
       addUserToSystem(selectedEmployeeId, selectedRoleId);
     } else {
-      console.warn("Please select an employee and a role before adding a user.");
+      console.warn(
+        "Please select an employee and a role before adding a user."
+      );
     }
-  }
+  };
 
-  const showUpdateChoice =(record: User)=>{
-    if(record.role_access==="Full Access"){
-      setUserToBeUpdated("Super Admin")
+  const showUpdateChoice = (record: User) => {
+    if (record.role_access === "Full Access") {
+      setUserToBeUpdated("Super Admin");
       Swal.fire({
-        title: 'Super Admin cannot be updated',
+        title: "Super Admin cannot be updated",
         customClass: {
-          popup:` ${userTableStyles.myCustomAlertPopup}`,
-        } as SweetAlertCustomClass, 
+          popup: ` ${userTableStyles.myCustomAlertPopup}`,
+        } as SweetAlertCustomClass,
       });
+    } else {
+      setupdateUserId(record.id);
+      setEditModalVisible(true);
     }
-   else{
-    setupdateUserId(record.id)
-    setEditModalVisible(true);
-   }
-  }
+  };
 
   const handleUpdateUser = async (selectedRoleId: number | undefined) => {
     try {
       setLoading(true);
       if (updateUserId && selectedRoleId !== undefined) {
-        updateUser(updateUserId,selectedRoleId)
-        console.log('User Role updated succesfully')
-        setUserUpdated(true)
+        updateUser(updateUserId, selectedRoleId);
+        console.log("User Role updated succesfully");
+        setUserUpdated(true);
         setTimeout(() => {
           setUserUpdated(false);
         }, 5000);
@@ -301,13 +326,12 @@ const ManageUsersHandler = () => {
 
   //Modal for delete confirmation
   const showDeleteConfirmation = (record: User): void => {
-    if(record.role_access==="Full Access"){
-      console.log('Super Admin',selectedUser)
+    if (record.role_access === "Full Access") {
+      console.log("Super Admin", selectedUser);
       alert("Cannot delete Super Admin user.");
-    }
-    else{
-    setSelectedUser(record);
-    setDeleteConfirmationVisible(true);
+    } else {
+      setSelectedUser(record);
+      setDeleteConfirmationVisible(true);
     }
   };
 
@@ -316,52 +340,50 @@ const ManageUsersHandler = () => {
   };
 
   //
-  const handleDelete = async (selectedUser:User):Promise<void>=> {
+  const handleDelete = async (selectedUser: User): Promise<void> => {
     try {
-      await deleteUser(selectedUser)
-      setUserDeleted(true)
-      setDataSource(dataSource)
+      await deleteUser(selectedUser);
+      setUserDeleted(true);
+      setDataSource(dataSource);
       setTimeout(() => {
         setUserDeleted(false);
       }, 5000);
-    
-    } catch (error:any) {
+    } catch (error: any) {
       console.error("Error deleting user:", error);
       console.log("Failed to delete user");
     } finally {
       hideDeleteConfirmation();
     }
     hideDeleteConfirmation();
-  
   };
 
   //setting the User to be searched
-  const handleSearch = (value : string) => {
+  const handleSearch = (value: string) => {
     setSearchQuery(value);
   };
 
-    // useEffect(() => {
-    //   // Fetch data on mount or when a user is searched
-    //   fetchUserData(pagination.current, pagination.pageSize, searchQuery);
-    //   setUserAdded(false);
-    // }, [searchQuery,pagination.current, pagination.pageSize]);
-    
-    useEffect(() => {
-      // Fetch data when a user is added/updated 
-      if (userAdded || userUpdated || userDeleted) {
-        render.current = false;
-        fetchUserData(pagination.current, pagination.pageSize, searchQuery);
-      }
-    }, [userAdded, userUpdated, userDeleted]);
-    
-    const handlePageChange = (pagination:any) => {
-      // fetchUserData(pagination.page, pagination.pageSize);
-      // Update the current page in the state
-      setPagination({
-        ...pagination,
-        current: pagination.current,
-      });    
-    };
+  // useEffect(() => {
+  //   // Fetch data on mount or when a user is searched
+  //   fetchUserData(pagination.current, pagination.pageSize, searchQuery);
+  //   setUserAdded(false);
+  // }, [searchQuery,pagination.current, pagination.pageSize]);
+
+  useEffect(() => {
+    // Fetch data when a user is added/updated
+    if (userAdded || userUpdated || userDeleted) {
+      render.current = false;
+      fetchUserData(pagination.current, pagination.pageSize, searchQuery);
+    }
+  }, [userAdded, userUpdated, userDeleted]);
+
+  const handlePageChange = (pagination: any) => {
+    // fetchUserData(pagination.page, pagination.pageSize);
+    // Update the current page in the state
+    setPagination({
+      ...pagination,
+      current: pagination.current,
+    });
+  };
 
   const handleEditModalCancel = () => {
     setEditModalVisible(false);
@@ -381,39 +403,39 @@ const ManageUsersHandler = () => {
 
   return (
     <ManageUsers
-     handleAddUser={handleAddUser}
-     showDeleteConfirmation={showDeleteConfirmation}
-     setDeleteConfirmationVisible={setDeleteConfirmationVisible}
-     hideDeleteConfirmation={hideDeleteConfirmation}
-     handleDelete={handleDelete}
-     setDataSource={setDataSource}
-     handleSearch={handleSearch}
-     setUserUpdated={setUserUpdated}
-     showUpdateChoice={showUpdateChoice}
-     handlePageChange={handlePageChange}
-     handleEditModalCancel={handleEditModalCancel}
-     handleUpdateUser={handleUpdateUser}
-     rowClassName={rowClassName}
-     debouncedFetchData={debouncedFetchData}
-     onSelectEmployee={onSelectEmployee}
-     getEmployee={getEmployee}
-     setDropdownOptions={setDropdownOptions}
-     setSelectedRoleId={setSelectedRoleId}
-     columns={columns}
-     dropdownOptions={dropdownOptions}
-     roleOptions={roleOptions}
-     dataSource={dataSource}
-     pagination={pagination}
-     editModalVisible={editModalVisible}
-     selectedRoleId={selectedRoleId}
-     deleteConfirmationVisible={deleteConfirmationVisible}
-     selectedUser={selectedUser}
-     userAdded={userAdded}
-     loading={loading}
-     userUpdated={userUpdated}
-     userDeleted={userDeleted}
-     />
-  )
-}
+      handleAddUser={handleAddUser}
+      showDeleteConfirmation={showDeleteConfirmation}
+      setDeleteConfirmationVisible={setDeleteConfirmationVisible}
+      hideDeleteConfirmation={hideDeleteConfirmation}
+      handleDelete={handleDelete}
+      setDataSource={setDataSource}
+      handleSearch={handleSearch}
+      setUserUpdated={setUserUpdated}
+      showUpdateChoice={showUpdateChoice}
+      handlePageChange={handlePageChange}
+      handleEditModalCancel={handleEditModalCancel}
+      handleUpdateUser={handleUpdateUser}
+      rowClassName={rowClassName}
+      debouncedFetchData={debouncedFetchData}
+      onSelectEmployee={onSelectEmployee}
+      getEmployee={getEmployee}
+      setDropdownOptions={setDropdownOptions}
+      setSelectedRoleId={setSelectedRoleId}
+      columns={columns}
+      dropdownOptions={dropdownOptions}
+      roleOptions={roleOptions}
+      dataSource={dataSource}
+      pagination={pagination}
+      editModalVisible={editModalVisible}
+      selectedRoleId={selectedRoleId}
+      deleteConfirmationVisible={deleteConfirmationVisible}
+      selectedUser={selectedUser}
+      userAdded={userAdded}
+      loading={loading}
+      userUpdated={userUpdated}
+      userDeleted={userDeleted}
+    />
+  );
+};
 
-export default ManageUsersHandler
+export default ManageUsersHandler;
