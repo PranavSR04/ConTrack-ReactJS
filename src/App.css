@@ -1,9 +1,16 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "./styles/antd.css";
 
+:root{
+  --app-margin-top:55px;
+}
 
 .App {
   text-align: center;
+  font-family: "Montserrat", sans-serif;
+  /* height: 100vh;  */
+  overflow-y: scroll;
   background-color: #282c34;
 }
 

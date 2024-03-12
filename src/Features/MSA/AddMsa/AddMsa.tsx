@@ -22,10 +22,8 @@ const AddMsa = (
     <div className={styles.AddMsaDetails}>
         <h4 className={styles.AddMsaDetails_Heading}>Master Service Agreement Details</h4>
     <Form
-    //   form={form}
       name="complex-form"
-    // onFinish={onFinish}
-    encType='multipart/form-data'
+     encType='multipart/form-data'
       style={{ maxWidth: 600 }}
       >
         <div className={styles.AddMsaDetails_row1}>
@@ -98,12 +96,6 @@ const AddMsa = (
       >Upload Master Service Agreement
       <span className={styles.AddMsaDetails_star}>*</span>
       <br/>
-          {/* <Upload 
-          action="" 
-          listType="picture-card"
-          fileList={[]}
-          customRequest={handleFileUpload}
-          > */}
             {fileName?
             <div>
             <FilePdfOutlined className={styles.AddMsaDetails_row3_col1_fileicon}/>
@@ -124,11 +116,6 @@ const AddMsa = (
             </button>
             </Upload>
             }
-            {/* <button style={{ border: 0, background: 'none' }} type="button">
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
-            </button> */}
-          {/* </Upload> */}
         </Form.Item>
       <Form.Item 
       name="comments"

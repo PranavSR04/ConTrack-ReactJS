@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 .AddMsa{
+    width: 55rem;
     margin-top: 30px;
-    margin-left: 14rem;
+    margin-left: 16rem;
     margin-right: 1.5rem;
     font-family: 'Montserrat', sans-serif;
 }

@@ -4,6 +4,7 @@ import { Form } from 'antd';
 import moment, { Moment } from 'moment';
 import { getapi } from './api/getapi';
 import axios from 'axios';
+import { postapi } from './api/postapi';
 
 const AddMsaHandler = () => {
     const [form] = Form.useForm();
@@ -87,16 +88,7 @@ const AddMsaHandler = () => {
           
           formDatatoSend.append('comments', formData.comments);
           formDatatoSend.append('file', formData.file||'');
-          await axios.post(
-            `http://127.0.0.1:8000/api/msa/add/1`,
-            formDatatoSend,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-                'Accept': 'application/json, text/plain, */*',
-              },
-            }
-          );
+          await postapi(formDatatoSend);
       
           form.resetFields();
           generateMsaId();

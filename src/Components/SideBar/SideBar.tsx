@@ -9,9 +9,9 @@ import { SideBarPropType } from './types';
   const sideBarItem = 
     [
       { path: '/', name: 'Dashboard', icon: <FaBars /> },
-      { path: '/add/msa', name: 'MSA', icon: <FaFileAlt /> },
-      { path: '/Contracts', name: 'Contracts', icon: <FaCopy /> },
-      { path: '/mycontracts', name: 'MyContracts', icon: <FaFileAlt /> },
+      { path: '/msa', name: 'MSA', icon: <FaFileAlt /> },
+      { path: '/AllContracts', name: 'Contracts', icon: <FaCopy /> },
+      { path: '/MyContracts', name: 'MyContracts', icon: <FaFileAlt /> },
       { path: '/revenue', name: 'Revenue', icon: <FaRegChartBar /> },
       { path: '/manageusers', name: 'ManageUser', icon: <FaUserCog /> }
     ];
