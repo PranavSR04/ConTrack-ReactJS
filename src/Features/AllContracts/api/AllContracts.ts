@@ -12,7 +12,7 @@ export const fetchDataFromApi = async (searchConditions: Condition, currentPage:
         let queryStrings=queryString.join("&") //join the search queries
         
       console.log('search query',queryStrings)
-      const response = await fetch(`http://127.0.0.1:8000/api/contract/getlist?${queryStrings}&page=${currentPage}&per_page=${pageSize}`);
+      const response = await fetch(`http://127.0.0.1:8000/api/contract/list?${queryStrings}&page=${currentPage}&per_page=${pageSize}`);
   
       if (!response.ok) {
         throw new Error('Failed to fetch data');
