@@ -5,8 +5,9 @@ import OverviewPaymentHandler from '../OverviewPayment/OverviewPaymentHandler'
 import MilestonesHandler from '../Milestones/MilestonesHandler'
 import MemberCommentsHandler from '../MemberComments/MemberCommentsHandler'
 import DocumentsHandler from '../Documents/DocumentsHandler'
+import { LocationStateProps } from './types'
 
-const FixedFeeContracts = ({id}:any) => {
+const FixedFeeContracts = ({id}:LocationStateProps) => {
   return (
     <div  className={`${styles.maincontainer}`}>
       <HeaderHandler id={id}/>
