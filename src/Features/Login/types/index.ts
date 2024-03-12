@@ -18,6 +18,21 @@ export interface UserType {
     created_at: string;
     updated_at: string;
 }
+export interface ContarckUserType {
+ 
+        created_at: string;
+        experion_id: number;
+        group_name: string | null;
+        id: number;
+        is_active: number;
+        role_id: number;
+        updated_at: string;
+        user_designation: string | null;
+        user_mail: string;
+        user_name: string;
+    
+}
+
 
 
 // Interface for the successful response
@@ -26,6 +41,7 @@ export interface LoginResponseType {
     token_type: string;
     expires_in: number;
     user: UserType;
+    contrackUser:ContarckUserType;
 }
 
 // Union type for both successful response and error response
