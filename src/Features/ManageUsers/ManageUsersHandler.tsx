@@ -26,21 +26,19 @@ const ManageUsersHandler = () => {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editedUser, setEditedUser] = useState<User | null>(null);
   const [roleOptions, setRoleOptions] = useState<RoleOption[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchEmployee, setSearchEmployee] = useState("");
-  const [dropdownOptions, setDropdownOptions] = useState<{ value: string }[]>(
-    []
-  );
-  const [selectedRole, setSelectedRole] = useState<string>("");
-  const [selectedRoleId, setSelectedRoleId] = useState<number | undefined>(
-    undefined
-  );
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState<
-    number | undefined
-  >(undefined);
-  const [userAdded, setUserAdded] = useState<boolean>(false);
-  const [userUpdated, setUserUpdated] = useState<boolean>(false);
-  const [userDeleted, setUserDeleted] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchEmployee, setSearchEmployee] = useState("")
+  const [dropdownOptions, setDropdownOptions] = useState<{ value: string }[]>([]);
+  const [selectedRole, setSelectedRole] = useState<string>('');
+  const [selectedRoleId, setSelectedRoleId] = useState<number | undefined>(undefined);
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | undefined>(undefined);
+  const [userAdded, setUserAdded]=useState<boolean>(false)
+  const [userUpdated, setUserUpdated]=useState<boolean>(false)
+  const [userDeleted, setUserDeleted]=useState<boolean>(false)
+  const [showToast, setShowToast] = useState(false);
+  const [emptyUserToast, setEmptyUserToast] = useState(false);
+  const [employeeNotFoundToast, setEmployeeNotFoundToast]=useState<boolean>(false)
+
 
   const render = useRef(true);
   const [updateUserId, setupdateUserId] = useState<number | undefined>(
@@ -69,9 +67,18 @@ const ManageUsersHandler = () => {
       );
       const result = response.data;
       console.log(result);
-      console.log("parameter", searchQuery);
-      console.log("Entire response", response); // Log the entire response to inspect its structure
-      console.log("page total", response.data.data.total);
+      console.log('parameter', searchQuery)
+      console.log('Entire response', response); // Log the entire response to inspect its structure
+      console.log("page total", response.data.data.total); 
+      if (result.data.data.length=== 0) {
+        // If the data array is empty, display a toast
+        setEmptyUserToast(true);
+        setTimeout(() => {
+          setEmptyUserToast(false);
+        }, 5000);
+      } else {
+        setEmptyUserToast(false);
+      }
       setPagination({
         ...pagination,
         total: response.data.data.total,
@@ -154,8 +161,12 @@ const ManageUsersHandler = () => {
         ),
       };
       //Storing all the required titles
+    {     
+      result.data.data.length!== 0 &&
       cols.push(actionColumn);
-      setColumns(cols);
+    }      
+
+   setColumns(cols);
 
       // Initialize dataSource once with the mapped list
       setDataSource(
@@ -192,10 +203,16 @@ const ManageUsersHandler = () => {
           value: `${res.id}. ${res.first_name} ${res.middle_name} ${res.last_name}`,
         }))
       );
-      setDropdownOptions(Array.from(uniqueOptions));
-      console.log("Original", dropdownOptions);
-    } catch (error) {
-      console.error("Error fetching data with search:", error);
+          setDropdownOptions(Array.from(uniqueOptions));
+      console.log('Original',dropdownOptions);
+    } catch (error:any) {
+      console.error('Error fetching data with search:', error);
+      if (error.response && error.response.status === 404){
+        setEmployeeNotFoundToast(true)
+        setTimeout(() => {
+          setEmployeeNotFoundToast(false);
+        }, 5000);
+      }
     } finally {
       setLoading(false);
     }
@@ -272,8 +289,28 @@ const ManageUsersHandler = () => {
       }, 5000);
 
       //toaster call
-    } catch (error) {
+    } catch (error:any) {
       console.error("Error adding user to the system:", error);
+    //       if (error.response && error.response.status === 422) {
+    //   // User already exists, show SweetAlert
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'User Already Exists',
+    //     text: 'The user you are trying to add already exists.',
+    //   });
+    // }
+    if (error.response && error.response.status === 422) {
+      // Display a toast with custom message for 422 status
+      // return <Toast message="User already exists" messageType="error" />;
+      setShowToast(true);
+
+      // Optionally, you can set a timeout to hide the toast after a certain duration
+      setTimeout(() => {
+        setShowToast(false);
+      }, 5000); 
+    }
+      
+
     } finally {
       setLoading(false);
     }
@@ -403,39 +440,42 @@ const ManageUsersHandler = () => {
 
   return (
     <ManageUsers
-      handleAddUser={handleAddUser}
-      showDeleteConfirmation={showDeleteConfirmation}
-      setDeleteConfirmationVisible={setDeleteConfirmationVisible}
-      hideDeleteConfirmation={hideDeleteConfirmation}
-      handleDelete={handleDelete}
-      setDataSource={setDataSource}
-      handleSearch={handleSearch}
-      setUserUpdated={setUserUpdated}
-      showUpdateChoice={showUpdateChoice}
-      handlePageChange={handlePageChange}
-      handleEditModalCancel={handleEditModalCancel}
-      handleUpdateUser={handleUpdateUser}
-      rowClassName={rowClassName}
-      debouncedFetchData={debouncedFetchData}
-      onSelectEmployee={onSelectEmployee}
-      getEmployee={getEmployee}
-      setDropdownOptions={setDropdownOptions}
-      setSelectedRoleId={setSelectedRoleId}
-      columns={columns}
-      dropdownOptions={dropdownOptions}
-      roleOptions={roleOptions}
-      dataSource={dataSource}
-      pagination={pagination}
-      editModalVisible={editModalVisible}
-      selectedRoleId={selectedRoleId}
-      deleteConfirmationVisible={deleteConfirmationVisible}
-      selectedUser={selectedUser}
-      userAdded={userAdded}
-      loading={loading}
-      userUpdated={userUpdated}
-      userDeleted={userDeleted}
-    />
-  );
-};
+     handleAddUser={handleAddUser}
+     showDeleteConfirmation={showDeleteConfirmation}
+     setDeleteConfirmationVisible={setDeleteConfirmationVisible}
+     hideDeleteConfirmation={hideDeleteConfirmation}
+     handleDelete={handleDelete}
+     setDataSource={setDataSource}
+     handleSearch={handleSearch}
+     setUserUpdated={setUserUpdated}
+     showUpdateChoice={showUpdateChoice}
+     handlePageChange={handlePageChange}
+     handleEditModalCancel={handleEditModalCancel}
+     handleUpdateUser={handleUpdateUser}
+     rowClassName={rowClassName}
+     debouncedFetchData={debouncedFetchData}
+     onSelectEmployee={onSelectEmployee}
+     getEmployee={getEmployee}
+     setDropdownOptions={setDropdownOptions}
+     setSelectedRoleId={setSelectedRoleId}
+     columns={columns}
+     dropdownOptions={dropdownOptions}
+     roleOptions={roleOptions}
+     dataSource={dataSource}
+     pagination={pagination}
+     editModalVisible={editModalVisible}
+     selectedRoleId={selectedRoleId}
+     deleteConfirmationVisible={deleteConfirmationVisible}
+     selectedUser={selectedUser}
+     userAdded={userAdded}
+     loading={loading}
+     userUpdated={userUpdated}
+     userDeleted={userDeleted}
+     showToast={showToast}
+     emptyUserToast={emptyUserToast}
+     employeeNotFoundToast={employeeNotFoundToast}
+     />
+  )
+}
 
 export default ManageUsersHandler;
