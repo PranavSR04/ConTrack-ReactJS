@@ -27,23 +27,26 @@ export interface ManageUsersPropType {
   setSelectedRoleId: React.Dispatch<React.SetStateAction<number | undefined>>;
   columns: TableColumn[];
   dropdownOptions: {
-    value: string;
-  }[];
-  roleOptions: RoleOption[];
-  dataSource: User[];
-  pagination: {
-    current: number;
-    pageSize: number;
-    total: number;
-  };
-  editModalVisible: boolean;
-  selectedRoleId: number | undefined;
-  deleteConfirmationVisible: boolean;
-  selectedUser: User | null;
-  loading: boolean;
-  userAdded: boolean;
-  userUpdated: boolean;
-  userDeleted: boolean;
+   value: string;
+}[]
+   roleOptions: RoleOption[]
+   dataSource: User[]
+   pagination: {
+      current: number;
+      pageSize: number;
+      total: number;
+  }
+  editModalVisible: boolean
+  selectedRoleId: number | undefined
+  deleteConfirmationVisible: boolean
+  selectedUser: User | null
+  loading: boolean
+  userAdded:boolean
+  userUpdated:boolean
+  userDeleted:boolean
+  showToast:boolean
+  emptyUserToast:boolean
+  employeeNotFoundToast:boolean
 }
 
 export interface ManageUserHandlerPropType {}
