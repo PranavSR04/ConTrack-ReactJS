@@ -7,8 +7,7 @@ export const fetchRevenueProjection = async (id?:number,requestBody?: any) =>{
     if (id !== undefined) {
         url += id;
     }
-    const config = {
-        
+    const config = { 
         params: requestBody
     };
     

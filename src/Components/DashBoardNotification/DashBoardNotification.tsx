@@ -6,7 +6,7 @@ const DashBoardNotification:React.FC<DashBoardNotificationPropType> = ({notifica
 
   if (notification.action === 'Added') {
       actionStyle = styles.added;
-  } else if (notification.action === 'Editted') {
+  } else if (notification.action === 'Edited') {
       actionStyle = styles.edited;
   } else if (notification.action === 'Expiring') {
       actionStyle = styles.expiring;

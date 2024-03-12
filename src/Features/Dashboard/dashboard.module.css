@@ -1,0 +1,18 @@
+.dashboard-div1{
+    margin-top: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    border-width: 10cm;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    margin-left: 16rem;
+    margin-right: 1.5rem;
+  font-family: "Montserrat", sans-serif;
+  width: 62rem;
+  height: 16rem;
+  border-radius: .5rem;
+}
+.dashboard-name{
+    font-weight: 700;
+    font-size: 1.8rem;
+    padding-top: .5rem;
+}

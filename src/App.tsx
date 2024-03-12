@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './App.css';
 import styles from './App.module.css'
 import RevenueProjectionHandler from './Features/RevenueProjection/RevenueProjectionHandler';
@@ -11,6 +12,7 @@ import AllContractsHandler from './Features/AllContracts/AllContractsHandler';
 import DashBoardNotification from './Components/DashBoardNotification/DashBoardNotification';
 import DashBoardNotificationListHandler from './Components/DashBoardNotificationList/DashBoardNotificationListHandler';
 import NavContext from './Components/NavContext/NavContext';
+import AddContract from './Features/AddContract/AddContract';
 
 
 function App() {
@@ -22,6 +24,7 @@ function App() {
       <RevenueProjectionHandler />
       <DashBoardNotificationListHandler/>
     </SideBar>
+    <AddContract/>
     </NavContext>
     
 

@@ -5,16 +5,18 @@ import styles from './contractsList.module.css'  ;
 import { AllContractsPropType, ContractData } from './types';
 import { useNavigate } from 'react-router';
 
-//This is the current working code
-
-const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading}:AllContractsPropType) => {
+const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading,pageTitle,rowClassName}:AllContractsPropType) => {
   const navigate=useNavigate();
+  const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
+
   return (
     <>
-    <h2 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h2>
+    <h3 className={styles['contracts-h1']}>{pageTitle}</h3>
     <div className={styles['contracts-table']}>
-     <Button className={styles['contracts-addContract']}>+ Add Contract</Button>
-     <Table className={styles['contracts-tableHead']}
+    {ROLE_ID !== 3 && (
+    <Button className={styles['contracts-addContract']} onClick={() => navigate('/addContract')}>+ Add Contract</Button>
+  )}     
+    <Table className={styles['contracts-tableHead']}
      columns={columns as ColumnsType<ContractData>}
      dataSource={data.map((item) => ({ ...item, key: item.id }))}
      pagination={{
@@ -32,14 +34,8 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
       },
     }}
      onChange={handleTableChange }
-     onRow={(record) => ({
-     onClick: (e) => {
-      e.preventDefault();
-      if (!actionClicked) {
-        navigate(`/contract`,{state:{id:record.id as string}});
-      }
-    },
-  })} size='small'>
+     rowClassName={rowClassName}
+    size='small'>
 </Table>
       {loading && <Spin size="large" />}
       </div>

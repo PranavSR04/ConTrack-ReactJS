@@ -1,0 +1,17 @@
+.dashboard-contractCount-div{
+    display:flex;
+}
+
+.dashboard-contractCount-head{
+    padding-left: 0%;
+}
+.dashboard-contractCount-select{
+    padding-left: 1rem;
+}
+.dashboard-contractCount{
+    font-weight: 500;
+    font-size: 3.2rem;
+    padding-top: 1%;
+    padding-left: 2.2rem;
+  
+}
