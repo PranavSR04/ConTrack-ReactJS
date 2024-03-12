@@ -31,7 +31,7 @@ const Header = ({
             <button
               className={styles.maincontainer__header__title__export__button}
             >
-              <CSVLink filename={`${clientName} .xlsx`} data={contractData} style={{textDecoration:"none", color:"white"}}>
+              <CSVLink filename={`${clientName} ${contractRefId}.xlsx`} data={contractData} style={{textDecoration:"none", color:"white"}}>
                 Export
               </CSVLink>
             </button>
