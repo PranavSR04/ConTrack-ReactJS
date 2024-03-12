@@ -1,6 +1,7 @@
 import React from "react";
 import { HeadingPropType } from "./types";
 import styles from "./Header.module.css";
+import { CSVLink } from "react-csv";
 
 const Header = ({
   contractRefId,
@@ -8,6 +9,7 @@ const Header = ({
   region,
   du,
   contractStatus,
+  contractData,
 }: HeadingPropType) => {
   return (
     <div className={`${styles.maincontainer__header}`}>
@@ -25,11 +27,15 @@ const Header = ({
           </button>
         </div>
         <div className={`${styles.maincontainer__header__title__export}`}>
-          <button
-            className={`${styles.maincontainer__header__title__export__button}`}
-          >
-            Export
-          </button>
+          {contractData && (
+            <button
+              className={styles.maincontainer__header__title__export__button}
+            >
+              <CSVLink filename={`${clientName} .xlsx`} data={contractData} style={{textDecoration:"none", color:"white"}}>
+                Export
+              </CSVLink>
+            </button>
+          )}
         </div>
       </div>
       <div className={`${styles.maincontainer__header__subheading}`}>

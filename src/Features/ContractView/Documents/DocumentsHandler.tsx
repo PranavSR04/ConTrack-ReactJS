@@ -12,6 +12,7 @@ const DocumentsHandler = ({ id }: LocationStateProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [addendums, setAddendums] = useState<Addendum[]>([]);
   const [visible, setVisible] = useState<boolean>(false);
+  const [contractStatus, setContractStatus] = useState<string>("")
 
   useEffect(() => {
     let responses;
@@ -37,6 +38,7 @@ const DocumentsHandler = ({ id }: LocationStateProps) => {
       setClientName(responses.data[0].client_name);
       setContractRefId(responses.data[0].contract_ref_id);
       setAddendums(responses.data[0].addendum);
+      setContractStatus(responses.data[0].contract_status);
     }
   };
 
@@ -73,6 +75,7 @@ const DocumentsHandler = ({ id }: LocationStateProps) => {
         modalPopUp={modalPopUp}
         onCancel={onCancel}
         closeContract={closeContract}
+        contractStatus={contractStatus}
       />
     </div>
   );

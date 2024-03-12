@@ -14,8 +14,10 @@ const Documents = ({
   visible,
   onCancel,
   closeContract,
-  modalPopUp
+  modalPopUp,
+  contractStatus,
 }: DocumentsPropType) => {
+  console.log("contact status", contractStatus);
   return (
     <>
       <Card className={`${styles.maincontainer__documents}`} loading={loading}>
@@ -47,20 +49,20 @@ const Documents = ({
         </div>
       </Card>
       <div className={`${styles.maincontainer__documents__buttons}`}>
-        {/* <Button type="primary" style={{ marginTop:"2rem",  marginBottom:"2rem"}}>Export Data</Button> */}
-        <Button
-          type="primary"
-          style={{
-            marginTop: "2rem",
-            marginBottom: "2rem",
-            backgroundColor: "red",
-            marginLeft: "auto",
-            marginRight: "4rem",
-          }}
-          onClick={modalPopUp}
-        >
-          Close Contract
-        </Button>
+        {contractStatus !== "Closed" && (
+          <Button
+            type="primary"
+            style={{
+              marginBottom: "2rem",
+              backgroundColor: "red",
+              marginLeft: "auto",
+              marginRight: "4rem",
+            }}
+            onClick={modalPopUp}
+          >
+            Close Contract
+          </Button>
+        )}
       </div>
 
       <CloseContractModal

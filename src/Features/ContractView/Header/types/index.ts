@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { ContractApiType } from "../../FixedFee/types";
+import { Contract, ContractApiType } from "../../FixedFee/types";
 
 export interface HeadingHandlerType{
     responses: ContractApiType | AxiosError<unknown, any>
@@ -13,4 +13,5 @@ export interface HeadingPropType{
     region: string;
     du: string;
     contractStatus: string;
+    contractData: Contract[] | undefined
 }

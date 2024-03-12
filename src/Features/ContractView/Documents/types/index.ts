@@ -17,6 +17,7 @@ export interface DocumentsPropType{
     onCancel: ()=>void;
     closeContract:()=>void;
     modalPopUp: () => void;
+    contractStatus: string
 }
 
 export interface CloseContractModalPropsType{
