@@ -7,9 +7,13 @@ import axios from 'axios';
 import { postapi } from './api/postapi';
 
 const AddMsaHandler = () => {
+  const user_id: number = parseInt(localStorage.getItem('user_id') || "0");
+ //console.log(user_id)
     const [form] = Form.useForm();
+    const[msaAdded,setMsaAdded]=useState<boolean>(false);
     const [msaRefId,setMsaRefId]=useState<string>();
     const [fileName,setFileName]=useState<string>();
+    
     useEffect( ()=>{
         generateMsaId()
     },[]);
@@ -88,8 +92,8 @@ const AddMsaHandler = () => {
           
           formDatatoSend.append('comments', formData.comments);
           formDatatoSend.append('file', formData.file||'');
-          await postapi(formDatatoSend);
-      
+          await postapi(formDatatoSend,user_id);
+          setMsaAdded(true);
           form.resetFields();
           generateMsaId();
         } catch (error) {
@@ -106,6 +110,7 @@ const AddMsaHandler = () => {
       handleEndDateChange={handleEndDateChange}
       SubmitAddMsa={SubmitAddMsa}
       fileName={fileName}
+      msaAdded={msaAdded}
       />
     </div>
   )

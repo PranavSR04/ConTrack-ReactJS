@@ -2,13 +2,17 @@ import { Moment } from "moment";
 
 export interface EditMsaHandlertype{
  msaData:MsaDataType;
+ msa_ref_id:string;
+
+    handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    handleDateChange?: (date: Moment | null, dateString: string | string[]) => void;
+    handleEndDateChange?: (date: Moment | null, dateString: string | string[]) => void
+    SubmitEditMsa: () => Promise<void>
 }
 export interface MsaDataType{
-    msa_ref_id: string; 
     client_name: string;
      region: string; 
      start_date: string; 
      end_date: string; 
-     comments?: string; 
-     file?: File | null;
+     comments:string;
 }
