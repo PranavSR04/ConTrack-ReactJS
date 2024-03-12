@@ -12,6 +12,7 @@ import SideBar from "../../Components/SideBar/SideBar";
 import AddMsaHandler from "../MSA/AddMsa/AddMsaHandler";
 
 import FixedFeeHandler from "../ContractView/FixedFee/FixedFeeHandler";
+import Dashboard from "../Dashboard/Dashboard";
 import ListMsaHandler from "../MSA/ListMsa/ListMsaHandler";
 import EditMsaHandler from "../MSA/EditMsa/EditMsaHandler";
 import RenewMsaHandler from "../MSA/RenewMsa/RenewMsaHandler";
@@ -25,11 +26,10 @@ const AppRoutes = () => {
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
               <Route path="/login" element={<LoginHandler />}></Route>
-              <Route path="/dashboard" element={<><NavBarHandler/><SideBar></SideBar></>}></Route>
+              <Route path="/dashboard" element={<><NavBarHandler/><SideBar><Dashboard/></SideBar></>}></Route>
 			  <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
               <Route path="/revenue" element={<><NavBarHandler/><SideBar><RevenueProjectionHandler/></SideBar></>}></Route>
 			  <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>
-
 			  <Route path="/allContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
 			  <Route path="/myContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
         <Route path="/MSA" element={<><NavBarHandler/><SideBar><ListMsaHandler/></SideBar></>}></Route>

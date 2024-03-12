@@ -5,15 +5,13 @@ import styles from './contractsList.module.css'  ;
 import { AllContractsPropType, ContractData } from './types';
 import { useNavigate } from 'react-router';
 
-//This is the current working code
-
 const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading}:AllContractsPropType) => {
   const navigate=useNavigate();
   return (
     <>
-    <h2 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h2>
+    <h3 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h3>
     <div className={styles['contracts-table']}>
-     <Button className={styles['contracts-addContract']}>+ Add Contract</Button>
+     <Button className={styles['contracts-addContract']} onClick={() => navigate('/addContract')} >+ Add Contract</Button>
      <Table className={styles['contracts-tableHead']}
      columns={columns as ColumnsType<ContractData>}
      dataSource={data.map((item) => ({ ...item, key: item.id }))}
@@ -32,14 +30,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
       },
     }}
      onChange={handleTableChange }
-     onRow={(record) => ({
-     onClick: (e) => {
-      e.preventDefault();
-      if (!actionClicked) {
-        navigate(`/contract`,{state:{id:record.id as string}});
-      }
-    },
-  })} size='small'>
+    size='small'>
 </Table>
       {loading && <Spin size="large" />}
       </div>
