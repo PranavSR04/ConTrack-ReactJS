@@ -6,20 +6,22 @@ import axios from "axios";
 import moment, { Moment } from "moment";
 import { Form } from "antd";
 import { postapi } from "./api/postapi";
+import { getapi } from "./api/getapi";
 
 const EditMsaHandler = () => {
-  const { msa_ref_id } = useParams();
+  const { msa_ref_id } = useParams<string >();
   const [form] = Form.useForm();
 
   console.log(msa_ref_id);
   const [msaData, setMsaData] = useState({
     client_name: "",
     region: "",
-    start_date: "",
-    end_date: "",
+    start_date:null as Moment|null,
+    end_date:null as Moment | null,
+    comments:""
   });
+
   const [formData, setFormData] = useState({
-    msa_ref_id: '',
     client_name: '',
     region: '',
     start_date: null as Moment | null,
@@ -31,21 +33,10 @@ const EditMsaHandler = () => {
       autoFillMsa(msa_ref_id);
     }
   }, []);
-  const getMsaData = async (msa_ref_id: string) => {
-    try {
-      const data = await axios.get(
-        `http://127.0.0.1:8000/api/msa/list?msa_ref_id=${msa_ref_id}`
-      );
-      console.log(data.data);
-      return data;
-    } catch (error) {
-      console.error("Error fetching MSA data:", error);
-      return null;
-    }
-  };
+
   const autoFillMsa = async (msa_ref_id: string) => {
     try {
-      const data = await getMsaData(msa_ref_id);
+      const data = await getapi(msa_ref_id);
       const msa_data = data?.data;
       console.log("MSA from api::", msa_data);
       if (msa_data) {
@@ -69,55 +60,69 @@ const EditMsaHandler = () => {
           end_date: end_date, // Keeping as string
         }));
 
-        // Now, to log the updated state correctly, use a useEffect hook
-        // useEffect(() => {
-        //   console.log("Updated msaData:", msaData);
-        // }, [msaData]); //
+
       }
     } catch (error) {
       console.error("Error generating MSA ID:", error);
     }
   
   };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    // setFormData({ ...formData, [name]: value });
     setMsaData(prevState => ({
       ...prevState,
       [name]: value,
     }));
-  };
 
+  };
   const handleDateChange = (date: Moment | null, dateString: string | string[]) => {
     if (typeof dateString === 'string') {
-      setFormData({ ...formData, start_date: date });
+      setMsaData({ ...formData, start_date: date });
     } else {
-      setFormData({ ...formData, start_date: moment(dateString[0]) });
+      setMsaData({ ...formData, start_date: moment(dateString[0]) });
     }
   };
-  
   const handleEndDateChange = (date: Moment | null, dateString: string | string[]) => {
+    console.log("check end date",formData)
     if (typeof dateString === 'string') {
       setFormData({ ...formData, end_date: date });
     } else {
       setFormData({ ...formData, end_date: moment(dateString[0]) });
     }
   };
-
-  console.log(formData)
-  const SubmitAddMsa=async()=>{
+ 
+  console.log("Msa data when edited",msaData)
+  console.log("form data before setting",formData)
+  useEffect(() => {
+    setFormData({
+      client_name: msaData.client_name,
+      region: msaData.region,
+      start_date: msaData.start_date,
+      end_date: msaData.end_date,
+      comments: msaData.comments,
+    });
+  }, [msaData]);
+  const SubmitEditMsa=async()=>{
     try {
+
+      console.log('After setting',formData)
       const formDatatoSend = new FormData();
-      formDatatoSend.append('msa_ref_id', formData.msa_ref_id);
+
       formDatatoSend.append('client_name', formData.client_name);
+
       formDatatoSend.append('region', formData.region);
-      
-      // Format start_date and end_date
+
       formDatatoSend.append('start_date', moment(formData.start_date).format('YYYY-MM-DD'));
+
       formDatatoSend.append('end_date', moment(formData.end_date).format('YYYY-MM-DD'));
-      
+
       formDatatoSend.append('comments', formData.comments);
-      await postapi(formDatatoSend);
+     
+
+    // Send only the changed values to the API
+    await postapi(formDatatoSend,msa_ref_id);
+      // await postapi(formDatatoSend);
   
       form.resetFields();
     } catch (error) {
@@ -125,7 +130,7 @@ const EditMsaHandler = () => {
     }
   }
   console.log(msaData)
-  console.log(msa_ref_id)
+  console.log("Edit MSA Ref",msa_ref_id)
   return (
     
     <div>
@@ -133,9 +138,9 @@ const EditMsaHandler = () => {
       handleInputChange={handleInputChange}
       handleDateChange={handleDateChange}
       handleEndDateChange={handleEndDateChange}
-      SubmitAddMsa={SubmitAddMsa}
       msa_ref_id={msa_ref_id||""}
-      msaData={msaData} />
+      msaData={msaData} 
+      SubmitEditMsa={SubmitEditMsa}/>
     </div>
   );
 };
