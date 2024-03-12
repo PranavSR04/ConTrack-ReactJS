@@ -12,7 +12,7 @@ export interface EditMsaHandlertype{
 export interface MsaDataType{
     client_name: string;
      region: string; 
-     start_date: Moment | null; 
-     end_date: Moment | null; 
+     start_date: string; 
+     end_date: string; 
      comments:string;
 }

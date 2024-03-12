@@ -24,9 +24,14 @@ const NavBarHandler = () => {
   }, []);
   console.log(username);
 
+  const designation=localStorage.getItem('user_designation')
+
   return (
     <>
-      <NavBar username={username} />
+      <NavBar 
+      username={username}
+      designation={designation}
+      />
     </>
   );
 };

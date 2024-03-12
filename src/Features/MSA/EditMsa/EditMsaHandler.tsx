@@ -11,21 +11,22 @@ import { getapi } from "./api/getapi";
 const EditMsaHandler = () => {
   const { msa_ref_id } = useParams<string >();
   const [form] = Form.useForm();
+  const user_id: number = parseInt(localStorage.getItem('user_id') || "0");
 
   console.log(msa_ref_id);
   const [msaData, setMsaData] = useState({
     client_name: "",
     region: "",
-    start_date:null as Moment|null,
-    end_date:null as Moment | null,
+    start_date:"",
+    end_date:"",
     comments:""
   });
 
   const [formData, setFormData] = useState({
     client_name: '',
     region: '',
-    start_date: null as Moment | null,
-    end_date: null as Moment | null,
+    start_date: "",
+    end_date: "",
     comments: '',
   });
   useEffect(() => {
@@ -77,18 +78,19 @@ const EditMsaHandler = () => {
 
   };
   const handleDateChange = (date: Moment | null, dateString: string | string[]) => {
+    console.log("datestring:" , dateString)
     if (typeof dateString === 'string') {
-      setMsaData({ ...formData, start_date: date });
+      setMsaData({ ...msaData, start_date: dateString });
     } else {
-      setMsaData({ ...formData, start_date: moment(dateString[0]) });
+      // setMsaData({ ...msaData, start_date: moment(dateString[0]) });
     }
   };
   const handleEndDateChange = (date: Moment | null, dateString: string | string[]) => {
-    console.log("check end date",formData)
+    console.log("check end date",date)
     if (typeof dateString === 'string') {
-      setFormData({ ...formData, end_date: date });
+      setMsaData({ ...msaData, end_date: dateString });
     } else {
-      setFormData({ ...formData, end_date: moment(dateString[0]) });
+      // setMsaData({ ...msaData, end_date: moment(dateString[0]) });
     }
   };
  
@@ -121,7 +123,7 @@ const EditMsaHandler = () => {
      
 
     // Send only the changed values to the API
-    await postapi(formDatatoSend,msa_ref_id);
+    await postapi(formDatatoSend,msa_ref_id,user_id);
       // await postapi(formDatatoSend);
   
       form.resetFields();

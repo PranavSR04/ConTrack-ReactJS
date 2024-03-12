@@ -18,10 +18,9 @@ body{
 }
 .containerList{
     background-color: #ffffff;
-    margin-left: 2rem;
-    width: 940px;
-    margin-top: 13rem;
-    padding: 20px;
+    padding-left: 1%;
+    width: 62rem;
+    margin-top: 7rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     height: 260px;

@@ -82,6 +82,7 @@ const EditMsa = ({
 
         <DatePicker 
         className={styles.AddMsaDetails_inputs} 
+        format="YYYY-MM-DD"
         onChange={handleDateChange}/>
       </Form.Item>
       <Form.Item 
@@ -94,6 +95,7 @@ const EditMsa = ({
       <br/>
 
         <DatePicker 
+        format="YYYY-MM-DD"
         className={styles.AddMsaDetails_inputs} 
         onChange={handleEndDateChange}/>
       </Form.Item>
