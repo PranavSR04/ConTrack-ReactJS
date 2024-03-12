@@ -4,6 +4,7 @@ import { Condition } from ".";
 
 
 export const fetchDataFromApi = async (searchConditions: Condition, currentPage: number, pageSize: number, userId:number) => {
+  
     try {
       let  queryString:string[]=[];
         
