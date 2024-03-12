@@ -17,6 +17,8 @@ const AllContractsHandler = () => {
   const [isEmptySearch, setIsEmptySearch] = useState(false);
   const [actionClicked, setActionClicked]= useState<boolean>(false);
   const navigate=useNavigate();
+  const role_id = parseInt(localStorage.getItem('role_id') || '0', 10);    
+
   
 
   const [pagination, setPagination] = useState({
@@ -86,6 +88,11 @@ const AllContractsHandler = () => {
     setIsEmptySearch(true);    
   };
 
+  const rowClickHandler = (record: ContractData) => {
+    if (!actionClicked) {
+      navigate(`/contract`, { state: { id: record.id as string } });
+    }
+  };
   const getColumnSearchProps = (dataIndex: string) => {
     return{
     filterDropdown: ({ selectedKeys,confirm, setSelectedKeys}: { selectedKeys: React.Key[]; confirm: (param?: FilterConfirmProps) => void;setSelectedKeys: (selectedKeys: React.Key[]) => void;}) => { 
@@ -128,13 +135,17 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
   sorter: (a: ContractData, b: ContractData) => (a[key as keyof ContractData]).localeCompare(b[key as keyof ContractData]),
   sortDirections: ['ascend', 'descend'],
   ...getColumnSearchProps(key),
+  render: (text: any, record: ContractData) => (
+    <span onClick={() => rowClickHandler(record)}>
+      {text}
+    </span>
+  ),
 }));
 
 
-  const oneditPage = (id: string) => {
+  const oneditPage = (contract_id: string) => {
     setActionClicked(true);
-    window.alert('edit');
-    navigate(`editContract/${id}`)
+    navigate(`/editContract`, { state: { id: contract_id as string } });
   };
 
   columns.push({
@@ -144,7 +155,7 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
     sorter: (a: ContractData, b: ContractData) => a.contract_status.localeCompare(b.contract_status),
     sortDirections: ['ascend', 'descend'],
     ...getColumnSearchProps('contract_status'),
-    render: (status: string) => {
+    render: (status: string ,record:ContractData) => {
       // let color = 'green'; // Default color
       let className = 'status-active';
       if (status === 'On Progress') {
@@ -152,11 +163,15 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
       } else if (status === 'Closed') {
         className = 'status-closed';
       }  
-      return <Tag className={className} >{status}</Tag>;
-    },
+      return <Tag className={className} onClick={() => {
+        rowClickHandler(record);
+      }}>{status}</Tag>;
+    }, 
   });
   
-  columns.push({
+  
+ { role_id !==3 &&
+   columns.push({
     title: 'Action',
     key: 'action',
     render: (text:any, record:ContractData) => (
@@ -169,7 +184,7 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
         />
       </span>
     ),
-  });
+  });}
 
   return (
     <>

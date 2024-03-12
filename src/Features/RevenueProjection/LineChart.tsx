@@ -44,11 +44,25 @@ const LineChart = ({ revenueData, loading,error }: LineChartPropType) => {
 
 	const options = {
 		layout: {
-			// padding: {
-			// 	top: 11,
-			// },
+			padding: {
+				left: 90, // Increase the left padding to create space
+				
+			},
+			margin:{
+				left:90,
+			}
+			
 		},
 		scales: {
+			x: 
+				{
+				  
+				  ticks: {
+					stepSize: 9, // Increase the step size to create more space between points
+               		 count: 200,
+				  }
+				}
+			  ,
 			y: {
 				title: {
 					display: true,
@@ -73,7 +87,7 @@ const LineChart = ({ revenueData, loading,error }: LineChartPropType) => {
 							indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />}
 						/>
 					) : revenueData ? (
-						<Line data={data} options={options}>
+						<Line data={data} options={options} >
 							{" "}
 						</Line>
 					) : (
