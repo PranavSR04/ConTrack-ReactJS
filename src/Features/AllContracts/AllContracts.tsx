@@ -5,7 +5,7 @@ import styles from './contractsList.module.css'  ;
 import { AllContractsPropType, ContractData } from './types';
 import { useNavigate } from 'react-router';
 
-//This is the current working code
+
 
 const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading,}:AllContractsPropType) => {
   const navigate=useNavigate();
@@ -13,7 +13,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
 
   return (
     <>
-    <h2 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h2>
+    <h3 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h3>
     <div className={styles['contracts-table']}>
     {ROLE_ID !== 3 && (
     <Button className={styles['contracts-addContract']}>+ Add Contract</Button>
@@ -36,14 +36,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
       },
     }}
      onChange={handleTableChange }
-     onRow={(record) => ({
-     onClick: (e) => {
-      e.preventDefault();
-      if (!actionClicked) {
-        navigate(`/contract`,{state:{id:record.id as string}});
-      }
-    },
-  })} size='small'>
+    size='small'>
 </Table>
       {loading && <Spin size="large" />}
       </div>
