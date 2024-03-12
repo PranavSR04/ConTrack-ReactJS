@@ -37,8 +37,10 @@
   }
 
   .mainListContainer{
-    box-shadow: 0px 3px 8px rgba(37, 37, 37, 0.589);
+    /* box-shadow: 0px 2px 7px rgba(37, 37, 37, 0.589); */
+    /* border: 1px solid rgba(37, 37, 37, 0.589); */
     border-radius: 8px;
+    border-width:2px ;
 
     width: 95%;
     margin-left: 2rem;
@@ -110,6 +112,7 @@
     margin-top: 3rem ;
     margin-bottom: 3rem;
     border: 0.0625rem solid #a4a2a2d1;
+    border-radius: 0.375rem;
   }
 
   .viewAccessBox{
@@ -119,6 +122,8 @@
     margin-top: 3rem;
     margin-bottom: 3rem;
     border: 0.0625rem solid #a4a2a2d1; 
+    border-radius: 0.375rem;
+
    }
 
    .viewUpdateUserAccessBox{

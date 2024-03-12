@@ -2,7 +2,7 @@ import React from 'react'
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 import UpdateModal from './UpdateModal';
 import userTableStyles from './ManagerUsers.module.css'
-import { Table,Spin, Modal, message, Input, Button, Select, AutoComplete, TablePaginationConfig,PaginationProps } from "antd";
+import { Table,Spin, Modal, message, Input, Button, Select, AutoComplete, TablePaginationConfig,PaginationProps, Card } from "antd";
 import { ManageUserHandlerPropType, ManageUsersPropType } from './types';
 import Toast from '../../Components/Toast/Toast';
 
@@ -88,7 +88,7 @@ const ManageUsers = (
         />:<></>
         }
 
-      <div className={`${userTableStyles.mainListContainer}`}>
+      <Card className={`${userTableStyles.mainListContainer}`}>
 
           <Input
             className={`${userTableStyles.searchUserBox}`}
@@ -99,14 +99,28 @@ const ManageUsers = (
             <Table
               className={`${userTableStyles.userListTable}`}
               columns={columns}
+              size='middle'
               dataSource={dataSource}
               rowClassName={rowClassName}
-              pagination={pagination}
+              pagination={{
+                position: ['bottomCenter'],
+                ...pagination, 
+                itemRender: (current, type, originalElement) => {
+                  if (type === 'page') {
+                    return (
+                      <a style={{ background: current === pagination.current ? '#DC143C' : '',color: current === pagination.current ? 'white' : '',borderBlockColor: '#DC143C' ,border: 'none' }}>
+                        {current}
+                      </a>
+                    );
+                  }
+                  return originalElement;
+                },
+              }}              
               onChange={handlePageChange}
               loading={{ indicator: <div><Spin /></div>, spinning:loading}}
               // }
             />
-        </div>
+        </Card>
       </div>
 
       <UpdateModal
