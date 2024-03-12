@@ -1,26 +1,31 @@
 import React from "react";
-import { Button,  Form,Input } from "antd";
+import { Button, Card, Form, Input } from "antd";
 import { LoginPropType, userDetailsType } from "./types";
+import styles from "./Login.module.css";
+import logo from "../../img/Subtract.png";
 
-
-
-
-const Login = (
-    {
-        onFinish,
-        onFinishFailed
-    }:LoginPropType
-) => {
+const Login = ({ onFinish, onFinishFailed }: LoginPropType) => {
 	return (
-		<div className="container-fluid">
-			<div className="row">
-				<div className="col-md-6"></div>
-				<div className="col-md-6 border-left">
+		<>
+			
+			<div className={styles.container}>
+			<div className={styles.logo}>
+				<img src={logo} alt="contrack logo" className={styles.logoimg} />
+				ConTrack
+			</div>
+				<div className={styles.left}>
+					<h1 className={styles.heading}>
+						Contract <br></br>Management <br></br>System
+					</h1>
+				</div>
+				<div className={styles.right}>
+					<Card className={styles.card}>
+					<h4>Login </h4>
 					<Form
 						name="loginform"
 						onFinish={onFinish}
 						onFinishFailed={onFinishFailed}
-						style={{ maxWidth: 500, margin: "100px", marginTop: "150px" }}
+						style={{ maxWidth: 500,  marginTop: "6rem" }}
 					>
 						<Form.Item<userDetailsType>
 							label="Usermail"
@@ -46,9 +51,10 @@ const Login = (
 							</Button>
 						</Form.Item>
 					</Form>
+					</Card>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
