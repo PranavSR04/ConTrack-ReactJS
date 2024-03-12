@@ -45,7 +45,10 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
             localStorage.clear();
             localStorage.setItem("access_token", response.access_token);
 			localStorage.setItem("user_id",response.contrackUser.id.toString());
+			localStorage.setItem("role_id",response.contrackUser.role_id.toString());
 			localStorage.setItem("user", JSON.stringify(response.user));
+		}else{
+			alert("Not Autorized")
 		}
 		return response;
 	};

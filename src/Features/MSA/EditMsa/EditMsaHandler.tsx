@@ -67,11 +67,12 @@ const autoFillMsa = async (msa_ref_id:string) => {
 
 };
   return (
-    <div>
-    <EditMsa 
-    msaData={msaData}/>
+    <></>
+    // <div>
+    // <EditMsa 
+    // // msaData={msaData}/>
       
-    </div>
+    // </div>
   )
 }
 
