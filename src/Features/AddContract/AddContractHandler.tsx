@@ -53,7 +53,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     ],
     associatedMembers: [],
     file: null as RcFile | null,
-    commentsRemarks: "",
+    comments: "",
     estimated_amount: null,
     contract_added_by: 3,
   });
@@ -174,7 +174,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     const value = e.target.value;
     setContractDetails({
       ...contractDetails,
-      commentsRemarks: value,
+      comments: value,
     });
   };
 
@@ -696,7 +696,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                     <Input.TextArea
                       rows={8}
                       placeholder="Enter comments and remarks..."
-                      value={contractDetails.commentsRemarks ?? ""}
+                      value={contractDetails.comments ?? ""}
                       onChange={handleCommentsRemarksChange}
                     />
                   </Form.Item>
@@ -965,7 +965,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                     <Input.TextArea
                       rows={8}
                       placeholder="Enter comments and remarks..."
-                      value={contractDetails.commentsRemarks ?? ""}
+                      value={contractDetails.comments ?? ""}
                       onChange={handleCommentsRemarksChange}
                     />
                   </Form.Item>
