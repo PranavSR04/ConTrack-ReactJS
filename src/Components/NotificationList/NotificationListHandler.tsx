@@ -25,8 +25,9 @@ const NotificationListHandler = () => {
                 setIsLoading(true);
                 setIsError(false);
                 setError('');
-
-                const response = await fetchNotification(page, 10,1);
+                const SENDTO_ID = parseInt(localStorage.getItem("user_id") || '0', 10);
+                console.log("user id from local",SENDTO_ID)
+                const response = await fetchNotification(page, 10,SENDTO_ID);
                 if (!('data' in response)) {
                     throw new Error('Invalid response structure');
                 }
