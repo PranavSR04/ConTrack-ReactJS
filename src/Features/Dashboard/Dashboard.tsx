@@ -12,7 +12,7 @@ const Dashboard = () => {
   return (
     <>
     <div className={styles['dashboard-div1']}>
-    <h1 >Hello {user_name}</h1>
+    <h2 className={styles['dashboard-name']}>Hello {user_name}</h2>
     <Card >
       <ContractsCount/>
     </Card>

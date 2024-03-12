@@ -8,7 +8,7 @@ export const fetchMyContractsApi = async (
   searchConditions: Condition,
   currentPage: number,
   pageSize: number,
-  userId: number
+  userId: string
 ) => {
   try {
     let queryString: string[] = [];
