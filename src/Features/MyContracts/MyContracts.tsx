@@ -6,7 +6,7 @@ import { FilterConfirmProps, SortOrder } from 'antd/lib/table/interface';
 import styles from '../AllContracts/contractsList.module.css'  ;
 import { fetchDataFromApi } from './api/getContracts';
 
-const userId=1;
+const userId=5;
 export interface Condition {
   [field:string]: string;
 }

@@ -32,7 +32,10 @@ const ManageUsers = (
     userAdded,
     loading,
     userUpdated,
-    userDeleted
+    userDeleted,
+    showToast,
+    emptyUserToast,
+    employeeNotFoundToast
   }:ManageUsersPropType) => {
   return (
 <>  
@@ -87,6 +90,12 @@ const ManageUsers = (
         messageType={"warning"}
         />:<></>
         }
+
+{showToast && <Toast message="User Already Exists" messageType="error" />}
+{emptyUserToast && <Toast message="No User Found" messageType="error" />}
+{employeeNotFoundToast && <Toast message="No Employee Found" messageType="error" />}
+
+
 
       <Card className={`${userTableStyles.mainListContainer}`}>
 

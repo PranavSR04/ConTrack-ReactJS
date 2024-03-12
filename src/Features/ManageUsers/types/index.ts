@@ -40,6 +40,9 @@ export interface ManageUsersPropType{
   userAdded:boolean
   userUpdated:boolean
   userDeleted:boolean
+  showToast:boolean
+  emptyUserToast:boolean
+  employeeNotFoundToast:boolean
 }
 
 export interface ManageUserHandlerPropType{
