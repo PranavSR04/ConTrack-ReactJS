@@ -1,6 +1,6 @@
-import React from 'react';
-import { Modal, Button } from 'antd';
-import userTableStyles from './ManagerUsers.module.css'
+import React from "react";
+import { Modal, Button } from "antd";
+import userTableStyles from "./ManagerUsers.module.css";
 
 interface DeleteConfirmationModalProps {
   visible: boolean;
@@ -9,7 +9,12 @@ interface DeleteConfirmationModalProps {
   userName: string;
 }
 
-const DeleteConfirmationModal = ({ visible, onCancel, onConfirm, userName }: DeleteConfirmationModalProps) => {
+const DeleteConfirmationModal = ({
+  visible,
+  onCancel,
+  onConfirm,
+  userName,
+}: DeleteConfirmationModalProps) => {
   const title = "Do You Really Wish To Remove";
 
   return (
@@ -19,10 +24,19 @@ const DeleteConfirmationModal = ({ visible, onCancel, onConfirm, userName }: Del
       onCancel={onCancel}
       className={userTableStyles.customDeleteConfirmation}
       footer={[
-        <Button key="cancel" className={userTableStyles.customButton} onClick={onCancel}>
+        <Button
+          key="cancel"
+          className={userTableStyles.customButton}
+          onClick={onCancel}
+        >
           No
         </Button>,
-        <Button key="confirm" type="primary" className={userTableStyles.customButtonYes} onClick={onConfirm}>
+        <Button
+          key="confirm"
+          type="primary"
+          className={userTableStyles.customButtonYes}
+          onClick={onConfirm}
+        >
           Yes
         </Button>,
       ]}
