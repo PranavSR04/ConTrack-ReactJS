@@ -7,14 +7,18 @@ import { useNavigate } from 'react-router';
 
 //This is the current working code
 
-const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading}:AllContractsPropType) => {
+const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading,}:AllContractsPropType) => {
   const navigate=useNavigate();
+  const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
+
   return (
     <>
     <h2 className={styles['contracts-h1']}>CONTRACTS OVERVIEW</h2>
     <div className={styles['contracts-table']}>
-     <Button className={styles['contracts-addContract']}>+ Add Contract</Button>
-     <Table className={styles['contracts-tableHead']}
+    {ROLE_ID !== 3 && (
+    <Button className={styles['contracts-addContract']}>+ Add Contract</Button>
+  )}     
+    <Table className={styles['contracts-tableHead']}
      columns={columns as ColumnsType<ContractData>}
      dataSource={data.map((item) => ({ ...item, key: item.id }))}
      pagination={{
