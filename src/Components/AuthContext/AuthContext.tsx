@@ -9,6 +9,7 @@ import { AxiosError } from "axios";
 import { postLogin } from "./api/postLogin";
 import { useNavigate } from "react-router";
 import { postLogout } from "./api/postLogout";
+import { Button,Modal } from "antd";
 
 export const Auth = createContext<AuthContextType>({
 	accessToken: "",
@@ -24,7 +25,10 @@ export const Auth = createContext<AuthContextType>({
 	login: (details: userDetailsType): Promise<LoginResponse | AxiosError> => {
 		return postLogin(details);
 	},
-	logout: (): Promise<void | AxiosError>=>{return Promise.resolve();}
+	logout: (): Promise<void | AxiosError>=>{return Promise.resolve();},
+	isModalOpen:false,
+	handleOk:()=>{},
+	handleCancel:()=>{}
 	
 });
 
@@ -32,6 +36,18 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 	const [currentUser, setCurrentUser] = useState<UserType | undefined>();
 	const navigate = useNavigate();
 	const [accessToken, setAccessToken] = useState<string>("");
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const showModal = () => {
+		setIsModalOpen(true);
+	  };
+	
+	  const handleOk = () => {
+		setIsModalOpen(false);
+	  };
+	
+	  const handleCancel = () => {
+		setIsModalOpen(false);
+	  };
 
 	const login = async (
 		userDetails: userDetailsType
@@ -55,7 +71,8 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 			localStorage.setItem("role_id",response.contrackUser.role_id.toString());
 			localStorage.setItem("user", JSON.stringify(response.user));
 		}else{
-			alert("Not Autorized")
+			showModal();
+		
 		}
 		return response;
 	};
@@ -84,7 +101,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
    
 	return (
 		<div>
-			<Auth.Provider value={{ accessToken, currentUser, login, logout }}>
+			<Auth.Provider value={{ accessToken, currentUser, login, logout,isModalOpen, handleOk,handleCancel}}>
 				{children}
 			</Auth.Provider>
 		</div>

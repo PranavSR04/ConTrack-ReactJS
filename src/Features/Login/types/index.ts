@@ -6,6 +6,9 @@ export type userDetailsType ={email_id:string;password:string}
 export interface LoginPropType{
     onFinish:(values: userDetailsType) => void;
     onFinishFailed: (errorInfo: ValidateErrorEntity<userDetailsType>) => void;
+    isModalOpen:boolean,
+    handleOk:()=>void,
+    handleCancel:()=>void
 } 
 
 // Interface for the user object within the successful response

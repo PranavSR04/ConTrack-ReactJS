@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Login from "./Login";
 import {LoginResponse, userDetailsType } from "./types";
 import { type FormProps } from "antd";
@@ -8,9 +8,10 @@ import { AxiosError } from "axios";
 
 const LoginHandler = () => {
     
-    const {login}= useContext(Auth);
+    const {login,handleOk,isModalOpen,handleCancel}= useContext(Auth);
 
     const navigate=useNavigate();
+  
 
 	const onFinish: FormProps<userDetailsType>["onFinish"] = async (values) => {
 		console.log("Success:", values);
@@ -29,8 +30,10 @@ const LoginHandler = () => {
     
            }
 
+
     
 	};
+    
 
 	const onFinishFailed: FormProps<userDetailsType>["onFinishFailed"] = (
 		errorInfo
@@ -41,6 +44,10 @@ const LoginHandler = () => {
         <Login
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
+        isModalOpen={isModalOpen}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+
         />
     );
 };
