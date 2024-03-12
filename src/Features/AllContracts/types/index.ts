@@ -37,5 +37,7 @@ export interface AllContractsPropType{
   pagination:paginations;
   handleTableChange:(pagination:TablePaginationConfig)=> void;
   actionClicked:boolean;
-  loading:boolean
+  loading:boolean;
+  pageTitle:string;
+  rowClassName:(record:ContractData, index: number)=> string
 }
