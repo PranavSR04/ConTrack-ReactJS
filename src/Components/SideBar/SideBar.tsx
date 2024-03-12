@@ -8,6 +8,9 @@ import { Auth } from '../../Components/AuthContext/AuthContext';
   const SideBar = ({children}:SideBarPropType) => {
     const {logout}= useContext(Auth);
     const access_token = localStorage.getItem('access_token');
+    const role_id = parseInt(localStorage.getItem('role_id') || '0', 10);    
+    console.log('role_id from local storage',role_id)
+
     const handleLogout = async () => {
         try {
             access_token && await logout(); // Assuming logout function does not require parameters
@@ -18,15 +21,17 @@ import { Auth } from '../../Components/AuthContext/AuthContext';
         }
       };
   const[isActiveIndex,setIsActiveIndex]=useState<number>();
-  const sideBarItem = 
-    [
-      { path: '/dashboard', name: 'Dashboard', icon: <FaBars /> },
-      { path: '/msa', name: 'MSA', icon: <FaFileAlt /> },
-      { path: '/AllContracts', name: 'Contracts', icon: <FaCopy /> },
-      { path: '/MyContracts', name: 'My Contracts', icon: <FaFileAlt /> },
-      { path: '/revenue', name: 'Revenue', icon: <FaRegChartBar /> },
-      { path: '/ManageUser', name: 'ManageUser', icon: <FaUserCog /> }
-    ];
+  const commonSideItems = [
+    { path: '/dashboard', name: 'Dashboard', icon: <FaBars /> },
+    { path: '/msa', name: 'MSA', icon: <FaFileAlt /> },
+    { path: '/AllContracts', name: 'Contracts', icon: <FaCopy /> },
+    { path: '/MyContracts', name: 'MyContracts', icon: <FaFileAlt /> },
+    { path: '/revenue', name: 'Revenue', icon: <FaRegChartBar /> },
+  ];
+
+  const superadminSideItem = { path: '/ManageUser', name: 'ManageUser', icon: <FaUserCog /> };
+
+  const sideBarItem = role_id === 1 ? [...commonSideItems, superadminSideItem] : commonSideItems;
   const onClickActive=(index:number)=>
   {
       setIsActiveIndex(index);

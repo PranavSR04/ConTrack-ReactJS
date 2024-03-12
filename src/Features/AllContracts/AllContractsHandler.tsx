@@ -14,6 +14,9 @@ const AllContractsHandler = () => {
   const [isEmptySearch, setIsEmptySearch] = useState(false);
   const [actionClicked, setActionClicked]= useState<boolean>(false);
   const navigate=useNavigate();
+  const role_id = parseInt(localStorage.getItem('role_id') || '0', 10);    
+
+  
 
   const [pagination, setPagination] = useState({
     current: 1,
@@ -161,7 +164,9 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
     }, 
   });
   
-  columns.push({
+  
+ { role_id !==3 &&
+   columns.push({
     title: 'Action',
     key: 'action',
     render: (text:any, record:ContractData) => (
@@ -174,7 +179,7 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
         />
       </span>
     ),
-  });
+  });}
 
   return (
     <>
