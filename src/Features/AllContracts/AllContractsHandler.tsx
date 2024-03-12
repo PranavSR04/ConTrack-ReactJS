@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Spin, Table, Tag } from 'antd';
-import { ColumnsType } from 'antd/es/table';
 import { FilterConfirmProps, TablePaginationConfig } from 'antd/lib/table/interface';
-import styles from './contractsList.module.css'  ;
 import { fetchDataFromApi } from './api/AllContracts';
 import { fetchMyContractsApi } from './api/MyContracts';
 import { ContractData ,TableColumn} from './types';
 import AllContracts from './AllContracts';
-import { AllContractsPropType } from './types';
 import { useNavigate } from 'react-router';
 const AllContractsHandler = () => {
   const [data, setData] = useState<ContractData[]>([]); 
@@ -17,7 +14,6 @@ const AllContractsHandler = () => {
   const [isEmptySearch, setIsEmptySearch] = useState(false);
   const [actionClicked, setActionClicked]= useState<boolean>(false);
   const navigate=useNavigate();
-  
 
   const [pagination, setPagination] = useState({
     current: 1,
@@ -28,8 +24,6 @@ const AllContractsHandler = () => {
     fetchData(); // Fetch initial data
   }, [searchConditions, pagination.current, pagination.pageSize, window.location.href]); // Refetch data when searchText or searchField changes
 
-
-
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -39,8 +33,8 @@ const AllContractsHandler = () => {
       console.log('location',pagePath);
 //get Api for MyContracts
       if(pagePath==='MyContracts'){
-        console.log('MyC');
-        const result = await fetchMyContractsApi(searchConditions, pagination.current, pagination.pageSize,1);
+        const user_id=localStorage.getItem('user_id') as string; //get user id
+        const result = await fetchMyContractsApi(searchConditions, pagination.current, pagination.pageSize,user_id);
       setData(result.data);
       console.log('result:',result.data)
       console.log('toatal page',result.total);
