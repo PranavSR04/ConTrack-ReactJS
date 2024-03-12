@@ -18,6 +18,9 @@ import EditMsaHandler from "../MSA/EditMsa/EditMsaHandler";
 import RenewMsaHandler from "../MSA/RenewMsa/RenewMsaHandler";
 
 const AppRoutes = () => {
+
+	const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);
+
   return (
     <div>
       <BrowserRouter>
@@ -29,13 +32,17 @@ const AppRoutes = () => {
               <Route path="/dashboard" element={<><NavBarHandler/><SideBar><Dashboard/></SideBar></>}></Route>
 			  <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
               <Route path="/revenue" element={<><NavBarHandler/><SideBar><RevenueProjectionHandler/></SideBar></>}></Route>
-			  <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>
+
+			{ROLE_ID===1 ?<Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>:
+			<Route path="/manageUser" element={<h1>403 Page</h1>}/>}
+			{/* <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route> */}
+
 			  <Route path="/allContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
 			  <Route path="/myContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
-        <Route path="/MSA" element={<><NavBarHandler/><SideBar><ListMsaHandler/></SideBar></>}></Route>
-				<Route path="/msa/add" element={<><NavBarHandler/><SideBar><AddMsaHandler/></SideBar></>}></Route>
-				<Route path="/msa/edit/:msa_ref_id" element={<><NavBarHandler/><SideBar><EditMsaHandler/></SideBar></>}></Route>
-				<Route path="/msa/renew/:msa_ref_id" element={<><NavBarHandler/><SideBar><RenewMsaHandler/></SideBar></>}></Route>
+       		  <Route path="/MSA" element={<><NavBarHandler/><SideBar><ListMsaHandler/></SideBar></>}></Route>
+			  <Route path="/msa/add" element={<><NavBarHandler/><SideBar><AddMsaHandler/></SideBar></>}></Route>
+			  <Route path="/msa/edit/:msa_ref_id" element={<><NavBarHandler/><SideBar><EditMsaHandler/></SideBar></>}></Route>
+			  <Route path="/msa/renew/:msa_ref_id" element={<><NavBarHandler/><SideBar><RenewMsaHandler/></SideBar></>}></Route>
 				
             </Routes>
 					</NavContext>

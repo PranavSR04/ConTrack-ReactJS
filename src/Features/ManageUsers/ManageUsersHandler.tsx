@@ -43,6 +43,7 @@ const ManageUsersHandler = () => {
     pageSize: 3,
     total: 0,
   });
+
   const [userToBeUpdated,setUserToBeUpdated]=useState<string>("")
 
   //To list the users in the table 
