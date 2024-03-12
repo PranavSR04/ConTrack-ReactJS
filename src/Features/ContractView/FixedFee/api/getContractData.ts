@@ -5,7 +5,7 @@ import axiosInstance from "../../../../Config/AxiosConfig";
 export const getContractData = async (id:string):Promise<ContractApiType| AxiosError> => {
   console.log("axio id", id)
   return await axiosInstance
-    .get(`/api/contract/getlist/${id}`)
+    .get(`/api/contract/list/${id}`)
     .then((res) => res.data)
     .catch((err) => err);
 };

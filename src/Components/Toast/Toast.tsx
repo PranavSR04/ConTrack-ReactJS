@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { Button, notification, Space } from 'antd';
+import { ToastProps } from '.';
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
-const Toast = () => {
-  let actionMessage="user deleted successfully";
-  let messageType='success';
+const Toast = ( {message,messageType}:ToastProps) => {
 
   const [noti, contextHolder] = notification.useNotification();
 
@@ -20,8 +19,8 @@ const Toast = () => {
   };
   
   useEffect(() => {
-    const dynamicMessage = 'User deleted successfully';
-    const dynamicType = 'success';
+    const dynamicMessage = message;
+    const dynamicType = messageType;
     openNotificationWithIcon(dynamicType, dynamicMessage);
 
   }, []); 

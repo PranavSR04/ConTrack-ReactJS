@@ -1,0 +1,129 @@
+.body{
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.oddRow {
+    background-color:#f6fbfe /* Set the background color for even rows */
+  }
+  
+  /* Optionally, you can add styles for odd rows as well */
+  .evenRow {
+    background-color: #ffffff; /* Set the background color for odd rows */
+  }
+
+  .pagination-icons {
+    color: rgb(188, 14, 14);
+  }
+ 
+  .wholeTable {
+    /* Add your styling for the table wrapper here */
+    width: 80%;
+    /* margin-left: 15.625rem; */
+    margin-top : 8rem;
+    /* border-radius: 5px; */
+    box-shadow: 0px 3px 8px rgba(37, 37, 37, 0.589);
+    margin-bottom: 7rem;
+    padding-bottom:1rem;
+    border-radius: 10%;
+    /* background-color: #f8f8f8; */
+  }
+
+  .mainListContainer{
+    box-shadow: 0px 3px 8px rgba(37, 37, 37, 0.589);
+    border-radius: 10px;
+    width: 95%;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .userListTable{
+    width: 100%;
+    
+    /* margin-left: 2rem;
+    margin-right: 2rem; */
+    /* box-shadow: 0px 3px 8px rgba(37, 37, 37, 0.589); */
+  }
+  
+  .ant-modal .ant-modal-content {
+    height: 20rem;
+  }
+
+  .customPagination{
+    text-align: center;
+  }
+
+  .customDeleteConfirmation {
+    /* Your custom styles go here */
+    border-radius: 10rem;
+    height: 10rem;
+    
+    /* Center-align the content */
+    text-align: center;
+  }
+  
+  /* Center-align the footer buttons */
+  .customFooter {
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .myCustomAlertPopup {
+    background-color: #f0f0f0;
+    width: 12rem;
+    height: 24rem;
+  }
+  
+
+  
+  
+  /* Optional: Style the Yes/No buttons */
+  .customButton {
+    margin-right:1rem; 
+    /* justify-content: center; */
+  }
+
+  .customButtonYes {
+    margin-right:11rem;
+    background-color: #dc143c; 
+    /* justify-content: center; */
+  }
+
+  .searchEmployeeBox{
+    width:15rem;
+    height: 3rem;
+    margin-left: 8rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    border: 0.0625rem solid #a4a2a2d1;
+  }
+
+  .viewAccessBox{
+    width:15rem;
+    height: 3rem;
+    margin-left: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    border: 0.0625rem solid #a4a2a2d1; 
+   }
+
+   .addUserButton{
+    width:6rem;
+    height: 3rem;
+    margin-left: 5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    color: white;
+    background-color: #000000;
+   }
+
+  .searchUserBox{
+    width: 25rem;
+    margin-left: 10rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    /* border: '5px solid #808080' */
+  }
