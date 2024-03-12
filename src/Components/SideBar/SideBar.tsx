@@ -23,7 +23,7 @@ import { Auth } from '../../Components/AuthContext/AuthContext';
       { path: '/dashboard', name: 'Dashboard', icon: <FaBars /> },
       { path: '/msa', name: 'MSA', icon: <FaFileAlt /> },
       { path: '/AllContracts', name: 'Contracts', icon: <FaCopy /> },
-      { path: '/MyContracts', name: 'MyContracts', icon: <FaFileAlt /> },
+      { path: '/MyContracts', name: 'My Contracts', icon: <FaFileAlt /> },
       { path: '/revenue', name: 'Revenue', icon: <FaRegChartBar /> },
       { path: '/ManageUser', name: 'ManageUser', icon: <FaUserCog /> }
     ];

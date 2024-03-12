@@ -30,7 +30,6 @@ const AppRoutes = () => {
 			  <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
               <Route path="/revenue" element={<><NavBarHandler/><SideBar><RevenueProjectionHandler/></SideBar></>}></Route>
 			  <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>
-
 			  <Route path="/allContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
 			  <Route path="/myContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
         <Route path="/MSA" element={<><NavBarHandler/><SideBar><ListMsaHandler/></SideBar></>}></Route>
