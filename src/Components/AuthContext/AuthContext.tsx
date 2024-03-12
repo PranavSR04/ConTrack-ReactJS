@@ -54,6 +54,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 	): Promise<LoginResponse | AxiosError> => {
 		console.log(userDetails);
 		const response: LoginResponse = await postLogin(userDetails);
+		console.log(response)
 		if (!(response instanceof AxiosError)) {
 			console.log("Logged User Details",response.contrackUser);
 			setCurrentUser(response.user);
@@ -61,7 +62,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
             localStorage.clear();
 
             localStorage.setItem("access_token", response.access_token);
-			localStorage.setItem("user_id",response.contrackUser.id.toString());
+			response.contrackUser.id ? localStorage.setItem("user_id",response.contrackUser.id.toString()):localStorage.setItem("user_id","");
 			const userDesignation = response.contrackUser.user_designation;
 			
 			// Check if user_designation is not null before storing in localStorage
