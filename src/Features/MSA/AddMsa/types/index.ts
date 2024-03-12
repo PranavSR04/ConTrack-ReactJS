@@ -12,7 +12,7 @@ export interface MsaDataType{
 export interface AddMsaPropsType{
     msaRefId: string | undefined;
     fileName: string | undefined;
-
+    msaAdded:boolean;
     handleFileUpload: (info: any) => void;
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     handleDateChange: (date: Moment | null, dateString: string | string[]) => void;

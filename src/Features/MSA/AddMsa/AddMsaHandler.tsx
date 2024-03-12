@@ -8,6 +8,7 @@ import { postapi } from './api/postapi';
 
 const AddMsaHandler = () => {
     const [form] = Form.useForm();
+    const[msaAdded,setMsaAdded]=useState<boolean>(false);
     const [msaRefId,setMsaRefId]=useState<string>();
     const [fileName,setFileName]=useState<string>();
     useEffect( ()=>{
@@ -89,7 +90,7 @@ const AddMsaHandler = () => {
           formDatatoSend.append('comments', formData.comments);
           formDatatoSend.append('file', formData.file||'');
           await postapi(formDatatoSend);
-      
+          setMsaAdded(true);
           form.resetFields();
           generateMsaId();
         } catch (error) {
@@ -106,6 +107,7 @@ const AddMsaHandler = () => {
       handleEndDateChange={handleEndDateChange}
       SubmitAddMsa={SubmitAddMsa}
       fileName={fileName}
+      msaAdded={msaAdded}
       />
     </div>
   )

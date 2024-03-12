@@ -5,9 +5,17 @@ import { PlusOutlined } from '@ant-design/icons'
 import TextArea from 'antd/es/input/TextArea'
 import { EditMsaHandlertype } from './types'
 import { values } from '@ant-design/plots/es/core/utils'
+import moment from 'moment'
 const EditMsa = ({
-  msaData
+  msaData,
+  msa_ref_id,
+  handleInputChange,
+  handleDateChange,
+  handleEndDateChange
 }:EditMsaHandlertype) => {
+  console.log("start date:", msaData.start_date)
+  const formattedStartDate = moment(msaData.start_date);
+  const formattedEndDate = moment(msaData.end_date);
   return (
     <>
     <div className={styles.AddMsa}>
@@ -28,7 +36,7 @@ const EditMsa = ({
         >MSA Reference ID <br/>
         <Input 
         name="msa_ref_id"
-        value={msaData.msa_ref_id} 
+        value={msa_ref_id}
         readOnly
         className={styles.AddMsaDetails_inputs}
         />
@@ -43,6 +51,7 @@ const EditMsa = ({
          name="client_name" 
          value={msaData.client_name}
          className={styles.AddMsaDetails_inputs}
+         onChange={handleInputChange}
 />      </Form.Item>
       <Form.Item 
         className={styles.AddMsaDetails_row1_col3}
@@ -66,9 +75,11 @@ const EditMsa = ({
       required>Start Date
       <span className={styles.AddMsaDetails_star}>*</span>
       <br/>
+      
         <DatePicker
         format="DD-MM-YYYY"
-        value={msaData.start_date}
+        value={formattedStartDate.isValid() ? formattedStartDate : null}
+        // value={formattedStartDate}
         className={styles.AddMsaDetails_inputs}
         />
       </Form.Item>
@@ -81,7 +92,8 @@ const EditMsa = ({
       <br/>
         <DatePicker 
         format="DD-MM-YYYY"
-        value={msaData.end_date}
+        value={formattedEndDate.isValid() ? formattedEndDate : null}
+        // value={msaData.end_date}
         className={styles.AddMsaDetails_inputs}
         />
       </Form.Item>
