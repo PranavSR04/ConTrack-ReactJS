@@ -18,20 +18,99 @@ const AppRoutes = () => {
     <div>
       <BrowserRouter>
         <AuthContext>
-				<NavContext>
+          <NavContext>
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
               <Route path="/login" element={<LoginHandler />}></Route>
-              <Route path="/dashboard" element={<><NavBarHandler/><SideBar></SideBar></>}></Route>
-			  <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
-              <Route path="/revenue" element={<><NavBarHandler/><SideBar><RevenueProjectionHandler/></SideBar></>}></Route>
-			  <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>
+              <Route
+                path="/dashboard"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar></SideBar>
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/contract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <FixedFeeHandler />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/revenue"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <RevenueProjectionHandler />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/manageUser"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <ManageUsersHandler />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
 
-			  <Route path="/allContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
-			  <Route path="/myContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
-					
+              <Route
+                path="/allContracts"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AllContractsHandler />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/myContracts"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AllContractsHandler />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/manageUser"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <ManageUsersHandler />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/addContract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AddContract />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
             </Routes>
-					</NavContext>
+          </NavContext>
         </AuthContext>
       </BrowserRouter>
     </div>

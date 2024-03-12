@@ -1,22 +1,28 @@
+export interface RcFile extends File {
+  uid: string;
+}
+
 export interface Milestone {
   milestones: string | null;
   expectedCompletionDate: Date | null;
-  paymentPercentage?: number | null;
-  paymentAmount: number | null;
+  percentage?: number | null;
+  amount: number | null;
 }
 
 export interface ContractDetails {
+  msa_id: string;
   clientName: string;
-  contractId: string;
+  contract_ref_id: string;
   region: string;
   du: string;
-  startDate: string;
-  endDate: string;
-  dateOfSignature: string;
-  contractType: string | null;
-  totalContractValue: number | null;
-  milestones: Milestone[];
+  start_date: string;
+  end_date: string;
+  date_of_signature: string;
+  contract_type: 'FF' | 'TM' ;
+  milestone: Milestone[];
   associatedMembers: string[];
-  workSchedule: File | null;
+  file: RcFile | null;
   commentsRemarks: string | null;
+  estimated_amount: number | null;
+  contract_added_by: number;
 }

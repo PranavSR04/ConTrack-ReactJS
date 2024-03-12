@@ -14,12 +14,17 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import { Upload } from "antd";
-import { Milestone, ContractDetails } from "./types/AddContractTypes";
+import { Milestone, ContractDetails, RcFile } from "./types/AddContractTypes";
 import styles from "./AddContract.module.css";
 import "./api/api";
 import dayjs from "dayjs";
 import { getMSA } from "./api/getMSA";
 import { AxiosResponse } from "axios";
+import { addContract } from "./api/api";
+import { UploadRequestOption } from "rc-upload/lib/interface";
+import moment from "moment";
+
+// import { RcFile } from "antd/lib/upload";
 
 interface AddContractHandlerProps {
   onSubmit: (data: ContractDetails) => void;
@@ -29,30 +34,32 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
   onSubmit,
 }) => {
   const [contractDetails, setContractDetails] = useState<ContractDetails>({
+    msa_id: "",
     clientName: "",
-    contractId: "",
+    contract_ref_id: "",
     region: "",
     du: "",
-    startDate: "",
-    endDate: "",
-    dateOfSignature: "",
-    contractType: null,
-    totalContractValue: null,
-    milestones: [
+    start_date: "",
+    end_date: "",
+    date_of_signature: "",
+    contract_type: "TM",
+    milestone: [
       {
-        milestones: null,
+        milestones: "",
         expectedCompletionDate: null,
-        paymentPercentage: null,
-        paymentAmount: null,
+        percentage: null,
+        amount: null,
       },
     ],
     associatedMembers: [],
-    workSchedule: null as File | null,
+    file: null as RcFile | null,
     commentsRemarks: "",
+    estimated_amount: null,
+    contract_added_by: 3,
   });
 
   const [milestones, setMilestones] = useState<Milestone[]>(
-    contractDetails.milestones
+    contractDetails.milestone
   );
 
   const [clientNameOptions, setClientNameOptions] = useState<
@@ -77,10 +84,10 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
 
   const [contractType, setContractType] = useState<string | null>(null);
 
-  const handleContractTypeChange = (value: string) => {
+  const handleContractTypeChange = (value: "FF" | "TM") => {
     setContractDetails({
       ...contractDetails,
-      contractType: value,
+      contract_type: value,
     });
     setContractType(value);
   };
@@ -89,10 +96,10 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     setMilestones([
       ...milestones,
       {
-        milestones: null,
+        milestones: "",
         expectedCompletionDate: null,
-        paymentPercentage: null,
-        paymentAmount: null,
+        percentage: null,
+        amount: null,
       },
     ]);
   };
@@ -103,20 +110,38 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     setMilestones(updatedMilestones);
   };
 
+  const handleAmount = (paymentamount: number | null) => {
+    const updatedMilestones = milestones.map((milestone) => {
+      return {
+        ...milestone,
+        percentage: null,
+        amount: paymentamount,
+      };
+    });
+    setMilestones(updatedMilestones);
+
+    // Also update the contractDetails if needed
+    const updatedContractDetails = {
+      ...contractDetails,
+      milestone: updatedMilestones,
+    };
+    setContractDetails(updatedContractDetails);
+  };
   const handlePaymentPercentageChange = (
     index: number,
     value: number | undefined
   ) => {
     // console.log("rendered");
-    if (value !== undefined && contractDetails.totalContractValue !== null) {
+    if (value !== undefined && contractDetails.estimated_amount !== null) {
       const updatedMilestones = milestones.map((milestone, idx) => {
         if (idx === index) {
           const paymentAmount =
-            (value / 100) * (contractDetails.totalContractValue ?? 0);
+            (value / 100) * (contractDetails.estimated_amount ?? 0);
+          // console.log("consoled amount", paymentAmount)
           return {
             ...milestone,
-            paymentPercentage: value,
-            paymentAmount: paymentAmount,
+            percentage: value,
+            amount: paymentAmount,
           };
         } else return milestone;
       });
@@ -125,7 +150,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
       // Also update the contractDetails if needed
       const updatedContractDetails = {
         ...contractDetails,
-        milestones: updatedMilestones,
+        milestone: updatedMilestones,
       };
       setContractDetails(updatedContractDetails);
     }
@@ -135,10 +160,10 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     if (value !== undefined && value !== null) {
       setContractDetails({
         ...contractDetails,
-        totalContractValue: value,
-        milestones: milestones.map((milestone) => ({
+        estimated_amount: value,
+        milestone: milestones.map((milestone) => ({
           ...milestone,
-          paymentAmount: ((milestone.paymentPercentage ?? 0) / 100) * value,
+          amount: ((milestone.percentage ?? 0) / 100) * value,
         })),
       });
     }
@@ -153,18 +178,27 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     });
   };
 
-  const handleFileUpload = (info: any) => {
+  const handleFileUpload = (info: UploadRequestOption<any>) => {
     try {
-      console.log("File uploaded successfully:", info.file);
-      setContractDetails({ ...contractDetails, workSchedule: info.file });
+      console.log("File uploaded successfully:", info.file as RcFile);
+      console.log({ ...contractDetails, workSchedule: info.file as RcFile });
+      setContractDetails({
+        ...contractDetails,
+        file: info.file as RcFile,
+      });
     } catch (e) {
       console.log("file upload error is", e);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     onSubmit(contractDetails);
     console.log(contractDetails);
+    try {
+      await addContract(contractDetails);
+    } catch (error) {
+      console.log("Form not submitted");
+    }
   };
 
   const handleMilestoneChange = (
@@ -173,22 +207,22 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     value: string | dayjs.Dayjs | number | null
   ) => {
     let convertedValue: Date | null = null;
-    console.log("tm rendered");
     // Convert dayjs object to Date
     if (dayjs.isDayjs(value)) {
       convertedValue = (value as dayjs.Dayjs).toDate();
     }
+    console.log("conv value", convertedValue);
     const updatedMilestones = [...milestones];
     updatedMilestones[index] = {
       ...updatedMilestones[index],
-      [field]: value,
+      [field]: dayjs.isDayjs(value) ? convertedValue : value,
     };
     setMilestones(updatedMilestones);
 
     // Update contractDetails as well if needed
     const updatedContractDetails = {
       ...contractDetails,
-      milestones: updatedMilestones,
+      milestone: updatedMilestones,
     };
     setContractDetails(updatedContractDetails);
   };
@@ -206,24 +240,29 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     fetchMSA();
   }, []);
 
+  //   const formattedStartDate = moment(contractDetails.start_date,"YYYY-MM-DD",true);
+  //   const formattedDate = moment(contractDetails.date_of_signature);
+
   const selectClient = async (value: string) => {
     // Fetch client data including region
     try {
       const response = await getMSA(value);
-      const clientData = response.data[0]; // Assuming you get one client data
+      const clientData = response.data[0];
+      console.log("Client data", clientData);
       if (clientData) {
         // Update contractDetails with client data
         setContractDetails({
           ...contractDetails,
+          msa_id: clientData.id,
           clientName: clientData.client_name,
           region: clientData.region,
-          // Other fields you want to update
         });
       }
     } catch (error) {
       console.error("Error fetching client data:", error);
     }
   };
+  //   console.log("Milestones-test", milestones);
 
   return (
     <>
@@ -268,11 +307,11 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
               required
             >
               <Input
-                value={contractDetails.contractId}
+                value={contractDetails.contract_ref_id}
                 onChange={(e) =>
                   setContractDetails({
                     ...contractDetails,
-                    contractId: e.target.value,
+                    contract_ref_id: e.target.value,
                   })
                 }
               />
@@ -283,21 +322,18 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
               labelCol={{ span: 9 }}
               wrapperCol={{ span: 12 }}
             >
-              <Input
-                value={contractDetails.region}
-                disabled // Disable editing since it's autofilled
-              />
+              <Input value={contractDetails.region} disabled />
             </Form.Item>
             <Form.Item
               label="DU"
               name="du"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 17 }}
+              labelCol={{ span: 9 }}
+              wrapperCol={{ span: 16 }}
               style={{ paddingLeft: "2rem", marginLeft: "-2rem" }}
               required
             >
               <Select
-                placeholder="Select DU"
+                placeholder="DU"
                 value={contractDetails.du}
                 onChange={(value) =>
                   setContractDetails({
@@ -316,16 +352,16 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
           <div style={{ display: "flex", padding: "1rem" }}>
             <Form.Item
               label="Start Date"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
+              labelCol={{ span: 11 }}
+              wrapperCol={{ span: 21 }}
               required
             >
               <DatePicker
-                value={contractDetails.startDate}
+                value={contractDetails.start_date}
                 onChange={(value) =>
                   setContractDetails({
                     ...contractDetails,
-                    startDate: value,
+                    start_date: value,
                   })
                 }
               />
@@ -338,11 +374,11 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
               required
             >
               <DatePicker
-                value={contractDetails.endDate}
+                value={contractDetails.end_date}
                 onChange={(value) =>
                   setContractDetails({
                     ...contractDetails,
-                    endDate: value,
+                    end_date: value,
                   })
                 }
               />
@@ -351,15 +387,15 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
               label="Date Of Signature"
               labelCol={{ span: 14 }}
               wrapperCol={{ span: 23 }}
-              style={{ paddingLeft: "3.3rem" }}
+              style={{ paddingLeft: "2rem" }}
               required
             >
               <DatePicker
-                value={contractDetails.dateOfSignature}
+                value={contractDetails.date_of_signature}
                 onChange={(value) =>
                   setContractDetails({
                     ...contractDetails,
-                    dateOfSignature: value,
+                    date_of_signature: value,
                   })
                 }
               />
@@ -368,24 +404,24 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
           <div style={{ display: "flex", padding: "1rem" }}>
             <Form.Item
               label="Contract Type"
-              name="contracttype"
+              name="contract_type"
               labelCol={{ span: 244 }}
               wrapperCol={{ span: 19 }}
-              style={{ paddingLeft: "0rem" }}
+              style={{ marginLeft: "1.3rem" }}
               required
             >
               <Select
                 placeholder="Contract Type"
                 onChange={handleContractTypeChange}
               >
-                <Select.Option value="ff">Fixed Fee</Select.Option>
-                <Select.Option value="tm">T&M</Select.Option>
+                <Select.Option value="FF">Fixed Fee</Select.Option>
+                <Select.Option value="TM">T&M</Select.Option>
               </Select>
             </Form.Item>
           </div>
         </div>
 
-        {contractType === "ff" && (
+        {contractType === "FF" && (
           <>
             {/* Milestone Details */}
             <div
@@ -393,11 +429,12 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                 display: "flex",
                 alignItems: "flex-start",
                 padding: "1rem",
+                width: "113%",
               }}
             >
               <div
                 className={`contract_details ${styles.contract_details}`}
-                style={{ marginLeft: "9rem" }}
+                style={{ marginLeft: "13rem" }}
               >
                 <div
                   className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -405,7 +442,6 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                   <br />
                   Milestone Details
                 </div>
-
                 <div
                   style={{
                     paddingTop: "0.5rem",
@@ -415,8 +451,8 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                 >
                   <Form.Item
                     label="Total Contract Value"
-                    name="totalContractValue"
-                    labelCol={{ span: 5 }}
+                    name="estimated_amount"
+                    labelCol={{ span: 8 }}
                     wrapperCol={{ span: 8 }}
                     required
                   >
@@ -426,11 +462,10 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                     />
                   </Form.Item>
                 </div>
-
                 <div
                   style={{
-                    marginLeft: "58.5rem",
-                    marginTop: "-3.5rem",
+                    marginLeft: "49.5rem",
+                    marginTop: "-4rem",
                     padding: "0.5rem",
                   }}
                 >
@@ -443,7 +478,6 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                     Add
                   </Button>
                 </div>
-
                 {/* Headers */}
                 <div
                   style={{
@@ -453,24 +487,25 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                     alignItems: "center",
                   }}
                 >
-                  <div style={{ width: "30%", marginRight: "1rem" }}>
-                    <div style={{ marginBottom: "0.5rem" }}>Milestones</div>
+                  <div style={{ width: "30%", marginRight: "2.3rem" }}>
+                    <div style={{ marginBottom: "0.5rem", marginLeft: "2rem" }}>
+                      Milestones
+                    </div>
                   </div>
-                  <div style={{ width: "30%", marginRight: "1rem" }}>
+                  <div style={{ width: "30%", marginRight: "0.5rem" }}>
                     <div style={{ marginBottom: "0.5rem" }}>
                       Expected Completion Date
                     </div>
                   </div>
-                  <div style={{ width: "10%", marginRight: "1rem" }}>
+                  <div style={{ width: "10%", marginRight: "0.8rem" }}>
                     <div style={{ marginBottom: "0.5rem" }}>Payment(%)</div>
                   </div>
-                  <div style={{ width: "20%" }}>
+                  <div style={{ width: "20%", marginRight: "1rem" }}>
                     <div style={{ marginBottom: "0.5rem" }}>
                       Payment Amount(US$)
                     </div>
                   </div>
                 </div>
-
                 {milestones.map((milestone, index) => (
                   <div
                     key={index}
@@ -478,6 +513,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                       display: "flex",
                       flexWrap: "wrap",
                       padding: "1rem",
+                      paddingLeft: "3rem",
                       alignItems: "center",
                     }}
                   >
@@ -522,7 +558,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                     </div>
                     <div style={{ width: "10%", marginRight: "1rem" }}>
                       <Form.Item
-                        name={`milestones[${index}].paymentPercentage`}
+                        name={`milestones[${index}].percentage`}
                         labelCol={{ span: 20 }}
                         wrapperCol={{ span: 20 }}
                         required
@@ -539,23 +575,27 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                       </Form.Item>
                     </div>
 
-                    <div style={{ width: "20%" }}>
+                    <div style={{ width: "20%", marginRight: "1rem" }}>
                       <Form.Item
-                        name={`milestones[${index}].paymentAmount`}
+                        name={`milestones[${index}].amount`}
                         labelCol={{ span: 20 }}
                         wrapperCol={{ span: 20 }}
                         required
                       >
                         <InputNumber
                           style={{ width: "100%" }}
-                          //   value={milestone.paymentAmount}
+                          value={milestone.amount}
                         />
                       </Form.Item>
                     </div>
                     {index > 0 && (
                       <Button
                         type="text"
-                        style={{ color: "red", marginLeft: 8 }}
+                        style={{
+                          color: "red",
+                          marginLeft: "-2rem",
+                          marginTop: "-1rem",
+                        }}
                         onClick={() => removeMilestone(index)}
                         icon={<CloseCircleOutlined />}
                       />
@@ -568,7 +608,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
             {/* Associated Members */}
             <div
               className={`contract_details ${styles.contract_details}`}
-              style={{ width: "50%" }}
+              style={{ width: "46.5%" }}
             >
               <br />
               <div
@@ -596,7 +636,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
               {/* Upload Work Schedule */}
               <div
                 className={`contract_details ${styles.contract_details}`}
-                style={{ width: "50%" }}
+                style={{ width: "46.5%" }}
               >
                 <br />
                 <div
@@ -623,7 +663,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                   >
                     <Upload
                       accept=".pdf"
-                      action=""
+                      //   action=""
                       customRequest={handleFileUpload}
                     >
                       <Button icon={<UploadOutlined />}>
@@ -637,7 +677,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
               {/* Comments and Remarks */}
               <div
                 className={`contract_details ${styles.contract_details}`}
-                style={{ width: "50%" }}
+                style={{ width: "40%", marginLeft: "2rem" }}
               >
                 <br />
                 <div
@@ -666,7 +706,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
           </>
         )}
 
-        {contractType === "tm" && (
+        {contractType === "TM" && (
           <>
             {/* Milestone Details */}
             <div
@@ -674,11 +714,12 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                 display: "flex",
                 alignItems: "flex-start",
                 padding: "1rem",
+                width: "113%",
               }}
             >
               <div
                 className={`contract_details ${styles.contract_details}`}
-                style={{ marginLeft: "9rem" }}
+                style={{ marginLeft: "13rem" }}
               >
                 <div
                   className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -696,8 +737,8 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                 >
                   <Form.Item
                     label="Total Contract Value"
-                    name="totalContractValue"
-                    labelCol={{ span: 5 }}
+                    name="estimated_amount"
+                    labelCol={{ span: 8 }}
                     wrapperCol={{ span: 8 }}
                     required
                   >
@@ -710,8 +751,8 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
 
                 <div
                   style={{
-                    marginLeft: "58.5rem",
-                    marginTop: "-3.5rem",
+                    marginLeft: "49.5rem",
+                    marginTop: "-4rem",
                     padding: "0.5rem",
                   }}
                 >
@@ -734,16 +775,17 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                     alignItems: "center",
                   }}
                 >
-                  <div style={{ width: "30%", marginRight: "1rem" }}>
-                    <div style={{ marginBottom: "0.5rem" }}>Milestones</div>
+                  <div style={{ width: "30%", marginRight: "2.3rem" }}>
+                    <div style={{ marginBottom: "0.5rem", marginLeft: "2rem" }}>
+                      Milestones
+                    </div>
                   </div>
-                  <div style={{ width: "30%", marginRight: "1rem" }}>
+                  <div style={{ width: "30%", marginRight: "0.5rem" }}>
                     <div style={{ marginBottom: "0.5rem" }}>
                       Expected Completion Date
                     </div>
                   </div>
-
-                  <div style={{ width: "20%" }}>
+                  <div style={{ width: "20%", marginRight: "1rem" }}>
                     <div style={{ marginBottom: "0.5rem" }}>
                       Payment Amount(US$)
                     </div>
@@ -757,6 +799,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                       display: "flex",
                       flexWrap: "wrap",
                       padding: "1rem",
+                      paddingLeft: "3rem",
                       alignItems: "center",
                     }}
                   >
@@ -800,32 +843,28 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                       </Form.Item>
                     </div>
 
-                    <div style={{ width: "20%" }}>
+                    <div style={{ width: "20%", marginRight: "1rem" }}>
                       <Form.Item
-                        name={`milestones[${index}].paymentAmount`}
+                        name={`milestones[${index}].amount`}
                         labelCol={{ span: 20 }}
                         wrapperCol={{ span: 20 }}
                         required
                       >
                         <InputNumber
                           style={{ width: "100%" }}
-                          // value={milestone.paymentAmount}
-                          onChange={
-                            (value) =>
-                              handleMilestoneChange(
-                                index,
-                                "paymentAmount",
-                                value as number
-                              )
-                            // console.log(value)
-                          }
+                          value={milestone.amount}
+                          onChange={(e) => handleAmount(e)}
                         />
                       </Form.Item>
                     </div>
                     {index > 0 && (
                       <Button
                         type="text"
-                        style={{ color: "red", marginLeft: 8 }}
+                        style={{
+                          color: "red",
+                          marginLeft: "-2rem",
+                          marginTop: "-1rem",
+                        }}
                         onClick={() => removeMilestone(index)}
                         icon={<CloseCircleOutlined />}
                       />
@@ -838,7 +877,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
             {/* Associated Members */}
             <div
               className={`contract_details ${styles.contract_details}`}
-              style={{ width: "50%" }}
+              style={{ width: "46.5%" }}
             >
               <br />
               <div
@@ -866,7 +905,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
               {/* Upload Work Schedule */}
               <div
                 className={`contract_details ${styles.contract_details}`}
-                style={{ width: "50%" }}
+                style={{ width: "46.5%" }}
               >
                 <br />
                 <div
@@ -893,7 +932,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                   >
                     <Upload
                       accept=".pdf"
-                      action=""
+                      //   action=""
                       customRequest={handleFileUpload}
                     >
                       <Button icon={<UploadOutlined />}>
@@ -906,23 +945,31 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
 
               {/* Comments and Remarks */}
               <div
-                className={`contract_details_heading ${styles.contract_details_heading}`}
+                className={`contract_details ${styles.contract_details}`}
+                style={{ width: "40%", marginLeft: "2rem" }}
               >
-                Comments and Remarks
-              </div>
-              <div style={{ display: "flex", padding: "1rem", width: "100%" }}>
-                <Form.Item
-                  labelCol={{ span: 6 }}
-                  wrapperCol={{ span: 22 }}
-                  style={{ width: "35rem" }}
+                <br />
+                <div
+                  className={`contract_details_heading ${styles.contract_details_heading}`}
                 >
-                  <Input.TextArea
-                    rows={8}
-                    placeholder="Enter comments and remarks..."
-                    value={contractDetails.commentsRemarks ?? ""}
-                    onChange={handleCommentsRemarksChange}
-                  />
-                </Form.Item>
+                  Comments and Remarks
+                </div>
+                <div
+                  style={{ display: "flex", padding: "1rem", width: "100%" }}
+                >
+                  <Form.Item
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 22 }}
+                    style={{ width: "35rem" }}
+                  >
+                    <Input.TextArea
+                      rows={8}
+                      placeholder="Enter comments and remarks..."
+                      value={contractDetails.commentsRemarks ?? ""}
+                      onChange={handleCommentsRemarksChange}
+                    />
+                  </Form.Item>
+                </div>
               </div>
             </div>
           </>
@@ -931,10 +978,14 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
           <Button
             type="primary"
             htmlType="submit"
+            className={
+              contractType
+                ? styles.submitButton
+                : `${styles.submitButton} ${styles.submitButtonDisabled}`
+            }
             disabled={!contractType}
-            style={{ marginTop: "2rem" }}
           >
-            Submit
+            Add Contract
           </Button>
         </Form.Item>
       </Form>
