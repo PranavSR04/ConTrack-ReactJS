@@ -9,6 +9,8 @@ import NavContext from "../../Components/NavContext/NavContext";
 import RevenueProjectionHandler from "../RevenueProjection/RevenueProjectionHandler";
 import NavBarHandler from "../../Components/NavBar/NavBarHandler";
 import SideBar from "../../Components/SideBar/SideBar";
+import AddContract from "../AddContract/AddContract";
+import AddContractHandler from "../AddContract/AddContractHandler";
 import AddMsaHandler from "../MSA/AddMsa/AddMsaHandler";
 
 import FixedFeeHandler from "../ContractView/FixedFee/FixedFeeHandler";
@@ -25,7 +27,7 @@ const AppRoutes = () => {
     <div>
       <BrowserRouter>
         <AuthContext>
-				<NavContext>
+          <NavContext>
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
               <Route path="/login" element={<LoginHandler />}></Route>
@@ -43,9 +45,19 @@ const AppRoutes = () => {
 			  <Route path="/msa/add" element={<><NavBarHandler/><SideBar><AddMsaHandler/></SideBar></>}></Route>
 			  <Route path="/msa/edit/:msa_ref_id" element={<><NavBarHandler/><SideBar><EditMsaHandler/></SideBar></>}></Route>
 			  <Route path="/msa/renew/:msa_ref_id" element={<><NavBarHandler/><SideBar><RenewMsaHandler/></SideBar></>}></Route>
-				
+				<Route
+                path="/addContract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AddContract />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
             </Routes>
-					</NavContext>
+          </NavContext>
         </AuthContext>
       </BrowserRouter>
     </div>
