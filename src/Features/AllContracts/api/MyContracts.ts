@@ -30,7 +30,6 @@ export const fetchMyContractsApi = async (
 
     const result = response.data;
     return result;
-    return result;
   } catch (error) {
     console.error("Error fetching data:", error);
     return { data: [], total: 0 };

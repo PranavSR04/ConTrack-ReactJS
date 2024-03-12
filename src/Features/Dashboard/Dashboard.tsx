@@ -12,7 +12,7 @@ const Dashboard = () => {
   return (
     <>
     <div className={styles['dashboard-div1']}>
-    <h2 className={styles['dashboard-name']}>Hello {user_name}</h2>
+    <h2 className={styles['dashboard-name']}>Hello, <span style={{color:'#DC143C'}}>{user_name}</span> </h2>
     <Card >
       <ContractsCount/>
     </Card>
