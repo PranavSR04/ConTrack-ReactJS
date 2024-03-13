@@ -34,7 +34,7 @@ const RevenueProjection = ({
 								theme={{
 									token: {
 										borderRadius: 20,
-										borderRadiusLG: 50,
+										// borderRadiusLG: 50,
 									},
 									components: {
 										Segmented: {

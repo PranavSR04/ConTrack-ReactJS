@@ -14,7 +14,7 @@ export const addContract = async (contractData: ContractDetails) => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Accept:"application/json"
+          Accept: "application/json",
         },
       }
     );
