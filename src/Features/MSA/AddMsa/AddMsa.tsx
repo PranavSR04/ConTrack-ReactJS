@@ -1,5 +1,5 @@
-import { Button, DatePicker, Form, Input, Upload } from 'antd'
-import { FilePdfOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, DatePicker, Form, Input, Modal, Spin, Upload } from 'antd'
+import { FilePdfOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea'
 import React from 'react'
 import styles from '../Msa.module.css'
@@ -13,7 +13,13 @@ const AddMsa = (
     handleFileUpload,
     handleInputChange,
     handleDateChange,
-    handleEndDateChange
+    handleEndDateChange,
+    handleAddMsa,
+    isModalVisible,
+    handleCancel,
+    isLoading,
+
+    validateStartDate
   }:AddMsaPropsType) => {
   return (
     <>
@@ -32,6 +38,7 @@ const AddMsa = (
         <Form.Item 
         className={styles.AddMsaDetails_row1_col1}
         name="msa_ref_id" 
+        
         >MSA Reference ID <br/>
         <Input 
         name="msa_ref_id" 
@@ -42,20 +49,21 @@ const AddMsa = (
       </Form.Item>
       <Form.Item 
     className={styles.AddMsaDetails_row1_col2}
-      name="client_name"  
-      required>Client Name
+      name="client_name"
+ 
+      >Client Name
       <span className={styles.AddMsaDetails_star}>*</span>
       <br/>
         <Input
          name="client_name" 
          className={styles.AddMsaDetails_inputs}
-         onChange={handleInputChange}/>
+         onChange={handleInputChange}
+        />
       </Form.Item>
       <Form.Item 
         className={styles.AddMsaDetails_row1_col3}
 
-      name="region"  
-      required>Region
+      name="region">Region
       <span className={styles.AddMsaDetails_star}>*</span>
       <br/>
         <Input 
@@ -69,6 +77,7 @@ const AddMsa = (
               className={styles.AddMsaDetails_row2_col1}
 
       name="start_date"  
+      
       required>Start Date
       <span className={styles.AddMsaDetails_star}>*</span>
       <br/>
@@ -80,7 +89,8 @@ const AddMsa = (
       <Form.Item 
               className={styles.AddMsaDetails_row2_col2}
 
-      name="end_date" 
+      name="end_date"
+      rules={[{validator:validateStartDate}]} 
       required>End Date
       <span className={styles.AddMsaDetails_star}>*</span>
       <br/>
@@ -110,6 +120,7 @@ const AddMsa = (
           action="" 
           listType="picture-card"
           fileList={[]}
+          accept='.pdf'
           customRequest={handleFileUpload}
           >
             <button style={{ border: 0, background: 'none' }} type="button">
@@ -132,10 +143,21 @@ const AddMsa = (
       className={styles.AddMsaDetails_Button}
       type="primary" 
       htmlType="submit"
-      onClick={SubmitAddMsa}>
-            Add MSA
-          </Button>
+      onClick={handleAddMsa}
+      >Add MSA
+      </Button>
+         <Modal
+        title="Confirm Add MSA"
+        visible={isModalVisible}
+        onOk={SubmitAddMsa}
+        onCancel={handleCancel}
+      >
+        <p>Do you really want to add MSA?</p>
+
+      </Modal>
+            
       </Form>
+      
       {msaAdded?<Toast messageType="success" message='MSA Added'></Toast>:<></>}
     </div>
     </div>
