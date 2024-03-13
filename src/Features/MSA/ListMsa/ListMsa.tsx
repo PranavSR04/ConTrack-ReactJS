@@ -10,6 +10,9 @@ const ListMsa = ({
   columns,
   data
 }:MsaListDataType) => {
+
+  const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
+
  
 //   const [data, setData] = useState<MsaDataType[]>([]);
 //   const [pageSize, setPageSize] = useState<number>(10);
@@ -100,16 +103,17 @@ const ListMsa = ({
           <div className={styles.ListMsa_Details_Table}>
             <div className={styles.ListMsa_Details_Table_row1}>
               <div className={styles.ListMsa_Details_Table_row1_col1}>
-                <span className={styles.ListMsa_Details_Table_row1_col1_span}>Show </span>
+                {/* <span className={styles.ListMsa_Details_Table_row1_col1_span}>Show </span>
                 <span>10</span>
-                <span className={styles.ListMsa_Details_Table_row1_col1_span}> entries</span>
+                <span className={styles.ListMsa_Details_Table_row1_col1_span}> entries</span> */}
               </div>
               <div className={styles.ListMsa_Details_Table_row1_col2}>
-                <button 
+                { ROLE_ID!==3 &&
+                  <button 
                 className={styles.ListMsa_Details_Table_row1_col2_button}
                 onClick={navigateToAddMsaHandler}>
                     + Add Msa
-                </button>
+                </button>}
               </div>
             </div>
             <Table columns={columns} dataSource={data} />
