@@ -20,7 +20,9 @@ const RevenueProjection = ({
 	regionOptions,
 	duOptions,
 	selectedFilters,
+	id
 }: RevenueProjectionPropType) => {
+	const revenueid = id?id:undefined;
 	console.log(filter);
 
 	return (
@@ -53,11 +55,12 @@ const RevenueProjection = ({
 											getFilteredValue(value);
 										}}
 									/>
-									<HiOutlineFilter
-										className={styles.filtericon}
-										size={20}
-										onClick={showFilterModal}
-									/>
+									{revenueid?<></>
+									:(<HiOutlineFilter
+									className={styles.filtericon}
+									size={20}
+									onClick={showFilterModal}
+								/>)}
 									<div className={styles.filterModal}>
 										<Modal
 											title="Revenue Filter"
@@ -81,7 +84,7 @@ const RevenueProjection = ({
 						</div>
 					}
 				>
-					<LineChartHandler filter={filter} selectedFilters={selectedFilters} />
+					<LineChartHandler filter={filter} selectedFilters={selectedFilters} id={revenueid} />
 				</Card>
 			</div>
 		</div>

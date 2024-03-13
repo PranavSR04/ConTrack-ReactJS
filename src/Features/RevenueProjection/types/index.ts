@@ -20,8 +20,11 @@ export type RevenueProjectionPropType = {
 	regionOptions: string[];
 	duOptions: string[];
 	selectedFilters: {};
+	id:number |undefined;
 };
-export type RevenueProjectionHandlerPropType = {};
+export type RevenueProjectionHandlerPropType = {
+	id?:number;
+};
 
 export interface RevenueProjectionData {
 	Date: string;
@@ -36,6 +39,8 @@ export interface LineChartPropType {
 export interface LineChartHandlerPtopType {
 	filter: string;
 	selectedFilters: SelectedFiltersType;
+	id:number |undefined
+	
 }
 
 export interface SelectedFiltersType {

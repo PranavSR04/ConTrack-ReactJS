@@ -3,10 +3,10 @@ import RevenueProjection from "./RevenueProjection";
 import { Auth } from "../../Components/AuthContext/AuthContext";
 import { CheckboxOptionType, CheckboxValueType } from "antd/es/checkbox/Group";
 import { Checkbox } from "antd";
-import { SelectedFiltersType } from "./types";
+import { RevenueProjectionHandlerPropType, SelectedFiltersType } from "./types";
 
 
-const RevenueProjectionHandler = () => {
+const RevenueProjectionHandler = ({id}:RevenueProjectionHandlerPropType) => {
   const { logout } = useContext(Auth);
   const [filter,setFilter] = useState<string>("Monthly");
 	const access_token = localStorage.getItem("access_token");
@@ -88,6 +88,7 @@ const RevenueProjectionHandler = () => {
       regionOptions={regionOptions}
       duOptions={duOptions}
       selectedFilters={selectedFilters}
+      id={id}
 
 
       
