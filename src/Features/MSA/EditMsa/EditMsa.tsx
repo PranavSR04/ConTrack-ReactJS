@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from '../Msa.module.css'
 import { Button, DatePicker, Form, Input, Upload } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import TextArea from 'antd/es/input/TextArea'
 import { EditMsaHandlertype } from './types'
 import { values } from '@ant-design/plots/es/core/utils'
+import moment, { Moment } from 'moment'
 const EditMsa = ({
-  msaData
+  msaData,
+  msa_ref_id,
+  handleInputChange,
+  handleDateChange,
+  handleEndDateChange,
+  SubmitEditMsa
 }:EditMsaHandlertype) => {
+  console.log("start date:", msaData.start_date)
+  const formattedStartDate = moment(msaData.start_date);
+  console.log("selected start date", formattedStartDate)
+
+  const formattedEndDate = moment(msaData.end_date);
   return (
     <>
     <div className={styles.AddMsa}>
@@ -28,7 +39,7 @@ const EditMsa = ({
         >MSA Reference ID <br/>
         <Input 
         name="msa_ref_id"
-        value={msaData.msa_ref_id} 
+        value={msa_ref_id}
         readOnly
         className={styles.AddMsaDetails_inputs}
         />
@@ -43,6 +54,7 @@ const EditMsa = ({
          name="client_name" 
          value={msaData.client_name}
          className={styles.AddMsaDetails_inputs}
+         onChange={handleInputChange}
 />      </Form.Item>
       <Form.Item 
         className={styles.AddMsaDetails_row1_col3}
@@ -53,7 +65,8 @@ const EditMsa = ({
       <br/>
         <Input 
         name="region"
-        value={msaData.region} 
+        value={msaData.region}
+        onChange={handleInputChange}
         className={styles.AddMsaDetails_inputs}
         />
       </Form.Item>
@@ -66,24 +79,25 @@ const EditMsa = ({
       required>Start Date
       <span className={styles.AddMsaDetails_star}>*</span>
       <br/>
-        <DatePicker
-        format="DD-MM-YYYY"
-        value={msaData.start_date}
-        className={styles.AddMsaDetails_inputs}
-        />
+
+        <DatePicker 
+        className={styles.AddMsaDetails_inputs} 
+        format="YYYY-MM-DD"
+        onChange={handleDateChange}/>
       </Form.Item>
       <Form.Item 
               className={styles.AddMsaDetails_row2_col2}
 
       name="end_date" 
+      
       required>End Date
       <span className={styles.AddMsaDetails_star}>*</span>
       <br/>
+
         <DatePicker 
-        format="DD-MM-YYYY"
-        value={msaData.end_date}
-        className={styles.AddMsaDetails_inputs}
-        />
+        format="YYYY-MM-DD"
+        className={styles.AddMsaDetails_inputs} 
+        onChange={handleEndDateChange}/>
       </Form.Item>
       </div>
       <div className={styles.AddMsaDetails_row3}>
@@ -114,13 +128,14 @@ const EditMsa = ({
       >Comments/Remarks
       <span className={styles.AddMsaDetails_star}>*</span>
       <br/>
-        <TextArea rows={4} name="comments" />
+        <TextArea rows={4} name="comments" onChange={handleInputChange}/>
       </Form.Item>
       </div>
       <Button
       className={styles.AddMsaDetails_Button}
       type="primary" 
       htmlType="submit"
+      onClick={SubmitEditMsa}
       >
             Edit MSA
           </Button>

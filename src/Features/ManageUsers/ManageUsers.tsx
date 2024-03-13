@@ -7,86 +7,87 @@ import { ManageUserHandlerPropType, ManageUsersPropType } from './types';
 import Toast from '../../Components/Toast/Toast';
 
 
-const ManageUsers = (
-  { 
-    handleAddUser,
-    hideDeleteConfirmation,handleDelete,
-    handleSearch,
-    handlePageChange,
-    handleEditModalCancel,
-    handleUpdateUser,
-    rowClassName,
-    debouncedFetchData,
-    onSelectEmployee,
-    getEmployee,
-    setSelectedRoleId,
-    columns,
-    dropdownOptions,
-    roleOptions,
-    dataSource,
-    pagination,
-    editModalVisible,
-    selectedRoleId,
-    deleteConfirmationVisible,
-    selectedUser,
-    userAdded,
-    loading,
-    userUpdated,
-    userDeleted
-  }:ManageUsersPropType) => {
+const ManageUsers = ({
+  handleAddUser,
+  hideDeleteConfirmation,
+  handleDelete,
+  handleSearch,
+  handlePageChange,
+  handleEditModalCancel,
+  handleUpdateUser,
+  rowClassName,
+  debouncedFetchData,
+  onSelectEmployee,
+  getEmployee,
+  setSelectedRoleId,
+  columns,
+  dropdownOptions,
+  roleOptions,
+  dataSource,
+  pagination,
+  editModalVisible,
+  selectedRoleId,
+  deleteConfirmationVisible,
+  selectedUser,
+  userAdded,
+  loading,
+  userUpdated,
+  userDeleted,
+}: ManageUsersPropType) => {
   return (
-<>  
-    <h2 className={`${userTableStyles.pageTitle}`}>
-      MANAGE USER
-    </h2>
-    <div className={` ${userTableStyles.wholeTable} `}>
+    <>
+      <h2 className={`${userTableStyles.pageTitle}`}>MANAGE USER</h2>
+      <div className={` ${userTableStyles.wholeTable} `}>
         <AutoComplete
-            className={`${userTableStyles.searchEmployeeBox}`}
-            options={dropdownOptions.map((option) => ({ value: option.value }))}
-            style={{ width: 200 }}
-            placeholder="Search Employee"
-            onSelect={onSelectEmployee}
-            onSearch={(text) => {
-              getEmployee(text);
-              debouncedFetchData(text)
-            }}
+          className={`${userTableStyles.searchEmployeeBox}`}
+          options={dropdownOptions.map((option) => ({ value: option.value }))}
+          style={{ width: 200 }}
+          placeholder="Search Employee"
+          onSelect={onSelectEmployee}
+          onSearch={(text) => {
+            getEmployee(text);
+            debouncedFetchData(text);
+          }}
         />
 
         <Select
-              className={`${userTableStyles.viewAccessBox}`}
-              options={roleOptions}
-              style={{ width: 200 }}
-              onSelect={(value) => setSelectedRoleId(value as number)}
-              placeholder="Select a role"
-            />
+          className={`${userTableStyles.viewAccessBox}`}
+          options={roleOptions}
+          style={{ width: 200 }}
+          onSelect={(value) => setSelectedRoleId(value as number)}
+          placeholder="Select a role"
+        />
 
-      <Button
-       className={`${userTableStyles.addUserButton}`}
-       onClick={handleAddUser}
-       >
-        ADD USER
-      </Button>
-      
-      {userAdded? 
-      <Toast
-      message={"User Added Successfully"}
-      messageType={"success"}
-      />:<></>
-      }
+        <Button
+          className={`${userTableStyles.addUserButton}`}
+          onClick={handleAddUser}
+        >
+          ADD USER
+        </Button>
 
-      {userUpdated? 
-        <Toast
-        message={"User Updated Successfully"}
-        messageType={"success"}
-        />:<></>
-        }
+        {userAdded ? (
+          <Toast message={"User Added Successfully"} messageType={"success"} />
+        ) : (
+          <></>
+        )}
 
-      {userDeleted? 
-        <Toast
-        message={"User Deleted Successfully"}
-        messageType={"warning"}
-        />:<></>
-        }
+        {userUpdated ? (
+          <Toast
+            message={"User Updated Successfully"}
+            messageType={"success"}
+          />
+        ) : (
+          <></>
+        )}
+
+        {userDeleted ? (
+          <Toast
+            message={"User Deleted Successfully"}
+            messageType={"warning"}
+          />
+        ) : (
+          <></>
+        )}
 
       <Card className={`${userTableStyles.mainListContainer}`}>
 
@@ -126,7 +127,7 @@ const ManageUsers = (
       <UpdateModal
         visible={editModalVisible}
         onCancel={handleEditModalCancel}
-        updateUser={()=>handleUpdateUser(selectedRoleId)}
+        updateUser={() => handleUpdateUser(selectedRoleId)}
         roleOptions={roleOptions}
         setSelectedRoleId={setSelectedRoleId} // Pass the setSelectedRoleId prop
       />
@@ -135,10 +136,10 @@ const ManageUsers = (
         visible={deleteConfirmationVisible}
         onCancel={hideDeleteConfirmation}
         onConfirm={() => selectedUser && handleDelete(selectedUser)}
-        userName={selectedUser? selectedUser.user_name:""}
+        userName={selectedUser ? selectedUser.user_name : ""}
       />
     </>
-  )
-}
+  );
+};
 
-export default ManageUsers
+export default ManageUsers;
