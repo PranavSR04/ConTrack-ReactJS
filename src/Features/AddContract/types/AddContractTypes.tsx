@@ -22,7 +22,7 @@ export interface ContractDetails {
   milestone: Milestone[];
   associatedMembers: string[];
   file: RcFile | null;
-  commentsRemarks: string | null;
+  comments: string | null;
   estimated_amount: number | null;
   contract_added_by: number;
 }
