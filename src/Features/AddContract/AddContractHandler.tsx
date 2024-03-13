@@ -23,6 +23,8 @@ import { AxiosResponse } from "axios";
 import { addContract } from "./api/api";
 import { UploadRequestOption } from "rc-upload/lib/interface";
 import moment from "moment";
+import Toast from "../../Components/Toast/Toast";
+import { useNavigate } from "react-router-dom";
 
 // import { RcFile } from "antd/lib/upload";
 
@@ -58,6 +60,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     contract_added_by: 3,
   });
 
+  const [contractAdded, setContractAdded] = useState<boolean>(false);
   const [milestones, setMilestones] = useState<Milestone[]>(
     contractDetails.milestone
   );
@@ -65,6 +68,8 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
   const [clientNameOptions, setClientNameOptions] = useState<
     { value: string }[]
   >([]);
+
+  const navigate = useNavigate();
 
   const getClientName = async (searchValue: string) => {
     try {
@@ -75,7 +80,6 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
       const uniqueOptions: { value: string }[] = Array.from(
         new Set(clientNames)
       ).map((name) => ({ value: name as string }));
-
       setClientNameOptions(uniqueOptions);
     } catch (error) {
       console.error("Error fetching client names:", error);
@@ -191,11 +195,21 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     }
   };
 
+  useEffect(() => {
+    // This useEffect will trigger whenever contractAdded changes
+    // You can put any logic here that needs to run when contractAdded changes
+    // For example, you can show/hide a modal, update some state, etc.
+    setContractAdded(false);
+    console.log("useeffect working");
+  }, []);
+
   const handleSubmit = async () => {
     onSubmit(contractDetails);
-    console.log(contractDetails);
+
     try {
       await addContract(contractDetails);
+      setContractAdded(true);
+      navigate("/allContracts");
     } catch (error) {
       console.log("Form not submitted");
     }
@@ -266,6 +280,11 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
 
   return (
     <>
+      {contractAdded ? (
+        <Toast message="Contract Added successfully!" messageType="success" />
+      ) : (
+        <></>
+      )}
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
@@ -327,14 +346,15 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
             <Form.Item
               label="DU"
               name="du"
-              labelCol={{ span: 9 }}
+              labelCol={{ span: 8 }}
               wrapperCol={{ span: 16 }}
-              style={{ paddingLeft: "2rem", marginLeft: "-2rem" }}
+              style={{ paddingLeft: "2rem", marginLeft: "-1.5rem" }}
               required
             >
               <Select
                 placeholder="DU"
                 value={contractDetails.du}
+                style={{ width: "100%" }}
                 onChange={(value) =>
                   setContractDetails({
                     ...contractDetails,
@@ -665,6 +685,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
                       accept=".pdf"
                       //   action=""
                       customRequest={handleFileUpload}
+                      maxCount={1}
                     >
                       <Button icon={<UploadOutlined />}>
                         Click to Upload (Max: 50MB)
