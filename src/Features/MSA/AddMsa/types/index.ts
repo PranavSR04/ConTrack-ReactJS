@@ -18,6 +18,15 @@ export interface AddMsaPropsType{
     handleDateChange: (date: Moment | null, dateString: string | string[]) => void;
     handleEndDateChange: (date: Moment | null, dateString: string | string[]) => void
     SubmitAddMsa: React.MouseEventHandler<HTMLElement> | undefined
+    handleAddMsa: () => void;
+    isModalVisible: boolean;
+    handleCancel: () => void;
+    isLoading: boolean;
+    validateStartDate: (value: any) => Promise<void>;
+
+
+
+
 }
 
 export interface GenerateMsaIdResponse {

@@ -7,11 +7,19 @@ import moment, { Moment } from "moment";
 import { Form } from "antd";
 import { postapi } from "./api/postapi";
 import { getapi } from "./api/getapi";
+import ListMsaHandler from "../ListMsa/ListMsaHandler";
 
 const EditMsaHandler = () => {
   const { msa_ref_id } = useParams<string >();
   const [form] = Form.useForm();
   const user_id: number = parseInt(localStorage.getItem('user_id') || "0");
+  const[msaEdited,setMsaEdited]=useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [redirectToListMsa, setRedirectToListMsa] = useState(false); // State variable for redirection
+  const [showListMsa, setShowListMsa] = useState(false); // State variable for showing list MSA
+  const [showSpinner, setShowSpinner] = useState(false); // State variable for showing spinner
+  // const [confirmLoading, setConfirmLoading] = useState(false);
 
   console.log(msa_ref_id);
   const [msaData, setMsaData] = useState({
@@ -105,9 +113,14 @@ const EditMsaHandler = () => {
       comments: msaData.comments,
     });
   }, [msaData]);
+  const handleEditMsa = () => {
+    setIsModalVisible(true);
+  };
   const SubmitEditMsa=async()=>{
     try {
-
+      setIsLoading(true)
+      // setIsModalVisible(false); // Close modal
+       setShowSpinner(true);
       console.log('After setting',formData)
       const formDatatoSend = new FormData();
 
@@ -123,26 +136,54 @@ const EditMsaHandler = () => {
      
 
     // Send only the changed values to the API
-    await postapi(formDatatoSend,msa_ref_id,user_id);
+    //await postapi(formDatatoSend,msa_ref_id,user_id);
       // await postapi(formDatatoSend);
-  
+      await postapi(formDatatoSend,msa_ref_id,user_id);
+      setMsaEdited(true);
+      // setIsModalVisible(false);
+    //   setConfirmLoading(true);
+    // setTimeout(() => {
+    //   setIsModalVisible(false);
+    //   setConfirmLoading(false);
+    // }, 3000);
+        setIsModalVisible(false);
+        setTimeout(() => {
+          setIsLoading(false);
+          setRedirectToListMsa(true);
+          setShowListMsa(true)
+        }, 3);
       form.resetFields();
     } catch (error) {
       console.error("Error submitting form data:", error);
     }
   }
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   console.log(msaData)
   console.log("Edit MSA Ref",msa_ref_id)
   return (
     
     <div>
+      {!showListMsa&&
+      (
       <EditMsa 
       handleInputChange={handleInputChange}
       handleDateChange={handleDateChange}
       handleEndDateChange={handleEndDateChange}
       msa_ref_id={msa_ref_id||""}
       msaData={msaData} 
-      SubmitEditMsa={SubmitEditMsa}/>
+      SubmitEditMsa={SubmitEditMsa}
+      handleEditMsa={handleEditMsa}
+      // confirmLoading={confirmLoading}
+       
+      isModalVisible={isModalVisible}
+          handleCancel={handleCancel}
+          isLoading={isLoading}
+          msaEdited={msaEdited}
+          />
+      )}
+      {showListMsa&&<ListMsaHandler/>}
     </div>
   );
 };
