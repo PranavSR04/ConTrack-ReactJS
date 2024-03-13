@@ -21,7 +21,7 @@ const Milestones = ({
         <div className={`${styles.maincontainer__milestones__body}`}>
           {visibleRange.start > 0 && (
             <div className={`${styles.maincontainer__milestones__body__left}`}>
-              <LeftCircleTwoTone onClick={() => moveCards("left")} />
+              <LeftCircleTwoTone style={{color:"#dc143c"}} onClick={() => moveCards("left")} />
             </div>
           )}
           <div className={`${styles.maincontainer__milestones__body__card}`}>
@@ -40,7 +40,7 @@ const Milestones = ({
           </div>
           {visibleRange.end < milestones.length && (
             <div className={`${styles.maincontainer__milestones__body__right}`}>
-              <RightCircleTwoTone onClick={()=>moveCards("right")} />
+              <RightCircleTwoTone style={{color:"#dc143c"}} onClick={()=>moveCards("right")} />
             </div>
           )}
         </div>

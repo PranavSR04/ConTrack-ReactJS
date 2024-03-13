@@ -4,10 +4,12 @@ import TextArea from 'antd/es/input/TextArea'
 import React from 'react'
 import styles from '../Msa.module.css'
 import { AddMsaPropsType } from './types';
+import Toast from '../../../Components/Toast/Toast';
 const AddMsa = (
   {SubmitAddMsa,
     fileName,
     msaRefId,
+    msaAdded,
     handleFileUpload,
     handleInputChange,
     handleDateChange,
@@ -134,6 +136,7 @@ const AddMsa = (
             Add MSA
           </Button>
       </Form>
+      {msaAdded?<Toast messageType="success" message='MSA Added'></Toast>:<></>}
     </div>
     </div>
     </>

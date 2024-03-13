@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Spin, Table, Tag } from 'antd';
-import { ColumnsType } from 'antd/es/table';
 import { FilterConfirmProps, TablePaginationConfig } from 'antd/lib/table/interface';
-import styles from './contractsList.module.css'  ;
 import { fetchDataFromApi } from './api/AllContracts';
 import { fetchMyContractsApi } from './api/MyContracts';
 import { ContractData ,TableColumn} from './types';
 import AllContracts from './AllContracts';
-import { AllContractsPropType } from './types';
 import { useNavigate } from 'react-router';
+import tableStyles from './contractsList.module.css'  ; 
 const AllContractsHandler = () => {
   const [data, setData] = useState<ContractData[]>([]); 
   const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
@@ -17,20 +15,17 @@ const AllContractsHandler = () => {
   const [isEmptySearch, setIsEmptySearch] = useState(false);
   const [actionClicked, setActionClicked]= useState<boolean>(false);
   const navigate=useNavigate();
-  const role_id = parseInt(localStorage.getItem('role_id') || '0', 10);    
-
-  
-
+  const role_id = parseInt(localStorage.getItem('role_id') || '0', 10);   
+  const [pageTitle, setPageTitle] =useState('CONTRACTS OVERVIEW')
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10, // Default page size
     total: 0,     // Total items  from API
   });
+
   useEffect(() => {
     fetchData(); // Fetch initial data
   }, [searchConditions, pagination.current, pagination.pageSize, window.location.href]); // Refetch data when searchText or searchField changes
-
-
 
   const fetchData = async () => {
     try {
@@ -41,10 +36,11 @@ const AllContractsHandler = () => {
       console.log('location',pagePath);
 //get Api for MyContracts
       if(pagePath==='MyContracts'){
-        console.log('MyC');
-        const result = await fetchMyContractsApi(searchConditions, pagination.current, pagination.pageSize,1);
+        const USER_ID=localStorage.getItem('user_id') as string; //get user id
+        const result = await fetchMyContractsApi(searchConditions, pagination.current, pagination.pageSize,USER_ID);
       setData(result.data);
-      console.log('result:',result.data)
+      setPageTitle('MY CONTRACTS');
+      console.log('result:',result.data);
       console.log('toatal page',result.total);
       setPagination({
         ...pagination,
@@ -55,6 +51,7 @@ const AllContractsHandler = () => {
         //get Api for All contracts
       const result = await fetchDataFromApi(searchConditions, pagination.current, pagination.pageSize);
       setData(result.data);
+      setPageTitle('CONTRACTS OVERVIEW');
       console.log('result:',result.data)
       console.log('toatal page',result.total);
       setPagination({
@@ -86,6 +83,11 @@ const AllContractsHandler = () => {
   const clearSearch = ( ) => {
     setSearchConditions({});
     setIsEmptySearch(true);    
+  };
+
+  const rowClassName = (record:ContractData, index: number): string => {
+    // Add a custom class to alternate rows
+    return index % 2 === 0 ? tableStyles['oddRow'] : tableStyles['evenRow'];
   };
 
   const rowClickHandler = (record: ContractData) => {
@@ -195,8 +197,8 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
      handleTableChange={handleTableChange}
      actionClicked={actionClicked}
      loading={loading}
-      
-
+     rowClassName={rowClassName}
+     pageTitle={pageTitle}
       />
     </>
   )

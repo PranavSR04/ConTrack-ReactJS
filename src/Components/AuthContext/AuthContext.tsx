@@ -9,6 +9,7 @@ import { AxiosError } from "axios";
 import { postLogin } from "./api/postLogin";
 import { useNavigate } from "react-router";
 import { postLogout } from "./api/postLogout";
+import { Button,Modal } from "antd";
 
 export const Auth = createContext<AuthContextType>({
 	accessToken: "",
@@ -20,11 +21,16 @@ export const Auth = createContext<AuthContextType>({
 		last_name: "",
 		created_at: "",
 		updated_at: "",
+		
 	},
 	login: (details: userDetailsType): Promise<LoginResponse | AxiosError> => {
 		return postLogin(details);
 	},
-	logout: (): Promise<void | AxiosError>=>{return Promise.resolve();}
+	logout: (): Promise<void | AxiosError>=>{return Promise.resolve();},
+	isModalOpen:false,
+	handleOk:()=>{},
+	handleCancel:()=>{},
+	errorMsg:""
 	
 });
 
@@ -32,12 +38,26 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 	const [currentUser, setCurrentUser] = useState<UserType | undefined>();
 	const navigate = useNavigate();
 	const [accessToken, setAccessToken] = useState<string>("");
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [errorMsg,setErrorMsg]=useState<string>("");
+	const showModal = () => {
+		setIsModalOpen(true);
+	  };
+	
+	  const handleOk = () => {
+		setIsModalOpen(false);
+	  };
+	
+	  const handleCancel = () => {
+		setIsModalOpen(false);
+	  };
 
 	const login = async (
 		userDetails: userDetailsType
-	): Promise<LoginResponse | AxiosError> => {
+	): Promise<LoginResponse | AxiosError > => {
 		console.log(userDetails);
 		const response: LoginResponse = await postLogin(userDetails);
+		console.log(response)
 		if (!(response instanceof AxiosError)) {
 			console.log("Logged User Details",response.contrackUser);
 			setCurrentUser(response.user);
@@ -45,7 +65,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
             localStorage.clear();
 
             localStorage.setItem("access_token", response.access_token);
-			localStorage.setItem("user_id",response.contrackUser.id.toString());
+			response.contrackUser.id ? localStorage.setItem("user_id",response.contrackUser.id.toString()):localStorage.setItem("user_id","");
 			const userDesignation = response.contrackUser.user_designation;
 			
 			// Check if user_designation is not null before storing in localStorage
@@ -54,6 +74,11 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 
 			localStorage.setItem("role_id",response.contrackUser.role_id.toString());
 			localStorage.setItem("user", JSON.stringify(response.user));
+		}else{
+			showModal();
+			console.log((response.response?.data as any)?.error);
+			setErrorMsg((response.response?.data as any)?.error);
+		
 		}
 		return response;
 	};
@@ -82,7 +107,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
    
 	return (
 		<div>
-			<Auth.Provider value={{ accessToken, currentUser, login, logout }}>
+			<Auth.Provider value={{ accessToken, currentUser, login, logout,isModalOpen, handleOk,handleCancel,errorMsg}}>
 				{children}
 			</Auth.Provider>
 		</div>

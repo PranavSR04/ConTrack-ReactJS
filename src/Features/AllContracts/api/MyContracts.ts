@@ -8,7 +8,7 @@ export const fetchMyContractsApi = async (
   searchConditions: Condition,
   currentPage: number,
   pageSize: number,
-  userId: number
+  userId: string
 ) => {
   try {
     let queryString: string[] = [];
@@ -29,7 +29,6 @@ export const fetchMyContractsApi = async (
     }
 
     const result = response.data;
-    return result;
     return result;
   } catch (error) {
     console.error("Error fetching data:", error);

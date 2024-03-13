@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import OverviewPayment from "./OverviewPayment";
 import { getContractData } from "../FixedFee/api/getContractData";
 import { OverviewHandlerType } from "./types";
+import { LocationStateProps } from "../FixedFee/types";
 
-const OverviewPaymentHandler = ({id}:any) => {
+const OverviewPaymentHandler = ({id}:LocationStateProps) => {
   const [dateOfSignature, setDateOfSignature] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");

@@ -30,6 +30,7 @@ const AppRoutes = () => {
           <NavContext>
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
+			  <Route path="/home" element={<Navigate to="/login" />} />
               <Route path="/login" element={<LoginHandler />}></Route>
               <Route path="/dashboard" element={<><NavBarHandler/><SideBar><Dashboard/></SideBar></>}></Route>
 			  <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
