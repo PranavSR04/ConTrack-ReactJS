@@ -4,6 +4,7 @@ import { ColumnsType } from 'antd/es/table';
 import styles from './contractsList.module.css'  ;
 import { AllContractsPropType, ContractData } from './types';
 import { useNavigate } from 'react-router';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading,pageTitle,rowClassName}:AllContractsPropType) => {
   const navigate=useNavigate();
@@ -37,7 +38,9 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
      rowClassName={rowClassName}
     size='small'>
 </Table>
-      {loading && <Spin size="large" />}
+{/* {loading && <Spin size="large" />} */}
+      {loading && <Spin className={styles.spinner}
+    indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />} />}
       </div>
     </>
   );
