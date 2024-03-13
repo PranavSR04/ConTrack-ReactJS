@@ -21,6 +21,7 @@ export const Auth = createContext<AuthContextType>({
 		last_name: "",
 		created_at: "",
 		updated_at: "",
+		
 	},
 	login: (details: userDetailsType): Promise<LoginResponse | AxiosError> => {
 		return postLogin(details);
@@ -28,7 +29,8 @@ export const Auth = createContext<AuthContextType>({
 	logout: (): Promise<void | AxiosError>=>{return Promise.resolve();},
 	isModalOpen:false,
 	handleOk:()=>{},
-	handleCancel:()=>{}
+	handleCancel:()=>{},
+	errorMsg:""
 	
 });
 
@@ -37,6 +39,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 	const navigate = useNavigate();
 	const [accessToken, setAccessToken] = useState<string>("");
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [errorMsg,setErrorMsg]=useState<string>("");
 	const showModal = () => {
 		setIsModalOpen(true);
 	  };
@@ -51,7 +54,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 
 	const login = async (
 		userDetails: userDetailsType
-	): Promise<LoginResponse | AxiosError> => {
+	): Promise<LoginResponse | AxiosError > => {
 		console.log(userDetails);
 		const response: LoginResponse = await postLogin(userDetails);
 		console.log(response)
@@ -73,6 +76,8 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 			localStorage.setItem("user", JSON.stringify(response.user));
 		}else{
 			showModal();
+			console.log((response.response?.data as any)?.error);
+			setErrorMsg((response.response?.data as any)?.error);
 		
 		}
 		return response;
@@ -102,7 +107,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
    
 	return (
 		<div>
-			<Auth.Provider value={{ accessToken, currentUser, login, logout,isModalOpen, handleOk,handleCancel}}>
+			<Auth.Provider value={{ accessToken, currentUser, login, logout,isModalOpen, handleOk,handleCancel,errorMsg}}>
 				{children}
 			</Auth.Provider>
 		</div>

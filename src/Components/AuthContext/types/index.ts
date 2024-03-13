@@ -9,5 +9,6 @@ export type AuthContextType={
 	handleOk:()=>void;
 	isModalOpen:boolean;
 	handleCancel:()=>void;
+	errorMsg:string;
 
 }

@@ -8,7 +8,8 @@ export interface LoginPropType{
     onFinishFailed: (errorInfo: ValidateErrorEntity<userDetailsType>) => void;
     isModalOpen:boolean,
     handleOk:()=>void,
-    handleCancel:()=>void
+    handleCancel:()=>void,
+    errorMsg:string
 } 
 
 // Interface for the user object within the successful response

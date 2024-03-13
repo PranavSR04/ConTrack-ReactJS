@@ -3,10 +3,8 @@ import FixedFeeContracts from './FixedFeeContracts'
 import NavBarHandler from '../../../Components/NavBar/NavBarHandler'
 import SideBar from '../../../Components/SideBar/SideBar'
 import { useLocation } from 'react-router-dom'
+import { LocationStateProps } from './types'
 
-interface LocationStateProps{
-  id:string
-}
 
 const FixedFeeHandler = () => {
   const location = useLocation();

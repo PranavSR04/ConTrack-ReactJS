@@ -4,7 +4,7 @@ import { LoginPropType, userDetailsType } from "./types";
 import styles from "./Login.module.css";
 import logo from "../../img/Subtract.png";
 
-const Login = ({ onFinish, onFinishFailed ,handleOk,isModalOpen,handleCancel}: LoginPropType) => {
+const Login = ({ onFinish, onFinishFailed ,handleOk,isModalOpen,handleCancel,errorMsg}: LoginPropType) => {
 	return (
 		<>
 			<div className={styles.container}>
@@ -53,14 +53,14 @@ const Login = ({ onFinish, onFinishFailed ,handleOk,isModalOpen,handleCancel}: L
 					</Card>
 				</div>
 				<Modal
-					title="Unauthorized"
+					title="Login Failed"
 					open={isModalOpen}
 					onCancel={handleCancel}
 				    onOk={handleOk}
 					footer={null}
 					
 				>
-					<p>You don't have access.</p>
+					<p>{errorMsg}</p>
 					
 				</Modal>
 			</div>

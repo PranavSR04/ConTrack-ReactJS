@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import MemberComments from "./MemberComments";
 import { getContractData } from "../FixedFee/api/getContractData";
 import { AssociatedUsersType, MemberCommentsHandlerType } from "./types";
+import { LocationStateProps } from "../FixedFee/types";
 
-const MemberCommentsHandler = ({id}:any) => {
+const MemberCommentsHandler = ({id}:LocationStateProps) => {
   const [comments, setComments] = useState<string>("");
   const [associatedUsers, setAssociatedUsers] = useState<AssociatedUsersType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

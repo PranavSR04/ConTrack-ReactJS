@@ -8,10 +8,10 @@ import { AxiosError } from "axios";
 
 const LoginHandler = () => {
     
-    const {login,handleOk,isModalOpen,handleCancel}= useContext(Auth);
+    const {login,handleOk,isModalOpen,handleCancel,errorMsg}= useContext(Auth);
 
     const navigate=useNavigate();
-  
+   
 
 	const onFinish: FormProps<userDetailsType>["onFinish"] = async (values) => {
 		console.log("Success:", values);
@@ -47,6 +47,7 @@ const LoginHandler = () => {
         isModalOpen={isModalOpen}
         handleOk={handleOk}
         handleCancel={handleCancel}
+        errorMsg={errorMsg}
 
         />
     );

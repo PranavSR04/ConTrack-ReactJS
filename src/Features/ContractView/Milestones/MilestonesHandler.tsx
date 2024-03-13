@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Milestones from "./Milestones";
 import { getContractData } from "../FixedFee/api/getContractData";
-import { Milestone } from "../FixedFee/types";
+import { LocationStateProps, Milestone } from "../FixedFee/types";
 import { MilestonesHandlerType } from "./types";
 
-const MilestonesHandler = ({id}:any) => {
+const MilestonesHandler = ({id}:LocationStateProps) => {
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const cardsPerPage: number = 2;
