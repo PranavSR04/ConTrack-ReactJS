@@ -7,33 +7,36 @@ import { ManageUserHandlerPropType, ManageUsersPropType } from './types';
 import Toast from '../../Components/Toast/Toast';
 
 
-const ManageUsers = ({
-  handleAddUser,
-  hideDeleteConfirmation,
-  handleDelete,
-  handleSearch,
-  handlePageChange,
-  handleEditModalCancel,
-  handleUpdateUser,
-  rowClassName,
-  debouncedFetchData,
-  onSelectEmployee,
-  getEmployee,
-  setSelectedRoleId,
-  columns,
-  dropdownOptions,
-  roleOptions,
-  dataSource,
-  pagination,
-  editModalVisible,
-  selectedRoleId,
-  deleteConfirmationVisible,
-  selectedUser,
-  userAdded,
-  loading,
-  userUpdated,
-  userDeleted,
-}: ManageUsersPropType) => {
+const ManageUsers = (
+  { 
+    handleAddUser,
+    hideDeleteConfirmation,handleDelete,
+    handleSearch,
+    handlePageChange,
+    handleEditModalCancel,
+    handleUpdateUser,
+    rowClassName,
+    debouncedFetchData,
+    onSelectEmployee,
+    getEmployee,
+    setSelectedRoleId,
+    columns,
+    dropdownOptions,
+    roleOptions,
+    dataSource,
+    pagination,
+    editModalVisible,
+    selectedRoleId,
+    deleteConfirmationVisible,
+    selectedUser,
+    userAdded,
+    loading,
+    userUpdated,
+    userDeleted,
+    showToast,
+    emptyUserToast,
+    employeeNotFoundToast
+  }:ManageUsersPropType) => {
   return (
     <>
       <h2 className={`${userTableStyles.pageTitle}`}>MANAGE USER</h2>
@@ -80,14 +83,17 @@ const ManageUsers = ({
           <></>
         )}
 
-        {userDeleted ? (
-          <Toast
-            message={"User Deleted Successfully"}
-            messageType={"warning"}
-          />
-        ) : (
-          <></>
-        )}
+{userDeleted? 
+        <Toast
+        message={"User Deleted Successfully"}
+        messageType={"warning"}
+        />:<></>
+        }
+{showToast && <Toast message="User Already Exists" messageType="error" />}
+{emptyUserToast && <Toast message="No User Found" messageType="error" />}
+{employeeNotFoundToast && <Toast message="No Employee Found" messageType="error" />}
+
+
 
       <Card className={`${userTableStyles.mainListContainer}`}>
 

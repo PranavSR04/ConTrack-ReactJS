@@ -19,7 +19,8 @@
   }
 
   .maincontainer__header__title__edit{
-    margin-right: 5rem;
+    margin-left: auto;
+    margin-right: 2rem;
   }
   
   .maincontainer__header__title__edit__button {
@@ -29,6 +30,20 @@
     padding: 5px 20px;
     font-size: large;
     border-radius: 10px;
+  }
+
+  .maincontainer__header__title__export{
+    margin-right: 3rem;
+  }
+  
+  .maincontainer__header__title__export__button {
+    background-color: #dc143c;
+    color: white;
+    border: none;
+    padding: 5px 20px;
+    font-size: large;
+    border-radius: 10px;
+    text-decoration: none;
   }
   
   .maincontainer__header__subheading {
