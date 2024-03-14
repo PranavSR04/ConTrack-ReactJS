@@ -27,8 +27,10 @@ const ListMsaHandler = () => {
   }, []);
   const columns: TableColumnsType<MsaDataType> = [
     {
-      title: "MSA ID",
+      title: 
+        "MSA ID",
       dataIndex: "msa_ref_id",
+      
     },
     {
       title: "Client Name",
@@ -61,6 +63,9 @@ const ListMsaHandler = () => {
       ),
     },
   ];
+  const getRowClassName = (record: any, index: number) => {
+    return index % 2 === 0 ? 'even-row' : 'odd-row';
+  };
   const handlePageSizeChange = ({ key }: { key: React.Key }) => {
     setPageSize(Number(key));
   };
@@ -86,6 +91,7 @@ const handleEditClick = (msa_ref_id:string) => {
    <ListMsa
    navigateToAddMsaHandler={navigateToAddMsaHandler}
    columns={columns}
+   getRowClassName={getRowClassName}
    data={data}
    />
   )

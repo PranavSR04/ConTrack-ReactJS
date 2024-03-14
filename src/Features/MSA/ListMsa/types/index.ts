@@ -11,4 +11,5 @@ import { TableColumnsType } from "antd";
     navigateToAddMsaHandler: () => void;
     columns: TableColumnsType<MsaDataType>;
     data: MsaDataType[];
+    getRowClassName: (record: any, index: number) => "even-row" | "odd-row"
   }
