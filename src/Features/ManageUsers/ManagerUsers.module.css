@@ -149,3 +149,21 @@
   margin-bottom: 1rem;
   /* border: '5px solid #808080' */
 }
+
+.errorContainer {
+  padding: 20px;
+  border: 2px solid #ff8888; /* Changed border color */
+  border-radius: 5px;
+  background-color: #ffeeee; /* Changed background color */
+  text-align: center; /* Center align content */
+}
+
+.errorTitle {
+  color: #ff3333; /* Changed title color */
+  font-size: 24px;
+}
+
+.errorMessage {
+  color: #666666;
+  font-size: 16px;
+}

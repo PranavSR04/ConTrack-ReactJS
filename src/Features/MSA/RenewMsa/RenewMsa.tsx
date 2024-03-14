@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "../Msa.module.css";
 import { Button, DatePicker, Form, Input, Upload, Spin } from "antd";
 import { FilePdfOutlined, PlusOutlined } from "@ant-design/icons";
@@ -6,6 +6,8 @@ import TextArea from "antd/es/input/TextArea";
 import { RenewMsaPropType } from "./types";
 import CloseContractModal from "../../ContractView/Documents/CloseContractModal";
 import RenewMsaModal from "./RenewMsaModal";
+import Toast from '../../../Components/Toast/Toast';
+
 const RenewMsa = ({
   msa_ref_id,
   handleInputChange,
@@ -19,8 +21,10 @@ const RenewMsa = ({
   visible,
   onCancel,
   modalPopUp,
-  spinning
+  spinning,
+  msaRenewed,
 }: RenewMsaPropType) => {
+  console.log(msaRenewed)
   return (
     <>
       <div className={styles.AddMsa}>
@@ -170,6 +174,7 @@ const RenewMsa = ({
         onCancel={onCancel}
         />
         <Spin spinning={spinning} fullscreen />
+        {msaRenewed&&<Toast messageType="success" message='MSA Renewd'></Toast>}
       </div>
     </>
   );

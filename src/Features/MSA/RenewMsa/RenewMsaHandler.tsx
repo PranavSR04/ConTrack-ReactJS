@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import RenewMsa from "./RenewMsa";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getapi } from "../EditMsa/api/getapi";
@@ -17,6 +17,7 @@ const RenewMsaHandler = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [spinning, setSpinning] = React.useState<boolean>(false);
   const [filePdf, setFilePdf] = useState<RcFile | null>();
+  const [msaRenewed, setMsaRenewed] = useState<boolean>(false)
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -93,6 +94,7 @@ const RenewMsaHandler = () => {
     if (formData.file !== null) {
       setFilePdf(formData.file);
       console.log("filepdf:", filePdf);
+      // setMsaRenewed(true)
     }
   }, [msaData, filePdf]);
 
@@ -131,7 +133,16 @@ const RenewMsaHandler = () => {
         formDatatoSend.append("file", filePdf || "");
 
         // Sending the changed values to the API
-        await postRenewMsa(msa_ref_id, user_id, formDatatoSend);
+        await postRenewMsa(msa_ref_id, user_id, formDatatoSend).then(() => {
+          // Only set msaRenewed to true if the API call succeeds
+          setMsaRenewed(true);
+          console.log("msaRenewed is now true");
+      })
+      .catch((error) => {
+          console.error("Error submitting form data:", error);
+          window.alert("Error occurred while submitting the form. Please try again.");
+      });
+        // setMsaRenewed(true);
         setSpinning(false);
         navigate("/msa");
       }
@@ -219,6 +230,7 @@ const RenewMsaHandler = () => {
         onCancel={onCancel}
         modalPopUp={modalPopUp}
         spinning={spinning}
+        msaRenewed={msaRenewed}
       />
     </div>
   );

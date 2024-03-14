@@ -17,8 +17,8 @@ export interface RenewMsaPropType{
     visible: boolean
     onCancel: () => void
     modalPopUp: () => void
-    // isFormFilled: () => boolean
     spinning: boolean
+    msaRenewed: boolean
 }
 
 export interface RenewMsaModalPropsType{
