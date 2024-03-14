@@ -18,6 +18,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import ListMsaHandler from "../MSA/ListMsa/ListMsaHandler";
 import EditMsaHandler from "../MSA/EditMsa/EditMsaHandler";
 import RenewMsaHandler from "../MSA/RenewMsa/RenewMsaHandler";
+import AccessDenied from '../../Components/AccessDenied/AccessDenied'
 
 const AppRoutes = () => {
 
@@ -36,8 +37,8 @@ const AppRoutes = () => {
 			  <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
               <Route path="/revenue" element={<><NavBarHandler/><SideBar><RevenueProjectionHandler/></SideBar></>}></Route>
 
-			{ROLE_ID===1 ?<Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>:
-			<Route path="/manageUser" element={<h1>403 Page</h1>}/>}
+			{ROLE_ID===1 || ROLE_ID ==undefined ?<Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>:
+			<Route path="/manageUser" element={<><AccessDenied/></>}/>}
 			{/* <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route> */}
 
 			  <Route path="/allContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
