@@ -7,6 +7,7 @@ import { Moment } from "moment";
 import moment from "moment";
 import { postRenewMsa } from "./api/postRenewMsa";
 import { Form } from "antd";
+import { RcFile } from "antd/es/upload";
 
 const RenewMsaHandler = () => {
   const { msa_ref_id } = useParams<string>();
@@ -14,6 +15,8 @@ const RenewMsaHandler = () => {
   const [form] = Form.useForm();
   const [fileName, setFileName] = useState<string>();
   const [visible, setVisible] = useState<boolean>(false);
+  const [spinning, setSpinning] = React.useState<boolean>(false);
+  const [filePdf, setFilePdf] = useState<RcFile | null>();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,7 +25,7 @@ const RenewMsaHandler = () => {
 
   const [msaData, setMsaData] = useState({
     client_name: "",
-    region:"",
+    region: "",
     start_date: "",
     end_date: "",
     comments: "",
@@ -30,11 +33,11 @@ const RenewMsaHandler = () => {
 
   const [formData, setFormData] = useState({
     client_name: "",
-    region:"",
+    region: "",
     start_date: "",
     end_date: "",
     comments: "",
-    file:null as File | null
+    file: null as RcFile | null,
   });
 
   useEffect(() => {
@@ -49,25 +52,27 @@ const RenewMsaHandler = () => {
       console.log("renew msa response", responses);
       const msa_data = responses?.data;
       if (msa_data) {
-        const { client_name, region, start_date, end_date, comments } = msa_data;
+        const { client_name, region, start_date, end_date, comments } =
+          msa_data;
         // Log the extracted values for debugging
         console.log("Destructured msa values:", {
           client_name,
           region,
           start_date,
           end_date,
-          comments
+          comments,
         });
 
         // Updating state with the extracted msa values
-        setMsaData({
-          client_name:client_name,
+        setMsaData((prevState) => ({
+          ...prevState,
+          client_name: client_name,
           region: region,
           start_date: start_date,
           end_date: end_date,
-          comments: comments
-        });
-        
+          comments: comments,
+        }));
+
         console.log("setted MSA:", msaData);
       }
     } catch (error) {
@@ -82,37 +87,61 @@ const RenewMsaHandler = () => {
       start_date: msaData.start_date,
       end_date: msaData.end_date,
       comments: msaData.comments,
-      file:null as File | null
+      file: null as RcFile | null,
     });
-  }, [msaData]);
+    console.log("useeffect formdata", formData);
+    if (formData.file !== null) {
+      setFilePdf(formData.file);
+      console.log("filepdf:", filePdf);
+    }
+  }, [msaData, filePdf]);
+
+  const handleFileUpload = (info: any) => {
+    setFormData({ ...formData, file: info.file as RcFile });
+    console.log("setting form data file", formData.file);
+    try {
+      console.log("File uploaded successfully:", info.file);
+
+      setFilePdf(info.file);
+      console.log(filePdf);
+      setFileName(info.file.name);
+    } catch (e) {
+      console.log("file upload error is", e);
+    }
+  };
 
   const submitRenewMsa = async () => {
-    // Checking if form is filled before submission
-    if (!isFormFilled()) {
-      window.alert('Please fill all required fields before submitting the form.');
-    }
-
     try {
-      console.log("After setting", formData);
-      const formDatatoSend = new FormData();
+      // Checking if form is filled before submission
+      const formstatus = isFormFilled();
+      if (formstatus) {
+        window.alert(
+          "Please fill all required fields before submitting the form."
+        );
+      } else {
+        setSpinning(true);
+        console.log("After setting", formData);
+        console.log("file testing:", filePdf);
+        const formDatatoSend = new FormData();
+        formDatatoSend.append("client_name", formData.client_name);
+        formDatatoSend.append("region", formData.region);
+        formDatatoSend.append("start_date", formData.start_date);
+        formDatatoSend.append("end_date", formData.end_date);
+        formDatatoSend.append("comments", formData.comments);
+        formDatatoSend.append("file", filePdf || "");
 
-      formDatatoSend.append("client_name", formData.client_name);
-      formDatatoSend.append("region", formData.region);
-      formDatatoSend.append("start_date",formData.start_date);
-      formDatatoSend.append("end_date",formData.end_date);
-      formDatatoSend.append("comments", formData.comments);
-      formDatatoSend.append('file', formData.file||'');
-      // Send the changed values to the API
-      await postRenewMsa(msa_ref_id, user_id, formDatatoSend);
-
-      form.resetFields();
+        // Sending the changed values to the API
+        await postRenewMsa(msa_ref_id, user_id, formDatatoSend);
+        setSpinning(false);
+        navigate("/msa");
+      }
     } catch (error) {
       console.error("Error submitting form data:", error);
-    }
-    finally {
+      setSpinning(false);
+      navigate("/msa");
+    } finally {
       // Close the modal
       onCancel();
-      navigate('/msa')
     }
   };
 
@@ -120,12 +149,13 @@ const RenewMsaHandler = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    console.log("typing: ", name ,"and", value)
+    console.log("typing: ", name, "and", value);
     setMsaData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
+
   const handleStartDateChange = (
     date: Moment | null,
     dateString: string | string[]
@@ -148,33 +178,29 @@ const RenewMsaHandler = () => {
       console.log("error ; type of date string: ", typeof dateString);
     }
   };
-  const handleFileUpload = (info: any) => {
-    try {
-      console.log("File uploaded successfully:", info.file);
-      setFormData({...formData,file:info.file})
-      setFileName(info.file.name);
-    } catch (e) {
-      console.log("file upload error is", e);
-    }
-  };
 
   const onCancel = () => {
     setVisible(false);
   };
 
-  const modalPopUp = () =>{
-    setVisible(true)
-  }
+  const modalPopUp = () => {
+    setVisible(true);
+  };
 
   const isFormFilled = () => {
-    return (
-      formData.client_name !== '' &&
-      formData.region !== '' &&
-      formData.start_date !== null && // Assuming start_date is required and a Date object
-      formData.end_date !== null && // Assuming end_date is required and a Date object
-      formData.file !== null && // Assuming file upload is required
-      formData.comments !== ''
-    );
+    console.log("test", fileName);
+    console.log("test clent name", formData.client_name);
+    if (
+      formData.client_name == "" ||
+      formData.region == "" ||
+      formData.start_date == "" ||
+      formData.end_date == "" ||
+      fileName == null
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -188,10 +214,11 @@ const RenewMsaHandler = () => {
         handleFileUpload={handleFileUpload}
         submitRenewMsa={submitRenewMsa}
         region={msaData.region}
+        clientName={msaData.client_name}
         visible={visible}
         onCancel={onCancel}
         modalPopUp={modalPopUp}
-        isFormFilled={isFormFilled}
+        spinning={spinning}
       />
     </div>
   );

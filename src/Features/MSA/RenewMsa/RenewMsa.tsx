@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../Msa.module.css";
-import { Button, DatePicker, Form, Input, Upload } from "antd";
+import { Button, DatePicker, Form, Input, Upload, Spin } from "antd";
 import { FilePdfOutlined, PlusOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 import { RenewMsaPropType } from "./types";
@@ -15,10 +15,11 @@ const RenewMsa = ({
   handleFileUpload,
   submitRenewMsa,
   region,
+  clientName,
   visible,
   onCancel,
   modalPopUp,
-  isFormFilled
+  spinning
 }: RenewMsaPropType) => {
   return (
     <>
@@ -54,21 +55,21 @@ const RenewMsa = ({
               <Form.Item
                 className={styles.AddMsaDetails_row1_col2}
                 name="client_name"
-                required
               >
                 Client Name
                 <span className={styles.AddMsaDetails_star}>*</span>
                 <br />
                 <Input
                   name="client_name"
+                  value={clientName}
                   className={styles.AddMsaDetails_inputs}
                   onChange={handleInputChange}
+                  disabled
                 />
               </Form.Item>
               <Form.Item
                 className={styles.AddMsaDetails_row1_col3}
                 name="region"
-                required
               >
                 Region
                 <span className={styles.AddMsaDetails_star}>*</span>
@@ -77,18 +78,18 @@ const RenewMsa = ({
               </Form.Item>
             </div>
             <div className={styles.AddMsaDetails_row2}>
-              <Form.Item
+              <Form.Item<string>
                 className={styles.AddMsaDetails_row2_col1}
                 name="start_date"
-                required
               >
                 Start Date
                 <span className={styles.AddMsaDetails_star}>*</span>
-                <br />
+                <br /> 
                 <DatePicker
                   format="YYYY-MM-DD"
                   className={styles.AddMsaDetails_inputs}
                   onChange={handleStartDateChange}
+                  required
                 />
               </Form.Item>
               <Form.Item
@@ -107,7 +108,7 @@ const RenewMsa = ({
               </Form.Item>
             </div>
             <div className={styles.AddMsaDetails_row3}>
-              <Form.Item name="file" className={styles.AddMsaDetails_row3_col1}>
+              <Form.Item name="file" className={styles.AddMsaDetails_row3_col1} required>
                 Upload Master Service Agreement
                 <span className={styles.AddMsaDetails_star}>*</span>
                 <br />
@@ -125,7 +126,8 @@ const RenewMsa = ({
                   <Upload
                     action=""
                     listType="picture-card"
-                    fileList={[]}
+                    // fileList={[]}
+                    // accept=".pdf"
                     customRequest={handleFileUpload}
                   >
                     <button
@@ -167,6 +169,7 @@ const RenewMsa = ({
         submitRenewMsa={submitRenewMsa}
         onCancel={onCancel}
         />
+        <Spin spinning={spinning} fullscreen />
       </div>
     </>
   );
