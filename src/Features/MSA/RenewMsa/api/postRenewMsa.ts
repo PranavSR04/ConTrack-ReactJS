@@ -5,7 +5,11 @@ export const postRenewMsa = async (msa_ref_id: string|undefined, user_id:number,
     try {
         const data = await axiosInstance.post(
             `api/msa/renew/${user_id}?msa_ref_id=${msa_ref_id}`,
-            formDatatoSend,
+            formDatatoSend,{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
         );
         return data;
     } catch (error) {

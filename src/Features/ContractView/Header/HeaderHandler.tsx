@@ -48,8 +48,6 @@ const HeaderHandler = ({ id }: LocationStateProps) => {
               item.contract_doclink,
               item.estimated_amount,
               item.contract_status,
-              item.created_at,
-              item.updated_at,
               item.client_name,
               item.user_name,
             ];
@@ -96,12 +94,8 @@ const HeaderHandler = ({ id }: LocationStateProps) => {
             "Updated At",
             "Client Name",
             "User Name",
-            "Region",
-            "Milestone ID",
-            "Milestone Contract ID",
             "Milestone Description",
             "Milestone End Date",
-            "Milestone Percentage",
             "Milestone Amount"
           ]);
 

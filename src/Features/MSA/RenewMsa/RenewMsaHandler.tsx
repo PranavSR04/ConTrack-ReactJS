@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RenewMsa from "./RenewMsa";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getapi } from "../EditMsa/api/getapi";
 import { LocationStateProps } from "./types";
 import { Moment } from "moment";
@@ -13,13 +13,16 @@ const RenewMsaHandler = () => {
   const user_id: number = parseInt(localStorage.getItem("user_id") || "0");
   const [form] = Form.useForm();
   const [fileName, setFileName] = useState<string>();
+  const [visible, setVisible] = useState<boolean>(false);
 
+  const navigate = useNavigate();
   const location = useLocation();
   // const { msa_ref_id }= location.state as LocationStateProps;
   // console.log("Id:", msa_ref_id)
 
   const [msaData, setMsaData] = useState({
     client_name: "",
+    region:"",
     start_date: "",
     end_date: "",
     comments: "",
@@ -27,6 +30,7 @@ const RenewMsaHandler = () => {
 
   const [formData, setFormData] = useState({
     client_name: "",
+    region:"",
     start_date: "",
     end_date: "",
     comments: "",
@@ -45,22 +49,25 @@ const RenewMsaHandler = () => {
       console.log("renew msa response", responses);
       const msa_data = responses?.data;
       if (msa_data) {
-        const { client_name, start_date, end_date } = msa_data;
-
+        const { client_name, region, start_date, end_date, comments } = msa_data;
         // Log the extracted values for debugging
         console.log("Destructured msa values:", {
           client_name,
+          region,
           start_date,
           end_date,
+          comments
         });
 
         // Updating state with the extracted msa values
-        setMsaData((prevState) => ({
-          ...prevState,
-          client_name: client_name,
+        setMsaData({
+          client_name:client_name,
+          region: region,
           start_date: start_date,
           end_date: end_date,
-        }));
+          comments: comments
+        });
+        
         console.log("setted MSA:", msaData);
       }
     } catch (error) {
@@ -71,6 +78,7 @@ const RenewMsaHandler = () => {
   useEffect(() => {
     setFormData({
       client_name: msaData.client_name,
+      region: msaData.region,
       start_date: msaData.start_date,
       end_date: msaData.end_date,
       comments: msaData.comments,
@@ -84,14 +92,9 @@ const RenewMsaHandler = () => {
       const formDatatoSend = new FormData();
 
       formDatatoSend.append("client_name", formData.client_name);
-      formDatatoSend.append(
-        "start_date",
-        moment(formData.start_date).format("YYYY-MM-DD")
-      );
-      formDatatoSend.append(
-        "end_date",
-        moment(formData.end_date).format("YYYY-MM-DD")
-      );
+      formDatatoSend.append("region", formData.region);
+      formDatatoSend.append("start_date",formData.start_date);
+      formDatatoSend.append("end_date",formData.end_date);
       formDatatoSend.append("comments", formData.comments);
       formDatatoSend.append('file', formData.file||'');
       // Send the changed values to the API
@@ -101,12 +104,18 @@ const RenewMsaHandler = () => {
     } catch (error) {
       console.error("Error submitting form data:", error);
     }
+    finally {
+      // Close the modal
+      onCancel();
+      navigate('/msa')
+    }
   };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    console.log("typing: ", name ,"and", value)
     setMsaData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -116,7 +125,7 @@ const RenewMsaHandler = () => {
     date: Moment | null,
     dateString: string | string[]
   ) => {
-    console.log("datestring:", date);
+    console.log("datestring:", dateString);
     if (typeof dateString === "string") {
       setMsaData({ ...msaData, start_date: dateString });
     } else {
@@ -131,6 +140,7 @@ const RenewMsaHandler = () => {
     if (typeof dateString === "string") {
       setMsaData({ ...msaData, end_date: dateString });
     } else {
+      console.log("error ; type of date string: ", typeof dateString);
     }
   };
   const handleFileUpload = (info: any) => {
@@ -143,6 +153,18 @@ const RenewMsaHandler = () => {
     }
   };
 
+  const onCancel = () => {
+    setVisible(false);
+  };
+
+  const modalPopUp = () =>{
+    setVisible(true)
+  }
+
+  const isFormFilled = () => {
+    return Object.values(formData).every(value => value !== '' && value !== null);
+  };
+
   return (
     <div>
       <RenewMsa
@@ -153,6 +175,11 @@ const RenewMsaHandler = () => {
         fileName={fileName}
         handleFileUpload={handleFileUpload}
         submitRenewMsa={submitRenewMsa}
+        region={msaData.region}
+        visible={visible}
+        onCancel={onCancel}
+        modalPopUp={modalPopUp}
+        isFormFilled={isFormFilled}
       />
     </div>
   );

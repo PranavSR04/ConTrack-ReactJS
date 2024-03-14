@@ -4,6 +4,8 @@ import { Button, DatePicker, Form, Input, Upload } from "antd";
 import { FilePdfOutlined, PlusOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 import { RenewMsaPropType } from "./types";
+import CloseContractModal from "../../ContractView/Documents/CloseContractModal";
+import RenewMsaModal from "./RenewMsaModal";
 const RenewMsa = ({
   msa_ref_id,
   handleInputChange,
@@ -11,7 +13,12 @@ const RenewMsa = ({
   handleEndDateChange,
   fileName,
   handleFileUpload,
-  submitRenewMsa
+  submitRenewMsa,
+  region,
+  visible,
+  onCancel,
+  modalPopUp,
+  isFormFilled
 }: RenewMsaPropType) => {
   return (
     <>
@@ -66,7 +73,7 @@ const RenewMsa = ({
                 Region
                 <span className={styles.AddMsaDetails_star}>*</span>
                 <br />
-                <Input name="region" className={styles.AddMsaDetails_inputs} />
+                <Input name="region" className={styles.AddMsaDetails_inputs} value={region} disabled/>
               </Form.Item>
             </div>
             <div className={styles.AddMsaDetails_row2}>
@@ -79,7 +86,7 @@ const RenewMsa = ({
                 <span className={styles.AddMsaDetails_star}>*</span>
                 <br />
                 <DatePicker
-                  format="DD-MM-YYYY"
+                  format="YYYY-MM-DD"
                   className={styles.AddMsaDetails_inputs}
                   onChange={handleStartDateChange}
                 />
@@ -93,7 +100,7 @@ const RenewMsa = ({
                 <span className={styles.AddMsaDetails_star}>*</span>
                 <br />
                 <DatePicker
-                  format="DD-MM-YYYY"
+                  format="YYYY-MM-DD"
                   className={styles.AddMsaDetails_inputs}
                   onChange={handleEndDateChange}
                 />
@@ -149,12 +156,18 @@ const RenewMsa = ({
               className={styles.AddMsaDetails_Button}
               type="primary"
               htmlType="submit"
-              onClick={submitRenewMsa}
+              disabled={!isFormFilled()}
+              onClick={modalPopUp}
             >
               Renew MSA
             </Button>
           </Form>
         </div>
+        <RenewMsaModal
+        visible={visible}
+        submitRenewMsa={submitRenewMsa}
+        onCancel={onCancel}
+        />
       </div>
     </>
   );
