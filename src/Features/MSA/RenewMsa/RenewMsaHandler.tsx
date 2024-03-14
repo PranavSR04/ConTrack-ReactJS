@@ -87,6 +87,11 @@ const RenewMsaHandler = () => {
   }, [msaData]);
 
   const submitRenewMsa = async () => {
+    // Checking if form is filled before submission
+    if (!isFormFilled()) {
+      window.alert('Please fill all required fields before submitting the form.');
+    }
+
     try {
       console.log("After setting", formData);
       const formDatatoSend = new FormData();
@@ -162,7 +167,14 @@ const RenewMsaHandler = () => {
   }
 
   const isFormFilled = () => {
-    return Object.values(formData).every(value => value !== '' && value !== null);
+    return (
+      formData.client_name !== '' &&
+      formData.region !== '' &&
+      formData.start_date !== null && // Assuming start_date is required and a Date object
+      formData.end_date !== null && // Assuming end_date is required and a Date object
+      formData.file !== null && // Assuming file upload is required
+      formData.comments !== ''
+    );
   };
 
   return (

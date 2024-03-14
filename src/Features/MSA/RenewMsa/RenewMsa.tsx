@@ -156,7 +156,6 @@ const RenewMsa = ({
               className={styles.AddMsaDetails_Button}
               type="primary"
               htmlType="submit"
-              disabled={!isFormFilled()}
               onClick={modalPopUp}
             >
               Renew MSA
