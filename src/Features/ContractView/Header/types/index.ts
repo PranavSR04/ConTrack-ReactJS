@@ -13,5 +13,6 @@ export interface HeadingPropType{
     region: string;
     du: string;
     contractStatus: string;
-    contractData: Contract[] | undefined
+    // contractData: Contract[]
+    contractExcelData: (string | number)[][]
 }
