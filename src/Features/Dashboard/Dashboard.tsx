@@ -3,6 +3,7 @@ import ContractsCount from '../../Components/DashBoardContractsCount/ContractsCo
 import { Card } from 'antd';
 import styles from './dashboard.module.css'
 import DashBoardNotificationListHandler from '../../Components/DashBoardNotificationList/DashBoardNotificationListHandler';
+import BarChartHandler from '../DashBoardBarChart/BarChartHandler';
 
 const Dashboard = () => {
     const user_id=localStorage.getItem('user_id');
@@ -16,6 +17,7 @@ const Dashboard = () => {
     <Card >
       <ContractsCount/>
     </Card>
+    <BarChartHandler/>   
       <DashBoardNotificationListHandler/>
       </div>
     </>

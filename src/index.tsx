@@ -7,6 +7,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppRoutes from './Features/AppRouts/AppRoutes';
 import './App.css';
+import BarChartHandler from './Features/DashBoardBarChart/BarChartHandler';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
