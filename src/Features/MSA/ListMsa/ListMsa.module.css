@@ -53,14 +53,22 @@
   justify-items: center;
 }
 .ListMsa_Details_Table_row1_col2_button{
-    background-color: crimson;
+    /* background-color: crimson;
     border-color: transparent;
     color:white;
     width:9rem;
     border-radius: 10px;
     font-weight: 600;
     height: 2.7rem;
-    margin-left: 16.5rem;
+    margin-left: 16.5rem; */
+    margin-left: 65%;
+    margin-top: 1%;
+    border-color: transparent;
+    width:9rem;
+    margin-bottom: 1%;
+     background-color:#DC143C;
+     color: white;
+     font-family: "Montserrat", sans-serif;
 }
 .ListMsa_edit_btn,
 .ListMsa_renew_btn{
@@ -80,4 +88,49 @@
   .ant-table-cell{
     background-color: skyblue
   }
+  .listmsa-action-icons{
+    display: flex;
+  }
+  .activebutton,
+  .inactivebutton{
+   border-radius: 2rem;
+    border-color: transparent;
+    width:10rem;
+   flex:1;
+   margin-bottom: -2.4rem;
+     background-color:#DC143C;
+     color: white;
+     font-family: "Montserrat", sans-serif;
+  }
+  .ListMsa_Details_Table_row1_msabutton{
+    margin-right: 40rem;
+    display: flex;
+    
+  }
+  .activebutton {
+    background: linear-gradient(to right, #ff5900, #e52e71); /* Gradient colors for active state */
+  }
+  
+  .inactivebutton {
+    background-color: #DC143C; /* Default color for inactive state */
+  }
+  
+  .activebutton:hover {
+    background: linear-gradient(to right, #ff8a00, #e52e71); /* Gradient colors on hover */
+    color: white;
+  }
+  
+  .inactivebutton:hover {
+    background-color: #ff8a00; /* Change color on hover */
+    color: white;
+  }
+  .ListMsa_Details_segment {
+    /* Define your custom styles here */
+    margin-right:17rem;
+    margin-bottom: -2rem;
+    width:9rem;
+    height: 2rem;
+    
+  }
+
   
