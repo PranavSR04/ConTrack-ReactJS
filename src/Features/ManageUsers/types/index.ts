@@ -1,5 +1,5 @@
 import { DebouncedFunc } from "lodash";
-import { SelectProps } from "antd";
+import { LabeledValue,SelectProps,SelectValue } from 'antd/es/select';
 
 export interface ManageUsersPropType {
   handleAddUser: () => void;
@@ -54,10 +54,7 @@ export interface ManageUsersPropType {
   emptyUserToast:boolean
   employeeNotFoundToast:boolean
   dropDownLoading:boolean
-  handleEmployeeSelect:() => void;
-  // selectedValue:string
-  // selectRef:SelectProps
-  // handleClear:()=>void;
+ 
 }
 
 export interface ManageUserHandlerPropType {}

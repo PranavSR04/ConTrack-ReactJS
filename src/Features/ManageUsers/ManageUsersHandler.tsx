@@ -13,18 +13,18 @@ import { addUser } from "./api/postAddUser";
 import { deleteUser } from "./api/putDeleteUser";
 import { updateUser } from "./api/putUpdateUser";
 import Swal, { SweetAlertCustomClass } from "sweetalert2";
-import { SelectProps } from 'antd/es/select';
-
-import Toast from "../../Components/Toast/Toast";
-import { message } from "antd";
 import { Select } from "antd/lib";
+import { LabeledValue,SelectProps,SelectValue } from 'antd/es/select';
+
+type SelectRef = React.RefObject<LabeledValue | null> | React.MutableRefObject<LabeledValue | null>;
+
 
 const ManageUsersHandler = () => {
   const [columns, setColumns] = useState<TableColumn[]>([]);
   const [dataSource, setDataSource] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [deleteConfirmationVisible, setDeleteConfirmationVisible] =
-    useState<boolean>(false);
+  const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState<boolean>(false);
+  const { Option } = Select;
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editedUser, setEditedUser] = useState<User | null>(null);
@@ -42,14 +42,8 @@ const ManageUsersHandler = () => {
   const [emptyUserToast, setEmptyUserToast] = useState(false);
   const [employeeNotFoundToast, setEmployeeNotFoundToast]=useState<boolean>(false)
   const [dropDownLoading, setdDropDownLoading] = useState<boolean>(true);
-  const selectRef = useRef<SelectProps>(null);
-
-  // const handleClear = () => {
-  //   if (selectRef.current) {
-  //     selectRef.current.blur(); // Blur to close dropdown (if it's open)
-  //     selectRef.current.setValue(null); // Clear the value
-  //   }
-  // };
+  const selectRef = useRef<any>(null);  ;
+  const [employeeValue, setEmployeeValue]=useState<string>('')
 
   const render = useRef(true);
   const [updateUserId, setupdateUserId] = useState<number | undefined>(
@@ -70,12 +64,15 @@ const ManageUsersHandler = () => {
     searchQuery1?: string
   ) => {
     try {
+      console.log("Search Query in API",searchQuery)
+
       setLoading(true);
       const response = await getUserList(
         pagination.current,
         pagination.pageSize,
         searchQuery1
       );
+
       const result = response.data;
       console.log(result);
       console.log('parameter', searchQuery)
@@ -194,6 +191,7 @@ const ManageUsersHandler = () => {
       setLoading(false);
     }
   };
+
   //To get the Users List on loading the page
   useEffect(() => {
     fetchUserData(pagination.current, pagination.pageSize, searchQuery);
@@ -313,7 +311,6 @@ const ManageUsersHandler = () => {
   // }, []);
 
   const addUserToSystem = async (employee_id: number, role_id: number) => {
-    console.log("###############",employee_id)
     try {
       setLoading(true);
       await addUser(employee_id, role_id);
@@ -432,13 +429,8 @@ const ManageUsersHandler = () => {
   //setting the User to be searched
   const handleSearch = (value: string) => {
     setSearchQuery(value);
+    console.log("Search Query after setting",searchQuery)
   };
-
-  // useEffect(() => {
-  //   // Fetch data on mount or when a user is searched
-  //   fetchUserData(pagination.current, pagination.pageSize, searchQuery);
-  //   setUserAdded(false);
-  // }, [searchQuery,pagination.current, pagination.pageSize]);
 
   useEffect(() => {
     // Fetch data when a user is added/updated
@@ -449,8 +441,6 @@ const ManageUsersHandler = () => {
   }, [userAdded, userUpdated, userDeleted]);
 
   const handlePageChange = (pagination: any) => {
-    // fetchUserData(pagination.page, pagination.pageSize);
-    // Update the current page in the state
     setPagination({
       ...pagination,
       current: pagination.current,
@@ -473,12 +463,9 @@ const ManageUsersHandler = () => {
     return index % 2 === 0 ? userTableStyles.evenRow : userTableStyles.oddRow;
   };
 
-  const handleEmployeeSelect=()=>{
-
-  }
 
   return (
-    
+
     <ManageUsers
      handleAddUser={handleAddUser}
      showDeleteConfirmation={showDeleteConfirmation}
@@ -516,7 +503,6 @@ const ManageUsersHandler = () => {
      showToast={showToast}
      emptyUserToast={emptyUserToast}
      employeeNotFoundToast={employeeNotFoundToast}
-     handleEmployeeSelect={handleEmployeeSelect}
      dropDownLoading={dropDownLoading}
 
      />
