@@ -44,8 +44,8 @@ const AppRoutes = () => {
 			  <Route path="/myContracts" element={<><NavBarHandler/><SideBar><AllContractsHandler /></SideBar></>}></Route>
        		  <Route path="/MSA" element={<><NavBarHandler/><SideBar><ListMsaHandler/></SideBar></>}></Route>
 			  <Route path="/msa/add" element={<><NavBarHandler/><SideBar><AddMsaHandler/></SideBar></>}></Route>
-			  <Route path="/msa/edit/:msa_ref_id" element={<><NavBarHandler/><SideBar><EditMsaHandler/></SideBar></>}></Route>
-			  <Route path="/msa/renew/:msa_ref_id" element={<><NavBarHandler/><SideBar><RenewMsaHandler/></SideBar></>}></Route>
+			  <Route path="/msa/edit" element={<><NavBarHandler/><SideBar><EditMsaHandler/></SideBar></>}></Route>
+			  <Route path="/msa/renew" element={<><NavBarHandler/><SideBar><RenewMsaHandler/></SideBar></>}></Route>
 				<Route
                 path="/addContract"
                 element={

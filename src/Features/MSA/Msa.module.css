@@ -63,7 +63,24 @@
     font-size: 0.9rem;
 
 }
+
+.document_link{
+    text-decoration: none;
+    color: black;
+}
+.container_file{
+    position: relative;
+}
+.EditMsaDetails_row3_col1_closeicon{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 13rem;
+    font-size: 15px;
+    color:black;
+}
 .AddMsaDetails_row3_col1_fileicon{
-    color: crimson;
+    font-size: 24px;
+    color:crimson; 
     font-size: 4.5rem;
 }
