@@ -2,54 +2,65 @@
     display: flex;
     background-color: #ffffff;
     border-radius: 10px;
-    box-shadow:0 0 4px rgba(0, 0, 0, 0.5);
+    box-shadow:0 0 4px rgba(0, 0, 0, 0.1);
     padding: 16px;
-    margin: 10px 0 20px 1px;
+    margin: 2px 0 20px 4px;
     height:80px;
-    width:310px;
+    width:320px;
+    transition: transform 0.3s ease;
     
 }
-.added p {
+.cardStyle:hover{
+    display: flex;
+    background-color: #f0eded;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 2px 0 20px 4px;
+    height:80px;
+    width:320px;
+    transform: translateY(-5px);
+}
+.added> p {
   margin-top: 10px;
-  background-color: #D9A0F3;
-  color: #1F4E94;
-  font-size: 15px;
+  background-color: #e9d2f4;
+  color: #ca86ea;
+  font-size: 10px;
   padding: 9px;
   width: 80px;
   border-radius: 20px; 
 }
-.edited p{
+.edited> p{
   margin-top: 10px;
-  background-color: #f29573;
-  color: #cb3c09;
-  font-size: 15px;
+  background-color: #eba68d;
+  color: #e76d41;
+  font-size: 10px;
   padding:9px;
   width: 80px;
   border-radius: 20px;
 }
-.renewed p{
+.renewed> p{
   margin-top: 10px;
   background-color: #ACF3A0;
   color: #1F9423;
-  font-size: 15px;
+  font-size: 10px;
   padding:9px;
   width: 80px;
   border-radius: 20px;
 }
-.expired p{
+.expired> p{
   margin-top: 10px;
   background-color: #DC143C;
   color: #5F2828;
-  font-size: 15px;
+  font-size: 10px;
   padding:9px;
   width: 80px;
   border-radius: 20px;
 }
-.expiring p{
+.expiring> p{
   margin-top: 10px;
   background-color: #F2E291;
   color: #9F7D24;
-  font-size: 15px;
+  font-size: 10px;
   padding:9px;
   width: 80px;
   border-radius: 20px;
@@ -57,7 +68,6 @@
 .cardStyle_right{
   flex: 7;
   padding-left: 6px;
-
   text-align: left;
   font-size: 12px;
   margin-top: 10px;
@@ -89,4 +99,5 @@
 .difference{
   font-size: 9px;
   padding-left: 5px;
+  padding-top: 10px;
 }
