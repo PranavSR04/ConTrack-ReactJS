@@ -8,6 +8,7 @@ import { Form } from "antd";
 import { postapi } from "./api/postapi";
 import { getapi } from "./api/getapi";
 import ListMsaHandler from "../ListMsa/ListMsaHandler";
+import { RcFile } from "antd/es/upload";
 
 const EditMsaHandler = () => {
   // const { msa_ref_id } = useParams<string >();
@@ -20,6 +21,7 @@ const EditMsaHandler = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [fileName,setFileName]=useState<string>();
+  const [filePdf, setFilePdf] = useState<RcFile | null>();
 
   const [redirectToListMsa, setRedirectToListMsa] = useState(false); // State variable for redirection
   const [showListMsa, setShowListMsa] = useState(false); // State variable for showing list MSA
@@ -42,8 +44,9 @@ const EditMsaHandler = () => {
     start_date: "",
     end_date: "",
     comments: "",
-    file:null as File | null
+    file: null as RcFile | null  
   });
+
   useEffect(() => {
     if (msa_ref_id) {
       autoFillMsa(msa_ref_id);
@@ -84,6 +87,22 @@ const EditMsaHandler = () => {
       console.error("Error generating MSA ID:", error);
     }
   };
+  useEffect(() => {
+    setFormData({
+      client_name: msaData.client_name,
+      region: msaData.region,
+      start_date: msaData.start_date,
+      end_date: msaData.end_date,
+      comments: msaData.comments,
+      file: null as RcFile | null,
+    });
+    console.log("useeffect formdata", formData);
+    if (formData.file !== null) {
+      setFilePdf(formData.file);
+      console.log("filepdf:", filePdf);
+      // setMsaRenewed(true)
+    }
+  }, [msaData, filePdf]);
   const fileCancel = () => {
     setFileUpload(true);
     setShowFile(false)
@@ -120,8 +139,10 @@ const EditMsaHandler = () => {
     try{
   
         console.log('File uploaded successfully:', info.file);
-        setFormData({...formData,file:info.file})
-        setFileName(info.file.name)
+        setFormData({...formData,file:info.file as RcFile})
+        setFileName(info.file.name);
+        console.log("file for editing" ,info.file)
+        setFilePdf(info.file)
     }
     catch(e){
       console.log("file upload error is", e)
@@ -129,21 +150,27 @@ const EditMsaHandler = () => {
     };
   //console.log("Msa data when edited", msaData);
   console.log("form data before setting", formData);
-  useEffect(() => {
-    setFormData({
-      client_name: msaData.client_name,
-      region: msaData.region,
-      start_date: msaData.start_date,
-      end_date: msaData.end_date,
-      comments: msaData.comments,
-      file:null
-    });
-  }, [msaData]);
+  // useEffect(() => {
+  //   setFormData({
+  //     client_name: msaData.client_name,
+  //     region: msaData.region,
+  //     start_date: msaData.start_date,
+  //     end_date: msaData.end_date,
+  //     comments: msaData.comments,
+  //     file:null
+  //   });
+  // }, [msaData]);
   const handleEditMsa = () => {
     setIsModalVisible(true);
   };
   const SubmitEditMsa = async () => {
     try {
+      const formstatus = isFormFilled();
+      if (formstatus) {
+        window.alert(
+          "Please fill all required fields before submitting the form."
+        );
+      }else{
       setIsLoading(true);
       // setIsModalVisible(false); // Close modal
       setShowSpinner(true);
@@ -159,7 +186,7 @@ const EditMsaHandler = () => {
       formDatatoSend.append("end_date", formData.end_date);
 
       formDatatoSend.append("comments", formData.comments);
-      formDatatoSend.append("file", formData.file||'');
+      formDatatoSend.append("file", filePdf || "");
      console.log("Data to be send: ",formDatatoSend)
       await postapi(formDatatoSend, msa_ref_id, user_id);
       setMsaEdited(true);
@@ -171,15 +198,31 @@ const EditMsaHandler = () => {
         setShowListMsa(true);
       }, 3);
       form.resetFields();
+    }
     } catch (error) {
       console.error("Error submitting form data:", error);
+    }
+  };
+  const isFormFilled = () => {
+    console.log("test", fileName);
+    console.log("test clent name", formData.client_name);
+    if (
+      formData.client_name == "" ||
+      formData.region == "" ||
+      formData.start_date == "" ||
+      formData.end_date == "" ||
+      fileName == null
+    ) {
+      return true;
+    } else {
+      return false;
     }
   };
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  console.log(msaData);
-  console.log("Edit MSA Ref", msa_ref_id);
+  //console.log(msaData);
+  //console.log("Edit MSA Ref", msa_ref_id);
   return (
     <div>
       <EditMsa

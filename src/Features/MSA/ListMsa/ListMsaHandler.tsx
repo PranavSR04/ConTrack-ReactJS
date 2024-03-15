@@ -46,16 +46,9 @@ const ListMsaHandler = () => {
     'end_date': 'End Date',
     'added_by_user': ' Added By'
   };
-  // const [activeTab, setActiveTab] = useState<string>("Active");
 
-  // const handleSegmentChange = (value:string) => {
-  //     setActiveTab(value);
-  //     if (value === "Active") {
-  //         fetchData();
-  //     } else if (value === "Inactive") {
-  //         showInactiveMSA();
-  //     }
-  // };
+  const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
+
   useEffect(() => {
     if(isActive){
 
@@ -159,7 +152,7 @@ const showInactiveMSA=async()=>{
     sortDirections: ['ascend', 'descend'],
     ...getColumnSearchProps(key),
   }));
-  { 
+  {   ROLE_ID !==3 &&
     columns.push({
      title: 'Action',
      key: 'action',
@@ -193,8 +186,9 @@ const showInactiveMSA=async()=>{
        </div>
      ),
    });
-   
   }
+
+  
 
    const getRowClassName = (record: any, index: number) => {
     return index % 2 === 0 ? 'even-row' : 'odd-row';

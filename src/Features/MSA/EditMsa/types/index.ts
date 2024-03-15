@@ -1,3 +1,4 @@
+import { RcFile } from "antd/es/upload";
 import { Moment } from "moment";
 
 export interface EditMsaHandlertype{
@@ -35,5 +36,5 @@ export interface MsaDataType{
      end_date: string; 
      comments:string;
      msa_doclink:string;
-     file?:File
+     file?:RcFile | null;
 }

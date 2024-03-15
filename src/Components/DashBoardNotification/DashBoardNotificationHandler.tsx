@@ -12,13 +12,13 @@ const DashBoardNotificationHandler:React.FC<DashBoardNotificationHandlerPropType
           if (timeDifference < 0) {
             return 'Just now';
           } else if (timeDifference < 60) {
-            return `${timeDifference} seconds ago`;
+            return `${timeDifference} sec ago`;
           } else if (timeDifference < 3600) {
             const minutes = Math.floor(timeDifference / 60);
-            return `${minutes} minutes ago`;
+            return `${minutes} mins ago`;
           } else if (timeDifference < 86400) {
             const hours = Math.floor(timeDifference / 3600);
-            return `${hours} hours ago`;
+            return `${hours} hrs ago`;
           } else if (timeDifference < 604800) {
             const days = Math.floor(timeDifference / 86400);
             return `${days} days ago`;

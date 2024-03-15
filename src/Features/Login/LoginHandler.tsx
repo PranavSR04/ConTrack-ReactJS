@@ -26,7 +26,7 @@ const LoginHandler = () => {
            else{
             console.log(responce);
             console.log(responce.access_token);
-            navigate("/Dashboard");
+            navigate("/dashboard");
     
            }
 

@@ -21,6 +21,8 @@ const ListMsa = ({
   const navigate=useNavigate();
 
   const [loading, setLoading] = useState(true);
+  const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
+
   useEffect(() => {
     // Simulate loading for 3 seconds
     const timer = setTimeout(() => {
@@ -54,7 +56,7 @@ const ListMsa = ({
                 <span className={styles.ListMsa_Details_Table_row1_col1_span}>entries</span> */}
               </div>
               <div className={styles.ListMsa_Details_Table_row1_col2}>
-              <ConfigProvider
+                <ConfigProvider
 								theme={{
 									token: {
 										borderRadius: 20,

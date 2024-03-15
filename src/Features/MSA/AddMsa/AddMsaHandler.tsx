@@ -58,6 +58,7 @@ const AddMsaHandler = () => {
     
           console.log('File uploaded successfully:', info.file);
           setFormData({...formData,file:info.file})
+          console.log(formData)
           setFileName(info.file.name)
       }
       catch(e){
@@ -92,6 +93,7 @@ const AddMsaHandler = () => {
       }
       const SubmitAddMsa=async()=>{
         try {
+          console.log("after setting:", formData)
           setIsLoading(true)
           setShowSpinner(true);
           //setFullPageSpinner(false);
