@@ -8,6 +8,9 @@ export interface Condition {
     pageSize: number;
     total: number;
 }
+export interface locale {
+  emptyText: string;
+}
 
  export interface ContractData {
     id:string;
@@ -39,5 +42,6 @@ export interface AllContractsPropType{
   actionClicked:boolean;
   loading:boolean;
   pageTitle:string;
-  rowClassName:(record:ContractData, index: number)=> string
+  rowClassName:(record:ContractData, index: number)=> string;
+  locale:locale;
 }

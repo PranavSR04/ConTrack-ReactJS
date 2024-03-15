@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { EditOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Input, Spin, Table, Tag } from 'antd';
+import { Button, Input, Tag } from 'antd';
 import { FilterConfirmProps, TablePaginationConfig } from 'antd/lib/table/interface';
 import { fetchDataFromApi } from './api/AllContracts';
 import { fetchMyContractsApi } from './api/MyContracts';
-import { ContractData ,TableColumn} from './types';
+import { ContractData ,TableColumn, locale} from './types';
 import AllContracts from './AllContracts';
 import { useNavigate } from 'react-router';
 import tableStyles from './contractsList.module.css'  ; 
@@ -20,8 +20,11 @@ const AllContractsHandler = () => {
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10, // Default page size
-    total: 0,     // Total items  from API
+    total: 0, 
   });
+  let locale:locale = {    //empty message for table
+    emptyText:loading? ' ': 'No data Found',
+  };
 
   useEffect(() => {
     fetchData(); // Fetch initial data
@@ -34,7 +37,7 @@ const AllContractsHandler = () => {
       let locationPaths=location.split('/');
       let pagePath=locationPaths[locationPaths.length-1]; //get the corresponding page path.
       console.log('location',pagePath);
-//get Api for MyContracts
+     //get Api for MyContracts
       if(pagePath==='MyContracts'){
         const USER_ID=localStorage.getItem('user_id') as string; //get user id
         const result = await fetchMyContractsApi(searchConditions, pagination.current, pagination.pageSize,USER_ID);
@@ -48,7 +51,7 @@ const AllContractsHandler = () => {
       });
       }
       else{
-        //get Api for All contracts
+      //get Api for All contracts
       const result = await fetchDataFromApi(searchConditions, pagination.current, pagination.pageSize);
       setData(result.data);
       setPageTitle('CONTRACTS OVERVIEW');
@@ -144,7 +147,6 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
   ),
 }));
 
-
   const oneditPage = (contract_id: string) => {
     setActionClicked(true);
     navigate(`/editContract`, { state: { id: contract_id as string } });
@@ -170,8 +172,7 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
       }}>{status}</Tag>;
     }, 
   });
-  
-  
+
  { role_id !==3 &&
    columns.push({
     title: 'Action',
@@ -199,6 +200,7 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
      loading={loading}
      rowClassName={rowClassName}
      pageTitle={pageTitle}
+     locale={locale}
       />
     </>
   )
