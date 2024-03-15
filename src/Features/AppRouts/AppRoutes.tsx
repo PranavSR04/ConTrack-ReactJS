@@ -115,7 +115,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/msa/edit/:msa_ref_id"
+                path="/msa/edit"
                 element={
                   <>
                     <NavBarHandler />

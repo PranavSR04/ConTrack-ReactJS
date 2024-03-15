@@ -1,3 +1,4 @@
+import { RcFile } from "antd/es/upload";
 import { Moment } from "moment";
 
 export interface EditMsaHandlertype{
@@ -15,12 +16,25 @@ export interface EditMsaHandlertype{
     isLoading: boolean;
     validateStartDate?: (value: any) => Promise<void>;
     //  confirmLoading:boolean
+    handleOk?: () => Promise<void>;
+    fullPageSpinner?: boolean;
+    fileCancel: () => void;
+    fileUpload: boolean;
+    showFile: boolean;
+    handleFileUpload: (info: any) => void;
+    fileName: string | undefined
 
 }
+export interface LocationStateProps {
+    msa_ref_id: string;
+  }
+  
 export interface MsaDataType{
     client_name: string;
      region: string; 
      start_date: string; 
      end_date: string; 
      comments:string;
+     msa_doclink:string;
+     file?:RcFile | null;
 }

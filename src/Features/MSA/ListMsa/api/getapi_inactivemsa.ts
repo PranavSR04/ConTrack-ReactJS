@@ -3,7 +3,7 @@ import axiosInstance from '../../../../Config/AxiosConfig';
 import { Condition } from '../types';
 
 
-export const getapi = async (
+export const getapi_inactivemsa = async (
     currentPage: number,
     pageSize: number,
     searchConditions: Condition) =>
@@ -19,7 +19,7 @@ export const getapi = async (
           console.log(queryString);
           console.log("search query", queryStrings);
           const response: AxiosResponse = await axiosInstance.get(
-            `/api/msa/list/?${queryStrings}&page=${currentPage}&per_page=${pageSize}`
+            `/api/msa/list/?${queryStrings}&page=${currentPage}&per_page=${pageSize}&is_active=0`
           );
       
           if (response.status !== 200) {
@@ -33,15 +33,4 @@ export const getapi = async (
           return { data: [], total: 0 };
         }
       };
-//     {
-//     try {
-//         const response = await axiosInstance.get(
-//             `api/msa/list?page=${currentPage}&per_page=${pageSize}`
-//         );
-//         return response;
-//     } catch (error) {
-//         console.error("Error checking MSA ID existence:", error);
-//         throw error;
-//     }
 
-// };

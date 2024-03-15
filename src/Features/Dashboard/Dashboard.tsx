@@ -3,6 +3,8 @@ import ContractsCount from '../../Components/DashBoardContractsCount/ContractsCo
 import { Card } from 'antd';
 import styles from './dashboard.module.css'
 import DashBoardNotificationListHandler from '../../Components/DashBoardNotificationList/DashBoardNotificationListHandler';
+import ScatterPlot from '../../Components/RevenueScatterPlot/ScatterPlot';
+import ScatterPlotHandler from '../../Components/RevenueScatterPlot/ScatterPlotHandler';
 
 const Dashboard = () => {
     const user_id=localStorage.getItem('user_id');
@@ -18,6 +20,11 @@ const Dashboard = () => {
     </Card>
       <DashBoardNotificationListHandler/>
       </div>
+
+      <Card style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white'}}>
+      <ScatterPlotHandler/>
+      </Card>
+
     </>
   )
 }
