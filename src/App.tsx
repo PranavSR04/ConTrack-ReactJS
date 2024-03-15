@@ -13,6 +13,7 @@ import DashBoardNotification from './Components/DashBoardNotification/DashBoardN
 import DashBoardNotificationListHandler from './Components/DashBoardNotificationList/DashBoardNotificationListHandler';
 import NavContext from './Components/NavContext/NavContext';
 import AddContract from './Features/AddContract/AddContract';
+import AddContractHandler from './Features/AddContract/AddContractHandler';
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
       <RevenueProjectionHandler />
       <DashBoardNotificationListHandler/>
     </SideBar>
-    <AddContract/>
+    {/* <AddContract/> */}
     </NavContext>
     
 

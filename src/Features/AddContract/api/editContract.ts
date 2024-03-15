@@ -1,20 +1,16 @@
 import axios from "axios";
 import { ContractDetails } from "../types";
 import axiosInstance from "../../../Config/AxiosConfig";
+import { EditContractDetails } from "../types/editcontract";
 
-// const API_BASE_URL = "http://127.0.0.1:8000/api/contracts";
-
-export const addContract = async (contractData: ContractDetails) => {
+export const editContract = async (contractData: EditContractDetails) => {
   try {
-    console.log("From api fromtend", contractData);
-
     const response = await axiosInstance.post(
-      `/api/contracts/add`,
+      `/api/contracts/edit/${contractData.msa_id}`,
       contractData,
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Accept: "application/json",
         },
       }
     );
@@ -22,6 +18,6 @@ export const addContract = async (contractData: ContractDetails) => {
     console.log(response);
     return response.data;
   } catch (error) {
-    throw new Error("Something went wrong while adding the contract.");
+    throw new Error("Something went wrong while editing the contract.");
   }
 };
