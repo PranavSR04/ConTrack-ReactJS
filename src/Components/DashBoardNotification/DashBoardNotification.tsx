@@ -17,7 +17,7 @@ const DashBoardNotification:React.FC<DashBoardNotificationPropType> = ({notifica
   }
   return (
     <div className={styles.container}>
-      <div className={styles.container_text}><p> <b>{notification.contract_id ? `${notification.contract_id}: Contract ${notification.action} for ${notification.client_name}` : `${notification.msa_id}: Msa ${notification.action} for ${notification.client_name}`}</b></p></div>
+      <div className={styles.container_text}><p> <b>{notification.contract_ref_id ? `${notification.contract_ref_id}: Contract ${notification.action} for ${notification.client_name}` : `${notification.msa_ref_id}: Msa ${notification.action} for ${notification.client_name}`}</b></p></div>
       <div className={`${styles.container_action} ${actionStyle}`}><p><b>{notification.action}</b></p></div>
       <div className={styles.container_time}><p><b>{difference}</b></p></div>
     </div>

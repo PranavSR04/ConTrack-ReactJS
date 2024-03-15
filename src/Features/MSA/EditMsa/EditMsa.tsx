@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import styles from '../Msa.module.css'
 import { Button, DatePicker, Form, Input, Modal, Upload } from 'antd'
-import { FilePdfOutlined, PlusOutlined } from '@ant-design/icons'
+import { CloseOutlined, FilePdfOutlined, PlusOutlined } from '@ant-design/icons'
 import TextArea from 'antd/es/input/TextArea'
 import { EditMsaHandlertype } from './types'
 import { values } from '@ant-design/plots/es/core/utils'
 import moment, { Moment } from 'moment'
 import { ToastBody } from 'react-bootstrap'
 import Toast from '../../../Components/Toast/Toast'
+import { useNavigate } from 'react-router'
 const EditMsa = ({
   msaData,
   msa_ref_id,
@@ -20,11 +21,18 @@ const EditMsa = ({
   handleDateChange,
   handleEndDateChange,
   SubmitEditMsa,
+  fileCancel,
+  fileUpload,
+  showFile,
+  handleFileUpload,
+  fileName
 }:EditMsaHandlertype) => {
   console.log("start date:", msaData.start_date)
+  const  navigate=useNavigate()
   const formattedStartDate = moment(msaData.start_date);
   console.log("selected start date", formattedStartDate)
   const formattedEndDate = moment(msaData.end_date);
+
   return (
     <>
     <div className={styles.AddMsa}>
@@ -114,38 +122,54 @@ const EditMsa = ({
       >Upload Master Service Agreement
       <span className={styles.AddMsaDetails_star}>*</span>
       <br/>
-      {msa_ref_id?
-            <div>
+      {showFile?
+            <div className={styles.container_file}>
+              <CloseOutlined  
+              className={styles.EditMsaDetails_row3_col1_closeicon}
+              onClick={fileCancel}/>
+               <a
+            className={styles.document_link } 
+            href={msaData.msa_doclink}>
             <FilePdfOutlined className={styles.AddMsaDetails_row3_col1_fileicon}/>
-            <br/><p className={styles.AddMsaDetails_row3_col1_filename}>
+            
+            <br/>
+           <div className={styles.msa_doclink_filename}>
+            <p className={styles.AddMsaDetails_row3_col1_filename}>
               {msa_ref_id}.pdf
               </p>
+              </div>
+              </a>
             </div>
-            :
-            <Upload 
-          action="" 
-          listType="picture-card"
-          fileList={[]}
-          accept='.pdf'
-          // customRequest={handleFileUpload}
-          >
-            <button style={{ border: 0, background: 'none' }} type="button">
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
-            </button>
-            </Upload>
+            :(fileName?
+              <>
+              <div>
+                    <FilePdfOutlined
+                      className={styles.AddMsaDetails_row3_col1_fileicon}
+                    />
+                    <br />
+                    <p className={styles.AddMsaDetails_row3_col1_filename}>
+                      {fileName}
+                    </p>
+                  </div>
+              </>:<>
+              <Upload
+                    action=""
+                    listType="picture-card"
+                    fileList={[]}
+                    accept=".pdf"
+                    customRequest={handleFileUpload}
+                  >
+                    <button
+                      style={{ border: 0, background: "none" }}
+                      type="button"
+                    >
+                      <PlusOutlined />
+                      <div style={{ marginTop: 8 }}>Upload</div>
+                    </button>
+                  </Upload>
+              </>)
             } 
-            {/* <Upload
-          action="" 
-          listType="picture-card"
-          fileList={[]}
-          
-          >
-            <button style={{ border: 0, background: 'none' }} type="button">
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
-            </button>
-            </Upload> */}
+            
             
         </Form.Item>
       <Form.Item 
@@ -176,7 +200,10 @@ const EditMsa = ({
 
       </Modal>
       </Form>
-      {msaEdited?<Toast messageType="success" message='MSA Updated'></Toast>:<></>}
+      {msaEdited?<Toast 
+      messageType="success" 
+      message='MSA Updated'
+      ></Toast>:<></>}
  
     </div>
     </div>
