@@ -19,6 +19,7 @@ const ManageUsers = (
     debouncedFetchData,
     onSelectEmployee,
     getEmployee,
+    setSelectedEmployeeId,
     setSelectedRoleId,
     columns,
     dropdownOptions,
@@ -35,22 +36,41 @@ const ManageUsers = (
     userDeleted,
     showToast,
     emptyUserToast,
-    employeeNotFoundToast
+    employeeNotFoundToast,
+    selectedEmployeeId,
+    dropDownLoading,
+    // selectRef,
+    // handleClear
+    
   }:ManageUsersPropType) => {
   return (
     <>
       <h2 className={`${userTableStyles.pageTitle}`}>MANAGE USER</h2>
       <div className={` ${userTableStyles.wholeTable} `}>
-        <AutoComplete
+    
+        <Select
           className={`${userTableStyles.searchEmployeeBox}`}
-          options={dropdownOptions.map((option) => ({ value: option.value }))}
           style={{ width: 200 }}
+          options={dropdownOptions}
           placeholder="Search Employee"
-          onSelect={onSelectEmployee}
+
+          
+          // onChange={(value, option) => {
+          //   setSelectedEmployeeId(value.value);
+          // }}
+
+          onChange={userAdded ? (value, option) => setSelectedEmployeeId(value.value) : (value, option) => setSelectedEmployeeId(0)}
+
+
+
+          filterOption={false}
+          labelInValue={true}
+          showSearch
           onSearch={(text) => {
             getEmployee(text);
             debouncedFetchData(text);
           }}
+          notFoundContent={dropDownLoading ? <Spin size="small" /> : null}
         />
 
         <Select
@@ -61,12 +81,22 @@ const ManageUsers = (
           placeholder="Select a role"
         />
 
+        {/* 
         <Button
           className={`${userTableStyles.addUserButton}`}
-          onClick={handleAddUser}
+          onClick={handleAddUser,handleClear}
         >
           ADD USER
-        </Button>
+        </Button> */}
+
+      <Button
+        className={`${userTableStyles.addUserButton}`}
+        onClick={() => {
+          handleAddUser();
+        }}
+      >
+        ADD USER
+      </Button>
 
         {userAdded ? (
           <Toast message={"User Added Successfully"} messageType={"success"} />
@@ -83,17 +113,10 @@ const ManageUsers = (
           <></>
         )}
 
-{userDeleted? 
-        <Toast
-        message={"User Deleted Successfully"}
-        messageType={"warning"}
-        />:<></>
-        }
-{showToast && <Toast message="User Already Exists" messageType="error" />}
-{emptyUserToast && <Toast message="No User Found" messageType="error" />}
-{employeeNotFoundToast && <Toast message="No Employee Found" messageType="error" />}
-
-
+       {userDeleted? <Toast message={"User Deleted Successfully"} messageType={"warning"}/>:<></>}
+       {showToast && <Toast message="User Already Exists" messageType="error" />}
+       {emptyUserToast && <Toast message="No User Found" messageType="error" />}
+       {employeeNotFoundToast && <Toast message="No Employee Found" messageType="error" />}
 
       <Card className={`${userTableStyles.mainListContainer}`}>
 
@@ -109,6 +132,8 @@ const ManageUsers = (
               size='middle'
               dataSource={dataSource}
               rowClassName={rowClassName}
+              locale={{emptyText:" "}} 
+
               pagination={{
                 position: ['bottomCenter'],
                 ...pagination, 

@@ -12,6 +12,8 @@ const ListMsaHandler = () => {
    
   const [data, setData] = useState<MsaDataType[]>([]);
   const [pageSize, setPageSize] = useState<number>(10);
+  const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,8 +29,10 @@ const ListMsaHandler = () => {
   }, []);
   const columns: TableColumnsType<MsaDataType> = [
     {
-      title: "MSA ID",
+      title: 
+        "MSA ID",
       dataIndex: "msa_ref_id",
+      
     },
     {
       title: "Client Name",
@@ -45,22 +49,44 @@ const ListMsaHandler = () => {
     {
       title: "Added By",
       dataIndex: "added_by_user",
-    },
-    {
+    }
+  ];
+  //   {
+  //     title: "Action",
+  //     key: "action",
+  //     render: (text, record) => (
+  //       <Space size="middle">
+  //         <a onClick={()=>handleRenewClick(record.msa_ref_id)}><SyncOutlined 
+  //         className={styles.ListMsa_renew_btn}
+  //         /></a>
+  //         <a onClick={()=>handleEditClick(record.msa_ref_id)}>
+  //           <EditOutlined className={styles.ListMsa_edit_btn} />
+  //           </a>
+  //       </Space>
+  //     ),
+  //   },
+  // ];
+
+  if (ROLE_ID !== 3) {
+    columns.push({
       title: "Action",
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          <a onClick={()=>handleRenewClick(record.msa_ref_id)}><SyncOutlined 
-          className={styles.ListMsa_renew_btn}
-          /></a>
-          <a onClick={()=>handleEditClick(record.msa_ref_id)}>
+          <a onClick={() => handleRenewClick(record.msa_ref_id)}>
+            <SyncOutlined className={styles.ListMsa_renew_btn} />
+          </a>
+          <a onClick={() => handleEditClick(record.msa_ref_id)}>
             <EditOutlined className={styles.ListMsa_edit_btn} />
-            </a>
+          </a>
         </Space>
       ),
-    },
-  ];
+    });
+  }
+
+  const getRowClassName = (record: any, index: number) => {
+    return index % 2 === 0 ? 'even-row' : 'odd-row';
+  };
   const handlePageSizeChange = ({ key }: { key: React.Key }) => {
     setPageSize(Number(key));
   };
@@ -86,6 +112,7 @@ const handleEditClick = (msa_ref_id:string) => {
    <ListMsa
    navigateToAddMsaHandler={navigateToAddMsaHandler}
    columns={columns}
+   getRowClassName={getRowClassName}
    data={data}
    />
   )
