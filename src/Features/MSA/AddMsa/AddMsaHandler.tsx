@@ -56,6 +56,7 @@ const AddMsaHandler = () => {
     
           console.log('File uploaded successfully:', info.file);
           setFormData({...formData,file:info.file})
+          console.log(formData)
           setFileName(info.file.name)
       }
       catch(e){
@@ -89,6 +90,7 @@ const AddMsaHandler = () => {
       console.log(formData)
       const SubmitAddMsa=async()=>{
         try {
+          console.log("after setting:", formData)
           setIsLoading(true)
          // setIsModalVisible(false); // Close modal
           setShowSpinner(true);
