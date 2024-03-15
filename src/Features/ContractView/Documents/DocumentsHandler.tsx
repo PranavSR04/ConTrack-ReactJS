@@ -4,6 +4,7 @@ import { getContractData } from "../FixedFee/api/getContractData";
 import { DocumentsHandlerType } from "./types";
 import { Addendum, LocationStateProps } from "../FixedFee/types";
 import { postCloseContract } from "./api/postCloseContract";
+import { useNavigate } from "react-router";
 
 const DocumentsHandler = ({ id }: LocationStateProps) => {
   const [contractDocuments, setContractDocuments] = useState<string>("");
@@ -13,6 +14,7 @@ const DocumentsHandler = ({ id }: LocationStateProps) => {
   const [addendums, setAddendums] = useState<Addendum[]>([]);
   const [visible, setVisible] = useState<boolean>(false);
   const [contractStatus, setContractStatus] = useState<string>("")
+  const navigate = useNavigate()
 
   useEffect(() => {
     let responses;
@@ -60,6 +62,7 @@ const DocumentsHandler = ({ id }: LocationStateProps) => {
     } finally {
       // Close the modal
       onCancel();
+      navigate('/AllContracts')
     }
   };
 

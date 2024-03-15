@@ -1,4 +1,5 @@
 import { DebouncedFunc } from "lodash";
+import { SelectProps } from "antd";
 
 export interface ManageUsersPropType {
   handleAddUser: () => void;
@@ -12,22 +13,27 @@ export interface ManageUsersPropType {
   showUpdateChoice: (record: User) => void;
   handlePageChange: (pagination: any) => void;
   handleEditModalCancel: () => void;
+  setSelectedEmployeeId: React.Dispatch<React.SetStateAction<number | undefined>>;
+  selectedEmployeeId?:number|null;
+  // setSelectedEmployeeId:number | undefined;
   handleUpdateUser: (selectedRoleId: number | undefined) => Promise<void>;
   rowClassName: (record: User, index: number) => string;
   debouncedFetchData: DebouncedFunc<(searchValue: string) => Promise<void>>;
-  onSelectEmployee: (data: string) => void;
+  onSelectEmployee: (data: EmployeeOption | null) => void;
   getEmployee: (value: string) => void;
   setDropdownOptions: React.Dispatch<
     React.SetStateAction<
       {
-        value: string;
+        label:string
+        value: number;
       }[]
     >
   >;
   setSelectedRoleId: React.Dispatch<React.SetStateAction<number | undefined>>;
   columns: TableColumn[];
   dropdownOptions: {
-   value: string;
+   label: string;
+   value: number;
 }[]
    roleOptions: RoleOption[]
    dataSource: User[]
@@ -47,6 +53,11 @@ export interface ManageUsersPropType {
   showToast:boolean
   emptyUserToast:boolean
   employeeNotFoundToast:boolean
+  dropDownLoading:boolean
+  handleEmployeeSelect:() => void;
+  // selectedValue:string
+  // selectRef:SelectProps
+  // handleClear:()=>void;
 }
 
 export interface ManageUserHandlerPropType {}
@@ -79,6 +90,11 @@ export interface ActionColumn {
 }
 
 export interface RoleOption {
+  value: number;
+  label: string;
+}
+
+export interface EmployeeOption {
   value: number;
   label: string;
 }
