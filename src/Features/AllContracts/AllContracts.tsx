@@ -1,12 +1,13 @@
 
-import { Button, Spin, Table } from 'antd';
+import { Button, Segmented, Spin, Switch, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import styles from './contractsList.module.css'  ;
 import { AllContractsPropType, ContractData } from './types';
 import { useNavigate } from 'react-router';
 import { LoadingOutlined } from '@ant-design/icons';
 
-const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading,pageTitle,rowClassName,locale}:AllContractsPropType) => {
+const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading,pageTitle,rowClassName,locale
+  ,showExpired}:AllContractsPropType) => {
   const navigate=useNavigate();
   const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
 
@@ -14,10 +15,15 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
     <>
     <h3 className={styles['contracts-h1']}>{pageTitle}</h3>
     <div className={styles['contracts-table']}>
+      <div className={styles['contracts-buttons']}>
+      <div className={styles['contracts-buttons-expired']}>
+   <label> Show Expired &nbsp; </label>
+  <Switch size='small' onChange={showExpired} />
+  </div>
     {ROLE_ID !== 3 && (
     <Button className={styles['contracts-addContract']} onClick={() => navigate('/addContract')}>+ Add Contract</Button>
-  )}     
-   
+  )}
+  </div>
     <Table className={styles['contracts-tableHead']}
      columns={columns as ColumnsType<ContractData>}
      dataSource={data.map((item) => ({ ...item, key: item.id }))}

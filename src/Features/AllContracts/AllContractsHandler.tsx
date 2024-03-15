@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { EditOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Input, Tag } from 'antd';
+import { Button, Empty, Input, Tag } from 'antd';
 import { FilterConfirmProps, TablePaginationConfig } from 'antd/lib/table/interface';
 import { fetchDataFromApi } from './api/AllContracts';
 import { fetchMyContractsApi } from './api/MyContracts';
@@ -14,6 +14,7 @@ const AllContractsHandler = () => {
   const [loading, setLoading] = useState(false);
   const [isEmptySearch, setIsEmptySearch] = useState(false);
   const [actionClicked, setActionClicked]= useState<boolean>(false);
+  const [checkedExpiring, setCheckedExpiring]=useState(false);
   const navigate=useNavigate();
   const role_id = parseInt(localStorage.getItem('role_id') || '0', 10);   
   const [pageTitle, setPageTitle] =useState('CONTRACTS OVERVIEW')
@@ -23,8 +24,20 @@ const AllContractsHandler = () => {
     total: 0, 
   });
   let locale:locale = {    //empty message for table
-    emptyText:loading? ' ': 'No data Found',
+    emptyText:loading? ' ': <Empty />,
   };
+
+  const showExpired = (checked: boolean ) => {  //show expired contracts?
+    console.log(`switch to ${checked}`);
+    setCheckedExpiring(checked); 
+    setSearchConditions({}); //clear search from Api
+    setIsEmptySearch(true);        
+  };
+
+  useEffect(() => {
+    setSearchConditions({}); //clear search and search entry
+    setIsEmptySearch(true);     
+  }, [ window.location.href]); 
 
   useEffect(() => {
     fetchData(); // Fetch initial data
@@ -40,11 +53,10 @@ const AllContractsHandler = () => {
      //get Api for MyContracts
       if(pagePath==='MyContracts'){
         const USER_ID=localStorage.getItem('user_id') as string; //get user id
-        const result = await fetchMyContractsApi(searchConditions, pagination.current, pagination.pageSize,USER_ID);
+        const result = await fetchMyContractsApi(searchConditions, pagination.current, pagination.pageSize,USER_ID,checkedExpiring );
       setData(result.data);
       setPageTitle('MY CONTRACTS');
-      console.log('result:',result.data);
-      console.log('toatal page',result.total);
+      
       setPagination({
         ...pagination,
         total: result.total,
@@ -52,7 +64,7 @@ const AllContractsHandler = () => {
       }
       else{
       //get Api for All contracts
-      const result = await fetchDataFromApi(searchConditions, pagination.current, pagination.pageSize);
+      const result = await fetchDataFromApi(searchConditions, pagination.current, pagination.pageSize, checkedExpiring);
       setData(result.data);
       setPageTitle('CONTRACTS OVERVIEW');
       console.log('result:',result.data)
@@ -129,9 +141,10 @@ const AllContractsHandler = () => {
     'end_date': 'End Date',
     'contract_type': ' Type',
     'contract_status': 'Status',
+    'du':'DU',
   };
 
-  const desiredColumnKeys = ['contract_ref_id', 'client_name', 'start_date', 'end_date', 'contract_type'];
+  const desiredColumnKeys = ['contract_ref_id', 'client_name', 'start_date', 'end_date', 'contract_type','du'];
 
 const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
   title: customHeadings[key],
@@ -165,6 +178,8 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
       if (status === 'On Progress') {
         className = 'status-onprogress';
       } else if (status === 'Closed') {
+        className = 'status-closed';
+      } else if (status === 'Expired') {
         className = 'status-closed';
       }  
       return <Tag className={className} onClick={() => {
@@ -201,6 +216,7 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
      rowClassName={rowClassName}
      pageTitle={pageTitle}
      locale={locale}
+     showExpired={showExpired}
       />
     </>
   )
