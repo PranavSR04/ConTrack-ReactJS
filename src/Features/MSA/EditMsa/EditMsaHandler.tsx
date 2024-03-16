@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EditMsa from "./EditMsa";
-import { useLocation, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { LocationStateProps, MsaDataType } from "./types";
 import axios from "axios";
 import moment, { Moment } from "moment";
@@ -12,6 +12,7 @@ import { RcFile } from "antd/es/upload";
 
 const EditMsaHandler = () => {
   // const { msa_ref_id } = useParams<string >();
+  const navigate=useNavigate();
   const location = useLocation();
   let { msa_ref_id } = location.state as LocationStateProps;
   const[showFile,setShowFile]=useState<boolean>(false);
@@ -22,7 +23,8 @@ const EditMsaHandler = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [fileName,setFileName]=useState<string>();
   const [filePdf, setFilePdf] = useState<RcFile | null>();
-
+  const[fullPageSpinner,setFullPageSpinner]=useState<boolean>(false);
+ 
   const [redirectToListMsa, setRedirectToListMsa] = useState(false); // State variable for redirection
   const [showListMsa, setShowListMsa] = useState(false); // State variable for showing list MSA
   const [showSpinner, setShowSpinner] = useState(false); // State variable for showing spinner
@@ -150,59 +152,75 @@ const EditMsaHandler = () => {
     };
   //console.log("Msa data when edited", msaData);
   console.log("form data before setting", formData);
-  // useEffect(() => {
-  //   setFormData({
-  //     client_name: msaData.client_name,
-  //     region: msaData.region,
-  //     start_date: msaData.start_date,
-  //     end_date: msaData.end_date,
-  //     comments: msaData.comments,
-  //     file:null
-  //   });
-  // }, [msaData]);
+
+
+
+
+
   const handleEditMsa = () => {
-    setIsModalVisible(true);
-  };
-  const SubmitEditMsa = async () => {
-    try {
-      const formstatus = isFormFilled();
-      if (formstatus) {
+    const formstatus = isFormFilled();
+      if (formstatus=="field") {
+        console.log("Is all the field required")
         window.alert(
           "Please fill all required fields before submitting the form."
         );
-      }else{
-      setIsLoading(true);
-      // setIsModalVisible(false); // Close modal
-      setShowSpinner(true);
-      console.log("After setting", formData);
-      const formDatatoSend = new FormData();
+      } else if(formstatus=="date"){
+        window.alert(
+          "End Date must be greater than Start Date."
+        );}else{
+  
+  setIsModalVisible(true);
 
-      formDatatoSend.append("client_name", formData.client_name);
+        }
+};
+const handleOk=async()=>{
+  setFullPageSpinner(true)
+  SubmitEditMsa();
+}
+const SubmitEditMsa = async () => {
+  try {
+    //const formstatus = isFormFilled();
+    
+    setIsLoading(true);
+    // setIsModalVisible(false); // Close modal
+    setShowSpinner(true);
+    if(formData.end_date<=formData.start_date){
+      window.alert("End date must be greater than Start Date")
+    }else{
+    const formDatatoSend = new FormData();
 
-      formDatatoSend.append("region", formData.region);
+    formDatatoSend.append("client_name", formData.client_name);
 
-      formDatatoSend.append("start_date", formData.start_date);
+    formDatatoSend.append("region", formData.region);
 
-      formDatatoSend.append("end_date", formData.end_date);
+    formDatatoSend.append("start_date", formData.start_date);
 
-      formDatatoSend.append("comments", formData.comments);
-      formDatatoSend.append("file", filePdf || "");
-     console.log("Data to be send: ",formDatatoSend)
-      await postapi(formDatatoSend, msa_ref_id, user_id);
-      setMsaEdited(true);
+    formDatatoSend.append("end_date", formData.end_date);
 
-      setIsModalVisible(false);
-      setTimeout(() => {
-        setIsLoading(false);
-        setRedirectToListMsa(true);
-        setShowListMsa(true);
-      }, 3);
-      form.resetFields();
+    formDatatoSend.append("comments", formData.comments);
+    formDatatoSend.append("file", filePdf || "");
+   console.log("Data to be send: ",formDatatoSend)
+    await postapi(formDatatoSend, msa_ref_id, user_id);
+    setMsaEdited(true);
+
+    setIsModalVisible(false);
+    
+      setIsLoading(false);
+      setRedirectToListMsa(true);
+      setShowListMsa(true);
+   
+    form.resetFields();
+    navigate('/MSA',{ state: { edited:true } })
     }
-    } catch (error) {
-      console.error("Error submitting form data:", error);
-    }
-  };
+  } catch (error) {
+    console.error("Error submitting form data:", error);
+  }
+};
+const handleCancel = () => {
+  setIsModalVisible(false);
+};
+  //console.log(msaData);
+  //console.log("Edit MSA Ref", msa_ref_id);
   const isFormFilled = () => {
     console.log("test", fileName);
     console.log("test clent name", formData.client_name);
@@ -210,19 +228,17 @@ const EditMsaHandler = () => {
       formData.client_name == "" ||
       formData.region == "" ||
       formData.start_date == "" ||
-      formData.end_date == "" ||
-      fileName == null
+      formData.end_date == ""
     ) {
-      return true;
+      
+      return "field";
+    }else if(formData.end_date<=formData.start_date){
+      
+      return "date";
     } else {
       return false;
     }
   };
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-  //console.log(msaData);
-  //console.log("Edit MSA Ref", msa_ref_id);
   return (
     <div>
       <EditMsa
@@ -243,6 +259,9 @@ const EditMsaHandler = () => {
         showFile={showFile}
         handleFileUpload={handleFileUpload}
         fileName={fileName}
+        handleOk={handleOk}
+        fullPageSpinner={fullPageSpinner}
+          isFormFilled={isFormFilled}
       />
     </div>
   );
