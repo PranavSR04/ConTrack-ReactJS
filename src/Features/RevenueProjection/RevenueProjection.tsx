@@ -7,7 +7,6 @@ import { HiOutlineFilter } from "react-icons/hi";
 import DemoLine from "./DemoLine";
 
 const RevenueProjection = ({
-	handleLogout,
 	filter,
 	getFilteredValue,
 	showFilterModal,
@@ -50,7 +49,7 @@ const RevenueProjection = ({
 									<Segmented<string>
 										options={["Monthly", "Quarterly", "Yearly"]}
 										defaultValue="Monthly"
-										size="middle"
+										size="large"
 										onChange={(value) => {
 											getFilteredValue(value);
 										}}

@@ -7,7 +7,7 @@ import { RevenueProjectionHandlerPropType, SelectedFiltersType } from "./types";
 
 
 const RevenueProjectionHandler = ({id}:RevenueProjectionHandlerPropType) => {
-  const { logout } = useContext(Auth);
+  // const { logout } = useContext(Auth);
   const [filter,setFilter] = useState<string>("Monthly");
 	const access_token = localStorage.getItem("access_token");
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -28,15 +28,6 @@ const RevenueProjectionHandler = ({id}:RevenueProjectionHandlerPropType) => {
     setIsFilterModalOpen(false);
   };
 
-	const handleLogout = async () => {
-		try {
-			access_token && (await logout()); // Assuming logout function does not require parameters
-			// Optionally, redirect or perform any other action after logout
-		} catch (error) {
-			// Handle any potential errors from the logout operation
-			console.error("Error during logout:", error);
-		}
-	};
   const getFilteredValue=(value:string)=>{
     console.log(value);
     setFilter(value);
@@ -75,7 +66,6 @@ const RevenueProjectionHandler = ({id}:RevenueProjectionHandlerPropType) => {
 	return (
 		<>
 			<RevenueProjection 
-      handleLogout={handleLogout} 
       getFilteredValue={getFilteredValue} 
       filter={filter} 
       showFilterModal={showFilterModal}

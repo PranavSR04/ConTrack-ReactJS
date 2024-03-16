@@ -106,7 +106,7 @@ const ManageUsers = (
             <Table
               className={`${userTableStyles.userListTable}`}
               columns={columns}
-              size='middle'
+              size='large'
               dataSource={dataSource}
               rowClassName={rowClassName}
               pagination={{

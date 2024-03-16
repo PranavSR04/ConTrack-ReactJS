@@ -2,7 +2,6 @@ import { CheckboxOptionType } from "antd";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 
 export type RevenueProjectionPropType = {
-	handleLogout: () => Promise<void>;
 	getFilteredValue: (value: string) => void;
 	filter: string;
 	showFilterModal: () => void;

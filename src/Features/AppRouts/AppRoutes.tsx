@@ -18,6 +18,8 @@ import Dashboard from "../Dashboard/Dashboard";
 import ListMsaHandler from "../MSA/ListMsa/ListMsaHandler";
 import EditMsaHandler from "../MSA/EditMsa/EditMsaHandler";
 import RenewMsaHandler from "../MSA/RenewMsa/RenewMsaHandler";
+import { SignInButton } from "../Login/AzureSignin";
+// import SignInButton from "../../Features/Login/AzureSignin"
 
 const AppRoutes = () => {
 
@@ -30,10 +32,12 @@ const AppRoutes = () => {
           <NavContext>
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
-			  <Route path="/home" element={<Navigate to="/login" />} />
-              <Route path="/login" element={<LoginHandler />}></Route>
+			        <Route path="/home" element={<Navigate to="/login" />} />
+              <Route path="/msauth" element={<SignInButton/>}/>
+
+              <Route path="/login" element={<LoginHandler/> }></Route>
               <Route path="/dashboard" element={<><NavBarHandler/><SideBar><Dashboard/></SideBar></>}></Route>
-			  <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
+			        <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
               <Route path="/revenue" element={<><NavBarHandler/><SideBar><RevenueProjectionHandler/></SideBar></>}></Route>
 
 			{ROLE_ID===1 ?<Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>:
