@@ -11,9 +11,9 @@ const FixedFeeHandler = () => {
     let { id }= location.state as LocationStateProps;
     console.log('state id',id)
   return (
-    <>
+    <div>
       <FixedFeeContracts id={id}/> 
-    </>
+    </div>
   )
 }
 

@@ -71,7 +71,7 @@
   padding-top: .4rem;
 }
 .container_outsideSideBar{
-  background-color: #F4F4F4;
-  width: 84%;
-  height: 100%;
+  background-color: #ffffff;
+  width: 100%;
+  height: max-content;
 }

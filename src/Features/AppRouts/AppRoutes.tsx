@@ -12,13 +12,13 @@ import SideBar from "../../Components/SideBar/SideBar";
 import AddContract from "../AddContract/AddContract";
 import AddContractHandler from "../AddContract/AddContractHandler";
 import AddMsaHandler from "../MSA/AddMsa/AddMsaHandler";
-
 import FixedFeeHandler from "../ContractView/FixedFee/FixedFeeHandler";
 import Dashboard from "../Dashboard/Dashboard";
 import ListMsaHandler from "../MSA/ListMsa/ListMsaHandler";
 import EditMsaHandler from "../MSA/EditMsa/EditMsaHandler";
 import RenewMsaHandler from "../MSA/RenewMsa/RenewMsaHandler";
 import AccessDenied from '../../Components/AccessDenied/AccessDenied'
+import IndividualContractHandler from "../IndividualContract/IndividualContractHandler";
 
 const AppRoutes = () => {
   const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
@@ -49,7 +49,7 @@ const AppRoutes = () => {
                   <>
                     <NavBarHandler />
                     <SideBar>
-                      <FixedFeeHandler />
+                      <IndividualContractHandler/>
                     </SideBar>
                   </>
                 }
@@ -126,7 +126,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/msa/renew/:msa_ref_id"
+                path="/msa/renew/"
                 element={
                   <>
                     <NavBarHandler />

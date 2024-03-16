@@ -68,7 +68,7 @@ import { Auth } from '../../Components/AuthContext/AuthContext';
                 </NavLink>
               </div>
       </div>
-      <div className={styles.container_outsideSideBar}>
+      <div className={styles.container_outsideSideBar} >
         {children}
       </div>
     </div>
