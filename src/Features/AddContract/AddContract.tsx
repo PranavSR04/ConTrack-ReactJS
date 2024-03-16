@@ -19,6 +19,7 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import Toast from "../../Components/Toast/Toast";
+import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 
 const AddContract = ({
   contractAdded,
@@ -51,6 +52,7 @@ const AddContract = ({
   return (
     <>
       <div className="container">
+        <BreadCrumbs />
         <h1 style={{ marginLeft: "14rem", paddingTop: "2rem" }}>
           Add Contract
         </h1>

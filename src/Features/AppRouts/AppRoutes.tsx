@@ -1,24 +1,28 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  BrowserRouter,
+} from "react-router-dom";
 import AuthContext from "../../Components/AuthContext/AuthContext";
 import LoginHandler from "../Login/LoginHandler";
-import App from "../../App";
 import ManageUsersHandler from "../ManageUsers/ManageUsersHandler";
 import AllContractsHandler from "../AllContracts/AllContractsHandler";
 import NavContext from "../../Components/NavContext/NavContext";
-
 import RevenueProjectionHandler from "../RevenueProjection/RevenueProjectionHandler";
 import NavBarHandler from "../../Components/NavBar/NavBarHandler";
 import SideBar from "../../Components/SideBar/SideBar";
-import AddContract from "../AddContract/AddContract";
 import AddContractHandler from "../AddContract/AddContractHandler";
-import AddMsaHandler from "../MSA/AddMsa/AddMsaHandler";
-
 import FixedFeeHandler from "../ContractView/FixedFee/FixedFeeHandler";
 import Dashboard from "../Dashboard/Dashboard";
 import ListMsaHandler from "../MSA/ListMsa/ListMsaHandler";
 import EditMsaHandler from "../MSA/EditMsa/EditMsaHandler";
 import RenewMsaHandler from "../MSA/RenewMsa/RenewMsaHandler";
 import EditContractHandler from "../AddContract/EditContractHandler";
+import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
+import AddMsaHandler from "../MSA/AddMsa/AddMsaHandler";
 
 const AppRoutes = () => {
   const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
@@ -28,10 +32,11 @@ const AppRoutes = () => {
       <BrowserRouter>
         <AuthContext>
           <NavContext>
+            <BreadCrumbs />
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
               <Route path="/home" element={<Navigate to="/login" />} />
-              <Route path="/login" element={<LoginHandler />}></Route>
+              <Route path="/login" element={<LoginHandler />} />
               <Route
                 path="/dashboard"
                 element={
@@ -42,7 +47,7 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
+              />
               <Route
                 path="/contract"
                 element={
@@ -53,7 +58,7 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
+              />
               <Route
                 path="/revenue"
                 element={
@@ -64,8 +69,7 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
-
+              />
               {ROLE_ID === 1 ? (
                 <Route
                   path="/manageUser"
@@ -77,12 +81,10 @@ const AppRoutes = () => {
                       </SideBar>
                     </>
                   }
-                ></Route>
+                />
               ) : (
                 <Route path="/manageUser" element={<h1>403 Page</h1>} />
               )}
-              {/* <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route> */}
-
               <Route
                 path="/allContracts"
                 element={
@@ -93,7 +95,7 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
+              />
               <Route
                 path="/myContracts"
                 element={
@@ -104,7 +106,41 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
+              />
+              {/* <Route
+                path="/addContract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AddContractHandler />
+                    </SideBar>
+                  </>
+                }
+              /> */}
+
+              <Route
+                path="/allContracts/addContract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AddContractHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
+                path="/myContracts/addContract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AddContractHandler />
+                    </SideBar>
+                  </>
+                }
+              />
               <Route
                 path="/MSA"
                 element={
@@ -115,7 +151,7 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
+              />
               <Route
                 path="/msa/add"
                 element={
@@ -126,7 +162,7 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
+              />
               <Route
                 path="/msa/edit/:msa_ref_id"
                 element={
@@ -137,7 +173,7 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
+              />
               <Route
                 path="/msa/renew/:msa_ref_id"
                 element={
@@ -148,18 +184,8 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
-              <Route
-                path="/addContract"
-                element={
-                  <>
-                    <NavBarHandler />
-                    <SideBar>
-                      <AddContractHandler />
-                    </SideBar>
-                  </>
-                }
-              ></Route>
+              />
+
               <Route
                 path="/editContract"
                 element={
@@ -170,7 +196,7 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
+              />
             </Routes>
           </NavContext>
         </AuthContext>

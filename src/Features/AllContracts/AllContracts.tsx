@@ -11,33 +11,47 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
 
   return (
     <>
-    <h3 className={styles['contracts-h1']}>{pageTitle}</h3>
-    <div className={styles['contracts-table']}>
-    {ROLE_ID !== 3 && (
-    <Button className={styles['contracts-addContract']} onClick={() => navigate('/addContract')}>+ Add Contract</Button>
-  )}     
-    <Table className={styles['contracts-tableHead']}
-     columns={columns as ColumnsType<ContractData>}
-     dataSource={data.map((item) => ({ ...item, key: item.id }))}
-     pagination={{
-      ...pagination,
-      position: ['bottomCenter'],
-      itemRender: (current, type, originalElement) => {
-        if (type === 'page') {
-          return (
-            <a style={{ background: current === pagination.current ? '#DC143C' : '',color: current === pagination.current ? 'white' : '',borderBlockColor: '#DC143C' ,border: 'none' }}>
-              {current}
-            </a>
-          );
-        }
-        return originalElement;
-      },
-    }}
-     onChange={handleTableChange }
-     rowClassName={rowClassName}
-    size='small'>
-</Table>
-      {loading && <Spin size="large" />}
+      <h3 className={styles["contracts-h1"]}>{pageTitle}</h3>
+      <div className={styles["contracts-table"]}>
+        {ROLE_ID !== 3 && (
+          <Button
+            className={styles["contracts-addContract"]}
+            onClick={() => navigate("/allContracts/addContract")}
+          >
+            + Add Contract
+          </Button>
+        )}
+        <Table
+          className={styles["contracts-tableHead"]}
+          columns={columns as ColumnsType<ContractData>}
+          dataSource={data.map((item) => ({ ...item, key: item.id }))}
+          pagination={{
+            ...pagination,
+            position: ["bottomCenter"],
+            itemRender: (current, type, originalElement) => {
+              if (type === "page") {
+                return (
+                  <a
+                    style={{
+                      background:
+                        current === pagination.current ? "#DC143C" : "",
+                      color: current === pagination.current ? "white" : "",
+                      borderBlockColor: "#DC143C",
+                      border: "none",
+                    }}
+                  >
+                    {current}
+                  </a>
+                );
+              }
+              return originalElement;
+            },
+          }}
+          onChange={handleTableChange}
+          rowClassName={rowClassName}
+          size="small"
+        ></Table>
+        {loading && <Spin size="large" />}
       </div>
     </>
   );
