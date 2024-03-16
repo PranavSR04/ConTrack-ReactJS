@@ -18,6 +18,7 @@ const OverviewPaymentHandler = ({id}:LocationStateProps) => {
     const fetchData = async () => {
       try {
         responses = await getContractData(id);
+        
         getOverview(responses);
         setLoading(false);
         // setTimeout(() => {
@@ -54,6 +55,8 @@ const OverviewPaymentHandler = ({id}:LocationStateProps) => {
       setError("Failed to get response");
     }
   };
+
+  
 
   return (
     <>

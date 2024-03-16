@@ -1,15 +1,16 @@
 import { AxiosError } from "axios";
 import { ValidateErrorEntity } from "rc-field-form/es/interface";
 
-export type userDetailsType ={email_id:string;password:string}
+export type userDetailsType ={email_id:string;access_token:string}
 
 export interface LoginPropType{
-    onFinish:(values: userDetailsType) => void;
-    onFinishFailed: (errorInfo: ValidateErrorEntity<userDetailsType>) => void;
+    // onFinish:(values: userDetailsType) => void;
+    // onFinishFailed: (errorInfo: ValidateErrorEntity<userDetailsType>) => void;
     isModalOpen:boolean,
     handleOk:()=>void,
     handleCancel:()=>void,
-    errorMsg:string
+    errorMsg:string,
+    handleLogin:(loginType: string) => Promise<void>
 } 
 
 // Interface for the user object within the successful response
@@ -21,20 +22,20 @@ export interface UserType {
     last_name: string;
     created_at: string;
     updated_at: string;
+   
 }
 export interface ContarckUserType {
  
-        created_at: string;
+        id:string;
         experion_id: number;
-        group_name: string | null;
-        id: number;
-        is_active: number;
         role_id: number;
-        updated_at: string;
-        user_designation: string | null;
         user_mail: string;
         user_name: string;
-    
+        user_designation: string | null;
+        group_name: string | null;
+        is_active: number;
+        created_at: string;
+        updated_at: string;
 }
 
 
