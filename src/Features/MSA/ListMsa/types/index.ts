@@ -48,10 +48,12 @@ export interface Condition {
     columns:TableColumn[];
     msaAdded?:boolean;
     msaEdited?:boolean;
+    edited: boolean
     handleSegmentChange?: (value: string) => void;
     getRowClassName: (record: any, index: number) => "even-row" | "odd-row";
     showInactiveMSA: () => Promise<void>;
-    fetchData: () => Promise<void>
+    fetchData: () => Promise<void>;
+    rowClassName: (record: MsaData, index: number) => string;
   }
   export interface LocationStateProps {
     added?: boolean;

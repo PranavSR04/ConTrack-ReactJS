@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 .ListMsa{
-    margin-top: 30px;
+    margin-top: 10px;
     margin-left: 16rem;
     margin-right: 1.5rem;
     font-family: 'Montserrat', sans-serif;
@@ -9,7 +9,7 @@
 }
 .ListMsa_Details_Table_row1_col1{
     font-weight: 500; 
-    font-size: 0.9rem;
+    font-size: 0.5rem;
 }
 .ListMsa_heading{
     font-weight: 700; /* Bold weight */
@@ -20,17 +20,19 @@
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.253);
    padding: 1.8rem;
    border-radius: 0.5rem;
-   min-width: 60rem;
+   min-width: 62rem;
 }
 .ListMsa_Details_Table{
     background-color: white;
     box-shadow: 0px 0px 8px rgba(146, 145, 145, 0.253);
    padding: 1rem;
    border-radius: 0.5rem;
+   width: 60rem;
    
 }
 .ListMsa_Details_Table_table{
     margin-top: 1.5rem;
+    font-size: 0.5rem;
 }
 .ListMsa_Details_Table_row1{
     display: flex;
@@ -66,6 +68,7 @@
     border-color: transparent;
     width:9rem;
     margin-bottom: 1%;
+    border-radius: 0.5rem;
      background-color:#DC143C;
      color: white;
      font-family: "Montserrat", sans-serif;
@@ -128,9 +131,15 @@
     /* Define your custom styles here */
     margin-right:17rem;
     margin-bottom: -2rem;
-    width:9rem;
     height: 2rem;
     
   }
 
+  .oddRow {
+    background-color: #f5f8fc; /* Set the background color for even rows */
+  }
   
+  /* Optionally, you can add styles for odd rows as well */
+  .evenRow {
+    background-color: #ffffff; /* Set the background color for odd rows */
+  }

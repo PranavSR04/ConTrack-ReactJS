@@ -7,8 +7,9 @@ interface NotificationHandlerProps {
     notification: NotificationType;
 }
 
-const NotificationHandler: React.FC<NotificationHandlerProps> = ({ notification }) => {
+const NotificationHandler = ({ notification }:NotificationHandlerProps) => {
     const [difference, setDifference] = useState<string>('');
+    const stylename='style2'
     useEffect(() => {
     const dateCalculation = (date: Date) => {
       const currentDate = new Date();
@@ -43,7 +44,7 @@ const NotificationHandler: React.FC<NotificationHandlerProps> = ({ notification 
     const calculatedDifference = dateCalculation(updatedDate);
     setDifference(calculatedDifference);
   }, [notification.updated_at]);
-    return <Notification notification={notification} difference={difference} />;
+    return <Notification notification={notification} difference={difference} stylenames={stylename} />;
 }
 
 export default NotificationHandler;

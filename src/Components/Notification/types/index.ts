@@ -10,3 +10,8 @@ export interface NotificationType{
     updated_at:Date;
     
 }
+export interface NotificationProps {
+    notification: NotificationType;
+    difference: string;
+    stylenames:string
+}

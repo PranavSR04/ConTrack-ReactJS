@@ -65,6 +65,7 @@ const NotificationListHandler = () => {
                     setError('An unknown error occurred.');
                 }
                 setIsError(true);
+                
             } finally {
                 setIsLoading(false);
             }

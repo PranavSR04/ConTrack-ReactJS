@@ -1,10 +1,12 @@
 import React from 'react'
-import ContractsCount from '../../Components/DashBoardContractsCount/ContractsCount'
 import { Card } from 'antd';
 import styles from './dashboard.module.css'
 import DashBoardNotificationListHandler from '../../Components/DashBoardNotificationList/DashBoardNotificationListHandler';
-import ScatterPlot from '../../Components/RevenueScatterPlot/ScatterPlot';
 import ScatterPlotHandler from '../../Components/RevenueScatterPlot/ScatterPlotHandler';
+import BarChartHandler from '../DashBoardBarChart/BarChartHandler';
+import DashBoardMonthlyRevenueHandler from '../../Components/DashBoardRevenue/DashBoardMonthlyRevenueHandler';
+import DashBoardQuaterlyRevenueHandler from './../../Components/DashBoardRevenue/DashBoardQuaterlyRevenueHandler';
+import DashBoardYearlyRevenueHandler from '../../Components/DashBoardRevenue/DashBoardYearlyRevenueHandler';
 
 import TopRevenueHandler from '../../Components/TopRevenueRegion/TopRevenueHandler';
 
@@ -16,16 +18,24 @@ const Dashboard = () => {
   return (
     <>
     <div className={styles['dashboard-div1']}>
-    <h2 className={styles['dashboard-name']}>Hello, <span style={{color:'#DC143C'}}>{user_name}</span> </h2>
-    <Card >
+    {/* <h2 className={styles['dashboard-name']}>Hello, <span style={{color:'#DC143C'}}>{user_name}</span> </h2> */}
+    {/* <Card >
       <ContractsCount/>
-    </Card>
-      <DashBoardNotificationListHandler/>
+    </Card> */}
+    <DashBoardMonthlyRevenueHandler/>
+    <DashBoardQuaterlyRevenueHandler/>
+    <DashBoardYearlyRevenueHandler/>
+    <DashBoardNotificationListHandler/>
+    <Card style={{ marginLeft: '6rem', width: '25rem', backgroundColor: 'rgba(75,192,255,0.1)', border: '1px solid teal' }}>      
+    <ScatterPlotHandler/>
+      </Card> 
+      <Card style={{width:'25rem', marginLeft:'15rem',marginBottom:'20rem',marginTop:'20rem',backgroundColor:'#000000'}}>
+      <BarChartHandler/>  
+      </Card>
+     
       </div>
 
-      <Card style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white'}}>
-      <ScatterPlotHandler/>
-      </Card>
+     
 
       <Card style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white'}}>
       <TopRevenueHandler/>

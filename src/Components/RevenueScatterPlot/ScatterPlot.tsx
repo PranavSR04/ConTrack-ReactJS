@@ -17,7 +17,7 @@ const ScatterPlot = ({fetchContractRevenue,scatterData,data}:ScatterPlotHandlerP
 
     
     return(
-        <div style={{height: '400px', width: '600px'}}>
+        <div style={{transform: 'scale(1)'}}>
             <Scatter
                 data={data}
                 options={{
@@ -26,18 +26,26 @@ const ScatterPlot = ({fetchContractRevenue,scatterData,data}:ScatterPlotHandlerP
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Contract Term (in months)' 
+                                text: 'Contract Term (in months)'
                             }
                         },
+        
                         y: {
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Revenue (USD)' 
+                                text: 'Revenue (USD)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    const numericValue = Number(value); 
+                    return (numericValue / 1000) + 'k';
+                                }
                             }
                         }
                     }
                 }}
+            
             />
         </div>
     );

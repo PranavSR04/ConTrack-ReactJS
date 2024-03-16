@@ -24,7 +24,7 @@ const LineChartHandler = ({
 		const requestBody = {
 			type: filter.toLowerCase(),
 			du: selectedFilters.du,
-            ctype:selectedFilters.contractType
+            ctype:selectedFilters.cType
 		};
 		setLoading(true);
 		try {
@@ -40,7 +40,7 @@ const LineChartHandler = ({
 					data.data
 				).map(([key, value]) => ({
 					Date: key,
-					Revenue: value,
+					Revenue: Number(value),
 				}));
 				console.log(convertedData);
 				setRevenueData(convertedData);
