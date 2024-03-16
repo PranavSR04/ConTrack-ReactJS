@@ -22,7 +22,8 @@ export interface EditMsaHandlertype{
     fileUpload: boolean;
     showFile: boolean;
     handleFileUpload: (info: any) => void;
-    fileName: string | undefined
+    fileName: string | undefined;
+    isFormFilled?: () => false | "date" | "field"
 
 }
 export interface LocationStateProps {

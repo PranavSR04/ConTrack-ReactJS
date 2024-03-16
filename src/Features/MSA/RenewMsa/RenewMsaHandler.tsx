@@ -95,7 +95,8 @@ const RenewMsaHandler = () => {
       console.log("filepdf:", filePdf);
       // setMsaRenewed(true)
     }
-  }, [msaData, filePdf]);
+  }, [msaData, 
+  ]);
 
   const handleFileUpload = (info: any) => {
     setFormData({ ...formData, file: info.file as RcFile });

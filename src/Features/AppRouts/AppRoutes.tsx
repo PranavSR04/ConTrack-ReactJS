@@ -1,17 +1,20 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  BrowserRouter,
+} from "react-router-dom";
 import AuthContext from "../../Components/AuthContext/AuthContext";
 import LoginHandler from "../Login/LoginHandler";
-import App from "../../App";
 import ManageUsersHandler from "../ManageUsers/ManageUsersHandler";
 import AllContractsHandler from "../AllContracts/AllContractsHandler";
 import NavContext from "../../Components/NavContext/NavContext";
-
 import RevenueProjectionHandler from "../RevenueProjection/RevenueProjectionHandler";
 import NavBarHandler from "../../Components/NavBar/NavBarHandler";
 import SideBar from "../../Components/SideBar/SideBar";
-import AddContract from "../AddContract/AddContract";
 import AddContractHandler from "../AddContract/AddContractHandler";
-import AddMsaHandler from "../MSA/AddMsa/AddMsaHandler";
 import FixedFeeHandler from "../ContractView/FixedFee/FixedFeeHandler";
 import Dashboard from "../Dashboard/Dashboard";
 import ListMsaHandler from "../MSA/ListMsa/ListMsaHandler";
@@ -20,6 +23,9 @@ import RenewMsaHandler from "../MSA/RenewMsa/RenewMsaHandler";
 import { SignInButton } from "../Login/AzureSignin";
 // import SignInButton from "../../Features/Login/AzureSignin"
 import AccessDenied from "../../Components/AccessDenied/AccessDenied";
+import EditContractHandler from "../AddContract/EditContractHandler";
+import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
+import AddMsaHandler from "../MSA/AddMsa/AddMsaHandler";
 import IndividualContractHandler from "../IndividualContract/IndividualContractHandler";
 
 const AppRoutes = () => {
@@ -32,6 +38,8 @@ const AppRoutes = () => {
           <NavContext>
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
+              <Route path="/home" element={<Navigate to="/login" />} />
+              <Route path="/msauth" element={<SignInButton />} />
               <Route path="/home" element={<Navigate to="/login" />} />
               <Route path="/msauth" element={<SignInButton />} />
 
@@ -155,7 +163,86 @@ const AppRoutes = () => {
                   <>
                     <NavBarHandler />
                     <SideBar>
-                      <AddContract />
+                      <AddContractHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+
+              <Route
+                path="/allContracts/addContract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AddContractHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
+                path="/myContracts/addContract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AddContractHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
+                path="/MSA"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <ListMsaHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
+                path="/msa/add"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AddMsaHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
+                path="/msa/edit/:msa_ref_id"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <EditMsaHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
+                path="/msa/renew/:msa_ref_id"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <RenewMsaHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+
+              <Route
+                path="/editContract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <EditContractHandler />
                     </SideBar>
                   </>
                 }

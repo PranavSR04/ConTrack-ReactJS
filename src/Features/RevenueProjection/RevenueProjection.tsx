@@ -31,7 +31,7 @@ const RevenueProjection = ({
 				<Card style={{width:"57rem"}}
 					title={
 						<div className={styles.cardTitle}>
-							<ConfigProvider
+							<ConfigProvider 
 								theme={{
 									token: {
 										borderRadius: 20,
@@ -45,7 +45,7 @@ const RevenueProjection = ({
 									},
 								}}
 							>
-								<div style={{ marginBottom: "1rem",marginTop:"1rem" }}>
+								<div style={{ marginBottom: "1rem",marginTop:"1rem" }} >
 									<Segmented<string>
 										options={["Monthly", "Quarterly", "Yearly"]}
 										defaultValue="Monthly"
