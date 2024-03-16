@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { NotificationType } from './types';
+import { NotificationProps, NotificationType } from './types';
 import styles from './Notification.module.css'
 import { Navigate, useNavigate } from 'react-router';
 import { NavCon } from '../NavContext/NavContext';
-interface NotificationProps {
-    notification: NotificationType;
-    difference: string;
-}
 
-const Notification:React.FC<NotificationProps> = ({notification,difference}) => {
+
+const Notification = ({notification,difference,stylenames}:NotificationProps) => {
+    console.log(stylenames)
     const{onClose}=useContext(NavCon);
     const navigate= useNavigate()
  const [actionStyle, setActionStyle]= useState<string>("")   
@@ -29,27 +27,26 @@ const Notification:React.FC<NotificationProps> = ({notification,difference}) => 
 };
 useEffect(()=>{
     if (notification.action.includes('Added') ) {  
-                setActionStyle(styles.added);
+    setActionStyle(styles[`${styles[stylenames]}added`]);
+console.log("this is new style",`${styles[stylenames]}added`)
     } 
     else if (notification.action === 'Edited') {
-        setActionStyle(styles.edited);
+        setActionStyle(styles[`${styles[stylenames]}edited`]);
     } else if (notification.action === 'Expiring') {
-        setActionStyle(styles.expiring);
+        setActionStyle(styles[`${styles[stylenames]}expiring`]);
     } else if (notification.action === 'Expired') {
-        setActionStyle(styles.expired);
+        setActionStyle(styles[`${styles[stylenames]}expired`]);
     } else if (notification.action === 'Renewed') {
-        setActionStyle(styles.renewed);
+        setActionStyle(styles[`${styles[stylenames]}renewed`]);
     }
     console.log(notification.client_name)
 },[])
   return (
-    <div className={styles.cardStyle} onClick={()=>rowClickHandler(notification)}>
+    <div className={`${styles[stylenames]}`} onClick={()=>rowClickHandler(notification)}>
             <div className={actionStyle}>
                 <p>{notification.action.toUpperCase()}</p>
             </div>
-            <div className={styles.cardStyle_right}>
-            {/* <b>{notification.contract_ref_id ?` ${refid}=${notification.contract_id} ${refpage}='contract' ${notification.contract_ref_id}: Contract ${notification.action} for ${notification.client_name}` :`${refid}=${notification.msa_id} ${refpage}='msa'${notification.msa_ref_id}: Msa ${notification.action} for ${notification.client_name}`}</b> */}
-
+            <div className={styles[`${styles[stylenames]}cardStyle_right`]}>
                 <b>{notification.contract_ref_id ? `  ${notification.contract_ref_id}: Contract ${notification.action} for ${notification.client_name}` :`${notification.msa_ref_id}: Msa ${notification.action} for ${notification.client_name}`}</b>
             </div>
             <div className={styles.difference}>

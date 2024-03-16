@@ -37,8 +37,9 @@ body {
 }
 
 .large_column {
-  width: 1000px;
-  /* height: 300px; */
+  
+  width: 800px;
+  transform: scale(1.2);
   overflow-x: scroll;
 }
 .large_column::-webkit-scrollbar {
@@ -46,7 +47,7 @@ body {
 }
 
 .large_column::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color of the scrollbar track */
+  background: #0805e6; /* Color of the scrollbar track */
   border-radius: 10px; /* Rounded corners for the scrollbar thumb */
 }
 
@@ -59,7 +60,8 @@ body {
   background: #5e5e5e; /* Color of the scrollbar thumb on hover */
 }
 .container {
-  width: 1000px;
+  padding-top: 30px;
+  width: 800px;
   height: 400px;
 }
 .spinner {
