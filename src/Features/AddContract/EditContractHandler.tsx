@@ -43,6 +43,7 @@ import { EditContractDetails } from "./types/editcontract";
 const EditContractHandler = () => {
   const location = useLocation();
   let { id } = location.state as LocationStateProps;
+  const CON_ID = parseInt(id);
   const [contractDetails, setContractDetails] = useState<EditContractDetails>({
     msa_id: "",
     client_name: "",
@@ -68,8 +69,9 @@ const EditContractHandler = () => {
     contract_added_by: 3,
   });
   const [existingMilestone, setExistingMilestone] = useState<
-    ExistingMilestone[] 
+    ExistingMilestone[]
   >([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -108,9 +110,9 @@ const EditContractHandler = () => {
     }
   };
   console.log("setted existing milestones;", existingMilestone);
-  const [contractAdded, setContractAdded] = useState<boolean>(false);
+  const [contractEdited, setContractEdited] = useState<boolean>(false);
   const [milestones, setMilestones] = useState<ExistingMilestone[]>(
-    contractDetails.milestones ||[]
+    contractDetails.milestones || []
   );
 
   const [clientNameOptions, setClientNameOptions] = useState<
@@ -118,8 +120,6 @@ const EditContractHandler = () => {
   >([]);
 
   const [contractPdf, setContractPdf] = useState<RcFile | null>();
-
-  const navigate = useNavigate();
 
   const getClientName = async (searchValue: string) => {
     try {
@@ -232,11 +232,18 @@ const EditContractHandler = () => {
     index: number,
     value: number | undefined
   ) => {
+    console.log("Entered payment");
+    console.log("Received index:", index);
+    console.log("Received value:", value);
+
     if (value !== undefined && contractDetails.estimated_amount !== null) {
       const updatedMilestones = milestones.map((milestone, idx) => {
         if (idx === index) {
           const paymentAmount =
             (value / 100) * (contractDetails.estimated_amount ?? 0);
+          console.log("paymentAmount", paymentAmount);
+          console.log("milestone", milestone);
+
           return {
             ...milestone,
             percentage: value,
@@ -244,12 +251,13 @@ const EditContractHandler = () => {
           };
         } else return milestone;
       });
-      setMilestones(updatedMilestones);
 
-      // Also update the contractDetails if needed
+      setMilestones(updatedMilestones);
+      console.log("updatedMilestones", updatedMilestones);
+
       const updatedContractDetails = {
         ...contractDetails,
-        milestone: updatedMilestones,
+        milestones: updatedMilestones,
       };
       setContractDetails(updatedContractDetails);
     }
@@ -294,19 +302,22 @@ const EditContractHandler = () => {
 
   //   setContractDetails({ ...contractDetails, file: contractPdf });
   const handleUpdate = async () => {
-    console.log(contractDetails);
+    console.log("Data to updtae", contractDetails);
     try {
-      console.log("Updating Contract:", contractDetails);
+      console.log("Updating Contract:", contractDetails.milestones);
+      console.log("existingMilestone Contract:", existingMilestone);
+
       const updatedContractDetails: EditContractDetails = {
         ...contractDetails,
-
-        milestones: existingMilestone,
+        milestones: contractDetails.milestones,
       };
-      console.log("######3", updatedContractDetails);
-      await editContract(updatedContractDetails);
+
+      console.log("Updated Contract Details:", updatedContractDetails);
+      await editContract(updatedContractDetails, CON_ID);
       console.log("Contract Updated Successfully!");
-      setContractAdded(true);
-      //   navigate("/allContracts");
+      setContractEdited(true);
+      //   navigate("/AllContracts");
+      navigate("/allContracts", { state: { added: contractEdited as boolean } });
     } catch (error: any) {
       console.error("Error editing contract:", error.message);
       // Optionally, you can set an error state or show a notification to the user
@@ -385,6 +396,11 @@ const EditContractHandler = () => {
     console.log("field", field);
     console.log("value", value);
 
+    if (!contractDetails || !setContractDetails) {
+      console.error("Contract details not available.");
+      return;
+    }
+
     let convertedValue: Date | null = null;
     // Convert dayjs object to Date
     if (dayjs.isDayjs(value)) {
@@ -393,10 +409,13 @@ const EditContractHandler = () => {
     console.log("converted value", convertedValue);
 
     const updatedMilestones = [...contractDetails.milestones];
-    updatedMilestones[index] = {
+    const updatedMilestone = {
       ...updatedMilestones[index],
       [field]: dayjs.isDayjs(value) ? convertedValue : value,
     };
+
+    updatedMilestones[index] = updatedMilestone;
+    console.log("upd.milestones", updatedMilestones[index]);
     // Update contractDetails with the updated milestones
     const updatedContractDetails = {
       ...contractDetails,
@@ -442,7 +461,7 @@ const EditContractHandler = () => {
 
   return (
     <EditContract
-      contractAdded={contractAdded}
+      contractEdited={contractEdited}
       contractType={contractType}
       selectClient={selectClient}
       handleMilestoneChange={handleMilestoneChange}
@@ -461,6 +480,7 @@ const EditContractHandler = () => {
       setContractDetails={setContractDetails}
       milestones={milestones}
       existingMilestone={existingMilestone}
+      //   milestones={existingMilestone}
     />
   );
 };

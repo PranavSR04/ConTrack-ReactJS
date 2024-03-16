@@ -5,6 +5,8 @@ import userTableStyles from './ManagerUsers.module.css'
 import { Table,Spin, Modal, message, Input, Button, Select, AutoComplete, TablePaginationConfig,PaginationProps, Card } from "antd";
 import { ManageUserHandlerPropType, ManageUsersPropType } from './types';
 import Toast from '../../Components/Toast/Toast';
+import { LabeledValue } from 'antd/es/select';
+
 
 
 const ManageUsers = (
@@ -19,6 +21,7 @@ const ManageUsers = (
     debouncedFetchData,
     onSelectEmployee,
     getEmployee,
+    setSelectedEmployeeId,
     setSelectedRoleId,
     columns,
     dropdownOptions,
@@ -35,22 +38,32 @@ const ManageUsers = (
     userDeleted,
     showToast,
     emptyUserToast,
-    employeeNotFoundToast
+    employeeNotFoundToast,
+    selectedEmployeeId,
+    dropDownLoading,
+    // handleClear
+    
   }:ManageUsersPropType) => {
   return (
     <>
       <h2 className={`${userTableStyles.pageTitle}`}>MANAGE USER</h2>
       <div className={` ${userTableStyles.wholeTable} `}>
-        <AutoComplete
+    
+        <Select
           className={`${userTableStyles.searchEmployeeBox}`}
-          options={dropdownOptions.map((option) => ({ value: option.value }))}
           style={{ width: 200 }}
+          options={dropdownOptions}
           placeholder="Search Employee"
-          onSelect={onSelectEmployee}
+          onChange={(value, option) => setSelectedEmployeeId(value?.value)}
+          filterOption={false}
+          labelInValue={true}
+          showSearch
           onSearch={(text) => {
             getEmployee(text);
             debouncedFetchData(text);
           }}
+          notFoundContent={dropDownLoading ? <Spin size="small" /> : null}
+
         />
 
         <Select
@@ -61,39 +74,21 @@ const ManageUsers = (
           placeholder="Select a role"
         />
 
-        <Button
-          className={`${userTableStyles.addUserButton}`}
-          onClick={handleAddUser}
-        >
-          ADD USER
-        </Button>
+      <Button
+        className={`${userTableStyles.addUserButton}`}
+        onClick={() => {
+          handleAddUser();
+        }}
+      >
+        ADD USER
+      </Button>
 
-        {userAdded ? (
-          <Toast message={"User Added Successfully"} messageType={"success"} />
-        ) : (
-          <></>
-        )}
-
-        {userUpdated ? (
-          <Toast
-            message={"User Updated Successfully"}
-            messageType={"success"}
-          />
-        ) : (
-          <></>
-        )}
-
-{userDeleted? 
-        <Toast
-        message={"User Deleted Successfully"}
-        messageType={"warning"}
-        />:<></>
-        }
-{showToast && <Toast message="User Already Exists" messageType="error" />}
-{emptyUserToast && <Toast message="No User Found" messageType="error" />}
-{employeeNotFoundToast && <Toast message="No Employee Found" messageType="error" />}
-
-
+       {userAdded ? (<Toast message={"User Added Successfully"} messageType={"success"} />) : (<></>)}
+       {userUpdated ? (<Toast  message={"User Updated Successfully"}  messageType={"success"}/>) : (<></>)}
+       {userDeleted? <Toast message={"User Deleted Successfully"} messageType={"warning"}/>:<></>}
+       {showToast && <Toast message="User Already Exists" messageType="error" />}
+       {emptyUserToast && <Toast message="No User Found" messageType="error" />}
+       {employeeNotFoundToast && <Toast message="No Employee Found" messageType="error" />}
 
       <Card className={`${userTableStyles.mainListContainer}`}>
 
@@ -106,9 +101,11 @@ const ManageUsers = (
             <Table
               className={`${userTableStyles.userListTable}`}
               columns={columns}
-              size='middle'
+              size='small'
               dataSource={dataSource}
               rowClassName={rowClassName}
+              locale={{emptyText:" "}} 
+
               pagination={{
                 position: ['bottomCenter'],
                 ...pagination, 

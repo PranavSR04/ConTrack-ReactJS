@@ -4,8 +4,8 @@ export interface MsaDataType{
     msa_ref_id:string;
     client_name:string;
     region:string;
-    start_date:Date;
-    end_date:Date;
+    start_date:string;
+    end_date:string;
     file:File;
     comments?:string
 }
@@ -18,6 +18,17 @@ export interface AddMsaPropsType{
     handleDateChange: (date: Moment | null, dateString: string | string[]) => void;
     handleEndDateChange: (date: Moment | null, dateString: string | string[]) => void
     SubmitAddMsa: React.MouseEventHandler<HTMLElement> | undefined
+    handleAddMsa: () => void;
+    isModalVisible: boolean;
+    handleCancel: () => void;
+    isLoading: boolean;
+    validateStartDate: (value: any) => Promise<void>;
+    handleOk: () => Promise<void>;
+    fullPageSpinner: boolean
+
+
+
+
 }
 
 export interface GenerateMsaIdResponse {

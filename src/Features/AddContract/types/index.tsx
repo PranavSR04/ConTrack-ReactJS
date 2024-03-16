@@ -85,7 +85,7 @@ export interface LocationStateProps {
 }
 
 export interface EditContractPropType {
-  contractAdded: boolean;
+  contractEdited: boolean;
   contractType: string | null;
   selectClient: (value: string) => Promise<void>;
   handleMilestoneChange: (

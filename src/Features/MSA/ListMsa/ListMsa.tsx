@@ -1,97 +1,48 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ListMsa.module.css";
-import { Dropdown, Menu, Space, Table, TableColumnsType } from "antd";
+import { Button, ConfigProvider, Dropdown, Menu, Pagination, Segmented, Space, Spin, Table, TableColumnsType } from "antd";
 import { TableProps } from "react-bootstrap";
 import axios from "axios";
-import { DownOutlined, EditOutlined, SyncOutlined } from "@ant-design/icons";
+import { DownOutlined, EditOutlined, LoadingOutlined, SyncOutlined } from "@ant-design/icons";
 import { MsaListDataType } from "./types";
+import { useNavigate } from "react-router";
+import Toast from "../../../Components/Toast/Toast";
+import ButtonGroup from "antd/es/button/button-group";
 const ListMsa = ({
-  navigateToAddMsaHandler ,
   columns,
-  data
+  data,
+  getRowClassName,
+  pagination,
+  handleTableChange,
+  msaAdded,
+  showInactiveMSA,
+  fetchData
 }:MsaListDataType) => {
- 
-//   const [data, setData] = useState<MsaDataType[]>([]);
-//   const [pageSize, setPageSize] = useState<number>(10);
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await axios.get("http://127.0.0.1:8000/api/msa/list");
-//         setData(response.data.data);
-//         console.log(response.data.data);
-//       } catch (error) {
-//         console.error("Error fetching data:", error);
-//       }
-//     };
+  const navigate=useNavigate();
 
-//     fetchData();
-//   }, []);
-//   const columns: TableColumnsType<MsaDataType> = [
-//     {
-//       title: "MSA ID",
-//       dataIndex: "msa_ref_id",
-//     },
-//     {
-//       title: "Client Name",
-//       dataIndex: "client_name",
-//     },
-//     {
-//       title: "Start Date",
-//       dataIndex: "start_date",
-//     },
-//     {
-//       title: "End Date",
-//       dataIndex: "end_date",
-//     },
-//     {
-//       title: "Added By",
-//       dataIndex: "added_by_user",
-//     },
-//     {
-//       title: "Action",
-//       key: "action",
-//       render: (text, record) => (
-//         <Space size="middle">
-//           <a onClick={()=>handleRenewClick(record.msa_ref_id)}><SyncOutlined 
-//           className={styles.ListMsa_renew_btn}
-//           /></a>
-//           <a onClick={()=>handleEditClick(record.msa_ref_id)}>
-//             <EditOutlined className={styles.ListMsa_edit_btn} />
-//             </a>
-//         </Space>
-//       ),
-//     },
-//   ];
-//   const handlePageSizeChange = ({ key }: { key: React.Key }) => {
-//     setPageSize(Number(key));
-//   };
-//   const DropdownTrigger = (
-//     <div className={styles.dropdownTrigger}>
-//         {pageSize} <DownOutlined />
-//     </div>
-// );
-//   const menu = (
-//     <Menu onClick={handlePageSizeChange}>
-//       <Menu.Item key="5">5</Menu.Item>
-//       <Menu.Item key="10">10</Menu.Item>
-//     </Menu>
-//   );
-//   const navigateToAddMsaHandler = () => {
-//     // Redirect to the AddMsaHandler component or page
-//     window.location.href = '/msa/add';
-// };
+  const [loading, setLoading] = useState(true);
+  const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
 
-// const handleRenewClick = (msa_ref_id:string) => {
-//     // Navigate to the sync page
-//     window.location.href = `/msa/renew/${msa_ref_id}`;
+  useEffect(() => {
+    // Simulate loading for 3 seconds
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
 
-// };
+    // Clear the timer on component unmount
+    return () => clearTimeout(timer);
+  }, []);
+  const [activeTab, setActiveTab] = useState("Active");
 
-// const handleEditClick = (msa_ref_id:string) => {
-//     // Navigate to the edit page
-//     window.location.href = `/msa/edit/${msa_ref_id}`;
+  const handleSegmentChange = (value:string) => {
+      setActiveTab(value);
+      if (value === "Active") {
+          fetchData();
+      } else if (value === "Inactive") {
+          showInactiveMSA();
+      }
+  };
 
-// };
   return (
     <>
       <div className={styles.ListMsa}>
@@ -100,22 +51,89 @@ const ListMsa = ({
           <div className={styles.ListMsa_Details_Table}>
             <div className={styles.ListMsa_Details_Table_row1}>
               <div className={styles.ListMsa_Details_Table_row1_col1}>
-                <span className={styles.ListMsa_Details_Table_row1_col1_span}>Show </span>
+                {/* <span className={styles.ListMsa_Details_Table_row1_col1_span}>Show </span>
                 <span>10</span>
-                <span className={styles.ListMsa_Details_Table_row1_col1_span}> entries</span>
+                <span className={styles.ListMsa_Details_Table_row1_col1_span}>entries</span> */}
               </div>
               <div className={styles.ListMsa_Details_Table_row1_col2}>
+                <ConfigProvider
+								theme={{
+									token: {
+										borderRadius: 20,
+										// borderRadiusLG: 50,
+									},
+									components: {
+										Segmented: {
+											itemSelectedBg: "#DC143C",
+											itemSelectedColor: "#FFF",
+										},
+									},
+								}}
+							>
+              <div className={styles.ListMsa_Details_Table_row1_msabutton}>
+                <Segmented
+                className={styles.ListMsa_Details_segment}
+                options={ ["Active", "Inactive"]}
+                defaultValue="Active"
+                size="middle"
+                onChange={(value) => {
+                  handleSegmentChange(value);
+                }}
+               />
+         
+                </div>
+                </ConfigProvider>
                 <button 
                 className={styles.ListMsa_Details_Table_row1_col2_button}
-                onClick={navigateToAddMsaHandler}>
+                onClick={() => navigate('/msa/add')}>
                     + Add Msa
                 </button>
               </div>
             </div>
-            <Table columns={columns} dataSource={data} />
+            <Spin
+              spinning={loading}
+              indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />}
+            >
+            <Table 
+            locale={{emptyText:" "} }
+            columns={columns } 
+            dataSource={data}
+            rowClassName={getRowClassName}
+            className={styles.ListMsa_Details_Table_table}
+            pagination={{
+              ...pagination,
+              position: ['bottomCenter'],
+              showSizeChanger: false,
+              itemRender: (current: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined, type: string, originalElement: any) => {
+                if (type === 'page') {
+                  return (
+                    <a 
+                    style={{ 
+                      background: current === pagination.current ? '#DC143C' : '',
+                      color: current === pagination.current ? 'white' : '',
+                      borderBlockColor: '#DC143C' ,
+                      border: 'none' ,
+                      textDecoration: 'none'}}>
+                      {current}
+                    </a>
+                  );
+                }
+                return originalElement;
+              },
+            }}
+            onChange={handleTableChange }
+             size="small"
+            />
+            </Spin>
+            {msaAdded?(
+            <Toast messageType="success" message="MSA Added"></Toast>
+          ) : (
+            <></>
+          )}
+          
           </div>
         </div>
-      </div>
+            </div>
     </>
   );
 };

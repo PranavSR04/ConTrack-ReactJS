@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios, { AxiosResponse, AxiosPromise, AxiosError } from "axios";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { debounce } from "lodash";
-import { TableColumn, User, RoleOption, ActionColumn, Employee } from "./types";
+import { TableColumn, User, RoleOption, ActionColumn, Employee,EmployeeOption } from "./types";
 import ManageUsers from "./ManageUsers";
 import userTableStyles from "./ManagerUsers.module.css";
 import { getUserList } from "./api/getUserList";
@@ -13,32 +13,37 @@ import { addUser } from "./api/postAddUser";
 import { deleteUser } from "./api/putDeleteUser";
 import { updateUser } from "./api/putUpdateUser";
 import Swal, { SweetAlertCustomClass } from "sweetalert2";
-import Toast from "../../Components/Toast/Toast";
-import { message } from "antd";
+import { Select } from "antd/lib";
+import { LabeledValue,SelectProps,SelectValue } from 'antd/es/select';
+
+type SelectRef = React.RefObject<LabeledValue | null> | React.MutableRefObject<LabeledValue | null>;
+
 
 const ManageUsersHandler = () => {
   const [columns, setColumns] = useState<TableColumn[]>([]);
   const [dataSource, setDataSource] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [deleteConfirmationVisible, setDeleteConfirmationVisible] =
-    useState<boolean>(false);
+  const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState<boolean>(false);
+  const { Option } = Select;
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editedUser, setEditedUser] = useState<User | null>(null);
   const [roleOptions, setRoleOptions] = useState<RoleOption[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchEmployee, setSearchEmployee] = useState("")
-  const [dropdownOptions, setDropdownOptions] = useState<{ value: string }[]>([]);
+  const [dropdownOptions, setDropdownOptions] = useState<EmployeeOption[]>([]);
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [selectedRoleId, setSelectedRoleId] = useState<number | undefined>(undefined);
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | undefined>(undefined);
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number >();
   const [userAdded, setUserAdded]=useState<boolean>(false)
   const [userUpdated, setUserUpdated]=useState<boolean>(false)
   const [userDeleted, setUserDeleted]=useState<boolean>(false)
   const [showToast, setShowToast] = useState(false);
   const [emptyUserToast, setEmptyUserToast] = useState(false);
   const [employeeNotFoundToast, setEmployeeNotFoundToast]=useState<boolean>(false)
-
+  const [dropDownLoading, setdDropDownLoading] = useState<boolean>(true);
+  const selectRef = useRef<any>(null);  ;
+  const [employeeValue, setEmployeeValue]=useState<string>('')
 
   const render = useRef(true);
   const [updateUserId, setupdateUserId] = useState<number | undefined>(
@@ -59,12 +64,15 @@ const ManageUsersHandler = () => {
     searchQuery1?: string
   ) => {
     try {
+      console.log("Search Query in API",searchQuery)
+
       setLoading(true);
       const response = await getUserList(
         pagination.current,
         pagination.pageSize,
         searchQuery1
       );
+
       const result = response.data;
       console.log(result);
       console.log('parameter', searchQuery)
@@ -183,6 +191,7 @@ const ManageUsersHandler = () => {
       setLoading(false);
     }
   };
+
   //To get the Users List on loading the page
   useEffect(() => {
     fetchUserData(pagination.current, pagination.pageSize, searchQuery);
@@ -191,19 +200,39 @@ const ManageUsersHandler = () => {
   //To get the Employee list in dropdwown
   const fetchEmployeeList = async (searchValue: string) => {
     try {
-      setLoading(true);
+      setdDropDownLoading(true)
       setDropdownOptions([]);
-      const response: AxiosResponse<Employee[]> = await getEmployeeList(
-        searchValue
-      );
+      const response: AxiosResponse<Employee[]> = await getEmployeeList(searchValue);
       const result = response.data;
-      const uniqueOptions = new Set(
-        result.map((res: Employee) => ({
-          id: res.id,
-          value: `${res.id}. ${res.first_name} ${res.middle_name} ${res.last_name}`,
-        }))
-      );
-          setDropdownOptions(Array.from(uniqueOptions));
+      console.log(result[0].first_name)
+      console.log("Fetched Employees List :",result)
+
+  const employeeList = result
+    .map((res: {
+        first_name: string;
+        middle_name: string;
+        last_name: string;
+        id: number;
+    }) => ({
+        username: `${res.first_name} ${res.middle_name} ${res.last_name}`,
+        id: res.id,
+    }));
+
+    const empList = employeeList.map(
+      (data: { username: string; id: number }) => ({
+        label: data.username,
+        value: data.id,
+        
+      })
+    );
+
+      // const uniqueOptions = new Set(
+      //   result.map((res: Employee) => ({
+      //     id: res.id,
+      //     value: `${res.id}. ${res.first_name} ${res.middle_name} ${res.last_name}`,
+      //   }))
+      // );
+          setDropdownOptions(empList);
       console.log('Original',dropdownOptions);
     } catch (error:any) {
       console.error('Error fetching data with search:', error);
@@ -214,7 +243,7 @@ const ManageUsersHandler = () => {
         }, 5000);
       }
     } finally {
-      setLoading(false);
+      setdDropDownLoading(false)
     }
   };
 
@@ -222,13 +251,14 @@ const ManageUsersHandler = () => {
 
   useEffect(() => {}, [dropdownOptions]);
 
-  const onSelectEmployee = (data: string) => {
-    // Check if data is defined and has the value property
-    const parts = data.split(".");
-    const extractedId = parseInt(parts[0], 10);
-    console.log("Employee ID :", extractedId);
-    setSelectedEmployeeId(extractedId);
-  };
+  const onSelectEmployee = (data: EmployeeOption | null) => {
+    if (data) {
+        const extractedId = data.value;
+        console.log("Employee ID :", extractedId);
+        setSelectedEmployeeId(extractedId);
+        
+    }
+};
 
   const getEmployee = (value: string): void => {
     setSearchEmployee(value);
@@ -272,8 +302,9 @@ const ManageUsersHandler = () => {
   };
 
   useEffect(() => {
+
     // Log the updated value of selectedRoleId
-  }, [selectedRoleId]);
+  }, [selectedRoleId,selectedEmployeeId]);
 
   // useEffect(() => {
   //   fetchRoles();
@@ -317,6 +348,7 @@ const ManageUsersHandler = () => {
   };
 
   const handleAddUser = () => {
+    console.log("Employee ID in handleADDUSER",selectedEmployeeId,"Role ID :",selectedRoleId)
     if (selectedEmployeeId && selectedRoleId) {
       console.log("Add:", selectedEmployeeId, selectedRoleId);
       addUserToSystem(selectedEmployeeId, selectedRoleId);
@@ -397,13 +429,8 @@ const ManageUsersHandler = () => {
   //setting the User to be searched
   const handleSearch = (value: string) => {
     setSearchQuery(value);
+    console.log("Search Query after setting",searchQuery)
   };
-
-  // useEffect(() => {
-  //   // Fetch data on mount or when a user is searched
-  //   fetchUserData(pagination.current, pagination.pageSize, searchQuery);
-  //   setUserAdded(false);
-  // }, [searchQuery,pagination.current, pagination.pageSize]);
 
   useEffect(() => {
     // Fetch data when a user is added/updated
@@ -414,8 +441,6 @@ const ManageUsersHandler = () => {
   }, [userAdded, userUpdated, userDeleted]);
 
   const handlePageChange = (pagination: any) => {
-    // fetchUserData(pagination.page, pagination.pageSize);
-    // Update the current page in the state
     setPagination({
       ...pagination,
       current: pagination.current,
@@ -438,7 +463,9 @@ const ManageUsersHandler = () => {
     return index % 2 === 0 ? userTableStyles.evenRow : userTableStyles.oddRow;
   };
 
+
   return (
+
     <ManageUsers
      handleAddUser={handleAddUser}
      showDeleteConfirmation={showDeleteConfirmation}
@@ -461,6 +488,8 @@ const ManageUsersHandler = () => {
      columns={columns}
      dropdownOptions={dropdownOptions}
      roleOptions={roleOptions}
+     setSelectedEmployeeId={setSelectedEmployeeId}
+     selectedEmployeeId={selectedEmployeeId}
      dataSource={dataSource}
      pagination={pagination}
      editModalVisible={editModalVisible}
@@ -474,6 +503,8 @@ const ManageUsersHandler = () => {
      showToast={showToast}
      emptyUserToast={emptyUserToast}
      employeeNotFoundToast={employeeNotFoundToast}
+     dropDownLoading={dropDownLoading}
+
      />
   )
 }

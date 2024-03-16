@@ -27,7 +27,7 @@ import Toast from "../../Components/Toast/Toast";
 
 const EditContract = ({
   handleUpdate,
-  contractAdded,
+  contractEdited,
   contractType,
   selectClient,
   handleMilestoneChange,
@@ -71,7 +71,7 @@ const EditContract = ({
         </h1>
         {/* <AddContractHandler onSubmit={handleSubmit} /> */}
         <>
-          {contractAdded ? (
+          {contractEdited ? (
             <Toast
               message="Contract Edited successfully!"
               messageType="success"

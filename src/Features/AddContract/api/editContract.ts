@@ -3,10 +3,13 @@ import { ContractDetails } from "../types";
 import axiosInstance from "../../../Config/AxiosConfig";
 import { EditContractDetails } from "../types/editcontract";
 
-export const editContract = async (contractData: EditContractDetails) => {
+export const editContract = async (
+  contractData: EditContractDetails,
+  CON_ID: number
+) => {
   try {
     const response = await axiosInstance.post(
-      `/api/contracts/edit/${contractData.msa_id}`,
+      `/api/contracts/edit/${CON_ID}`,
       contractData,
       {
         headers: {

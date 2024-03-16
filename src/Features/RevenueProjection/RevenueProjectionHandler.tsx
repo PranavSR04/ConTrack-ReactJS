@@ -3,11 +3,11 @@ import RevenueProjection from "./RevenueProjection";
 import { Auth } from "../../Components/AuthContext/AuthContext";
 import { CheckboxOptionType, CheckboxValueType } from "antd/es/checkbox/Group";
 import { Checkbox } from "antd";
-import { SelectedFiltersType } from "./types";
+import { RevenueProjectionHandlerPropType, SelectedFiltersType } from "./types";
 
 
-const RevenueProjectionHandler = () => {
-  const { logout } = useContext(Auth);
+const RevenueProjectionHandler = ({id}:RevenueProjectionHandlerPropType) => {
+  // const { logout } = useContext(Auth);
   const [filter,setFilter] = useState<string>("Monthly");
 	const access_token = localStorage.getItem("access_token");
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -28,15 +28,6 @@ const RevenueProjectionHandler = () => {
     setIsFilterModalOpen(false);
   };
 
-	const handleLogout = async () => {
-		try {
-			access_token && (await logout()); // Assuming logout function does not require parameters
-			// Optionally, redirect or perform any other action after logout
-		} catch (error) {
-			// Handle any potential errors from the logout operation
-			console.error("Error during logout:", error);
-		}
-	};
   const getFilteredValue=(value:string)=>{
     console.log(value);
     setFilter(value);
@@ -75,7 +66,6 @@ const RevenueProjectionHandler = () => {
 	return (
 		<>
 			<RevenueProjection 
-      handleLogout={handleLogout} 
       getFilteredValue={getFilteredValue} 
       filter={filter} 
       showFilterModal={showFilterModal}
@@ -88,6 +78,7 @@ const RevenueProjectionHandler = () => {
       regionOptions={regionOptions}
       duOptions={duOptions}
       selectedFilters={selectedFilters}
+      id={id}
 
 
       

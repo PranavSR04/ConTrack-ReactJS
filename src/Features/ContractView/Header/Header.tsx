@@ -9,8 +9,10 @@ const Header = ({
   region,
   du,
   contractStatus,
-  contractData,
+  contractExcelData,
 }: HeadingPropType) => {
+  const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
+
   return (
     <div className={`${styles.maincontainer__header}`}>
       <div className={`${styles.maincontainer__header__title}`}>
@@ -20,18 +22,20 @@ const Header = ({
           </h2>
         </div>
         <div className={`${styles.maincontainer__header__title__edit}`}>
-          <button
+          { ROLE_ID!==3 &&
+            <button
             className={`${styles.maincontainer__header__title__edit__button}`}
           >
             Edit
           </button>
+          }
         </div>
         <div className={`${styles.maincontainer__header__title__export}`}>
-          {contractData && (
+          {contractExcelData && (
             <button
               className={styles.maincontainer__header__title__export__button}
             >
-              <CSVLink filename={`${clientName} ${contractRefId}.xlsx`} data={contractData} style={{textDecoration:"none", color:"white"}}>
+              <CSVLink filename={`${clientName} ${contractRefId}.xlsx`} data={contractExcelData} style={{textDecoration:"none", color:"white"}}>
                 Export
               </CSVLink>
             </button>
