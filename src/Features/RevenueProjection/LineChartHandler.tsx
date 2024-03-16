@@ -40,7 +40,7 @@ const LineChartHandler = ({
 					data.data
 				).map(([key, value]) => ({
 					Date: key,
-					Revenue: value,
+					Revenue: Number(value),
 				}));
 				console.log(convertedData);
 				setRevenueData(convertedData);

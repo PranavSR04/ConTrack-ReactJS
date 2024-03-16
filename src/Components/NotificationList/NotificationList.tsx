@@ -2,18 +2,17 @@ import React, { useContext, useState } from 'react'
 import { NotificationListPropType } from './types';
 import NotificationHandler from '../Notification/NotificationHandler';
 import styles from '../Notification/Notification.module.css';
-import { Drawer,Button } from 'antd';
-import NavBar from '../NavBar/NavBar';
+import { Drawer, Spin } from 'antd';
 import { NavCon } from '../NavContext/NavContext';
-const NotificationList:React.FC<NotificationListPropType> = ({notifications, isLoading, isError, error, viewMoreClick, hasViewMore,toggleNotifications}) => {
+const NotificationList = ({notifications, isLoading, isError, error, viewMoreClick, hasViewMore,toggleNotifications}:NotificationListPropType) => {
   const{open,onClose,showDrawer}=useContext(NavCon);
 
   console.log(open);
   return (
     <>
     <Drawer title="Notifications" onClose={onClose} open={open} className={styles.drawer}>
-    {isLoading && <p>Loading...</p>}
-    {isError && <p>Error: {error}</p>}
+    {isLoading && <Spin/>}
+    {isError && <p>No Notification</p>}
     <div className={styles.listStyle}>
         {notifications.map(notification => (
             <NotificationHandler key={notification.log_id} notification={notification} />
