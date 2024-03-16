@@ -78,4 +78,4 @@ import { Auth } from '../../Components/AuthContext/AuthContext';
   )
 }
 
-export default SideBar
+export default SideBar;

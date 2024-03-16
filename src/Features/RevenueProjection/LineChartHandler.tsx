@@ -8,6 +8,8 @@ import { AxiosError} from "axios";
 const LineChartHandler = ({
 	filter,
 	selectedFilters,
+	id
+
 }: LineChartHandlerPtopType) => {
 	const [revenueData, setRevenueData] = useState<RevenueProjectionData[]|undefined>([]);
     const [error,setError]=useState();
@@ -22,12 +24,12 @@ const LineChartHandler = ({
 		const requestBody = {
 			type: filter.toLowerCase(),
 			du: selectedFilters.du,
-            ctype:selectedFilters.contractType
+            ctype:selectedFilters.cType
 		};
 		setLoading(true);
 		try {
             console.log("inside fun")
-			const data = await fetchRevenueProjection(undefined, requestBody);
+			const data = await fetchRevenueProjection(id?id:undefined, requestBody);
 			if (data instanceof AxiosError) {
 			    console.log(data.response?.data);
                 setRevenueData(undefined);

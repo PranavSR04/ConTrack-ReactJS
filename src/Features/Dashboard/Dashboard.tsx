@@ -1,9 +1,7 @@
 import React from 'react'
-import ContractsCount from '../../Components/DashBoardContractsCount/ContractsCount'
 import { Card } from 'antd';
 import styles from './dashboard.module.css'
 import DashBoardNotificationListHandler from '../../Components/DashBoardNotificationList/DashBoardNotificationListHandler';
-import ScatterPlot from '../../Components/RevenueScatterPlot/ScatterPlot';
 import ScatterPlotHandler from '../../Components/RevenueScatterPlot/ScatterPlotHandler';
 import BarChartHandler from '../DashBoardBarChart/BarChartHandler';
 import DashBoardMonthlyRevenueHandler from '../../Components/DashBoardRevenue/DashBoardMonthlyRevenueHandler';

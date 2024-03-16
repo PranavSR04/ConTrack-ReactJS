@@ -3,8 +3,10 @@ import { Button, Card, Form, Input, Modal } from "antd";
 import { LoginPropType, userDetailsType } from "./types";
 import styles from "./Login.module.css";
 import logo from "../../img/Subtract.png";
+import { SignInButton } from "./AzureSignin";
 
-const Login = ({ onFinish, onFinishFailed ,handleOk,isModalOpen,handleCancel,errorMsg}: LoginPropType) => {
+
+const Login = ({  handleOk,isModalOpen,handleCancel,errorMsg,handleLogin}: LoginPropType) => {
 	return (
 		<>
 			<div className={styles.container}>
@@ -19,21 +21,27 @@ const Login = ({ onFinish, onFinishFailed ,handleOk,isModalOpen,handleCancel,err
 				</div>
 				<div className={styles.right}>
 					<Card className={styles.card}>
+						
+						
 						<h4>Login </h4>
-						<Form
+						<Button onClick={()=>handleLogin("popup")}>
+							Signin with Microsoft
+						</Button>
+						<SignInButton/>
+						{/* <Form
 							name="loginform"
 							onFinish={onFinish}
 							onFinishFailed={onFinishFailed}
 							style={{ maxWidth: 500, marginTop: "6rem" }}
 						>
 							<Form.Item<userDetailsType>
-								label="Usermail"
+								label="Email  ID "
 								name="email_id"
 								rules={[
 									{ required: true, message: "Please input your mail id!" },
 								]}
 							>
-								<Input />
+								<Input style={{marginLeft:5,width:"410px"}} />
 							</Form.Item>
 							<Form.Item<userDetailsType>
 								label="Password"
@@ -42,14 +50,14 @@ const Login = ({ onFinish, onFinishFailed ,handleOk,isModalOpen,handleCancel,err
 									{ required: true, message: "Please input your password!" },
 								]}
 							>
-								<Input.Password />
+								<Input.Password style={{width:"410px"}}/>
 							</Form.Item>
 							<Form.Item wrapperCol={{ offset: 12, span: 16 }}>
 								<Button type="primary" htmlType="submit">
-									Submit
+									Login
 								</Button>
 							</Form.Item>
-						</Form>
+						</Form> */}
 					</Card>
 				</div>
 				<Modal

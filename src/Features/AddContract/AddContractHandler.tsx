@@ -209,7 +209,7 @@ const AddContractHandler: React.FC<AddContractHandlerProps> = ({
     try {
       await addContract(contractDetails);
       setContractAdded(true);
-      navigate("/allContracts");
+      navigate("/AllContracts",{ state: { added:contractAdded as boolean } });
     } catch (error) {
       console.log("Form not submitted");
     }
