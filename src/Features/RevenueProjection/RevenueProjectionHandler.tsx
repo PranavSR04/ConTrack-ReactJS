@@ -45,7 +45,7 @@ const RevenueProjectionHandler = ({id}:RevenueProjectionHandlerPropType) => {
 
   const renderCheckboxGroup = (filterType: string, options: (string | number | CheckboxOptionType<CheckboxValueType>)[] | undefined) => {
     let disabled = false;
-    if (filterType === 'region' ||filterType === 'contractType') {
+    if (filterType === 'region') {
       disabled =true;
     }
     return (
