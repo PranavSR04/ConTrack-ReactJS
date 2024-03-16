@@ -1,5 +1,5 @@
 
-import { Button, Segmented, Spin, Switch, Table } from 'antd';
+import { Button, ConfigProvider, Segmented, Spin, Switch, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import styles from './contractsList.module.css'  ;
 import { AllContractsPropType, ContractData } from './types';
@@ -21,6 +21,33 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
    <label> Show Expired &nbsp; </label>
   <Switch size='small' onChange={showExpired} />
   </div>
+  {ROLE_ID !== 3 && (<div className={styles['contracts-buttons-addedBy']}> <ConfigProvider
+								theme={{
+									token: {
+										borderRadius: 20,
+										// borderRadiusLG: 50,
+									},
+									components: {
+										Segmented: {
+											itemSelectedBg: "#DC143C",
+											itemSelectedColor: "#FFF",
+										},
+									},
+								}}
+							>
+              <div className={styles.ListMsa_Details_Table_row1_msabutton}>
+                <Segmented
+                className={styles.ListMsa_Details_segment}
+                options={ ["All", "Added by Me"]}
+                defaultValue="All"
+                size="middle"
+                // onChange={(value) => {
+                //   handleSegmentChange(value);
+                // }}
+               />
+         
+                </div>
+                </ConfigProvider></div> )}
     {ROLE_ID !== 3 && (
     <Button className={styles['contracts-addContract']} onClick={() => navigate('/addContract')}>+ Add Contract</Button>
   )}
