@@ -1,0 +1,7 @@
+.breadcrumb_item {
+  text-transform: capitalize;
+  margin-left: 150px;
+  margin-top: 30px;
+  padding: 5px;
+  /* Add more styles as needed */
+}

@@ -1,5 +1,3 @@
-// api.ts
-
 import { AxiosResponse } from "axios";
 import { Condition } from "../types";
 import axiosInstance from "../../../Config/AxiosConfig";

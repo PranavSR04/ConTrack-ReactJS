@@ -11,10 +11,10 @@ import DashBoardYearlyRevenueHandler from '../../Components/DashBoardRevenue/Das
 import TopRevenueHandler from '../../Components/TopRevenueRegion/TopRevenueHandler';
 
 const Dashboard = () => {
-    const user_id=localStorage.getItem('user_id');
-    const userString  = localStorage.getItem('user') as string;
-    const userObject = JSON.parse(userString);
-    const user_name = userObject?.first_name;   
+  const user_id = localStorage.getItem("user_id");
+  const userString = localStorage.getItem("user") as string;
+  const userObject = JSON.parse(userString);
+  const user_name = userObject?.first_name;
   return (
     <>
     <div className={styles['dashboard-div1']}>
@@ -44,7 +44,7 @@ const Dashboard = () => {
       
 
     </>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
