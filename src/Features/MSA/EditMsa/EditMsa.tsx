@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from '../Msa.module.css'
-import { Button, DatePicker, Form, Input, Modal, Upload } from 'antd'
+import { Button, DatePicker, Flex, Form, Input, Modal, Spin, Upload } from 'antd'
 import { CloseOutlined, FilePdfOutlined, PlusOutlined } from '@ant-design/icons'
 import TextArea from 'antd/es/input/TextArea'
 import { EditMsaHandlertype } from './types'
@@ -25,7 +25,9 @@ const EditMsa = ({
   fileUpload,
   showFile,
   handleFileUpload,
-  fileName
+  fileName,
+  handleOk,
+  fullPageSpinner
 }:EditMsaHandlertype) => {
   console.log("start date:", msaData.start_date)
   const  navigate=useNavigate()
@@ -45,12 +47,17 @@ const EditMsa = ({
       name="complex-form"
      encType='multipart/form-data'
       style={{ maxWidth: 600 }}
+      requiredMark={false}
       >
         <div className={styles.AddMsaDetails_row1}>
         <Form.Item 
         className={styles.AddMsaDetails_row1_col1}
-        name="msa_ref_id" 
-        >MSA Reference ID <br/>
+        name="msa_ref_id"
+        labelCol={{span:24}}
+                wrapperCol={{span:24}}
+                label="MSA Reference ID"
+                valuePropName={msa_ref_id}
+        >
         <Input 
         name="msa_ref_id"
         value={msa_ref_id}
@@ -61,9 +68,20 @@ const EditMsa = ({
       <Form.Item 
     className={styles.AddMsaDetails_row1_col2}
       name="client_name"  
-      required>Client Name
-      <span className={styles.AddMsaDetails_star}>*</span>
-      <br/>
+      required
+      label={<div>Client Name
+        <span style={{ color: 'red' }}> *</span></div>
+      }
+       labelCol={{span:24}}
+       wrapperCol={{span:24}}
+       rules={[
+        { required: true, message: 'Please enter the Client Name' },
+        { 
+          pattern: /^.{5,}$/, 
+          message: 'Client name must contain at least 5 characters' 
+        }
+      ]}
+  >
         <Input
          name="client_name" 
          value={msaData.client_name}
@@ -73,10 +91,21 @@ const EditMsa = ({
       <Form.Item 
         className={styles.AddMsaDetails_row1_col3}
 
-      name="region"  
-      required>Region
-      <span className={styles.AddMsaDetails_star}>*</span>
-      <br/>
+      name="region"
+      valuePropName={msaData.region}
+      label={<div>Region
+        <span style={{ color: 'red' }}> *</span></div>
+      }
+       labelCol={{span:24}}
+       wrapperCol={{span:24}}
+       rules={[
+        { required: true, message: 'Please enter the Region' },
+        { 
+          pattern: /^[a-zA-Z]+$/, 
+        message: 'Region must be letters' 
+      }
+    ]} 
+      >
         <Input 
         name="region"
         value={msaData.region}
@@ -89,11 +118,16 @@ const EditMsa = ({
       <Form.Item 
               className={styles.AddMsaDetails_row2_col1}
 
-      name="start_date"  
-      required>Start Date
-      <span className={styles.AddMsaDetails_star}>*</span>
-      <br/>
-
+      name="start_date"
+      label={<div>Start Date
+        <span style={{ color: 'red' }}> *</span></div>
+      }
+       labelCol={{span:24}}
+       wrapperCol={{span:24}}
+       rules={[
+        { required: true, message: 'Please enter the Start Date' },
+    ]}
+      required>
         <DatePicker 
         className={styles.AddMsaDetails_inputs} 
         format="YYYY-MM-DD"
@@ -103,11 +137,17 @@ const EditMsa = ({
               className={styles.AddMsaDetails_row2_col2}
 
       name="end_date" 
-      
-      required>End Date
-      <span className={styles.AddMsaDetails_star}>*</span>
-      <br/>
+      label={<div>End Date
+        <span style={{ color: 'red' }}> *</span></div>
+      }
+       labelCol={{span:24}}
+       wrapperCol={{span:24}}
+       rules={[
+        { required: true, message: 'Please enter the End Date' },
+        
+    ]}
 
+      required>
         <DatePicker 
         format="YYYY-MM-DD"
         className={styles.AddMsaDetails_inputs} 
@@ -119,9 +159,12 @@ const EditMsa = ({
       <Form.Item 
       name="file" 
       className={styles.AddMsaDetails_row3_col1}
-      >Upload Master Service Agreement
-      <span className={styles.AddMsaDetails_star}>*</span>
-      <br/>
+      label={<div>Upload Master Service Agreement
+        <span style={{ color: 'red' }}> *</span></div>
+      }
+       labelCol={{span:24}}
+       wrapperCol={{span:24}}
+     >
       {showFile?
             <div className={styles.container_file}>
               <CloseOutlined  
@@ -175,9 +218,11 @@ const EditMsa = ({
       <Form.Item 
       name="comments"
       className={styles.AddMsaDetails_row3_col2}
-      >Comments/Remarks
-      <span className={styles.AddMsaDetails_star}>*</span>
-      <br/>
+      label={<div>Comments/Remarks
+                  <span style={{ color: 'red' }}> *</span></div>
+                }
+                 labelCol={{span:24}}
+                 wrapperCol={{span:24}}>
         <TextArea rows={4} name="comments" onChange={handleInputChange}/>
       </Form.Item>
       </div>
@@ -192,10 +237,19 @@ const EditMsa = ({
           <Modal
         title="Confirm Add MSA"
         visible={isModalVisible}
-        onOk={SubmitEditMsa}
+        onOk={handleOk}
         onCancel={handleCancel}
         // confirmLoading={confirmLoading}
       >
+         {fullPageSpinner ? (
+                <>
+                  <Flex align="center" gap="middle">
+                    <Spin size="small" />
+                  </Flex>
+                </>
+              ) : (
+                <></>
+              )}
         <p>Do you really want to Edit MSA?</p>
 
       </Modal>

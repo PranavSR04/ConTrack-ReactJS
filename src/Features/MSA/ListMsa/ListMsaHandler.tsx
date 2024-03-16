@@ -10,6 +10,7 @@ import { TablePaginationConfig } from 'antd/lib';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { useLocation, useNavigate } from 'react-router';
 import { getapi_inactivemsa } from './api/getapi_inactivemsa';
+import tableStyles from './ListMsa.module.css'  ; 
 
 
 const ListMsaHandler = () => {
@@ -21,8 +22,13 @@ const ListMsaHandler = () => {
 
   useEffect(() => {
       if (location.state) {
+        if (location.state.added) {
           setAdded(true);
           console.log(added);
+        }
+        else if (location.state.edited) {
+         setEdited(true);
+      }
           setTimeout(() => {
             window.history.replaceState(null, '');
         }, 0);
@@ -34,7 +40,7 @@ const ListMsaHandler = () => {
   const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 10, // Default page size
+    pageSize: 8, // Default page size
     total: 0,     // Total items  from API
   });
   const [actionClicked, setActionClicked]= useState<boolean>(false);
@@ -101,7 +107,10 @@ const showInactiveMSA=async()=>{
     }
   
   };
-
+  const rowClassName = (record:MsaData, index: number): string => {
+    // Add a custom class to alternate rows
+    return index % 2 === 0 ? tableStyles['oddRow'] : tableStyles['evenRow'];
+  };
   const desiredColumnKeys = ['msa_ref_id', 'client_name', 'start_date', 'end_date'];
   const getColumnSearchProps = (dataIndex: string) => {
     return{
@@ -159,7 +168,9 @@ const showInactiveMSA=async()=>{
      render: (text:any, record:MsaData) => (
       <div className='listmsa-action-icons'>
       <span className='listmsa-action-renew'>
-        <SyncOutlined className='listmsa-action-renew'
+        <SyncOutlined
+        title='Renew MSA'
+        className='listmsa-action-renew'
         style={{ fontSize: '20px', color: '#DC143C',padding:"10px" }}
         onClick={() => {
           onrenewPage(record.msa_ref_id);
@@ -168,7 +179,9 @@ const showInactiveMSA=async()=>{
       
        <span className='listmsa-action-edit'>
         {actionClicked?<></>:
-         <EditOutlined className='listmsa-action-edit-icon'
+         <EditOutlined
+         title='Edit MSA'
+         className='listmsa-action-edit-icon'
            style={{ fontSize: '20px', color: '#DC143C',padding:"10px" }}
            onClick={() => {
              oneditPage(record.msa_ref_id);
@@ -177,7 +190,8 @@ const showInactiveMSA=async()=>{
        </span>
        <span>
         <a href={record.msa_doclink}>
-       <CloudDownloadOutlined 
+       <CloudDownloadOutlined
+       title='Download MSA'
                   style={{ fontSize: '22px', color: '#DC143C',padding:"10px" }}
                  />
         </a>
@@ -201,8 +215,10 @@ const showInactiveMSA=async()=>{
    getRowClassName={getRowClassName}
    data={data}
     msaAdded={added}
+    edited={edited}
     fetchData={fetchData}
     showInactiveMSA={showInactiveMSA}
+    rowClassName={rowClassName}
    />
   )
   }
