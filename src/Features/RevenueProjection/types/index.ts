@@ -2,7 +2,6 @@ import { CheckboxOptionType } from "antd";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 
 export type RevenueProjectionPropType = {
-	handleLogout: () => Promise<void>;
 	getFilteredValue: (value: string) => void;
 	filter: string;
 	showFilterModal: () => void;
@@ -20,8 +19,11 @@ export type RevenueProjectionPropType = {
 	regionOptions: string[];
 	duOptions: string[];
 	selectedFilters: {};
+	id:number |undefined;
 };
-export type RevenueProjectionHandlerPropType = {};
+export type RevenueProjectionHandlerPropType = {
+	id?:number;
+};
 
 export interface RevenueProjectionData {
 	Date: string;
@@ -36,11 +38,13 @@ export interface LineChartPropType {
 export interface LineChartHandlerPtopType {
 	filter: string;
 	selectedFilters: SelectedFiltersType;
+	id:number |undefined
+	
 }
 
 export interface SelectedFiltersType {
 	contractType?: string[];
 	du?: string[];
 	region?: string[];
-	ctype?: string[];
+	cType?: string[];
 }

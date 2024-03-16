@@ -7,7 +7,6 @@ import { HiOutlineFilter } from "react-icons/hi";
 import DemoLine from "./DemoLine";
 
 const RevenueProjection = ({
-	handleLogout,
 	filter,
 	getFilteredValue,
 	showFilterModal,
@@ -20,7 +19,9 @@ const RevenueProjection = ({
 	regionOptions,
 	duOptions,
 	selectedFilters,
+	id
 }: RevenueProjectionPropType) => {
+	const revenueid = id?id:undefined;
 	console.log(filter);
 
 	return (
@@ -48,16 +49,17 @@ const RevenueProjection = ({
 									<Segmented<string>
 										options={["Monthly", "Quarterly", "Yearly"]}
 										defaultValue="Monthly"
-										size="middle"
+										size="large"
 										onChange={(value) => {
 											getFilteredValue(value);
 										}}
 									/>
-									<HiOutlineFilter
-										className={styles.filtericon}
-										size={20}
-										onClick={showFilterModal}
-									/>
+									{revenueid?<></>
+									:(<HiOutlineFilter
+									className={styles.filtericon}
+									size={20}
+									onClick={showFilterModal}
+								/>)}
 									<div className={styles.filterModal}>
 										<Modal
 											title="Revenue Filter"
@@ -70,9 +72,9 @@ const RevenueProjection = ({
 										>
 											{renderCheckboxGroup("du", duOptions)}
 											{renderCheckboxGroup("region", regionOptions)}
-											{renderCheckboxGroup("contractType", [
-												"Fixed Fee",
-												"Time & Material",
+											{renderCheckboxGroup("cType", [
+												"FF",
+												"TM",
 											])}
 										</Modal>
 									</div>
@@ -81,7 +83,7 @@ const RevenueProjection = ({
 						</div>
 					}
 				>
-					<LineChartHandler filter={filter} selectedFilters={selectedFilters} />
+					<LineChartHandler filter={filter} selectedFilters={selectedFilters} id={revenueid} />
 				</Card>
 			</div>
 		</div>

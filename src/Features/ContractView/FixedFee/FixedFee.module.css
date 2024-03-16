@@ -8,3 +8,8 @@
     /* overflow-y: auto; */
     padding-bottom: 2rem;
 }
+
+.chart{
+    padding-top: 15px;
+    margin-left: -255px;
+}

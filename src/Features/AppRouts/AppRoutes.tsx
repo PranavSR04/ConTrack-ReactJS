@@ -17,7 +17,9 @@ import Dashboard from "../Dashboard/Dashboard";
 import ListMsaHandler from "../MSA/ListMsa/ListMsaHandler";
 import EditMsaHandler from "../MSA/EditMsa/EditMsaHandler";
 import RenewMsaHandler from "../MSA/RenewMsa/RenewMsaHandler";
-import AccessDenied from '../../Components/AccessDenied/AccessDenied'
+import { SignInButton } from "../Login/AzureSignin";
+// import SignInButton from "../../Features/Login/AzureSignin"
+import AccessDenied from "../../Components/AccessDenied/AccessDenied";
 import IndividualContractHandler from "../IndividualContract/IndividualContractHandler";
 
 const AppRoutes = () => {
@@ -31,6 +33,8 @@ const AppRoutes = () => {
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
               <Route path="/home" element={<Navigate to="/login" />} />
+              <Route path="/msauth" element={<SignInButton />} />
+
               <Route path="/login" element={<LoginHandler />}></Route>
               <Route
                 path="/dashboard"
@@ -39,17 +43,6 @@ const AppRoutes = () => {
                     <NavBarHandler />
                     <SideBar>
                       <Dashboard />
-                    </SideBar>
-                  </>
-                }
-              ></Route>
-              <Route
-                path="/contract"
-                element={
-                  <>
-                    <NavBarHandler />
-                    <SideBar>
-                      <IndividualContractHandler/>
                     </SideBar>
                   </>
                 }
@@ -66,9 +59,29 @@ const AppRoutes = () => {
                 }
               ></Route>
 
-			{ROLE_ID===1 || ROLE_ID ==undefined ?<Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>:
-			<Route path="/manageUser" element={<><AccessDenied/></>}/>}
-			{/* <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route> */}
+              {ROLE_ID === 1 || ROLE_ID == undefined ? (
+                <Route
+                  path="/manageUser"
+                  element={
+                    <>
+                      <NavBarHandler />
+                      <SideBar>
+                        <ManageUsersHandler />
+                      </SideBar>
+                    </>
+                  }
+                ></Route>
+              ) : (
+                <Route
+                  path="/manageUser"
+                  element={
+                    <>
+                      <AccessDenied />
+                    </>
+                  }
+                />
+              )}
+              {/* <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route> */}
 
               <Route
                 path="/allContracts"
@@ -143,6 +156,17 @@ const AppRoutes = () => {
                     <NavBarHandler />
                     <SideBar>
                       <AddContract />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/contract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <IndividualContractHandler />
                     </SideBar>
                   </>
                 }
