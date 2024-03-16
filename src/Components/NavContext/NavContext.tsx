@@ -13,17 +13,16 @@ export const NavCon=createContext<NavPropType>({
 const NavContext = ({ children }: { children: React.ReactNode }) =>  {
     const [open, setOpen] = useState(false);
     const [activeNotificationCount, setActiveNotificationCount] = useState<number>(0);
-    const USER_ID=parseInt(localStorage.getItem('user_id') || '0', 10);
+    const SENDTO_ID = parseInt(localStorage.getItem("user_id") || '0', 10);
     const showDrawer = async() => {
       setOpen(true);
-      const user: userType = { user_id: USER_ID };
+      const user: userType = { user_id: SENDTO_ID };
       const response = await postNotificationStatus(user);
-      console.log("hi")
     };
    
     const onClose = () => {
         setOpen(false);
-        setActiveNotificationCount(0)
+        setActiveNotificationCount(0);
       };
   return (
     <NavCon.Provider value={{showDrawer,open,onClose,activeNotificationCount,setActiveNotificationCount}}>

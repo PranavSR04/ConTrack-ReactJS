@@ -4,8 +4,8 @@ export interface MsaDataType{
     msa_ref_id:string;
     client_name:string;
     region:string;
-    start_date:Date;
-    end_date:Date;
+    start_date:string;
+    end_date:string;
     file:File;
     comments?:string
 }
@@ -23,6 +23,8 @@ export interface AddMsaPropsType{
     handleCancel: () => void;
     isLoading: boolean;
     validateStartDate: (value: any) => Promise<void>;
+    handleOk: () => Promise<void>;
+    fullPageSpinner: boolean
 
 
 

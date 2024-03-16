@@ -73,5 +73,5 @@
 .container_outsideSideBar{
   background-color: #ffffff;
   width: 100%;
-  /* height: 100vh; */
+  height: max-content;
 }
