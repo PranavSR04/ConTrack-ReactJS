@@ -16,7 +16,10 @@ const ListMsa = ({
   handleTableChange,
   msaAdded,
   showInactiveMSA,
-  fetchData
+  fetchData,
+  edited,
+  rowClassName
+
 }:MsaListDataType) => {
   const navigate=useNavigate();
 
@@ -47,7 +50,7 @@ const ListMsa = ({
     <>
       <div className={styles.ListMsa}>
         <h3 className={styles.ListMsa_heading}>MASTER SERVICE AGREEMENT</h3>
-        <div className={styles.ListMsa_Details}>
+        {/* <div className={styles.ListMsa_Details}> */}
           <div className={styles.ListMsa_Details_Table}>
             <div className={styles.ListMsa_Details_Table_row1}>
               <div className={styles.ListMsa_Details_Table_row1_col1}>
@@ -83,11 +86,12 @@ const ListMsa = ({
          
                 </div>
                 </ConfigProvider>
+                {ROLE_ID !== 3 && (
                 <button 
                 className={styles.ListMsa_Details_Table_row1_col2_button}
                 onClick={() => navigate('/msa/add')}>
                     + Add Msa
-                </button>
+                </button>)}
               </div>
             </div>
             <Spin
@@ -98,7 +102,7 @@ const ListMsa = ({
             locale={{emptyText:" "} }
             columns={columns } 
             dataSource={data}
-            rowClassName={getRowClassName}
+            
             className={styles.ListMsa_Details_Table_table}
             pagination={{
               ...pagination,
@@ -122,18 +126,21 @@ const ListMsa = ({
               },
             }}
             onChange={handleTableChange }
-             size="small"
-            />
+            size='small'
+            rowClassName={rowClassName}
+
+            >
+              </Table>
             </Spin>
             {msaAdded?(
-            <Toast messageType="success" message="MSA Added"></Toast>
+            <Toast messageType="success" message="MSA Added Successfully"></Toast>
           ) : (
-            <></>
+            edited?<Toast messageType="success" message="MSA Edited Successfully"></Toast>:<></>
           )}
           
           </div>
         </div>
-            </div>
+            {/* </div> */}
     </>
   );
 };

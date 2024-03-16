@@ -22,6 +22,7 @@ const AllContractsHandler = () => {
   const [actionClicked, setActionClicked] = useState<boolean>(false);
   const [checkedExpiring, setCheckedExpiring] = useState(false);
   const [contractAddToast, setContractAddToast] = useState<boolean>(false);
+  const [contractEditToast, setContractEditToast] = useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const role_id = parseInt(localStorage.getItem("role_id") || "0", 10);
@@ -59,8 +60,13 @@ const AllContractsHandler = () => {
   ]); // Refetch data when searchText or searchField changes
 
   useEffect(() => {
-    if (location.state) {
+    if (location.state && location.state.hasOwnProperty("added")) {
       setContractAddToast(true);
+      setTimeout(() => {
+        window.history.replaceState(null, "");
+      }, 0);
+    } else if (location.state && location.state.hasOwnProperty("edited")) {
+      setContractEditToast(true);
       setTimeout(() => {
         window.history.replaceState(null, "");
       }, 0);
@@ -285,6 +291,7 @@ const AllContractsHandler = () => {
         locale={locale}
         showExpired={showExpired}
         contractAddToast={contractAddToast}
+        contractEditToast={contractEditToast}
       />
     </>
   );

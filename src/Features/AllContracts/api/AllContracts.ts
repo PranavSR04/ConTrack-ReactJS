@@ -6,7 +6,7 @@ export const fetchDataFromApi = async (
   searchConditions: Condition,
   currentPage: number,
   pageSize: number,
-  checkedExpiring: boolean
+  checkedExpiring:boolean
 ) => {
   try {
     let queryString: string[] = [];
@@ -19,9 +19,7 @@ export const fetchDataFromApi = async (
 
     console.log("search query", queryStrings);
     const response: AxiosResponse = await axiosInstance.get(
-      `/api/contract/list/?${queryStrings}&page=${currentPage}&per_page=${pageSize}${
-        checkedExpiring && "&status=Expired"
-      }`
+      `/api/contract/list/?${queryStrings}&page=${currentPage}&per_page=${pageSize}${checkedExpiring && '&status=Expired'}`
     );
 
     if (response.status !== 200) {

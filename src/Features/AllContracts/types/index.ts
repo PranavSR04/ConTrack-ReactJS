@@ -60,4 +60,5 @@ export interface AllContractsPropType {
   locale: locale;
   showExpired: (checked: boolean) => void;
   contractAddToast: boolean;
+  contractEditToast: boolean;
 }

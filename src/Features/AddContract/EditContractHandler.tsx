@@ -317,7 +317,7 @@ const EditContractHandler = () => {
       console.log("Contract Updated Successfully!");
       setContractEdited(true);
       //   navigate("/AllContracts");
-      navigate("/allContracts", { state: { added: contractEdited as boolean } });
+      navigate("/allContracts", { state: { edited: contractEdited as boolean } });
     } catch (error: any) {
       console.error("Error editing contract:", error.message);
       // Optionally, you can set an error state or show a notification to the user
