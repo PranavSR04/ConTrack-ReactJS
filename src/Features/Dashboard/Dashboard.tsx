@@ -8,6 +8,8 @@ import DashBoardMonthlyRevenueHandler from '../../Components/DashBoardRevenue/Da
 import DashBoardQuaterlyRevenueHandler from './../../Components/DashBoardRevenue/DashBoardQuaterlyRevenueHandler';
 import DashBoardYearlyRevenueHandler from '../../Components/DashBoardRevenue/DashBoardYearlyRevenueHandler';
 
+import TopRevenueHandler from '../../Components/TopRevenueRegion/TopRevenueHandler';
+
 const Dashboard = () => {
   const user_id = localStorage.getItem("user_id");
   const userString = localStorage.getItem("user") as string;
@@ -34,6 +36,12 @@ const Dashboard = () => {
       </div>
 
      
+
+      <Card style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white'}}>
+      <TopRevenueHandler/>
+      </Card>
+
+      
 
     </>
   );

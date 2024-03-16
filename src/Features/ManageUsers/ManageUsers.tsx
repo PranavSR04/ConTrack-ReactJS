@@ -48,10 +48,12 @@ const ManageUsers = (
     <>
       <h2 className={`${userTableStyles.pageTitle}`}>MANAGE USER</h2>
       <div className={` ${userTableStyles.wholeTable} `}>
-    
+
+      <div className={`${userTableStyles.searchEmployeeCluster}`}
+>
         <Select
           className={`${userTableStyles.searchEmployeeBox}`}
-          style={{ width: 200 }}
+          // style={{ width: 200 }}
           options={dropdownOptions}
           placeholder="Search Employee"
           onChange={(value, option) => setSelectedEmployeeId(value?.value)}
@@ -82,6 +84,7 @@ const ManageUsers = (
       >
         ADD USER
       </Button>
+      </div>
 
        {userAdded ? (<Toast message={"User Added Successfully"} messageType={"success"} />) : (<></>)}
        {userUpdated ? (<Toast  message={"User Updated Successfully"}  messageType={"success"}/>) : (<></>)}
@@ -90,7 +93,7 @@ const ManageUsers = (
        {emptyUserToast && <Toast message="No User Found" messageType="error" />}
        {employeeNotFoundToast && <Toast message="No Employee Found" messageType="error" />}
 
-      <Card className={`${userTableStyles.mainListContainer}`}>
+      <div className={`${userTableStyles.mainListContainer}`}>
 
           <Input
             className={`${userTableStyles.searchUserBox}`}
@@ -124,7 +127,7 @@ const ManageUsers = (
               loading={{ indicator: <div><Spin /></div>, spinning:loading}}
               // }
             />
-        </Card>
+        </div>
       </div>
 
       <UpdateModal
