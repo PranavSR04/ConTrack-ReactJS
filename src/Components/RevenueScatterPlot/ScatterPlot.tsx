@@ -15,8 +15,7 @@ import { ScatterPlotHandlerPropType } from './types';
 
 const ScatterPlot = ({fetchContractRevenue,scatterData,data}:ScatterPlotHandlerPropType) => {
 
-
-
+    
     return(
         <div style={{height: '400px', width: '600px'}}>
             <Scatter
@@ -25,10 +24,20 @@ const ScatterPlot = ({fetchContractRevenue,scatterData,data}:ScatterPlotHandlerP
                     scales: {
                         x: {
                             beginAtZero: true,
-                           }
+                            title: {
+                                display: true,
+                                text: 'Contract Term (in months)' 
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Revenue (USD)' 
+                            }
+                        }
                     }
                 }}
-            
             />
         </div>
     );

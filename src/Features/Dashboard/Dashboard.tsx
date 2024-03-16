@@ -6,6 +6,8 @@ import DashBoardNotificationListHandler from '../../Components/DashBoardNotifica
 import ScatterPlot from '../../Components/RevenueScatterPlot/ScatterPlot';
 import ScatterPlotHandler from '../../Components/RevenueScatterPlot/ScatterPlotHandler';
 
+import TopRevenueHandler from '../../Components/TopRevenueRegion/TopRevenueHandler';
+
 const Dashboard = () => {
     const user_id=localStorage.getItem('user_id');
     const userString  = localStorage.getItem('user') as string;
@@ -24,6 +26,12 @@ const Dashboard = () => {
       <Card style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white'}}>
       <ScatterPlotHandler/>
       </Card>
+
+      <Card style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white'}}>
+      <TopRevenueHandler/>
+      </Card>
+
+      
 
     </>
   )
