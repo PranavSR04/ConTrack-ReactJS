@@ -51,7 +51,7 @@ const ManageUsersHandler = () => {
   );
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 3,
+    pageSize: 10,
     total: 0,
   });
 
@@ -378,7 +378,7 @@ const ManageUsersHandler = () => {
     try {
       setLoading(true);
       if (updateUserId && selectedRoleId !== undefined) {
-        updateUser(updateUserId, selectedRoleId);
+        await updateUser(updateUserId, selectedRoleId);
         console.log("User Role updated succesfully");
         setUserUpdated(true);
         setTimeout(() => {

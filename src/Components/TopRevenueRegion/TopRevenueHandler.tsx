@@ -15,6 +15,7 @@ const TopRevenueHandler = () => {
                 region: item.region,
                 revenue: item.total_amount
             }));
+
             setBarChartData(data);
         } catch (err) {
             console.error(err);
