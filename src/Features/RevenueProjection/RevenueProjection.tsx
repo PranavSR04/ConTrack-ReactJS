@@ -72,9 +72,9 @@ const RevenueProjection = ({
 										>
 											{renderCheckboxGroup("du", duOptions)}
 											{renderCheckboxGroup("region", regionOptions)}
-											{renderCheckboxGroup("contractType", [
-												"Fixed Fee",
-												"Time & Material",
+											{renderCheckboxGroup("cType", [
+												"FF",
+												"TM",
 											])}
 										</Modal>
 									</div>
