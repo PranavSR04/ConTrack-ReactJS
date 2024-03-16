@@ -8,12 +8,17 @@ import reportWebVitals from './reportWebVitals';
 import AppRoutes from './Features/AppRouts/AppRoutes';
 import './App.css';
 import BarChartHandler from './Features/DashBoardBarChart/BarChartHandler';
+import DashBoardRevenueHandler from './Components/DashBoardRevenue/DashBoardMonthlyRevenueHandler';
+import DashBoardQuaterlyRevenueHandler from './Components/DashBoardRevenue/DashBoardQuaterlyRevenueHandler';
+import DashBoardYearlyRevenueHandler from './Components/DashBoardRevenue/DashBoardYearlyRevenueHandler';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
     <AppRoutes/>
+   
+   
 
 );
 

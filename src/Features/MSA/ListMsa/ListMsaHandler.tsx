@@ -1,121 +1,210 @@
 import React, { useEffect, useState } from 'react'
 import ListMsa from './ListMsa'
-import { MsaDataType } from './types';
-import { Menu, Space, TableColumnsType } from 'antd';
-import { DownOutlined, EditOutlined, SyncOutlined } from '@ant-design/icons';
+import { LocationStateProps, MsaData, TableColumn } from './types';
+import { Button, Input, Menu, Space, TableColumnsType } from 'antd';
+import { CloudDownloadOutlined, DownOutlined, EditOutlined, SearchOutlined, SyncOutlined } from '@ant-design/icons';
 import styles from "./ListMsa.module.css";
 import axios from 'axios';
 import { getapi } from './api/getapi';
+import { TablePaginationConfig } from 'antd/lib';
+import { FilterConfirmProps } from 'antd/es/table/interface';
+import { useLocation, useNavigate } from 'react-router';
+import { getapi_inactivemsa } from './api/getapi_inactivemsa';
 
 
 const ListMsaHandler = () => {
-   
-  const [data, setData] = useState<MsaDataType[]>([]);
-  const [pageSize, setPageSize] = useState<number>(10);
+  //let added=false;
+  const navigate=useNavigate();
+  const location = useLocation();
+  const [added, setAdded] = useState(false);
+  const[edited,setEdited]=useState(false);
+
+  useEffect(() => {
+      if (location.state) {
+          setAdded(true);
+          console.log(added);
+          setTimeout(() => {
+            window.history.replaceState(null, '');
+        }, 0);
+      }
+  }, [location.state]);
+  
+  const [data, setData] = useState<MsaData[]>([]);
+  const [isEmptySearch, setIsEmptySearch] = useState(false);
+  const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10, // Default page size
+    total: 0,     // Total items  from API
+  });
+  const [actionClicked, setActionClicked]= useState<boolean>(false);
+  const[isActive,setIsActive]=useState<boolean>(true);
+  const customHeadings:Record<string, string> = {
+    'msa_ref_id': 'MSA ID',
+    'client_name': 'Client Name',
+    'start_date': 'Start Date',
+    'end_date': 'End Date',
+    'added_by_user': ' Added By'
+  };
+
   const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getapi();
-        setData(response.data.data);
-        console.log(response.data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+    if(isActive){
 
     fetchData();
-  }, []);
-  const columns: TableColumnsType<MsaDataType> = [
-    {
-      title: 
-        "MSA ID",
-      dataIndex: "msa_ref_id",
-      
-    },
-    {
-      title: "Client Name",
-      dataIndex: "client_name",
-    },
-    {
-      title: "Start Date",
-      dataIndex: "start_date",
-    },
-    {
-      title: "End Date",
-      dataIndex: "end_date",
-    },
-    {
-      title: "Added By",
-      dataIndex: "added_by_user",
+    }else{
+      setActionClicked(true)
+      showInactiveMSA();
     }
-  ];
-  //   {
-  //     title: "Action",
-  //     key: "action",
-  //     render: (text, record) => (
-  //       <Space size="middle">
-  //         <a onClick={()=>handleRenewClick(record.msa_ref_id)}><SyncOutlined 
-  //         className={styles.ListMsa_renew_btn}
-  //         /></a>
-  //         <a onClick={()=>handleEditClick(record.msa_ref_id)}>
-  //           <EditOutlined className={styles.ListMsa_edit_btn} />
-  //           </a>
-  //       </Space>
-  //     ),
-  //   },
-  // ];
+  }, [searchConditions,pagination.current, pagination.pageSize]);
+  const fetchData = async () => {
+    try {
+      setActionClicked(false)
+      const response = await getapi(pagination.current, pagination.pageSize,searchConditions);
+     // const inactiveresponse= await getapi_inactivemsa(pagination.current, pagination.pageSize,searchConditions);
+      setData(response.data);
+     // console.log("inactive response",inactiveresponse)
+      setPagination({
+        ...pagination,
+        total: response.total,
+      });
 
-  if (ROLE_ID !== 3) {
-    columns.push({
-      title: "Action",
-      key: "action",
-      render: (text, record) => (
-        <Space size="middle">
-          <a onClick={() => handleRenewClick(record.msa_ref_id)}>
-            <SyncOutlined className={styles.ListMsa_renew_btn} />
-          </a>
-          <a onClick={() => handleEditClick(record.msa_ref_id)}>
-            <EditOutlined className={styles.ListMsa_edit_btn} />
-          </a>
-        </Space>
-      ),
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+const showInactiveMSA=async()=>{
+  try {
+    setIsActive(false);
+    setActionClicked(true);
+    const inactiveresponse= await getapi_inactivemsa(pagination.current, pagination.pageSize,searchConditions);
+    console.log(inactiveresponse)
+    setData(inactiveresponse);
+    console.log("inactive response",inactiveresponse)
+    setPagination({
+      ...pagination,
+      total: inactiveresponse.total,
     });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+  console.log("Data for Table:",data)
+  const handleTableChange = (pagination: TablePaginationConfig) => {
+    if ('current' in pagination && 'pageSize' in pagination) {
+      setPagination({
+        current: pagination.current || 1,
+        pageSize: pagination.pageSize || 10,
+        total: pagination.total || 0,
+      });
+    }
+  
+  };
+
+  const desiredColumnKeys = ['msa_ref_id', 'client_name', 'start_date', 'end_date'];
+  const getColumnSearchProps = (dataIndex: string) => {
+    return{
+    filterDropdown: ({ selectedKeys,confirm, setSelectedKeys}: { selectedKeys: React.Key[]; confirm: (param?: FilterConfirmProps) => void;setSelectedKeys: (selectedKeys: React.Key[]) => void;}) => { 
+      return (<div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+        <Input
+          placeholder={`Search ${(customHeadings as Record<string, string>)[dataIndex]}`}
+          onChange={(e) => { setSelectedKeys([e.target.value]);onSearch(e.target.value, dataIndex)}}
+          value={isEmptySearch?"":selectedKeys[0]}
+          style={{
+            marginBottom: 8,
+            display: 'block',
+          }}
+        />
+        <Button onClick={() => {
+          clearSearch();          
+              }}>Clear All Search</Button>
+      </div>
+      )
+    },
+    filterIcon: () => (
+      <SearchOutlined/>
+    ),
+    }};
+    const onSearch = ( selectedKeys: string, selectedField: string) => {
+      setIsEmptySearch(false); 
+      setSearchConditions((prevConditions) => ({...prevConditions, [selectedField]: selectedKeys }));
+      console.log(searchConditions);
+    };
+  
+    const clearSearch = ( ) => {
+      setSearchConditions({});
+      setIsEmptySearch(true);    
+    };
+    const oneditPage = (msa_ref_id: string) => {
+      setActionClicked(true);
+      navigate(`/msa/edit`, { state: { msa_ref_id: msa_ref_id as string } });
+    };
+    const onrenewPage = (msa_ref_id: string) => {
+      setActionClicked(true);
+      navigate(`/msa/renew`, { state: { msa_ref_id: msa_ref_id as string } });
+    };
+  const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
+    title: customHeadings[key],
+    dataIndex: key,
+    key,
+    sorter: (a: MsaData, b: MsaData) => (a[key as keyof MsaData]).localeCompare(b[key as keyof MsaData]),
+    sortDirections: ['ascend', 'descend'],
+    ...getColumnSearchProps(key),
+  }));
+  {   ROLE_ID !==3 &&
+    columns.push({
+     title: 'Action',
+     key: 'action',
+     render: (text:any, record:MsaData) => (
+      <div className='listmsa-action-icons'>
+      <span className='listmsa-action-renew'>
+        <SyncOutlined className='listmsa-action-renew'
+        style={{ fontSize: '20px', color: '#DC143C',padding:"10px" }}
+        onClick={() => {
+          onrenewPage(record.msa_ref_id);
+        }}/>
+      </span>
+      
+       <span className='listmsa-action-edit'>
+        {actionClicked?<></>:
+         <EditOutlined className='listmsa-action-edit-icon'
+           style={{ fontSize: '20px', color: '#DC143C',padding:"10px" }}
+           onClick={() => {
+             oneditPage(record.msa_ref_id);
+           }}
+         />}
+       </span>
+       <span>
+        <a href={record.msa_doclink}>
+       <CloudDownloadOutlined 
+                  style={{ fontSize: '22px', color: '#DC143C',padding:"10px" }}
+                 />
+        </a>
+       </span>
+       
+       </div>
+     ),
+   });
   }
 
-  const getRowClassName = (record: any, index: number) => {
+  
+
+   const getRowClassName = (record: any, index: number) => {
     return index % 2 === 0 ? 'even-row' : 'odd-row';
   };
-  const handlePageSizeChange = ({ key }: { key: React.Key }) => {
-    setPageSize(Number(key));
-  };
-
- 
-  const navigateToAddMsaHandler = () => {
-    // Redirect to the AddMsaHandler component or page
-    window.location.href = '/msa/add';
-};
-
-const handleRenewClick = (msa_ref_id:string) => {
-    // Navigate to the sync page
-    window.location.href = `/msa/renew/${msa_ref_id}`;
-
-};
-
-const handleEditClick = (msa_ref_id:string) => {
-    // Navigate to the edit page
-    window.location.href = `/msa/edit/${msa_ref_id}`;
-
-};
   return (
    <ListMsa
-   navigateToAddMsaHandler={navigateToAddMsaHandler}
+   handleTableChange={handleTableChange}
    columns={columns}
+   pagination={pagination}
    getRowClassName={getRowClassName}
    data={data}
+    msaAdded={added}
+    fetchData={fetchData}
+    showInactiveMSA={showInactiveMSA}
    />
   )
-}
+  }
 
 export default ListMsaHandler

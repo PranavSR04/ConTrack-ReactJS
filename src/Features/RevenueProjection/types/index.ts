@@ -25,7 +25,7 @@ export type RevenueProjectionHandlerPropType = {};
 
 export interface RevenueProjectionData {
 	Date: string;
-	Revenue: unknown;
+	Revenue:number;
 }
 
 export interface LineChartPropType {

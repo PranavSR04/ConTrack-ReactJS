@@ -5,6 +5,8 @@ import userTableStyles from './ManagerUsers.module.css'
 import { Table,Spin, Modal, message, Input, Button, Select, AutoComplete, TablePaginationConfig,PaginationProps, Card } from "antd";
 import { ManageUserHandlerPropType, ManageUsersPropType } from './types';
 import Toast from '../../Components/Toast/Toast';
+import { LabeledValue } from 'antd/es/select';
+
 
 
 const ManageUsers = (
@@ -39,7 +41,6 @@ const ManageUsers = (
     employeeNotFoundToast,
     selectedEmployeeId,
     dropDownLoading,
-    // selectRef,
     // handleClear
     
   }:ManageUsersPropType) => {
@@ -53,16 +54,7 @@ const ManageUsers = (
           style={{ width: 200 }}
           options={dropdownOptions}
           placeholder="Search Employee"
-
-          
-          // onChange={(value, option) => {
-          //   setSelectedEmployeeId(value.value);
-          // }}
-
-          onChange={userAdded ? (value, option) => setSelectedEmployeeId(value.value) : (value, option) => setSelectedEmployeeId(0)}
-
-
-
+          onChange={(value, option) => setSelectedEmployeeId(value?.value)}
           filterOption={false}
           labelInValue={true}
           showSearch
@@ -71,6 +63,7 @@ const ManageUsers = (
             debouncedFetchData(text);
           }}
           notFoundContent={dropDownLoading ? <Spin size="small" /> : null}
+
         />
 
         <Select
@@ -81,14 +74,6 @@ const ManageUsers = (
           placeholder="Select a role"
         />
 
-        {/* 
-        <Button
-          className={`${userTableStyles.addUserButton}`}
-          onClick={handleAddUser,handleClear}
-        >
-          ADD USER
-        </Button> */}
-
       <Button
         className={`${userTableStyles.addUserButton}`}
         onClick={() => {
@@ -98,21 +83,8 @@ const ManageUsers = (
         ADD USER
       </Button>
 
-        {userAdded ? (
-          <Toast message={"User Added Successfully"} messageType={"success"} />
-        ) : (
-          <></>
-        )}
-
-        {userUpdated ? (
-          <Toast
-            message={"User Updated Successfully"}
-            messageType={"success"}
-          />
-        ) : (
-          <></>
-        )}
-
+       {userAdded ? (<Toast message={"User Added Successfully"} messageType={"success"} />) : (<></>)}
+       {userUpdated ? (<Toast  message={"User Updated Successfully"}  messageType={"success"}/>) : (<></>)}
        {userDeleted? <Toast message={"User Deleted Successfully"} messageType={"warning"}/>:<></>}
        {showToast && <Toast message="User Already Exists" messageType="error" />}
        {emptyUserToast && <Toast message="No User Found" messageType="error" />}
@@ -129,7 +101,7 @@ const ManageUsers = (
             <Table
               className={`${userTableStyles.userListTable}`}
               columns={columns}
-              size='middle'
+              size='small'
               dataSource={dataSource}
               rowClassName={rowClassName}
               locale={{emptyText:" "}} 

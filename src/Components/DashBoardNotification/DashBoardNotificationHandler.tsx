@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import DashBoardNotification from './DashBoardNotification';
 import { DashBoardNotificationHandlerPropType, NotificationType } from './types';
+import Notification from '../Notification/Notification';
 
 const DashBoardNotificationHandler:React.FC<DashBoardNotificationHandlerPropType>= ({notification}) => {
-    const[difference,setDifference]=useState<string>('');  
+    const[difference,setDifference]=useState<string>(''); 
+    const stylename='style1'; 
     useEffect(() => {
         const dateCalculation = (date: Date) => {
           const currentDate = new Date();
+         
           const timeDifference = Math.floor((currentDate.getTime() - date.getTime())/1000);
          
           if (timeDifference < 0) {
@@ -38,7 +41,7 @@ const DashBoardNotificationHandler:React.FC<DashBoardNotificationHandlerPropType
         const calculatedDifference = dateCalculation(updatedDate);
         setDifference(calculatedDifference);
       }, [notification.updated_at]);
-  return (<DashBoardNotification notification={notification} difference={difference} />
+  return (<Notification notification={notification} difference={difference} stylenames={stylename}/>
   )
 }
 
