@@ -24,7 +24,7 @@ const LineChartHandler = ({
 		const requestBody = {
 			type: filter.toLowerCase(),
 			du: selectedFilters.du,
-            ctype:selectedFilters.contractType
+            ctype:selectedFilters.cType
 		};
 		setLoading(true);
 		try {

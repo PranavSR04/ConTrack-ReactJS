@@ -46,5 +46,5 @@ export interface SelectedFiltersType {
 	contractType?: string[];
 	du?: string[];
 	region?: string[];
-	ctype?: string[];
+	cType?: string[];
 }
