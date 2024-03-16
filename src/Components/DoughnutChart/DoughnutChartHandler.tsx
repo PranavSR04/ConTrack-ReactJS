@@ -46,9 +46,10 @@ const DoughnutChartHandler = () => {
             responsive: true,
             legend: {
                 labels: {
+                    includeInvisible:false,
                     borderColor: 'rgba(75,192,192,1)',
                     fontColor: 'red', // Change font color of legend labels
-                    fontSize: 24, // Change font size of legend labels
+                    fontSize: 2, // Change font size of legend labels
                     fontStyle: 'italic', // Change font style of legend labels
                 },
             },

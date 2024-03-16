@@ -5,7 +5,7 @@ export const fetchDataFromApi = async (
 ) => {
   try {
     const response: AxiosResponse = await axiosInstance.get(
-      `/api/contract/count`
+      `/api/contract/topRegions`
     );
 
     if (response.status !== 200) {
