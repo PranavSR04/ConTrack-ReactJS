@@ -46,5 +46,6 @@ export interface AllContractsPropType{
   pageTitle:string;
   rowClassName:(record:ContractData, index: number)=> string;
   locale:locale;
-  showExpired:(checked: boolean) => void
+  showExpired:(checked: boolean) => void;
+  contractAddToast:boolean;
 }

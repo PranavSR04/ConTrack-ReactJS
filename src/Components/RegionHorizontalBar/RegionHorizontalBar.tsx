@@ -42,8 +42,7 @@ const RegionHorizontalBar = () => {
 
     return (
         <div style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white', width:'20rem',height:'20rem'}}>
-            <h6>Top 5 Regions based on Contracts</h6>
-            
+            <h6>  Top Contract Sources</h6>
             {regionData&& <Bar data={regionData} options={options} />}
             
         </div>

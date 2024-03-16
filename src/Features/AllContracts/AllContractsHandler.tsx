@@ -8,6 +8,7 @@ import { ContractData ,TableColumn, locale} from './types';
 import AllContracts from './AllContracts';
 import { useNavigate } from 'react-router';
 import tableStyles from './contractsList.module.css'  ; 
+import { useLocation } from 'react-router';
 const AllContractsHandler = () => {
   const [data, setData] = useState<ContractData[]>([]); 
   const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
@@ -15,7 +16,9 @@ const AllContractsHandler = () => {
   const [isEmptySearch, setIsEmptySearch] = useState(false);
   const [actionClicked, setActionClicked]= useState<boolean>(false);
   const [checkedExpiring, setCheckedExpiring]=useState(false);
+  const [contractAddToast, setContractAddToast]=useState<boolean>(false);
   const navigate=useNavigate();
+  const location=useLocation();
   const role_id = parseInt(localStorage.getItem('role_id') || '0', 10);   
   const [pageTitle, setPageTitle] =useState('CONTRACTS OVERVIEW')
   const [pagination, setPagination] = useState({
@@ -43,6 +46,14 @@ const AllContractsHandler = () => {
     fetchData(); // Fetch initial data
   }, [searchConditions, pagination.current, pagination.pageSize, window.location.href]); // Refetch data when searchText or searchField changes
 
+  useEffect(() => {
+    if (location.state) {
+      setContractAddToast(true);
+        setTimeout(() => {
+          window.history.replaceState(null, '');
+      }, 0);
+    }
+}, [location.state]);
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -217,6 +228,7 @@ const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
      pageTitle={pageTitle}
      locale={locale}
      showExpired={showExpired}
+     contractAddToast={contractAddToast}
       />
     </>
   )

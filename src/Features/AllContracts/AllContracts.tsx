@@ -5,9 +5,10 @@ import styles from './contractsList.module.css'  ;
 import { AllContractsPropType, ContractData } from './types';
 import { useNavigate } from 'react-router';
 import { LoadingOutlined } from '@ant-design/icons';
+import Toast from '../../Components/Toast/Toast';
 
 const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination,loading,pageTitle,rowClassName,locale
-  ,showExpired}:AllContractsPropType) => {
+  ,showExpired,contractAddToast}:AllContractsPropType) => {
   const navigate=useNavigate();
   const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
 
@@ -48,6 +49,7 @@ const AllContracts = ({columns, data, handleTableChange,actionClicked,pagination
     size='small'
     loading={{ indicator: <div><LoadingOutlined style={{ fontSize: 30 }} spin /> </div>, spinning:loading}}>
 </Table>
+{contractAddToast&& <Toast messageType="success" message="Contract Added"></Toast>}
 {/* {loading && <Spin size="large" />} */}
 {/* {loading && <Spin className={styles.spinner}
     indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />} />} */}
