@@ -686,7 +686,7 @@ const EditContract = ({
                 <div
                   className={`contract_details_heading ${styles.contract_details_heading}`}
                 >
-                  Upload Work Schedule
+                  Upload Addendum
                 </div>
                 <div
                   style={{
