@@ -1,4 +1,5 @@
 import { FilterConfirmProps, SortOrder, TablePaginationConfig } from 'antd/lib/table/interface';
+import { ReactNode } from 'react';
 
 export interface Condition {
     [field:string]: string;
@@ -7,6 +8,9 @@ export interface Condition {
     current: number;
     pageSize: number;
     total: number;
+}
+export interface locale{
+  emptyText: string|ReactNode;
 }
 
  export interface ContractData {
@@ -17,6 +21,7 @@ export interface Condition {
     end_date: string;
     contract_type: string;
     contract_status: string;
+    du:string;
   }
 
  export type TableColumn = {
@@ -39,5 +44,8 @@ export interface AllContractsPropType{
   actionClicked:boolean;
   loading:boolean;
   pageTitle:string;
-  rowClassName:(record:ContractData, index: number)=> string
+  rowClassName:(record:ContractData, index: number)=> string;
+  locale:locale;
+  showExpired:(checked: boolean) => void;
+  contractAddToast:boolean;
 }
