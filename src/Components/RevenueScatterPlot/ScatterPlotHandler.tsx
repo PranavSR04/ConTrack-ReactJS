@@ -26,11 +26,6 @@ const ScatterPlotHandler = () => {
 
     console.log(scatterData)
 
-    // const getMaxX = () => {
-    //     if (scatterData.length === 0) return 0;
-    //     return Math.max(...scatterData.map(point => point.x));
-    // };
-
     useEffect(() => {
         fetchContractRevenue();
     }, []);

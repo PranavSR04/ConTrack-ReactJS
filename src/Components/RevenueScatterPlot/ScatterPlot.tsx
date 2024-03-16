@@ -15,8 +15,7 @@ import { ScatterPlotHandlerPropType } from './types';
 
 const ScatterPlot = ({fetchContractRevenue,scatterData,data}:ScatterPlotHandlerPropType) => {
 
-
-
+    
     return(
         <div style={{transform: 'scale(1)'}}>
             <Scatter
