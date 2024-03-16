@@ -1,3 +1,5 @@
+import { RevenueProjectionData } from "../../../RevenueProjection/types";
+
 export interface Milestone {
   id: number;
   contract_id: number;
@@ -54,4 +56,6 @@ export interface ContractApiType {
 
 export interface LocationStateProps {
   id: string;
+
+
 }
