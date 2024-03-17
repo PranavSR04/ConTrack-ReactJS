@@ -19,7 +19,7 @@ export const getapi = async (
           console.log(queryString);
           console.log("search query", queryStrings);
           const response: AxiosResponse = await axiosInstance.get(
-            `/api/msa/list/?${queryStrings}&page=${currentPage}&per_page=${pageSize}`
+            `/api/msa/list?${queryStrings}&page=${currentPage}&per_page=${pageSize}`
           );
       
           if (response.status !== 200) {

@@ -10,10 +10,12 @@ const CloseContract = ({
     closeContract,
     modalPopUp,
     contractStatus}: CloseContractPropType) => {
+
+      const ROLE_ID=parseInt(localStorage.getItem('role_id') || '0', 10);
   return (
     <>
       <div className={`${styles.maincontainer__documents__buttons}`}>
-        {contractStatus !== "Closed" && (
+        {contractStatus !== "Closed" && ROLE_ID!==3 && (
           <Button
             type="primary"
             style={{
