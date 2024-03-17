@@ -37,7 +37,8 @@ const AddMsa = ({
   validateStartDate,
   isFormFilled,
   start_date,
-  date_validate
+  date_validate,
+  spinning
 }: AddMsaPropsType) => {
  console.log("msa addded for toaster",msaAdded);
 console.log("msa_ref_id is",msaRefId);
@@ -159,6 +160,9 @@ console.log('date validation condition',date_validate)
                  wrapperCol={{span:24}}
                  rules={[
                   { required: true, message: 'Please enter the End Date' },
+                  {
+                    validator:validateStartDate
+                  }
                   
               ]}
         
@@ -184,9 +188,7 @@ console.log('date validation condition',date_validate)
                  rules={[
                   { required: true, message: 'Please upload File' },
               ]}>
-                {/* Upload Master Service Agreement
-                <span className={styles.AddMsaDetails_star}>*</span>
-                <br /> */}
+
                 {fileName ? (
                   <div>
                     <FilePdfOutlined
@@ -225,9 +227,7 @@ console.log('date validation condition',date_validate)
                  wrapperCol={{span:24}}
                  
               >
-                {/* Comments/Remarks
-                <span className={styles.AddMsaDetails_star}>*</span>
-                <br /> */}
+
                 <TextArea
                   rows={4}
                   name="comments"
@@ -247,34 +247,27 @@ console.log('date validation condition',date_validate)
             <Modal
               title="Confirm Add MSA"
               visible={isModalVisible}
-              onOk={handleOk}
+              // onOk={handleOk}
               onCancel={handleCancel}
+              footer={[
+                <Button
+                  key="ok"
+                  type="primary"
+                  onClick={handleOk}
+                >
+                  Yes
+                </Button>,
+                <Button key="cancel" onClick={handleCancel}>
+                  No
+                </Button>,
+              ]}
             >
-              {fullPageSpinner ? (
-                <>
-                  <Flex align="center" gap="middle">
-                    <Spin size="small" />
-                  </Flex>
-                </>
-              ) : (
-                <></>
-              )}
-              <p>Do you really want to add MSA?</p>
+    
+              <Spin spinning={spinning} fullscreen />
             </Modal>
           </Form>
-          {/* {fullPageSpinner?<>
-        <Flex align="center" gap="middle">
-    <Spin size="large" />
-  </Flex></>:<></>} */}
-          {date_validate ? (
-            <Modal
-            title="Date VAlidation error"
-          >
-            <p>End Date must be greater than Start Date</p>
-          </Modal>
-          ) : (
-            <></>
-          )}
+  
+         
           
         </div>
       </div>
