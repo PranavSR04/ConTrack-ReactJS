@@ -70,12 +70,10 @@ const Login = ({  handleOk,isModalOpen,handleCancel,errorMsg,handleLogin}: Login
 					title="Login Failed"
 					open={isModalOpen}
 					onCancel={handleCancel}
-				    onOk={handleOk}
+					onOk={handleOk}
 					footer={null}
-					
 				>
 					<p>{errorMsg}</p>
-					
 				</Modal>
 			</div>
 		</>

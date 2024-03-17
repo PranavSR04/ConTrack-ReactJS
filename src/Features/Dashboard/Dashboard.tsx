@@ -27,60 +27,38 @@ const Dashboard = () => {
         {/* <Card >
       <ContractsCount/>
     </Card> */}
-        <div className={styles["dash-row1-div"]}>
-          <div className={styles["dash-revenue-div"]}>
-            <div className={styles["dash-revenue-div-month"]}>
-              <DashBoardMonthlyRevenueHandler />
-            </div>
-            <div className={styles["dash-revenue-div-month"]}>
-              <DashBoardQuaterlyRevenueHandler />
-            </div>
-            <div className={styles["dash-revenue-div-month"]}>
-              <DashBoardYearlyRevenueHandler />
-            </div>
+    <div className={styles['dash-row1-div']}>
+    <div className={styles['dash-revenue-div']}>
+    <div className={styles['dash-revenue-div-month']}><DashBoardMonthlyRevenueHandler/></div>
+    <div className={styles['dash-revenue-div-month']}><DashBoardQuaterlyRevenueHandler/></div>
+    <div className={styles['dash-revenue-div-month']}><DashBoardYearlyRevenueHandler/></div>
 
-            <div className={styles["dash-revenue-div-month"]}>
-              <DashBoardContractCountHandler />
-            </div>
-            <div className={styles["dash-revenue-div-month"]}>
-              <DashBoardMsaCountHandler />
-            </div>
-          </div>
-          <div></div>
-          <div className={styles["dash-revenue-div-notifi"]}>
-            <DashBoardNotificationListHandler />
-          </div>
-        </div>
+    <div className={styles['dash-revenue-div-month']}><DashBoardContractCountHandler/></div>
+    <div className={styles['dash-revenue-div-month']}><DashBoardMsaCountHandler/></div>
+    </div>
+    <div className={styles['dash-revenue-div-notifi']}><DashBoardNotificationListHandler/></div>
+    </div>
 
-        <div className={styles["dash-row1-charts"]}>
-          <div className={styles["dash-row1-barchart"]}>
-            <BarChartHandler />
-          </div>
-          <div className={styles["dash-row1-doughnut"]}>
-            <DoughnutChartHandler />
-          </div>
-        </div>
-
-        <div>
-          <Card
-            style={{
-              width: "25rem",
-              backgroundColor: "rgba(75,192,255,0.1)",
-              border: "1px solid teal",
-            }}
-          >
-            <ScatterPlotHandler />
-          </Card>
-          <RegionHorizontalBar />
-          <Card
-            style={{
-              marginLeft: "15rem",
-              marginTop: "20rem",
-              backgroundColor: "white",
-            }}
-          ></Card>
-        </div>
-        <TopRevenueHandler />
+    <div className={styles['dash-row1-charts']}>
+    <div className={styles['dash-row1-barchart']}>
+      <Card className={styles['dash-row2-ducharts']}><BarChartHandler/> </Card>  
+      </div> 
+      <div className={styles['dash-row1-doughnut']}>     
+      <DoughnutChartHandler />
+      </div> 
+    </div>
+    
+<div  className={styles['dash-row2-charts']}>
+  <Card style={{backgroundColor:'white',marginRight:'1rem'}}>      
+    <ScatterPlotHandler/>
+      </Card> 
+ <Card style={{backgroundColor:'white',marginRight:'1rem'}}>
+ <RegionHorizontalBar/>
+ </Card>
+ <Card style={{backgroundColor:'white', }}>
+ <TopRevenueHandler/>
+ </Card>
+</div>
       </div>
     </>
   );
