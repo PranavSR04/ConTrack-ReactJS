@@ -8,8 +8,8 @@ export interface DashBoardRevenueProps {
 }
 
 const DashBoardRevenue = ({currentMonthRevenue,previousMonthRevenue,responsetype}:DashBoardRevenueProps) => {
-  if(currentMonthRevenue===0){
-    currentMonthRevenue=1;
+  if(currentMonthRevenue===undefined){
+    currentMonthRevenue=0;
   }
   if(previousMonthRevenue===0){
     previousMonthRevenue=1;
@@ -17,7 +17,8 @@ const DashBoardRevenue = ({currentMonthRevenue,previousMonthRevenue,responsetype
   const difference=((currentMonthRevenue-previousMonthRevenue)/previousMonthRevenue)*100;
   // const arrowIcon = difference >= 0 ? <ArrowUpOutlined style={{ color: '#3f8600' }} /> : <ArrowDownOutlined style={{ color: 'red' }} />;
   const arrowIcon = difference >= 0 ? <ArrowUpOutlined style={{ color: '#3f8600' }} data-testid="up-arrow" /> : <ArrowDownOutlined style={{ color: 'red' }} data-testid="down-arrow" />;
-
+console.log({currentMonthRevenue})
+console.log({previousMonthRevenue})
   return (
     <Row gutter={16}>
     <Col span={12}>
