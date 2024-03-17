@@ -33,16 +33,31 @@ const RegionHorizontalBar = () => {
         scales: {
           x: {
             position: 'bottom', // Position x-axis at the bottommm
+            grid: {
+                display: false // Disable grid lines on the x-axis
+               },
+               title: {
+                display: true,
+                text: 'Contracts Count' 
+            },
           },
           y: {
             position: 'left', // Position y-axis on the left side
-          },
+            grid: {
+                display: false // Disable grid lines on the x-axis
+               }
+          },  
         },
+        plugins: {
+            legend: {
+                display: false // Hide the legend
+            }
+        }
       };
 
     return (
-        <div style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white', width:'20rem',height:'20rem'}}>
-            <h6>  Top Contract Sources</h6>
+        <div style={{ width:'19rem',height:'20rem'}}>
+            <p style={{fontSize:'.7rem',textAlign:'center'}}>  Top Contract Sources</p>
             {regionData&& <Bar data={regionData} options={options} />}
             
         </div>
