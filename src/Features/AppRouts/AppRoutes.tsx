@@ -92,7 +92,7 @@ const AppRoutes = () => {
               {/* <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route> */}
 
               <Route
-                path="/allContracts"
+                path="/All Contracts"
                 element={
                   <>
                     <NavBarHandler />
@@ -103,7 +103,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/myContracts"
+                path="/My Contracts"
                 element={
                   <>
                     <NavBarHandler />
@@ -157,20 +157,9 @@ const AppRoutes = () => {
                   </>
                 }
               ></Route>
-              <Route
-                path="/addContract"
-                element={
-                  <>
-                    <NavBarHandler />
-                    <SideBar>
-                      <AddContractHandler />
-                    </SideBar>
-                  </>
-                }
-              />
 
               <Route
-                path="/allContracts/addContract"
+                path="/All Contracts/Add Contract"
                 element={
                   <>
                     <NavBarHandler />
@@ -181,7 +170,7 @@ const AppRoutes = () => {
                 }
               />
               <Route
-                path="/myContracts/addContract"
+                path="/My Contracts/Add Contract"
                 element={
                   <>
                     <NavBarHandler />

@@ -41,8 +41,8 @@ import { Auth } from '../../Components/AuthContext/AuthContext';
     const commonSideItems = [
     { path: '/dashboard', name: 'Dashboard', icon: <FaBars /> },
     { path: '/msa', name: 'MSA', icon: <FaFileAlt /> },
-    { path: '/AllContracts', name: 'Contracts', icon: <FaCopy /> },
-    { path: '/MyContracts', name: 'MyContracts', icon: <FaFileAlt /> },
+    { path: '/All Contracts', name: 'Contracts', icon: <FaCopy /> },
+    { path: '/My Contracts', name: 'MyContracts', icon: <FaFileAlt /> },
     { path: '/revenue', name: 'Revenue', icon: <FaRegChartBar /> },
   ];
 

@@ -12,6 +12,7 @@ import AllContracts from "./AllContracts";
 import { useNavigate } from "react-router";
 import tableStyles from "./contractsList.module.css";
 import { useLocation } from "react-router";
+import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 const AllContractsHandler = () => {
   const [data, setData] = useState<ContractData[]>([]);
   const [searchConditions, setSearchConditions] = useState<
@@ -27,6 +28,7 @@ const AllContractsHandler = () => {
   const location = useLocation();
   const role_id = parseInt(localStorage.getItem("role_id") || "0", 10);
   const [pageTitle, setPageTitle] = useState("CONTRACTS OVERVIEW");
+
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10, // Default page size
@@ -80,7 +82,7 @@ const AllContractsHandler = () => {
       let pagePath = locationPaths[locationPaths.length - 1]; //get the corresponding page path.
       console.log("location", pagePath);
       //get Api for MyContracts
-      if (pagePath === "MyContracts") {
+      if (pagePath === "My Contracts") {
         const USER_ID = localStorage.getItem("user_id") as string; //get user id
         const result = await fetchMyContractsApi(
           searchConditions,
@@ -106,6 +108,7 @@ const AllContractsHandler = () => {
         );
         setData(result.data);
         setPageTitle("CONTRACTS OVERVIEW");
+
         console.log("result:", result.data);
         console.log("toatal page", result.total);
         setPagination({

@@ -20,6 +20,7 @@ import {
 } from "@ant-design/icons";
 import Toast from "../../Components/Toast/Toast";
 import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
+import moment, { Moment } from "moment";
 
 const AddContract = ({
   contractAdded,
@@ -49,12 +50,92 @@ const AddContract = ({
   //   // You can make API calls, dispatch actions, etc. here
   // };
 
+  const handleStartDateChange = (value: Moment | null) => {
+    const startDateString = value ? value.format("YYYY-MM-DD") : "";
+    setContractDetails({
+      ...contractDetails,
+      start_date: startDateString,
+    });
+  };
+
+  const handleEndDateChange = (value: Moment | null) => {
+    const endDateString = value ? value.format("YYYY-MM-DD") : ""; // Convert Moment to string
+    setContractDetails({
+      ...contractDetails,
+      end_date: endDateString,
+    });
+    // Here you can submit the end_date directly to the database
+    // Example:
+    // submitEndDateToDatabase(value);
+  };
+
+  const handleDateOfSignatureChange = (value: Moment | null) => {
+    const dateOfSignatureString = value ? value.format("YYYY-MM-DD") : ""; // Convert Moment to string
+    setContractDetails({
+      ...contractDetails,
+      date_of_signature: dateOfSignatureString,
+    });
+  };
+
+  const validateStartDate = (rule: any, value: Moment | null) => {
+    if (
+      value &&
+      contractDetails.date_of_signature &&
+      contractDetails.end_date
+    ) {
+      const startDate = moment(value);
+      const dateOfSignature = moment(contractDetails.date_of_signature);
+      const endDate = moment(contractDetails.end_date);
+
+      if (startDate.isBefore(dateOfSignature)) {
+        return Promise.reject("Start Date must be after Date of Signature");
+      }
+
+      if (startDate.isAfter(endDate)) {
+        return Promise.reject("Start Date must be before End Date");
+      }
+    }
+
+    return Promise.resolve();
+  };
+
+  const validateEndDate = (rule: any, value: Moment | null) => {
+    if (
+      value &&
+      contractDetails.start_date &&
+      value.isBefore(contractDetails.start_date)
+    ) {
+      return Promise.reject("End Date must be after Start Date");
+    }
+    return Promise.resolve();
+  };
+
+  const validateDateOfSignature = (rule: any, value: Moment | null) => {
+    if (
+      value &&
+      contractDetails.start_date &&
+      contractDetails.end_date &&
+      (value.isAfter(contractDetails.start_date) ||
+        value.isAfter(contractDetails.end_date))
+    ) {
+      return Promise.reject("Must be before Start Date & End Date");
+    }
+    return Promise.resolve();
+  };
+
   return (
     <>
       <div className="container">
         <BreadCrumbs />
-        <h1 style={{ marginLeft: "14rem", paddingTop: "2rem" }}>
-          Add Contract
+        <h1
+          style={{
+            marginLeft: "10rem",
+            paddingTop: "2rem",
+            fontWeight: 700,
+            fontSize: "1.2rem",
+          }}
+        >
+          ADD CONTRACT
         </h1>
         {/* <AddContractHandler onSubmit={handleSubmit} /> */}
         <>
@@ -83,13 +164,19 @@ const AddContract = ({
               </div>
 
               {/* Contract Details Form Items */}
-              <div style={{ display: "flex", padding: "1rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  padding: "-0.6rem 1rem",
+                  fontFamily: '"Montserrat", sans-serif',
+                }}
+              >
                 <Form.Item
                   label="Client Name"
                   labelCol={{ span: 15 }}
                   wrapperCol={{ span: 11 }}
                   required
-                  style={{ marginLeft: "-2rem" }}
+                  style={{ marginLeft: "-2.4rem" }}
                 >
                   <AutoComplete
                     options={clientNameOptions}
@@ -103,7 +190,7 @@ const AddContract = ({
                   label="Contract ID"
                   labelCol={{ span: 10 }}
                   wrapperCol={{ span: 14 }}
-                  style={{ paddingLeft: "2rem", marginLeft: "4rem" }}
+                  style={{ paddingLeft: "1rem", marginLeft: "4rem" }}
                   required
                 >
                   <Input
@@ -129,7 +216,7 @@ const AddContract = ({
                   name="du"
                   labelCol={{ span: 8 }}
                   wrapperCol={{ span: 16 }}
-                  style={{ paddingLeft: "2rem", marginLeft: "-1.5rem" }}
+                  style={{ paddingLeft: "2rem", marginLeft: "-3.5rem" }}
                   required
                 >
                   <Select
@@ -150,21 +237,29 @@ const AddContract = ({
                   </Select>
                 </Form.Item>
               </div>
-              <div style={{ display: "flex", padding: "1rem" }}>
+              <div style={{ display: "flex", padding: "-0.6rem 1rem" }}>
                 <Form.Item
                   label="Start Date"
                   labelCol={{ span: 11 }}
                   wrapperCol={{ span: 21 }}
-                  required
+                  name="start_date"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select a Start Date",
+                    },
+                    {
+                      validator: validateStartDate,
+                    },
+                  ]}
                 >
                   <DatePicker
-                    value={contractDetails.start_date}
-                    onChange={(value) =>
-                      setContractDetails({
-                        ...contractDetails,
-                        start_date: value,
-                      })
+                    value={
+                      contractDetails.start_date
+                        ? moment(contractDetails.start_date)
+                        : null
                     }
+                    onChange={handleStartDateChange}
                   />
                 </Form.Item>
                 <Form.Item
@@ -172,37 +267,53 @@ const AddContract = ({
                   labelCol={{ span: 10 }}
                   wrapperCol={{ span: 26 }}
                   style={{ paddingLeft: "2rem" }}
-                  required
+                  name="end_date"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select an End Date",
+                    },
+                    {
+                      validator: validateEndDate,
+                    },
+                  ]}
                 >
                   <DatePicker
-                    value={contractDetails.end_date}
-                    onChange={(value) =>
-                      setContractDetails({
-                        ...contractDetails,
-                        end_date: value,
-                      })
+                    value={
+                      contractDetails.end_date
+                        ? moment(contractDetails.end_date)
+                        : null
                     }
+                    onChange={handleEndDateChange}
                   />
                 </Form.Item>
                 <Form.Item
                   label="Date Of Signature"
+                  name="date_of_signature"
                   labelCol={{ span: 14 }}
                   wrapperCol={{ span: 23 }}
                   style={{ paddingLeft: "2rem" }}
-                  required
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select a Date of Signature",
+                    },
+                    {
+                      validator: validateDateOfSignature,
+                    },
+                  ]}
                 >
                   <DatePicker
-                    value={contractDetails.date_of_signature}
-                    onChange={(value) =>
-                      setContractDetails({
-                        ...contractDetails,
-                        date_of_signature: value,
-                      })
+                    value={
+                      contractDetails.date_of_signature
+                        ? moment(contractDetails.date_of_signature)
+                        : null
                     }
+                    onChange={handleDateOfSignatureChange}
                   />
                 </Form.Item>
               </div>
-              <div style={{ display: "flex", padding: "1rem" }}>
+              <div style={{ display: "flex", padding: "-0.6rem 1rem" }}>
                 <Form.Item
                   label="Contract Type"
                   name="contract_type"
@@ -229,13 +340,14 @@ const AddContract = ({
                   style={{
                     display: "flex",
                     alignItems: "flex-start",
-                    padding: "1rem",
-                    width: "113%",
+                    padding: "-0.6rem 1rem",
+                    fontFamily: '"Montserrat", sans-serif',
+                    width: "100%",
                   }}
                 >
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ marginLeft: "13rem" }}
+                    style={{ marginLeft: "10rem" }}
                   >
                     <div
                       className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -290,13 +402,21 @@ const AddContract = ({
                     >
                       <div style={{ width: "30%", marginRight: "2.3rem" }}>
                         <div
-                          style={{ marginBottom: "0.5rem", marginLeft: "2rem" }}
+                          style={{
+                            marginBottom: "0.5rem",
+                            marginLeft: "0.6rem",
+                          }}
                         >
                           Milestones
                         </div>
                       </div>
-                      <div style={{ width: "30%", marginRight: "0.5rem" }}>
-                        <div style={{ marginBottom: "0.5rem" }}>
+                      <div style={{ width: "30%", marginRight: "-0.5rem" }}>
+                        <div
+                          style={{
+                            marginBottom: "0.5rem",
+                            marginLeft: "-0.7rem",
+                          }}
+                        >
                           Expected Completion Date
                         </div>
                       </div>
@@ -317,10 +437,18 @@ const AddContract = ({
                           flexWrap: "wrap",
                           padding: "1rem",
                           paddingLeft: "3rem",
+                          // padding: "0.5rem 1rem",
                           alignItems: "center",
                         }}
                       >
-                        <div style={{ width: "30%", marginRight: "1rem" }}>
+                        <div
+                          style={{
+                            width: "30%",
+                            marginRight: "1rem",
+                            marginBottom: "0.5rem",
+                            marginTop: "-1.7rem",
+                          }}
+                        >
                           <Form.Item
                             name={`milestones[${index}].milestones`}
                             labelCol={{ span: 24 }}
@@ -340,7 +468,14 @@ const AddContract = ({
                             />
                           </Form.Item>
                         </div>
-                        <div style={{ width: "30%", marginRight: "1rem" }}>
+                        <div
+                          style={{
+                            width: "30%",
+                            marginRight: "1rem",
+                            marginBottom: "0.5rem",
+                            marginTop: "-1.7rem",
+                          }}
+                        >
                           <Form.Item
                             name={`milestones[${index}].expectedCompletionDate`}
                             labelCol={{ span: 24 }}
@@ -359,7 +494,14 @@ const AddContract = ({
                             />
                           </Form.Item>
                         </div>
-                        <div style={{ width: "10%", marginRight: "1rem" }}>
+                        <div
+                          style={{
+                            width: "10%",
+                            marginRight: "1rem",
+                            marginBottom: "0.5rem",
+                            marginTop: "-1.7rem",
+                          }}
+                        >
                           <Form.Item
                             name={`milestones[${index}].percentage`}
                             labelCol={{ span: 20 }}
@@ -378,7 +520,14 @@ const AddContract = ({
                           </Form.Item>
                         </div>
 
-                        <div style={{ width: "20%", marginRight: "1rem" }}>
+                        <div
+                          style={{
+                            width: "20%",
+                            marginRight: "1rem",
+                            marginBottom: "0.5rem",
+                            marginTop: "-1.7rem",
+                          }}
+                        >
                           <Form.Item
                             name={`milestones[${index}].amount`}
                             labelCol={{ span: 20 }}
@@ -391,13 +540,13 @@ const AddContract = ({
                             />
                           </Form.Item>
                         </div>
-                        {index > 0 && (
+                        {index >= 0 && (
                           <Button
                             type="text"
                             style={{
                               color: "red",
                               marginLeft: "-2rem",
-                              marginTop: "-1rem",
+                              marginTop: "-3.5rem",
                             }}
                             onClick={() => removeMilestone(index)}
                             icon={<CloseCircleOutlined />}
@@ -444,7 +593,7 @@ const AddContract = ({
                   {/* Upload Work Schedule */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ width: "46.5%" }}
+                    style={{ width: "46.5%", height: "15rem" }}
                   >
                     <br />
                     <div
@@ -457,16 +606,20 @@ const AddContract = ({
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        height: "10rem",
+                        height: "8rem",
+                        padding: "1rem",
+                        width: "100%",
                       }}
                     >
                       <div
                         style={{
                           border: "2px dashed #ccc",
                           padding: "3rem",
+                          paddingBottom: "2.5rem",
                           textAlign: "center",
                           borderRadius: "5px",
-                          width: "32rem",
+                          width: "33rem",
+                          marginTop: "2.5rem",
                         }}
                       >
                         <Upload
@@ -474,10 +627,17 @@ const AddContract = ({
                           //   action=""
                           customRequest={handleFileUpload}
                           maxCount={1}
+                          // showUploadList={false}
                         >
-                          <Button icon={<UploadOutlined />}>
+                          {/* <Button icon={<UploadOutlined />}>
                             Click to Upload (Max: 50MB)
-                          </Button>
+                          </Button> */}
+                          <div style={{ marginTop: "1rem" }}>
+                            <p>Drag & drop or click to upload</p>
+                            <Button icon={<UploadOutlined />}>
+                              Select File
+                            </Button>
+                          </div>
                         </Upload>
                       </div>
                     </div>
@@ -486,7 +646,11 @@ const AddContract = ({
                   {/* Comments and Remarks */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ width: "40%", marginLeft: "2rem" }}
+                    style={{
+                      width: "36%",
+                      marginLeft: "2rem",
+                      height: "15rem",
+                    }}
                   >
                     <br />
                     <div
@@ -504,7 +668,7 @@ const AddContract = ({
                       <Form.Item
                         labelCol={{ span: 6 }}
                         wrapperCol={{ span: 22 }}
-                        style={{ width: "35rem" }}
+                        style={{ width: "25rem", marginTop: "-1.5rem" }}
                       >
                         <Input.TextArea
                           rows={8}
@@ -526,13 +690,14 @@ const AddContract = ({
                   style={{
                     display: "flex",
                     alignItems: "flex-start",
-                    padding: "1rem",
-                    width: "113%",
+                    padding: "-0.6rem 1rem",
+                    fontFamily: '"Montserrat", sans-serif',
+                    width: "100%",
                   }}
                 >
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ marginLeft: "13rem" }}
+                    style={{ marginLeft: "10rem" }}
                   >
                     <div
                       className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -590,13 +755,21 @@ const AddContract = ({
                     >
                       <div style={{ width: "30%", marginRight: "2.3rem" }}>
                         <div
-                          style={{ marginBottom: "0.5rem", marginLeft: "2rem" }}
+                          style={{
+                            marginBottom: "0.5rem",
+                            marginLeft: "0.6rem",
+                          }}
                         >
                           Milestones
                         </div>
                       </div>
-                      <div style={{ width: "30%", marginRight: "0.5rem" }}>
-                        <div style={{ marginBottom: "0.5rem" }}>
+                      <div style={{ width: "30%", marginRight: "-0.5rem" }}>
+                        <div
+                          style={{
+                            marginBottom: "0.5rem",
+                            marginLeft: "-0.7rem",
+                          }}
+                        >
                           Expected Completion Date
                         </div>
                       </div>
@@ -618,7 +791,14 @@ const AddContract = ({
                           alignItems: "center",
                         }}
                       >
-                        <div style={{ width: "30%", marginRight: "1rem" }}>
+                        <div
+                          style={{
+                            width: "30%",
+                            marginRight: "1rem",
+                            marginBottom: "0.5rem",
+                            marginTop: "-1.7rem",
+                          }}
+                        >
                           <Form.Item
                             name={`milestones[${index}].milestones`}
                             labelCol={{ span: 24 }}
@@ -638,7 +818,14 @@ const AddContract = ({
                             />
                           </Form.Item>
                         </div>
-                        <div style={{ width: "30%", marginRight: "1rem" }}>
+                        <div
+                          style={{
+                            width: "30%",
+                            marginRight: "1rem",
+                            marginBottom: "0.5rem",
+                            marginTop: "-1.7rem",
+                          }}
+                        >
                           <Form.Item
                             name={`milestones[${index}].expectedCompletionDate`}
                             labelCol={{ span: 24 }}
@@ -658,7 +845,14 @@ const AddContract = ({
                           </Form.Item>
                         </div>
 
-                        <div style={{ width: "20%", marginRight: "1rem" }}>
+                        <div
+                          style={{
+                            width: "20%",
+                            marginRight: "1rem",
+                            marginBottom: "0.5rem",
+                            marginTop: "-1.7rem",
+                          }}
+                        >
                           <Form.Item
                             name={`milestones[${index}].amount`}
                             labelCol={{ span: 20 }}
@@ -672,13 +866,13 @@ const AddContract = ({
                             />
                           </Form.Item>
                         </div>
-                        {index > 0 && (
+                        {index >= 0 && (
                           <Button
                             type="text"
                             style={{
                               color: "red",
                               marginLeft: "-2rem",
-                              marginTop: "-1rem",
+                              marginTop: "-3.5rem",
                             }}
                             onClick={() => removeMilestone(index)}
                             icon={<CloseCircleOutlined />}
@@ -725,7 +919,7 @@ const AddContract = ({
                   {/* Upload Work Schedule */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ width: "46.5%" }}
+                    style={{ width: "46.5%", height: "15rem" }}
                   >
                     <br />
                     <div
@@ -738,26 +932,38 @@ const AddContract = ({
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        height: "10rem",
+                        height: "8rem",
+                        padding: "1rem",
+                        width: "100%",
                       }}
                     >
                       <div
                         style={{
                           border: "2px dashed #ccc",
                           padding: "3rem",
+                          paddingBottom: "2.5rem",
                           textAlign: "center",
                           borderRadius: "5px",
-                          width: "32rem",
+                          width: "33rem",
+                          marginTop: "2.5rem",
                         }}
                       >
                         <Upload
                           accept=".pdf"
                           //   action=""
                           customRequest={handleFileUpload}
+                          maxCount={1}
+                          // showUploadList={false}
                         >
-                          <Button icon={<UploadOutlined />}>
+                          {/* <Button icon={<UploadOutlined />}>
                             Click to Upload (Max: 50MB)
-                          </Button>
+                          </Button> */}
+                          <div style={{ marginTop: "1rem" }}>
+                            <p>Drag & drop or click to upload</p>
+                            <Button icon={<UploadOutlined />}>
+                              Select File
+                            </Button>
+                          </div>
                         </Upload>
                       </div>
                     </div>
@@ -766,7 +972,11 @@ const AddContract = ({
                   {/* Comments and Remarks */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ width: "40%", marginLeft: "2rem" }}
+                    style={{
+                      width: "36%",
+                      marginLeft: "2rem",
+                      height: "15rem",
+                    }}
                   >
                     <br />
                     <div
@@ -778,13 +988,13 @@ const AddContract = ({
                       style={{
                         display: "flex",
                         padding: "1rem",
-                        width: "100%",
+                        width: "95%",
                       }}
                     >
                       <Form.Item
                         labelCol={{ span: 6 }}
                         wrapperCol={{ span: 22 }}
-                        style={{ width: "35rem" }}
+                        style={{ width: "35rem", marginTop: "-1.5rem" }}
                       >
                         <Input.TextArea
                           rows={8}

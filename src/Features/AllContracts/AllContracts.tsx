@@ -5,6 +5,7 @@ import { AllContractsPropType, ContractData } from "./types";
 import { useNavigate } from "react-router";
 import { LoadingOutlined } from "@ant-design/icons";
 import Toast from "../../Components/Toast/Toast";
+import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 
 const AllContracts = ({
   columns,
@@ -25,7 +26,7 @@ const AllContracts = ({
 
   return (
     <>
-      <h3 className={styles["contracts-h1"]}>{pageTitle}</h3>
+      <BreadCrumbs />;<h3 className={styles["contracts-h1"]}>{pageTitle}</h3>
       <div className={styles["contracts-table"]}>
         <div className={styles["contracts-buttons"]}>
           <div className={styles["contracts-buttons-expired"]}>
@@ -66,7 +67,7 @@ const AllContracts = ({
           {ROLE_ID !== 3 && (
             <Button
               className={styles["contracts-addContract"]}
-              onClick={() => navigate("/addContract")}
+              onClick={() => navigate("Add Contract")}
             >
               + Add Contract
             </Button>
