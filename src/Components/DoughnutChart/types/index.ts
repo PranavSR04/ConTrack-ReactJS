@@ -7,14 +7,15 @@ export interface apiData{
         Expired: string
 }
 
-export interface  options {
-    responsive: boolean;
-    legend: {
-        labels: {
-            borderColor: string;
-            fontColor: string;
-            fontSize: number;
-            fontStyle: string;
+export interface options {
+    plugins: {
+        legend: {
+            labels: {
+                font: {
+                    size: number;
+                };
+                boxWidth:number;  
+            };
         };
     };
 }

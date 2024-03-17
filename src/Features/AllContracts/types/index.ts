@@ -61,4 +61,5 @@ export interface AllContractsPropType {
   showExpired: (checked: boolean) => void;
   contractAddToast: boolean;
   contractEditToast: boolean;
+  isMyContracts:boolean;
 }

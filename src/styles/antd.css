@@ -17,3 +17,12 @@
     border-color: #DC143C;
     border-radius: 11%;
 }
+
+.ant-statistic .ant-statistic-content{
+    font-size: 15px;
+}
+
+.ant-card .ant-card-body {
+    padding: 10px;
+    /* border-radius: 0 0 8px 8px; */
+}
