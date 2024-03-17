@@ -9,6 +9,8 @@ import DashBoardQuaterlyRevenueHandler from './../../Components/DashBoardRevenue
 import DashBoardYearlyRevenueHandler from '../../Components/DashBoardRevenue/DashBoardYearlyRevenueHandler';
 
 import TopRevenueHandler from '../../Components/TopRevenueRegion/TopRevenueHandler';
+import DashBoardContractCountHandler from '../../Components/DashBoardContractsCount/DashBoardContractCountHandler';
+import DashBoardMsaCountHandler from '../../Components/DashBoardContractsCount/DashBoardMsaCountHandler';
 
 const Dashboard = () => {
   const user_id = localStorage.getItem("user_id");
@@ -22,10 +24,20 @@ const Dashboard = () => {
     {/* <Card >
       <ContractsCount/>
     </Card> */}
-    <DashBoardMonthlyRevenueHandler/>
-    <DashBoardQuaterlyRevenueHandler/>
-    <DashBoardYearlyRevenueHandler/>
-    <DashBoardNotificationListHandler/>
+    <div style={{display:'flex'}}>
+        <DashBoardMonthlyRevenueHandler/>
+        <DashBoardQuaterlyRevenueHandler/>
+        <DashBoardYearlyRevenueHandler/>
+        <DashBoardContractCountHandler/>
+        <DashBoardMsaCountHandler/>
+      <div style={{flex:1}}>
+        <DashBoardNotificationListHandler/>
+      </div>
+    
+   
+    </div>
+   
+    
     </div>
     <Card style={{ marginLeft: '6rem', width: '25rem', backgroundColor: 'rgba(75,192,255,0.1)', border: '1px solid teal' }}>      
     <ScatterPlotHandler/>
