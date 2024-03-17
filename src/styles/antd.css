@@ -19,7 +19,11 @@
 }
 
 .ant-statistic .ant-statistic-content{
+    margin-top: -.1rem;
     font-size: 13px;
+   
+    margin-right:-10%;
+    padding-right: 0%;
 }
 
 .ant-card .ant-card-body {
