@@ -62,7 +62,7 @@ const DocumentsHandler = ({ id }: LocationStateProps) => {
     } finally {
       // Close the modal
       onCancel();
-      navigate('/AllContracts')
+      navigate('/All Contracts')
     }
   };
 

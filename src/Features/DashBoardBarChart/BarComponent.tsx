@@ -37,7 +37,7 @@ const BarComponent = ({data}:BarChartPropType) => {
             },
             title: {
               display: true,
-              text: 'DU'
+              text: ' '
           }},
           y: {
             grid: {
@@ -56,9 +56,9 @@ const BarComponent = ({data}:BarChartPropType) => {
       };
       
   
-  return  <div>
+  return  <>
   <Bar data={dataset} options={options} />
-</div>
+</>
 
 }
 

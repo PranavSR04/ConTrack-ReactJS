@@ -24,6 +24,8 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import Toast from "../../Components/Toast/Toast";
+import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
+import dayjs from "dayjs";
 
 const EditContract = ({
   handleUpdate,
@@ -66,8 +68,16 @@ const EditContract = ({
   return (
     <>
       <div className="container">
-        <h1 style={{ marginLeft: "14rem", paddingTop: "2rem" }}>
-          Edit Contract
+        <BreadCrumbs style={{ marginLeft: "10rem", marginTop: "2rem" }} />
+        <h1
+          style={{
+            marginLeft: "10rem",
+            paddingTop: "2rem",
+            fontWeight: 700,
+            fontSize: "1.2rem",
+          }}
+        >
+          EDIT CONTRACT
         </h1>
         {/* <AddContractHandler onSubmit={handleSubmit} /> */}
         <>
@@ -96,13 +106,20 @@ const EditContract = ({
               </div>
 
               {/* Contract Details Form Items */}
-              <div style={{ display: "flex", padding: "1rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  padding: "-0.6rem 1rem",
+                  fontFamily: '"Montserrat", sans-serif',
+                }}
+              >
+                {" "}
                 <Form.Item
                   label="Client Name"
                   labelCol={{ span: 15 }}
                   wrapperCol={{ span: 11 }}
                   required
-                  style={{ marginLeft: "-2rem" }}
+                  style={{ marginLeft: "-2.4rem" }}
                 >
                   <AutoComplete
                     value={contractDetails.client_name}
@@ -117,7 +134,7 @@ const EditContract = ({
                   label="Contract ID"
                   labelCol={{ span: 10 }}
                   wrapperCol={{ span: 14 }}
-                  style={{ paddingLeft: "2rem", marginLeft: "4rem" }}
+                  style={{ paddingLeft: "1rem", marginLeft: "4rem" }}
                   required
                 >
                   <Input
@@ -141,9 +158,9 @@ const EditContract = ({
                 <Form.Item
                   label="DU"
                   name="du"
-                  labelCol={{ span: 5 }}
-                  wrapperCol={{ span: 19 }}
-                  style={{ paddingLeft: "2rem", marginLeft: "-1.5rem" }}
+                  labelCol={{ span: 9 }}
+                  wrapperCol={{ span: 15 }}
+                  style={{ paddingLeft: "2rem", marginLeft: "-3.5rem" }}
                   required
                 >
                   <Select
@@ -163,7 +180,7 @@ const EditContract = ({
                   </Select>
                 </Form.Item>
               </div>
-              <div style={{ display: "flex", padding: "1rem" }}>
+              <div style={{ display: "flex", padding: "-0.6rem 1rem" }}>
                 <Form.Item
                   label="Start Date"
                   labelCol={{ span: 11 }}
@@ -233,12 +250,13 @@ const EditContract = ({
                   />
                 </Form.Item>
               </div>
-              <div style={{ display: "flex", padding: "1rem" }}>
+              <div style={{ display: "flex", padding: "-0.6rem 1rem" }}>
                 <Form.Item
                   label="Contract Type"
                   required
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}
+                  labelCol={{ span: 244 }}
+                  wrapperCol={{ span: 19 }}
+                  style={{ marginLeft: "1.3rem" }}
                 >
                   <Input value={getContractTypeName()} disabled />
                 </Form.Item>
@@ -253,13 +271,14 @@ const EditContract = ({
                   style={{
                     display: "flex",
                     alignItems: "flex-start",
-                    padding: "1rem",
-                    width: "113%",
+                    padding: "-0.6rem 1rem",
+                    fontFamily: '"Montserrat", sans-serif',
+                    width: "100%",
                   }}
                 >
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ marginLeft: "13rem" }}
+                    style={{ marginLeft: "10rem" }}
                   >
                     <div
                       className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -271,22 +290,22 @@ const EditContract = ({
                       style={{
                         paddingTop: "0.5rem",
                         marginTop: "-3rem",
-                        marginLeft: "10.5rem",
+                        marginLeft: "16.5rem",
                       }}
                     >
                       <Form.Item
                         label="Estimated Amount"
                         required
-                        labelCol={{ span: 11 }}
-                        wrapperCol={{ span: 16 }}
-                        style={{ paddingLeft: "1rem" }}
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 8 }}
+                        // style={{ paddingLeft: "1rem" }}
                       >
                         <InputNumber
                           value={contractDetails.estimated_amount}
                           onChange={(value) =>
                             handleTotalContractValueChange(value as number)
                           }
-                          style={{ width: "50%" }}
+                          style={{ width: "100%" }}
                         />
                       </Form.Item>
                     </div>
@@ -321,14 +340,19 @@ const EditContract = ({
                           <div
                             style={{
                               marginBottom: "0.5rem",
-                              marginLeft: "2rem",
+                              marginLeft: "0.6rem",
                             }}
                           >
                             Milestones
                           </div>
                         </div>
-                        <div style={{ width: "30%", marginRight: "0.5rem" }}>
-                          <div style={{ marginBottom: "0.5rem" }}>
+                        <div style={{ width: "30%", marginRight: "-0.5rem" }}>
+                          <div
+                            style={{
+                              marginBottom: "0.5rem",
+                              marginLeft: "-0.7rem",
+                            }}
+                          >
                             Expected Completion Date
                           </div>
                         </div>
@@ -355,7 +379,14 @@ const EditContract = ({
                               alignItems: "center",
                             }}
                           >
-                            <div style={{ width: "30%", marginRight: "1rem" }}>
+                            <div
+                              style={{
+                                width: "30%",
+                                marginRight: "1rem",
+                                marginBottom: "0.5rem",
+                                marginTop: "-1.7rem",
+                              }}
+                            >
                               <Form.Item
                                 name={`milestones[${index}].milestone_desc`}
                                 labelCol={{ span: 24 }}
@@ -379,9 +410,10 @@ const EditContract = ({
 
                             <div
                               style={{
-                                display: "flex",
-                                alignItems: "center",
-                                marginBottom: "1rem",
+                                width: "30%",
+                                marginRight: "1rem",
+                                marginBottom: "2.1rem",
+                                marginTop: "-1.7rem",
                               }}
                             >
                               <DatePicker
@@ -404,7 +436,14 @@ const EditContract = ({
                               />
                             </div>
 
-                            <div style={{ width: "10%", marginRight: "1rem" }}>
+                            <div
+                              style={{
+                                width: "10%",
+                                marginRight: "1rem",
+                                marginBottom: "0.5rem",
+                                marginTop: "-1.7rem",
+                              }}
+                            >
                               <Form.Item
                                 name={`milestones[${index}].percentage`}
                                 labelCol={{ span: 20 }}
@@ -424,7 +463,14 @@ const EditContract = ({
                               </Form.Item>
                             </div>
 
-                            <div style={{ width: "20%", marginRight: "1rem" }}>
+                            <div
+                              style={{
+                                width: "20%",
+                                marginRight: "1rem",
+                                marginBottom: "0.5rem",
+                                marginTop: "-1.7rem",
+                              }}
+                            >
                               <Form.Item
                                 name={`milestones[${index}].amount`}
                                 labelCol={{ span: 20 }}
@@ -438,13 +484,13 @@ const EditContract = ({
                                 />
                               </Form.Item>
                             </div>
-                            {index > 0 && (
+                            {index >= 0 && (
                               <Button
                                 type="text"
                                 style={{
                                   color: "red",
                                   marginLeft: "-2rem",
-                                  marginTop: "-1rem",
+                                  marginTop: "-3.5rem",
                                 }}
                                 onClick={() => removeMilestone(index)}
                                 icon={<CloseCircleOutlined />}
@@ -466,13 +512,14 @@ const EditContract = ({
                   style={{
                     display: "flex",
                     alignItems: "flex-start",
-                    padding: "1rem",
-                    width: "113%",
+                    padding: "-0.6rem 1rem",
+                    fontFamily: '"Montserrat", sans-serif',
+                    width: "100%",
                   }}
                 >
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ marginLeft: "13rem" }}
+                    style={{ marginLeft: "10rem" }}
                   >
                     <div
                       className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -484,22 +531,22 @@ const EditContract = ({
                       style={{
                         paddingTop: "0.5rem",
                         marginTop: "-3rem",
-                        marginLeft: "10.5rem",
+                        marginLeft: "16.5rem",
                       }}
                     >
                       <Form.Item
                         label="Estimated Amount"
                         required
-                        labelCol={{ span: 11 }}
-                        wrapperCol={{ span: 16 }}
-                        style={{ paddingLeft: "1rem" }}
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 8 }}
+                        // style={{ paddingLeft: "1rem" }}
                       >
                         <InputNumber
                           value={contractDetails.estimated_amount}
                           onChange={(value) =>
                             handleTotalContractValueChange(value as number)
                           }
-                          style={{ width: "50%" }}
+                          style={{ width: "100%" }}
                         />
                       </Form.Item>
                     </div>
@@ -534,14 +581,19 @@ const EditContract = ({
                           <div
                             style={{
                               marginBottom: "0.5rem",
-                              marginLeft: "2rem",
+                              marginLeft: "0.6rem",
                             }}
                           >
                             Milestones
                           </div>
                         </div>
-                        <div style={{ width: "30%", marginRight: "0.5rem" }}>
-                          <div style={{ marginBottom: "0.5rem" }}>
+                        <div style={{ width: "30%", marginRight: "-0.5rem" }}>
+                          <div
+                            style={{
+                              marginBottom: "0.5rem",
+                              marginLeft: "-0.7rem",
+                            }}
+                          >
                             Expected Completion Date
                           </div>
                         </div>
@@ -551,8 +603,7 @@ const EditContract = ({
                           </div>
                         </div>
                       </div>
-                      {milestones &&
-                        existingMilestone &&
+                      {existingMilestone &&
                         existingMilestone.map((milestone, index) => (
                           <div
                             key={index}
@@ -564,7 +615,14 @@ const EditContract = ({
                               alignItems: "center",
                             }}
                           >
-                            <div style={{ width: "30%", marginRight: "1rem" }}>
+                            <div
+                              style={{
+                                width: "30%",
+                                marginRight: "1rem",
+                                marginBottom: "0.5rem",
+                                marginTop: "-1.7rem",
+                              }}
+                            >
                               <Form.Item
                                 name={`milestones[${index}].milestone_desc`}
                                 labelCol={{ span: 24 }}
@@ -585,36 +643,50 @@ const EditContract = ({
                                 />
                               </Form.Item>
                             </div>
-                            <div style={{ width: "30%", marginRight: "1rem" }}>
-                              <Form.Item
+                            <div
+                              style={{
+                                width: "30%",
+                                marginRight: "1rem",
+                                marginBottom: "2.1rem",
+                                marginTop: "-1.7rem",
+                              }}
+                            >
+                              {/* <Form.Item
                                 name={`milestones[${index}].milestone_enddate`}
                                 labelCol={{ span: 24 }}
                                 wrapperCol={{ span: 24 }}
                                 required
                                 initialValue={milestone.milestone_enddate}
-                              >
-                                <DatePicker
-                                  style={{ width: "100%" }}
-                                  value={
-                                    milestone.milestone_enddate
-                                      ? moment(
-                                          milestone.milestone_enddate,
-                                          "YYYY-MM-DD"
-                                        )
-                                      : undefined
-                                  }
-                                  onChange={(value) =>
-                                    handleMilestoneChange(
-                                      index,
-                                      "milestone_enddate",
-                                      value ? value.format("YYYY-MM-DD") : ""
-                                    )
-                                  }
-                                />
-                              </Form.Item>
+                              > */}
+                              <DatePicker
+                                style={{ width: "100%" }}
+                                value={
+                                  milestone.milestone_enddate
+                                    ? moment(
+                                        milestone.milestone_enddate,
+                                        "YYYY-MM-DD"
+                                      )
+                                    : undefined
+                                }
+                                onChange={(value) =>
+                                  handleMilestoneChange(
+                                    index,
+                                    "milestone_enddate",
+                                    value ? value.format("YYYY-MM-DD") : ""
+                                  )
+                                }
+                              />
+                              {/* </Form.Item> */}
                             </div>
 
-                            <div style={{ width: "20%", marginRight: "1rem" }}>
+                            <div
+                              style={{
+                                width: "20%",
+                                marginRight: "1rem",
+                                marginBottom: "0.5rem",
+                                marginTop: "-1.7rem",
+                              }}
+                            >
                               <Form.Item
                                 name={`milestones[${index}].amount`}
                                 labelCol={{ span: 20 }}
@@ -635,7 +707,7 @@ const EditContract = ({
                                 style={{
                                   color: "red",
                                   marginLeft: "-2rem",
-                                  marginTop: "-1rem",
+                                  marginTop: "-3.3rem",
                                 }}
                                 onClick={() => removeMilestone(index)}
                                 icon={<CloseCircleOutlined />}
@@ -680,7 +752,7 @@ const EditContract = ({
               {/* Upload Work Schedule */}
               <div
                 className={`contract_details ${styles.contract_details}`}
-                style={{ width: "46.5%" }}
+                style={{ width: "46.5%", height: "15rem" }}
               >
                 <br />
                 <div
@@ -693,16 +765,20 @@ const EditContract = ({
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    height: "10rem",
+                    height: "8rem",
+                    padding: "1rem",
+                    width: "100%",
                   }}
                 >
                   <div
                     style={{
                       border: "2px dashed #ccc",
                       padding: "3rem",
+                      paddingBottom: "2.5rem",
                       textAlign: "center",
                       borderRadius: "5px",
-                      width: "32rem",
+                      width: "33rem",
+                      marginTop: "2.5rem",
                     }}
                   >
                     <Upload
@@ -721,7 +797,7 @@ const EditContract = ({
               {/* Comments and Remarks */}
               <div
                 className={`contract_details ${styles.contract_details}`}
-                style={{ width: "40%", marginLeft: "2rem" }}
+                style={{ width: "36%", marginLeft: "2rem", height: "15rem" }}
               >
                 <br />
                 <div
@@ -733,16 +809,16 @@ const EditContract = ({
                   style={{
                     display: "flex",
                     padding: "1rem",
-                    width: "100%",
+                    width: "95%",
                   }}
                 >
                   <Form.Item
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 22 }}
-                    style={{ width: "35rem" }}
+                    style={{ width: "35rem", marginTop: "-1.5rem" }}
                   >
                     <Input.TextArea
-                      rows={6}
+                      rows={8}
                       value={contractDetails.comments || ""}
                       onChange={(e) => handleCommentsRemarksChange(e)}
                     />
@@ -762,14 +838,13 @@ const EditContract = ({
                 type="primary"
                 htmlType="submit"
                 style={{ marginRight: "1rem" }}
+                className={
+                  contractType
+                    ? styles.submitButton
+                    : `${styles.submitButton} ${styles.submitButtonDisabled}`
+                }
               >
                 Update
-              </Button>
-              <Button
-                htmlType="button"
-                onClick={() => console.log("cancel clicked")}
-              >
-                Cancel
               </Button>
             </div>
           </Form>

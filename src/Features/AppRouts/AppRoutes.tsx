@@ -29,11 +29,10 @@ import AddMsaHandler from "../MSA/AddMsa/AddMsaHandler";
 import IndividualContractHandler from "../IndividualContract/IndividualContractHandler";
 
 const AppRoutes = () => {
-  
-  const {roleId} = useContext(Auth)
-    // const ROLE_ID = roleId;
+  const { roleId } = useContext(Auth);
+  // const ROLE_ID = roleId;
 
-  console.log("ROLE ID from AUTH CONTEXT:",typeof(roleId),roleId)
+  console.log("ROLE ID from AUTH CONTEXT:", typeof roleId, roleId);
   const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
 
   return (
@@ -42,14 +41,14 @@ const AppRoutes = () => {
         <AuthContext>
           <NavContext>
             <Routes>
-              <Route path="/" element={<Navigate to="/login" />} />
-              <Route path="/home" element={<Navigate to="/login" />} />
-              <Route path="/msauth" element={<SignInButton />} />
-              <Route path="/home" element={<Navigate to="/login" />} />
-              <Route path="/msauth" element={<SignInButton />} />
-              <Route path="/login" element={<LoginHandler />}></Route>
+              <Route path="/" element={<Navigate to="/Login" />} />
+              <Route path="/Home" element={<Navigate to="/Login" />} />
+              <Route path="/MS Auth" element={<SignInButton />} />
+              <Route path="/Home" element={<Navigate to="/Login" />} />
+              <Route path="/MS Auth" element={<SignInButton />} />
+              <Route path="/Login" element={<LoginHandler />}></Route>
               <Route
-                path="/dashboard"
+                path="/Dashboard"
                 element={
                   <>
                     <NavBarHandler />
@@ -60,7 +59,18 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/revenue"
+                path="/Dashboard/:contract_ref_id"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <IndividualContractHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
+                path="/Revenue"
                 element={
                   <>
                     <NavBarHandler />
@@ -70,10 +80,10 @@ const AppRoutes = () => {
                   </>
                 }
               ></Route>
-              
+
               {ROLE_ID === 1 || ROLE_ID == undefined ? (
                 <Route
-                  path="/manageUser"
+                  path="/Manage User"
                   element={
                     <>
                       <NavBarHandler />
@@ -85,7 +95,7 @@ const AppRoutes = () => {
                 ></Route>
               ) : (
                 <Route
-                  path="/manageUser"
+                  path="/Manage User"
                   element={
                     <>
                       <AccessDenied />
@@ -96,7 +106,7 @@ const AppRoutes = () => {
               {/* <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route> */}
 
               <Route
-                path="/allContracts"
+                path="/All Contracts"
                 element={
                   <>
                     <NavBarHandler />
@@ -107,7 +117,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/myContracts"
+                path="/My Contracts"
                 element={
                   <>
                     <NavBarHandler />
@@ -118,7 +128,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/MSA"
+                path="/MSA Overview"
                 element={
                   <>
                     <NavBarHandler />
@@ -129,7 +139,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/msa/add"
+                path="/MSA Overview/Add MSA"
                 element={
                   <>
                     <NavBarHandler />
@@ -140,7 +150,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/msa/edit"
+                path="/MSA Overview/Edit MSA"
                 element={
                   <>
                     <NavBarHandler />
@@ -151,7 +161,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/msa/renew/"
+                path="/MSA Overview/Renew MSA/"
                 element={
                   <>
                     <NavBarHandler />
@@ -161,20 +171,9 @@ const AppRoutes = () => {
                   </>
                 }
               ></Route>
-              <Route
-                path="/addContract"
-                element={
-                  <>
-                    <NavBarHandler />
-                    <SideBar>
-                      <AddContractHandler />
-                    </SideBar>
-                  </>
-                }
-              />
 
               <Route
-                path="/allContracts/addContract"
+                path="/All Contracts/Add Contract"
                 element={
                   <>
                     <NavBarHandler />
@@ -185,63 +184,7 @@ const AppRoutes = () => {
                 }
               />
               <Route
-                path="/myContracts/addContract"
-                element={
-                  <>
-                    <NavBarHandler />
-                    <SideBar>
-                      <AddContractHandler />
-                    </SideBar>
-                  </>
-                }
-              />
-              <Route
-                path="/MSA"
-                element={
-                  <>
-                    <NavBarHandler />
-                    <SideBar>
-                      <ListMsaHandler />
-                    </SideBar>
-                  </>
-                }
-              />
-              <Route
-                path="/msa/add"
-                element={
-                  <>
-                    <NavBarHandler />
-                    <SideBar>
-                      <AddMsaHandler />
-                    </SideBar>
-                  </>
-                }
-              />
-              <Route
-                path="/msa/edit/:msa_ref_id"
-                element={
-                  <>
-                    <NavBarHandler />
-                    <SideBar>
-                      <EditMsaHandler />
-                    </SideBar>
-                  </>
-                }
-              />
-              <Route
-                path="/msa/renew/:msa_ref_id"
-                element={
-                  <>
-                    <NavBarHandler />
-                    <SideBar>
-                      <RenewMsaHandler />
-                    </SideBar>
-                  </>
-                }
-              />
-
-              <Route
-                path="/editContract"
+                path="/All Contracts/Edit Contract"
                 element={
                   <>
                     <NavBarHandler />
@@ -250,9 +193,9 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              ></Route>
+              />
               <Route
-                path="/contract"
+                path="/All Contracts/:contract_ref_id"
                 element={
                   <>
                     <NavBarHandler />
@@ -262,6 +205,97 @@ const AppRoutes = () => {
                   </>
                 }
               ></Route>
+              <Route
+                path="/My Contracts/:contract_ref_id"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <IndividualContractHandler />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/My Contracts/Edit Contract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <EditContractHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
+                path="/My Contracts/Add Contract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <AddContractHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+
+              <Route
+                path="/MSA"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <ListMsaHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+
+              <Route
+                path="/MSA Overview/Edit MSA/:msa_ref_id"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <EditMsaHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
+                path="/MSA Overview/Renew MSA/:msa_ref_id"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <RenewMsaHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+
+              <Route
+                path="/Edit Contract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <EditContractHandler />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
+              {/* <Route
+                path="/Contract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <IndividualContractHandler />
+                    </SideBar>
+                  </>
+                }
+              ></Route> */}
             </Routes>
           </NavContext>
         </AuthContext>
