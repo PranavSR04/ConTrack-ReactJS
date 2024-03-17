@@ -57,9 +57,6 @@ const Dashboard = () => {
 </div>
  <TopRevenueHandler/>
       </div>
-
-      
-
     </>
   );
 };

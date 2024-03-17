@@ -26,9 +26,9 @@ const RevenueProjection = ({
 
 	return (
 		<div className={styles.revueneProjection}>
-			<h2 className={styles.revueneProjection__heading}>Revenue Projection</h2>
+			<h2 className={styles.revueneProjection__heading}>REVENUE PROJECTION</h2>
 			<div>
-				<Card style={{width:"60rem" }}
+				<Card style={{width:"57rem"}}
 					title={
 						<div className={styles.cardTitle}>
 							<ConfigProvider 

@@ -30,7 +30,7 @@ const AllContracts = ({
       <div className={styles["contracts-table"]}>
         <div className={styles["contracts-buttons"]}>
           <div className={styles["contracts-buttons-expired"]}>
-            <label> Show Expired &nbsp; </label>
+            <label className={styles['contracts-button-switch']}> Show Expired &nbsp; </label>
             <Switch size="small" onChange={showExpired} />
           </div>
           {ROLE_ID !== 3 && isMyContracts &&(

@@ -26,6 +26,7 @@ import AccessDenied from "../../Components/AccessDenied/AccessDenied";
 import EditContractHandler from "../AddContract/EditContractHandler";
 import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 import AddMsaHandler from "../MSA/AddMsa/AddMsaHandler";
+import IndividualContractHandler from "../IndividualContract/IndividualContractHandler";
 
 const AppRoutes = () => {
   const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
@@ -39,6 +40,8 @@ const AppRoutes = () => {
               <Route path="/" element={<Navigate to="/login" />} />
               <Route path="/home" element={<Navigate to="/login" />} />
               <Route path="/msauth" element={<SignInButton />} />
+              <Route path="/home" element={<Navigate to="/login" />} />
+              <Route path="/msauth" element={<SignInButton />} />
 
               <Route path="/login" element={<LoginHandler />}></Route>
               <Route
@@ -48,17 +51,6 @@ const AppRoutes = () => {
                     <NavBarHandler />
                     <SideBar>
                       <Dashboard />
-                    </SideBar>
-                  </>
-                }
-              ></Route>
-              <Route
-                path="/contract"
-                element={
-                  <>
-                    <NavBarHandler />
-                    <SideBar>
-                      <FixedFeeHandler />
                     </SideBar>
                   </>
                 }
@@ -155,7 +147,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/msa/renew/:msa_ref_id"
+                path="/msa/renew/"
                 element={
                   <>
                     <NavBarHandler />
@@ -254,7 +246,18 @@ const AppRoutes = () => {
                     </SideBar>
                   </>
                 }
-              />
+              ></Route>
+              <Route
+                path="/contract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <IndividualContractHandler />
+                    </SideBar>
+                  </>
+                }
+              ></Route>
             </Routes>
           </NavContext>
         </AuthContext>
