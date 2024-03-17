@@ -32,12 +32,12 @@ const OverviewHandler = ({ responses, loading }: HandlerPropType) => {
 
       let originalDate = responses.data[0].start_date;
       let parts = originalDate.split("-");
-      let start_year = parseInt(parts[2])
+      let start_year = parseInt(parts[0])
       setStartDate(responses.data[0].start_date);
 
       originalDate = responses.data[0].end_date;
       parts = originalDate.split("-");
-      let end_year = parseInt(parts[2])
+      let end_year = parseInt(parts[0])
       setEndDate(responses.data[0].end_date);
       let term = end_year - start_year
       
