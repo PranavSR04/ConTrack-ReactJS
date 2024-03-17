@@ -245,7 +245,7 @@ console.log('date validation condition',date_validate)
             </Button>
             
             <Modal
-              title="Are you sure you want to add this MSA?"
+              title="Confirm Add MSA"
               visible={isModalVisible}
               // onOk={handleOk}
               onCancel={handleCancel}

@@ -247,7 +247,7 @@ const EditMsa = ({
             Edit MSA
           </Button>
           <Modal
-        title="Are you sure you want to edit this msa"
+        title="Confirm Edit MSA"
         visible={isModalVisible}
         onCancel={handleCancel}
         footer={[
