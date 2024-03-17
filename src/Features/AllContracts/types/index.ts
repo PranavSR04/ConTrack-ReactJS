@@ -62,4 +62,6 @@ export interface AllContractsPropType {
   contractAddToast: boolean;
   contractEditToast: boolean;
   isMyContracts:boolean;
+  handleSegmentChange:(value: string) => void;
+
 }
