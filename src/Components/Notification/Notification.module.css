@@ -1,4 +1,4 @@
-.cardStyle{
+.style2{
     display: flex;
     background-color: #ffffff;
     border-radius: 10px;
@@ -10,7 +10,7 @@
     transition: transform 0.3s ease;
     
 }
-.cardStyle:hover{
+.style2:hover{
     display: flex;
     background-color: #f0eded;
     border-radius: 10px;
@@ -20,59 +20,135 @@
     width:320px;
     transform: translateY(-5px);
 }
-.added> p {
-  margin-top: 10px;
+.style1{
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow:0 0 4px rgba(0, 0, 0, 0.1);
+  margin: 2px 0 20px 4px;
+  height:45px;
+  width:200px;
+  font-size: small;
+  transition: transform 0.3s ease;
+  
+}
+.style1:hover{
+  display: flex;
+  background-color: #f0eded;
+  border-radius: 10px;
+  margin: 2px 0 20px 4px;
+  height:45px;
+  width:200px;
+  transform: translateY(-5px);
+}
+.Notification_style1__-dmbFadded> p {
+  margin-top: 10%;
   background-color: #e9d2f4;
-  color: #ca86ea;
-  font-size: 10px;
-  padding: 9px;
-  width: 80px;
+  color: #320249;
+  font-weight:700;
+  font-size: 8px;
+  padding: 9%;
+  width: 60px;
   border-radius: 20px; 
 }
-.edited> p{
+.Notification_style1__-dmbFedited> p{
   margin-top: 10px;
   background-color: #eba68d;
-  color: #e76d41;
+  color: #451b0c;
+  font-weight:700;
   font-size: 10px;
   padding:9px;
-  width: 80px;
+  width: 60px;
   border-radius: 20px;
 }
-.renewed> p{
+.Notification_style1__-dmbFrenewed> p{
   margin-top: 10px;
   background-color: #ACF3A0;
   color: #1F9423;
   font-size: 10px;
   padding:9px;
-  width: 80px;
+  width: 60px;
   border-radius: 20px;
 }
-.expired> p{
+.Notification_style1__-dmbFexpired> p{
   margin-top: 10px;
   background-color: #DC143C;
   color: #5F2828;
   font-size: 10px;
   padding:9px;
-  width: 80px;
+  width: 60px;
   border-radius: 20px;
 }
-.expiring> p{
+.Notification_style1__-dmbFexpiring> p{
   margin-top: 10px;
   background-color: #F2E291;
   color: #9F7D24;
   font-size: 10px;
   padding:9px;
-  width: 80px;
+  width: 60px;
   border-radius: 20px;
 }
-.cardStyle_right{
+.Notification_style2__w-PiDadded> p {
+  margin-top: 10%;
+  background-color: #e9d2f4;
+  color: #320249;
+  font-weight:700;
+  font-size: 10px;
+  padding: 9%;
+  width: 60px;
+  border-radius: 20px; 
+}
+.Notification_style2__w-PiDedited> p{
+  margin-top: 10px;
+  background-color: #eba68d;
+  color: #451b0c;
+  font-weight:700;
+  font-size: 10px;
+  padding:9px;
+  width: 60px;
+  border-radius: 20px;
+}
+.Notification_style2__w-PiDrenewed> p{
+  margin-top: 10px;
+  background-color: #ACF3A0;
+  color: #1F9423;
+  font-size: 10px;
+  padding:9px;
+  width: 60px;
+  border-radius: 20px;
+}
+.Notification_style2__w-PiDexpired> p{
+  margin-top: 10px;
+  background-color: #DC143C;
+  color: #5F2828;
+  font-size: 10px;
+  padding:9px;
+  width: 60px;
+  border-radius: 20px;
+}
+.Notification_style2__w-PiDexpiring> p{
+  margin-top: 10px;
+  background-color: #F2E291;
+  color: #9F7D24;
+  font-size: 10px;
+  padding:9px;
+  width: 60px;
+  border-radius: 20px;
+}
+.Notification_style1__-dmbFcardStyle_right{
+  flex: 7;
+  padding-left: 6px;
+  text-align: left;
+  font-size: 8px;
+  margin-top: 10px;
+}
+.Notification_style2__w-PiDcardStyle_right{
   flex: 7;
   padding-left: 6px;
   text-align: left;
   font-size: 12px;
   margin-top: 10px;
 }
-
 .listStyle{
   max-height: calc(99vh - 50px - 50px); 
   overflow-y: auto;
@@ -85,6 +161,8 @@
 
 .drawer{
   margin-top: 55px;
+  box-shadow: none;
+  /* box-shadow: 0px !important; */
 }
 .viewMore {
   margin-bottom: 30px;
@@ -97,7 +175,8 @@
   text-decoration: underline;
 }
 .difference{
-  font-size: 9px;
+  font-size: 11px;
+  font-weight: 100;
   padding-left: 5px;
   padding-top: 10px;
 }

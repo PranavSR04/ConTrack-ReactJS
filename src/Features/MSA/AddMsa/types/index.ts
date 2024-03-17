@@ -24,10 +24,11 @@ export interface AddMsaPropsType{
     isLoading: boolean;
     validateStartDate: (value: any) => Promise<void>;
     handleOk: () => Promise<void>;
-    fullPageSpinner: boolean
-
-
-
+    fullPageSpinner: boolean;
+    isFormFilled: () => false | "field" | "date";
+    start_date: string | undefined;
+    date_validate: boolean;
+    spinning: boolean;
 
 }
 

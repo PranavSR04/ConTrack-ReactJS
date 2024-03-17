@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 .ListMsa{
-    margin-top: 30px;
+    margin-top: 10px;
     margin-left: 16rem;
     margin-right: 1.5rem;
     font-family: 'Montserrat', sans-serif;
@@ -9,28 +9,36 @@
 }
 .ListMsa_Details_Table_row1_col1{
     font-weight: 500; 
-    font-size: 0.9rem;
+    font-size: 0.5rem;
+    
 }
 .ListMsa_heading{
     font-weight: 700; /* Bold weight */
-    font-size: 1.7rem; /* Font size 40 */
+    font-size: 1.2rem; /* Font size 40 */
+    width: 60rem;
+  padding: 2%;
+  margin-left: -1rem;
 }
 .ListMsa_Details{
     background-color: white;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.253);
    padding: 1.8rem;
    border-radius: 0.5rem;
-   min-width: 60rem;
+   min-width: 62rem;
 }
 .ListMsa_Details_Table{
     background-color: white;
     box-shadow: 0px 0px 8px rgba(146, 145, 145, 0.253);
    padding: 1rem;
    border-radius: 0.5rem;
+   width: 60rem;
+   margin-top: -1rem;
+   
    
 }
 .ListMsa_Details_Table_table{
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+    font-size: 0.5rem;
 }
 .ListMsa_Details_Table_row1{
     display: flex;
@@ -53,19 +61,12 @@
   justify-items: center;
 }
 .ListMsa_Details_Table_row1_col2_button{
-    /* background-color: crimson;
-    border-color: transparent;
-    color:white;
-    width:9rem;
-    border-radius: 10px;
-    font-weight: 600;
-    height: 2.7rem;
-    margin-left: 16.5rem; */
     margin-left: 65%;
     margin-top: 1%;
     border-color: transparent;
     width:9rem;
     margin-bottom: 1%;
+    border-radius: 0.5rem;
      background-color:#DC143C;
      color: white;
      font-family: "Montserrat", sans-serif;
@@ -102,11 +103,11 @@
      color: white;
      font-family: "Montserrat", sans-serif;
   }
-  .ListMsa_Details_Table_row1_msabutton{
+  /* .ListMsa_Details_Table_row1_msabutton{
     margin-right: 40rem;
     display: flex;
     
-  }
+  } */
   .activebutton {
     background: linear-gradient(to right, #ff5900, #e52e71); /* Gradient colors for active state */
   }
@@ -124,13 +125,26 @@
     background-color: #ff8a00; /* Change color on hover */
     color: white;
   }
-  .ListMsa_Details_segment {
-    /* Define your custom styles here */
+  /* .ListMsa_Details_segment {
     margin-right:17rem;
     margin-bottom: -2rem;
-    width:9rem;
     height: 2rem;
     
+  } */
+
+  .oddRow {
+    background-color: #f5f8fc; /* Set the background color for even rows */
+  }
+  
+  /* Optionally, you can add styles for odd rows as well */
+  .evenRow {
+    background-color: #ffffff; /* Set the background color for odd rows */
+  }
+  .ListMsa_Details_Table_row1_col2{
+    display: flex;
+  }
+  .ListMsa_Details_segment_button,
+  .ListMsa_Details_Table_row1_msabutton{
+    flex: 1;
   }
 
-  

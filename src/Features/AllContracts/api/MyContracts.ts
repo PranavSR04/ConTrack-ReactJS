@@ -1,5 +1,3 @@
-// api.ts
-
 import { AxiosResponse } from "axios";
 import { Condition } from "../types";
 import axiosInstance from "../../../Config/AxiosConfig";
@@ -8,7 +6,8 @@ export const fetchMyContractsApi = async (
   searchConditions: Condition,
   currentPage: number,
   pageSize: number,
-  userId: string
+  userId: string,
+  checkedExpiring:boolean
 ) => {
   try {
     let queryString: string[] = [];
@@ -21,7 +20,7 @@ export const fetchMyContractsApi = async (
 
     console.log("search query", queryStrings);
     const response: AxiosResponse = await axiosInstance.get(
-      `http://127.0.0.1:8000/api/contracts/myContracts/${userId}?${queryStrings}&page=${currentPage}&per_page=${pageSize}`
+      `http://127.0.0.1:8000/api/contracts/myContracts/${userId}?${queryStrings}&page=${currentPage}&per_page=${pageSize}${checkedExpiring && '&status=Expired'}`
     );
 
     if (response.status !== 200) {

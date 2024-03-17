@@ -10,7 +10,6 @@ import { Form } from "antd";
 import { RcFile } from "antd/es/upload";
 
 const RenewMsaHandler = () => {
-  const { msa_ref_id } = useParams<string>();
   const user_id: number = parseInt(localStorage.getItem("user_id") || "0");
   const [form] = Form.useForm();
   const [fileName, setFileName] = useState<string>();
@@ -21,8 +20,8 @@ const RenewMsaHandler = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  // const { msa_ref_id }= location.state as LocationStateProps;
-  // console.log("Id:", msa_ref_id)
+  const { msa_ref_id }= location.state as LocationStateProps;
+  console.log("Id:", msa_ref_id)
 
   const [msaData, setMsaData] = useState({
     client_name: "",
@@ -96,7 +95,8 @@ const RenewMsaHandler = () => {
       console.log("filepdf:", filePdf);
       // setMsaRenewed(true)
     }
-  }, [msaData, filePdf]);
+  }, [msaData, 
+  ]);
 
   const handleFileUpload = (info: any) => {
     setFormData({ ...formData, file: info.file as RcFile });

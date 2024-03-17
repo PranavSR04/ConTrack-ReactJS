@@ -2,19 +2,32 @@
 
 import './App.css';
 import styles from './App.module.css'
-
-import React, { useState } from 'react';
-
-  import { PageLayout } from './Features/Login/PageLayout'
+import RevenueProjectionHandler from './Features/RevenueProjection/RevenueProjectionHandler';
+import React, { useState } from "react";
+import NavBarHandler from './Components/NavBar/NavBarHandler';
+import ManageUsersHandler from './Features/ManageUsers/ManageUsersHandler';
+import FixedFeeHandler from './Features/ContractView/FixedFee/FixedFeeHandler';
+import SideBar from './Components/SideBar/SideBar';
+import Toast from './Components/Toast/Toast';
+import AllContractsHandler from './Features/AllContracts/AllContractsHandler';
+import DashBoardNotification from './Components/DashBoardNotification/DashBoardNotification';
+import DashBoardNotificationListHandler from './Components/DashBoardNotificationList/DashBoardNotificationListHandler';
+import NavContext from './Components/NavContext/NavContext';
+import AddContract from './Features/AddContract/AddContract';
+import AddContractHandler from "./Features/AddContract/AddContractHandler";
+import { PageLayout } from './Features/Login/PageLayout'
   import { loginRequest } from './Config/authConfig';
   import { callMsGraph } from './Config/graph';
   import { ProfileData } from './Features/Login/ProfileData';
+    import Button from "react-bootstrap/Button";
 
-  import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 
-  import './App.css';
+ import {
+   AuthenticatedTemplate,
+   UnauthenticatedTemplate,
+   useMsal,
+ } from "@azure/msal-react";
 
-  import Button from 'react-bootstrap/Button';
 
 function App() {
   const { instance, accounts } = useMsal();

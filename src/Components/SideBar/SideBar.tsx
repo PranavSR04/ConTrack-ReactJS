@@ -5,37 +5,40 @@ import styles from './SideBar.module.css'
 import { SideBarPropType } from './types';
 import { Auth } from '../../Components/AuthContext/AuthContext';
 
-  const SideBar = ({children}:SideBarPropType) => {
+    const SideBar = ({children}:SideBarPropType) => {
     const {logout}= useContext(Auth);
+    const location=useLocation();
     const access_token = localStorage.getItem('access_token');
-    const role_id = parseInt(localStorage.getItem('role_id') || '0', 10);    
-    console.log('role_id from local storage',role_id)
-
+    const role_id = parseInt(localStorage.getItem('role_id') || '0', 10);  
+    const [isActiveIndex, setIsActiveIndex] = useState<number>(() => 
+    {
+      const storedIndex = localStorage.getItem('activeIndex');
+      return storedIndex ? parseInt(storedIndex, 10) : 0; 
+    });  
     const handleLogout = async () => {
         try {
-            access_token && await logout();
-        } catch (error) {
-          console.error('Error during logout:', error);
-        }
-      };
-      const [isActiveIndex, setIsActiveIndex] = useState<number>(() => {
-        const storedIndex = localStorage.getItem('activeIndex');
-        return storedIndex ? parseInt(storedIndex, 10) : 0; 
-      });
-  const location=useLocation();
-  useEffect(()=>{
+              access_token && await logout();
+            } catch (error) 
+            {
+             console.error('Error during logout:', error);
+            }
+        };
+       
+  
+    useEffect(()=>{
+
     const index=sideBarItem.findIndex(item=>item.path===location.pathname);
-    if (index !== -1) {
-      setIsActiveIndex(index);
-      localStorage.setItem('activeIndex', index.toString());
-    }
-    else if (location.pathname === '/contract') {
-      const contractsIndex = sideBarItem.findIndex(item => item.path === '/AllContracts');
-      setIsActiveIndex(contractsIndex);
-      localStorage.setItem('activeIndex', contractsIndex.toString());
-    }
-  },[location.pathname]);
-  const commonSideItems = [
+      if (index !== -1) {
+        setIsActiveIndex(index);
+        localStorage.setItem('activeIndex', index.toString());
+      }
+      else if (location.pathname === '/contract') {
+        const contractsIndex = sideBarItem.findIndex(item => item.path === '/AllContracts');
+        setIsActiveIndex(contractsIndex);
+        localStorage.setItem('activeIndex', contractsIndex.toString());
+      }
+    },[location.pathname]);
+    const commonSideItems = [
     { path: '/dashboard', name: 'Dashboard', icon: <FaBars /> },
     { path: '/msa', name: 'MSA', icon: <FaFileAlt /> },
     { path: '/AllContracts', name: 'Contracts', icon: <FaCopy /> },
@@ -68,7 +71,7 @@ import { Auth } from '../../Components/AuthContext/AuthContext';
                 </NavLink>
               </div>
       </div>
-      <div className={styles.container_outsideSideBar}>
+      <div className={styles.container_outsideSideBar} >
         {children}
       </div>
     </div>

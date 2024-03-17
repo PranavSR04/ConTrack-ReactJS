@@ -14,7 +14,7 @@ export interface EditMsaHandlertype{
     isModalVisible: boolean;
     handleCancel: () => void;
     isLoading: boolean;
-    validateStartDate?: (value: any) => Promise<void>;
+    validateStartDate: (value: any) => Promise<void>;
     //  confirmLoading:boolean
     handleOk?: () => Promise<void>;
     fullPageSpinner?: boolean;
@@ -22,7 +22,11 @@ export interface EditMsaHandlertype{
     fileUpload: boolean;
     showFile: boolean;
     handleFileUpload: (info: any) => void;
-    fileName: string | undefined
+    fileName: string | undefined;
+    isFormFilled?: () => false | "date" | "field";
+    validateRegion: (value: any) => Promise<void>;
+    validateClientName: (value: any) => Promise<void>;
+    spinning:boolean;
 
 }
 export interface LocationStateProps {

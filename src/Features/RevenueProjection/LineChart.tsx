@@ -55,9 +55,11 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 			x: {
 				ticks: {
 					stepSize: 9, // Increase the step size to create more space between points
-					count: 200,
-				},
-			},
+               		 count: 200,
+						
+				  }
+				}
+			  ,
 			y: {
 				title: {
 					display: true,

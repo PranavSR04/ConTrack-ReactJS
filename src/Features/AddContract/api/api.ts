@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ContractDetails } from "../types/AddContractTypes";
+import { ContractDetails } from "../types";
 import axiosInstance from "../../../Config/AxiosConfig";
 
 // const API_BASE_URL = "http://127.0.0.1:8000/api/contracts";

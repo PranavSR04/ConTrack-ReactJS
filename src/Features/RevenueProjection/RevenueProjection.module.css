@@ -1,20 +1,24 @@
+
 .revueneProjection {
   margin-top: 20px;
-  margin-left: 16rem;
+  margin-left: 15rem;
   margin-right: 1.5rem;
   font-family: "Montserrat", sans-serif;
+  
   width: 60rem;
 }
 .revueneProjection__heading {
   font-weight: 700;
   font-size: 1.2rem;
+  padding-top:3px;
+  margin-left: 1rem;
 }
 
 .card {
   margin-top: 1rem;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.253);
   margin-bottom: 2rem;
-  width: 900px;
+  width: 700px;
 }
 
 body {
@@ -37,8 +41,9 @@ body {
 }
 
 .large_column {
-  width: 1000px;
-  /* height: 300px; */
+  
+  width: 800px;
+  transform: scale(1.2);
   overflow-x: scroll;
 }
 .large_column::-webkit-scrollbar {
@@ -46,7 +51,7 @@ body {
 }
 
 .large_column::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color of the scrollbar track */
+  background: transparent; /* Color of the scrollbar track */
   border-radius: 10px; /* Rounded corners for the scrollbar thumb */
 }
 
@@ -59,7 +64,8 @@ body {
   background: #5e5e5e; /* Color of the scrollbar thumb on hover */
 }
 .container {
-  width: 1000px;
+  padding-top: 30px;
+  width: 800px;
   height: 400px;
 }
 .spinner {
@@ -67,7 +73,7 @@ body {
   align-items: center;
 }
 .filtericon {
-  margin-left: 40rem;
+  margin-left: 35rem;
   align-self: flex-end;
   cursor: pointer;
 }
