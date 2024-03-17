@@ -4,30 +4,36 @@ import { LoginPropType, userDetailsType } from "./types";
 import styles from "./Login.module.css";
 import logo from "../../img/Subtract.png";
 import { SignInButton } from "./AzureSignin";
+import microsoft from '../../img/microsoft.png'
 
 
 const Login = ({  handleOk,isModalOpen,handleCancel,errorMsg,handleLogin}: LoginPropType) => {
 	return (
 		<>
 			<div className={styles.container}>
-				<div className={styles.logo}>
+				{/* <div className={styles.logo}>
 					<img src={logo} alt="contrack logo" className={styles.logoimg} />
 					ConTrack
-				</div>
+				</div> */}
+				<div className={styles.leftTotal}>
 				<div className={styles.left}>
+					<img src={logo} alt="contrack logo" className={styles.logoimg} />
 					<h1 className={styles.heading}>
-						Contract <br></br>Management <br></br>System
+						ConTrack <br></br>
 					</h1>
 				</div>
-				<div className={styles.right}>
-					<Card className={styles.card}>
-						
-						
-						<h4>Login </h4>
-						<Button onClick={()=>handleLogin("popup")}>
-							Signin with Microsoft
+				<p className={styles.tagline}>- Your tool for tracking and managing contracts</p>
+				</div>
+					<div className={styles.right}>
+						<Card className={styles.card}>
+							<h6>Welcome </h6>
+						{/* <h4>Login </h4> */}
+						<img src={microsoft} alt="MS Logo"  className={styles.microsoftLogo}/>
+						<Button className={styles.microsoftButton}
+						onClick={()=>handleLogin("popup")}>
+							Login with Microsoft
 						</Button>
-						<SignInButton/>
+						{/* <SignInButton/> */}
 						{/* <Form
 							name="loginform"
 							onFinish={onFinish}

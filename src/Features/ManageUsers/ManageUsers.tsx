@@ -65,7 +65,6 @@ const ManageUsers = (
             debouncedFetchData(text);
           }}
           notFoundContent={dropDownLoading ? <Spin size="small" /> : null}
-
         />
 
         <Select
