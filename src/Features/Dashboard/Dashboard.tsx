@@ -8,6 +8,8 @@ import DashBoardMonthlyRevenueHandler from '../../Components/DashBoardRevenue/Da
 import DashBoardQuaterlyRevenueHandler from './../../Components/DashBoardRevenue/DashBoardQuaterlyRevenueHandler';
 import DashBoardYearlyRevenueHandler from '../../Components/DashBoardRevenue/DashBoardYearlyRevenueHandler';
 import TopRevenueHandler from '../../Components/TopRevenueRegion/TopRevenueHandler';
+import DashBoardContractCountHandler from '../../Components/DashBoardContractsCount/DashBoardContractCountHandler';
+import DashBoardMsaCountHandler from '../../Components/DashBoardContractsCount/DashBoardMsaCountHandler';
 import DoughnutChartHandler from '../../Components/DoughnutChart/DoughnutChartHandler';
 import RegionHorizontalBar from '../../Components/RegionHorizontalBar/RegionHorizontalBar';
 
@@ -28,8 +30,9 @@ const Dashboard = () => {
     <div className={styles['dash-revenue-div-month']}><DashBoardMonthlyRevenueHandler/></div>
     <div className={styles['dash-revenue-div-month']}><DashBoardQuaterlyRevenueHandler/></div>
     <div className={styles['dash-revenue-div-month']}><DashBoardYearlyRevenueHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardYearlyRevenueHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardYearlyRevenueHandler/></div>
+
+    <div className={styles['dash-revenue-div-month']}><DashBoardContractCountHandler/></div>
+    <div className={styles['dash-revenue-div-month']}><DashBoardMsaCountHandler/></div>
     </div>
     <div>
       

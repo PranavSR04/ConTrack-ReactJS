@@ -1,16 +1,12 @@
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Card, Col, Row, Statistic } from 'antd'
-import React from 'react'
 import CountUp from 'react-countup';
-import { useCountUp } from 'react-countup';
 import styles from './DashBoardRevenue.module.css'
-interface DashBoardRevenueProps {
+export interface DashBoardRevenueProps {
   currentMonthRevenue: number;
   previousMonthRevenue: number;
   responsetype:string;
 }
-
-const formatter = (value: number) => <CountUp end={value} separator="," /> ;
 
 const DashBoardRevenue = ({currentMonthRevenue,previousMonthRevenue,responsetype}:DashBoardRevenueProps) => {
   if(currentMonthRevenue===0){
@@ -20,7 +16,9 @@ const DashBoardRevenue = ({currentMonthRevenue,previousMonthRevenue,responsetype
     previousMonthRevenue=1;
   }
   const difference=((currentMonthRevenue-previousMonthRevenue)/previousMonthRevenue)*100;
-  const arrowIcon = difference >= 0 ? <ArrowUpOutlined style={{ color: '#3f8600' }} /> : <ArrowDownOutlined style={{ color: 'red' }} />;
+  // const arrowIcon = difference >= 0 ? <ArrowUpOutlined style={{ color: '#3f8600' }} /> : <ArrowDownOutlined style={{ color: 'red' }} />;
+  const arrowIcon = difference >= 0 ? <ArrowUpOutlined style={{ color: '#3f8600' }} data-testid="up-arrow" /> : <ArrowDownOutlined style={{ color: 'red' }} data-testid="down-arrow" />;
+
   return (
     <Row gutter={16}>
     <Col span={12}>

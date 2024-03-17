@@ -1,35 +1,47 @@
-import React, { useEffect, useState } from 'react'
-import { fetchDuCount } from './api/getDuCount'
+import React, { useEffect, useState } from 'react';
+import { fetchDuCount } from './api/getDuCount';
 import BarComponent from './BarComponent';
-import { BarChartPropType } from './types/index';
+import { duCountType } from './types';
+interface ApiResponseDuCountType {
+    du: string;
+    TM: string; 
+    FF: string; 
+}
+
 const BarChartHandler = () => {
     const [error, setError] = useState<string>("");
-    const [data, setData] = useState<{du: string; TM: number;  FF: number}[]>([]);
+    const [data, setData] = useState<duCountType[]>([]);
     const [isError, setIsError] = useState<boolean>(false);
-    useEffect(()=>{
-        const fetchCount=async()=>{
-            try{
+
+    useEffect(() => {
+        const fetchCount = async () => {
+            try {
                 setError('');
                 setIsError(false);
-                const response=await fetchDuCount();
-                console.log(response[0]);
-                setData(response[0]);
-
-                if (!('data' in response)) {  
+                const response = await fetchDuCount();
+                if (!response.duCounts) {
                     throw new Error('Invalid response structure');
                 }
-            }catch{
+                setData(response.duCounts.map((duCount: ApiResponseDuCountType) => ({
+                    du: duCount.du,
+                    TM: parseInt(duCount.TM, 10),
+                    FF: parseInt(duCount.FF, 10)
+                })));
+            } catch (error) {
+                console.error(error);
                 setIsError(true);
                 setError('An error occurred with the request.');
             }
         };
+
         fetchCount();
-    },[]);
-  return (
-    <div style={{transform:'scale(1.05)', marginLeft:'40px'}}>
-      <BarComponent data={data}/>
-    </div>
-  )
+    }, []);
+
+    return (
+        <div>
+            <BarComponent data={data} />
+        </div>
+    );
 }
 
-export default BarChartHandler
+export default BarChartHandler;
