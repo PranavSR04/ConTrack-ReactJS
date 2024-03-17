@@ -1,7 +1,7 @@
 import { Moment } from "moment";
 
 export interface LocationStateProps {
-    id: string;
+    msa_ref_id: string;
 }
 
 export interface RenewMsaPropType{
