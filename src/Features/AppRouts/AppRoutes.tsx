@@ -40,9 +40,10 @@ const AppRoutes = () => {
 			        <Route path="/contract" element={<><NavBarHandler/><SideBar><FixedFeeHandler/></SideBar></>}></Route>
               <Route path="/revenue" element={<><NavBarHandler/><SideBar><RevenueProjectionHandler/></SideBar></>}></Route>
 
-			{ROLE_ID===1 || ROLE_ID ==undefined ?<Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>:
-			<Route path="/manageUser" element={<><AccessDenied/></>}/>}
-			{/* <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route> */}
+			{/* {ROLE_ID===1  ?<Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>:
+			<Route path="/manageUser" element={<><AccessDenied/></>}/>} */}
+      {/* <Route path="/manageUser" element={ROLE_ID===1?<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>:<><AccessDenied/></>}></Route> */}
+			<Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>
 
               <Route
                 path="/allContracts"

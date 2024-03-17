@@ -25,7 +25,7 @@ ChartJS.register(
 	Tooltip
 );
 
-const LineChart = ({ revenueData, loading,error }: LineChartPropType) => {
+const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 	const data = {
 		labels: revenueData?.map((date) => date.Date),
 		datasets: [
@@ -46,23 +46,18 @@ const LineChart = ({ revenueData, loading,error }: LineChartPropType) => {
 		layout: {
 			padding: {
 				left: 90, // Increase the left padding to create space
-				
 			},
-			margin:{
-				left:90,
-			}
-			
+			margin: {
+				left: 90,
+			},
 		},
 		scales: {
-			x: 
-				{
-				  
-				  ticks: {
+			x: {
+				ticks: {
 					stepSize: 9, // Increase the step size to create more space between points
-               		 count: 200,
-				  }
-				}
-			  ,
+					count: 200,
+				},
+			},
 			y: {
 				title: {
 					display: true,
@@ -70,6 +65,16 @@ const LineChart = ({ revenueData, loading,error }: LineChartPropType) => {
 				},
 				ticks: {
 					count: 10,
+					beginAtZero: true,
+					callback: function (value: any) {
+						if (value >= 1000000) {
+							return (value / 1000000).toFixed(2) + 'M';
+						} else if (value >= 1000) {
+							return (value / 1000).toFixed(2) + 'K';
+						} else {
+							return value.toFixed(2);
+						}
+					},
 				},
 			},
 		},
@@ -87,7 +92,7 @@ const LineChart = ({ revenueData, loading,error }: LineChartPropType) => {
 							indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />}
 						/>
 					) : revenueData ? (
-						<Line data={data} options={options} >
+						<Line data={data} options={options}>
 							{" "}
 						</Line>
 					) : (

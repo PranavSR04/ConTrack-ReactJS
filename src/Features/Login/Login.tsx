@@ -4,9 +4,13 @@ import { LoginPropType, userDetailsType } from "./types";
 import styles from "./Login.module.css";
 import logo from "../../img/Subtract.png";
 import { SignInButton } from "./AzureSignin";
-
-
-const Login = ({  handleOk,isModalOpen,handleCancel,errorMsg,handleLogin}: LoginPropType) => {
+const Login = ({
+	handleOk,
+	isModalOpen,
+	handleCancel,
+	errorMsg,
+	handleLogin,
+}: LoginPropType) => {
 	return (
 		<>
 			<div className={styles.container}>
@@ -21,13 +25,13 @@ const Login = ({  handleOk,isModalOpen,handleCancel,errorMsg,handleLogin}: Login
 				</div>
 				<div className={styles.right}>
 					<Card className={styles.card}>
-						
-						
 						<h4>Login </h4>
-						<Button onClick={()=>handleLogin("popup")}>
-							Signin with Microsoft
-						</Button>
-						<SignInButton/>
+						<div className={styles.msbutton}>
+							<Button onClick={() => handleLogin("popup")}>
+								Signin with Microsoft
+							</Button>
+						</div>
+						{/* <SignInButton/> */}
 						{/* <Form
 							name="loginform"
 							onFinish={onFinish}
@@ -64,12 +68,10 @@ const Login = ({  handleOk,isModalOpen,handleCancel,errorMsg,handleLogin}: Login
 					title="Login Failed"
 					open={isModalOpen}
 					onCancel={handleCancel}
-				    onOk={handleOk}
+					onOk={handleOk}
 					footer={null}
-					
 				>
 					<p>{errorMsg}</p>
-					
 				</Modal>
 			</div>
 		</>

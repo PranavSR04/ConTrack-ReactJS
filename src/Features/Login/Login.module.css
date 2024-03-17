@@ -34,3 +34,7 @@
 .logoimg {
 	padding: 1rem;
 }
+.msbutton{
+	justify-content: center; /* Center the spinner horizontally */
+	align-items: center;
+  }
