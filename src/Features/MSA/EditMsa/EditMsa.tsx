@@ -27,7 +27,11 @@ const EditMsa = ({
   handleFileUpload,
   fileName,
   handleOk,
-  fullPageSpinner
+  fullPageSpinner,
+  validateStartDate,
+  validateClientName,
+  validateRegion,
+  spinning
 }:EditMsaHandlertype) => {
   console.log("start date:", msaData.start_date)
   const  navigate=useNavigate()
@@ -75,7 +79,9 @@ const EditMsa = ({
        labelCol={{span:24}}
        wrapperCol={{span:24}}
        rules={[
-        { required: true, message: 'Please enter the Client Name' },
+        {
+          validator:validateClientName
+        },
         { 
           pattern: /^.{5,}$/, 
           message: 'Client name must contain at least 5 characters' 
@@ -99,11 +105,13 @@ const EditMsa = ({
        labelCol={{span:24}}
        wrapperCol={{span:24}}
        rules={[
-        { required: true, message: 'Please enter the Region' },
-        { 
-          pattern: /^[a-zA-Z]+$/, 
-        message: 'Region must be letters' 
-      }
+        {
+          validator:validateRegion
+        },
+      //   { 
+      //     pattern: /^[a-zA-Z]+$/, 
+      //   message: 'Region must be letters' 
+      // }
     ]} 
       >
         <Input 
@@ -126,11 +134,13 @@ const EditMsa = ({
        wrapperCol={{span:24}}
        rules={[
         { required: true, message: 'Please enter the Start Date' },
+        
     ]}
       required>
         <DatePicker 
         className={styles.AddMsaDetails_inputs} 
         format="YYYY-MM-DD"
+        
         onChange={handleDateChange}/>
       </Form.Item>
       <Form.Item 
@@ -144,7 +154,9 @@ const EditMsa = ({
        wrapperCol={{span:24}}
        rules={[
         { required: true, message: 'Please enter the End Date' },
-        
+        {
+          validator:validateStartDate
+        }
     ]}
 
       required>
@@ -235,24 +247,26 @@ const EditMsa = ({
             Edit MSA
           </Button>
           <Modal
-        title="Confirm Add MSA"
+        title="Are you sure you want to edit this msa"
         visible={isModalVisible}
-        onOk={handleOk}
         onCancel={handleCancel}
-        // confirmLoading={confirmLoading}
+        footer={[
+          <Button
+            key="ok"
+            type="primary"
+            onClick={handleOk}
+          >
+            Yes
+          </Button>,
+          <Button key="cancel" onClick={handleCancel}>
+            No
+          </Button>,
+        ]}
       >
-         {fullPageSpinner ? (
-                <>
-                  <Flex align="center" gap="middle">
-                    <Spin size="small" />
-                  </Flex>
-                </>
-              ) : (
-                <></>
-              )}
-        <p>Do you really want to Edit MSA?</p>
 
       </Modal>
+      <Spin spinning={spinning} fullscreen />
+
       </Form>
       {msaEdited?<Toast 
       messageType="success" 

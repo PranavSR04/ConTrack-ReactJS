@@ -28,6 +28,7 @@ export interface AddMsaPropsType{
     isFormFilled: () => false | "field" | "date";
     start_date: string | undefined;
     date_validate: boolean;
+    spinning: boolean;
 
 }
 
