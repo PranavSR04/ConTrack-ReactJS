@@ -53,17 +53,13 @@ const ListMsa = ({
         {/* <div className={styles.ListMsa_Details}> */}
           <div className={styles.ListMsa_Details_Table}>
             <div className={styles.ListMsa_Details_Table_row1}>
-              <div className={styles.ListMsa_Details_Table_row1_col1}>
-                {/* <span className={styles.ListMsa_Details_Table_row1_col1_span}>Show </span>
-                <span>10</span>
-                <span className={styles.ListMsa_Details_Table_row1_col1_span}>entries</span> */}
-              </div>
+
               <div className={styles.ListMsa_Details_Table_row1_col2}>
+                <div className={styles.ListMsa_Details_segment_button}>
                 <ConfigProvider
 								theme={{
 									token: {
 										borderRadius: 20,
-										// borderRadiusLG: 50,
 									},
 									components: {
 										Segmented: {
@@ -73,7 +69,7 @@ const ListMsa = ({
 									},
 								}}
 							>
-              <div className={styles.ListMsa_Details_Table_row1_msabutton}>
+              
                 <Segmented
                 className={styles.ListMsa_Details_segment}
                 options={ ["Active", "Inactive"]}
@@ -84,14 +80,17 @@ const ListMsa = ({
                 }}
                />
          
-                </div>
+                
                 </ConfigProvider>
+                </div>
+                <div className={styles.ListMsa_Details_Table_row1_msabutton}>
                 {ROLE_ID !== 3 && (
                 <button 
                 className={styles.ListMsa_Details_Table_row1_col2_button}
                 onClick={() => navigate('/msa/add')}>
                     + Add Msa
                 </button>)}
+                </div>
               </div>
             </div>
             <Spin

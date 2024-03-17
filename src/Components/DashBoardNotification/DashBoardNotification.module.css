@@ -25,14 +25,14 @@ body{
 }
 .containerList{
   /* margin-left: 67%; */
-  margin-top: 30px;
     background-color: #ffffff;
     padding-left: 2%;
-    width: 15.7rem;
+    margin-left: 1.5%;
+    width: 18.2rem;
     /* margin-top: 10rem; */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    height: 23rem;
+    height: 22rem;
     /* max-height: calc(99vh - 50px - 50px);  */
   overflow-y: auto;
   scrollbar-width: none; 

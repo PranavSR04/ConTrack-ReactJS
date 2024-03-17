@@ -1,6 +1,7 @@
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Card, Col, Row, Statistic } from 'antd'
 import CountUp from 'react-countup';
+import styles from './DashBoardRevenue.module.css'
 export interface DashBoardRevenueProps {
   currentMonthRevenue: number;
   previousMonthRevenue: number;
@@ -22,11 +23,11 @@ console.log({previousMonthRevenue})
   return (
     <Row gutter={16}>
     <Col span={12}>
+      <Card style={{width:'135px',height:'120px',padding:'0px',transform:'scale', backgroundColor:'#f4f4f4'}}>
+      <p style={{fontSize:'15px', paddingLeft:'13%'}}>{responsetype}</p> 
+      <CountUp end={currentMonthRevenue} style={{fontSize:'20px', fontWeight:'600', marginLeft:'10.8px'}}/>
       
-      <Card style={{width:'240px', backgroundColor:'#f4f4ff', transform:'scale(0.5)',borderRadius:'15px', boxShadow:'black ,0.5px'}}>
-      <p style={{marginLeft:'80px',transform:'scale(1.6)'}}>{responsetype}</p>
-      <CountUp end={currentMonthRevenue} prefix="$ " style={{fontSize:'32px', fontWeight:'600', marginLeft:'15px'}}/>
-      <Statistic 
+      <Statistic className={styles.statistic}  
           value={Math.abs(difference)}
           precision={1}
           valueStyle={{ color: difference >= 0 ? '#3f8600' : 'red' }}

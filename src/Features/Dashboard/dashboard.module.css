@@ -1,14 +1,14 @@
 .dashboard-div1{
     margin-top: 1%;
-    padding-left: 1%;
     padding-right: 1%;
     border-width: 10cm;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-    margin-left: 16rem;
+    margin-left: 14.5rem;
     margin-right: 1.5rem;
   font-family: "Montserrat", sans-serif;
   width: 62rem;
-  height: 16rem;
+  height: 38rem;
+  position: fixed;
   border-radius: .5rem;
 }
 .dashboard-name{
@@ -16,3 +16,52 @@
     font-size: 1.8rem;
     padding-top: .5rem;
 }
+.dash-row1-div{ 
+  display:flex;
+  }
+
+.dash-revenue-div{ 
+display:flex;
+}
+.dash-revenue-div-month{
+  padding-right: 1rem;
+
+}
+.dash-revenue-div-notifi{
+  padding-left: 0%;
+}
+
+.dash-row1-charts{
+display: flex;
+margin-top: -12.8rem;
+width: 46.3rem;
+height: 210px;
+border-radius: 10px;
+background-color:'white';
+}
+
+.dash-row1-doughnut{
+  margin-top:-1.1rem ;
+  /* margin-left:.5rem ;  */
+  padding-left: 1.5rem;
+  background-color:'white';
+  
+}
+.dash-row1-barchart{
+  margin-top:-1rem ;
+
+}
+.dash-row2-ducharts{
+  width: 29.7rem;
+  height:14.2rem ;
+
+}
+.dash-row2-charts{
+  display: flex;
+  /* margin-top: -13rem; */
+  width: 46.3rem;
+  height: 210px;
+  border-radius: 10px;
+  margin-top: .8rem;
+  background-color:white;
+  }

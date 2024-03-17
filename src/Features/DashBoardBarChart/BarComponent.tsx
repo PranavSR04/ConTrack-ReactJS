@@ -16,7 +16,7 @@ const BarComponent = ({data}:BarChartPropType) => {
             label: 'TM Counts',
             data: tmcounts,
             backgroundColor: '#17a977',
-            barPercentage: 0.8,
+            barPercentage: 0.6,
 
             
           },
@@ -24,7 +24,7 @@ const BarComponent = ({data}:BarChartPropType) => {
             label: 'FF Counts',
             data: ffcounts,
             backgroundColor: '#177977',
-            barPercentage: 0.8,
+            barPercentage: 0.6,
           }
         ],
       };
@@ -37,7 +37,7 @@ const BarComponent = ({data}:BarChartPropType) => {
             },
             title: {
               display: true,
-              text: 'DU'
+              text: ' '
           }},
           y: {
             grid: {
@@ -56,9 +56,9 @@ const BarComponent = ({data}:BarChartPropType) => {
       };
       
   
-  return  <div style={{ transform: 'scale(1)' }}>
+  return  <>
   <Bar data={dataset} options={options} />
-</div>
+</>
 
 }
 

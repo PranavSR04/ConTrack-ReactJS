@@ -8,8 +8,8 @@ const DoughnutChart = ({loading, chartData, options}:DougnutChartPropsType) => {
       
   return (
     <>
-    <div style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white', width:'16rem',height:'16rem'}}>
-    {loading?<div>Loading...</div>:<Doughnut data={chartData} options={options}></Doughnut>}
+    <div style={{ width:'14.2rem',height:'14.2rem'}}>
+    {loading?<div>Loading...</div>:<Card><Doughnut data={chartData} options={options}></Doughnut></Card>}
       </div>
     </>
   )
