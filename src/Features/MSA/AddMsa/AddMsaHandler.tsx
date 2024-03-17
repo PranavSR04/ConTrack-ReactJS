@@ -145,7 +145,7 @@ const AddMsaHandler = () => {
           
           form.resetFields();
           generateMsaId();
-          navigate('/MSA',{ state: { added:true } })
+          navigate("/MSA Overview", { state: { added: true } });
           //}
         } catch (error) {
           console.error("Error submitting form data:", error);

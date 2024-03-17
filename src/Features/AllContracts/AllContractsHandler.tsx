@@ -12,6 +12,7 @@ import AllContracts from "./AllContracts";
 import { useNavigate } from "react-router";
 import tableStyles from "./contractsList.module.css";
 import { useLocation } from "react-router";
+import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 const AllContractsHandler = () => {
   const [data, setData] = useState<ContractData[]>([]);
   const [searchConditions, setSearchConditions] = useState<
@@ -28,6 +29,7 @@ const AllContractsHandler = () => {
   const location = useLocation();
   const role_id = parseInt(localStorage.getItem("role_id") || "0", 10);
   const [pageTitle, setPageTitle] = useState("CONTRACTS OVERVIEW");
+
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10, // Default page size
@@ -81,9 +83,9 @@ const AllContractsHandler = () => {
       let pagePath = locationPaths[locationPaths.length - 1]; //get the corresponding page path.
       console.log("location", pagePath);
       //get Api for MyContracts
-      if (pagePath === "MyContracts") {
+      if (pagePath === "My Contracts") {
         const USER_ID = localStorage.getItem("user_id") as string; //get user id
-        setIsMyContracts(true)
+        setIsMyContracts(true);
         const result = await fetchMyContractsApi(
           searchConditions,
           pagination.current,
@@ -109,6 +111,7 @@ const AllContractsHandler = () => {
         );
         setData(result.data);
         setPageTitle("CONTRACTS OVERVIEW");
+
         console.log("result:", result.data);
         console.log("toatal page", result.total);
         setPagination({
@@ -150,7 +153,9 @@ const AllContractsHandler = () => {
 
   const rowClickHandler = (record: ContractData) => {
     if (!actionClicked) {
-      navigate(`/contract`, { state: { id: record.id as string } });
+      navigate(`${record.contract_ref_id}`, {
+        state: { id: record.id as string },
+      });
     }
   };
   const getColumnSearchProps = (dataIndex: string) => {
@@ -228,7 +233,9 @@ const AllContractsHandler = () => {
 
   const oneditPage = (contract_id: string) => {
     setActionClicked(true);
-    navigate(`/editContract`, { state: { id: contract_id as string } });
+    navigate(`Edit Contract`, {
+      state: { id: contract_id as string },
+    });
   };
 
   columns.push({

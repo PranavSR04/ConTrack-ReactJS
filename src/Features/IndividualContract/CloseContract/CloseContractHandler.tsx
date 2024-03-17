@@ -49,7 +49,7 @@ const CloseContractHandler = ({
     } finally {
       // Close the modal
       onCancel();
-      navigate("/AllContracts");
+      navigate("/All Contracts");
     }
   };
   return (
