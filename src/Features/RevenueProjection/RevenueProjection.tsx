@@ -28,10 +28,10 @@ const RevenueProjection = ({
 		<div className={styles.revueneProjection}>
 			<h2 className={styles.revueneProjection__heading}>Revenue Projection</h2>
 			<div>
-				<Card style={{width:"67rem"}}
+				<Card style={{width:"57rem"}}
 					title={
 						<div className={styles.cardTitle}>
-							<ConfigProvider
+							<ConfigProvider 
 								theme={{
 									token: {
 										borderRadius: 20,
@@ -45,7 +45,7 @@ const RevenueProjection = ({
 									},
 								}}
 							>
-								<div style={{ marginBottom: "1rem",marginTop:"1rem" }}>
+								<div style={{ marginBottom: "1rem",marginTop:"1rem" }} >
 									<Segmented<string>
 										options={["Monthly", "Quarterly", "Yearly"]}
 										defaultValue="Monthly"
