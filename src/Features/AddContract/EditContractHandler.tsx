@@ -317,7 +317,7 @@ const EditContractHandler = () => {
       console.log("Contract Updated Successfully!");
       setContractEdited(true);
       //   navigate("/AllContracts");
-      navigate("/allContracts", {
+      navigate("/All Contracts", {
         state: { edited: contractEdited as boolean },
       });
     } catch (error: any) {

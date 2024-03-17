@@ -39,6 +39,7 @@ const AddMsa = ({
   isFormFilled,
   start_date,
   date_validate,
+  spinning,
 }: AddMsaPropsType) => {
   console.log("msa addded for toaster", msaAdded);
   console.log("msa_ref_id is", msaRefId);
@@ -51,7 +52,7 @@ const AddMsa = ({
     <>
       <div className={styles.AddMsa}>
         <div>
-          <BreadCrumbs />
+          <BreadCrumbs style={{ marginTop: "1rem" }} />
           <h3 className={styles.AddMsa_Heading}>
             ADD MASTER SERVICE AGREEMENT
           </h3>
@@ -170,6 +171,9 @@ const AddMsa = ({
                 wrapperCol={{ span: 24 }}
                 rules={[
                   { required: true, message: "Please enter the End Date" },
+                  {
+                    validator: validateStartDate,
+                  },
                 ]}
               >
                 <DatePicker
@@ -194,9 +198,6 @@ const AddMsa = ({
                 wrapperCol={{ span: 24 }}
                 rules={[{ required: true, message: "Please upload File" }]}
               >
-                {/* Upload Master Service Agreement
-                <span className={styles.AddMsaDetails_star}>*</span>
-                <br /> */}
                 {fileName ? (
                   <div>
                     <FilePdfOutlined
@@ -237,9 +238,6 @@ const AddMsa = ({
                 labelCol={{ span: 24 }}
                 wrapperCol={{ span: 24 }}
               >
-                {/* Comments/Remarks
-                <span className={styles.AddMsaDetails_star}>*</span>
-                <br /> */}
                 <TextArea
                   rows={4}
                   name="comments"
@@ -259,32 +257,20 @@ const AddMsa = ({
             <Modal
               title="Confirm Add MSA"
               visible={isModalVisible}
-              onOk={handleOk}
+              // onOk={handleOk}
               onCancel={handleCancel}
+              footer={[
+                <Button key="ok" type="primary" onClick={handleOk}>
+                  Yes
+                </Button>,
+                <Button key="cancel" onClick={handleCancel}>
+                  No
+                </Button>,
+              ]}
             >
-              {fullPageSpinner ? (
-                <>
-                  <Flex align="center" gap="middle">
-                    <Spin size="small" />
-                  </Flex>
-                </>
-              ) : (
-                <></>
-              )}
-              <p>Do you really want to add MSA?</p>
+              <Spin spinning={spinning} fullscreen />
             </Modal>
           </Form>
-          {/* {fullPageSpinner?<>
-        <Flex align="center" gap="middle">
-    <Spin size="large" />
-  </Flex></>:<></>} */}
-          {date_validate ? (
-            <Modal title="Date VAlidation error">
-              <p>End Date must be greater than Start Date</p>
-            </Modal>
-          ) : (
-            <></>
-          )}
         </div>
       </div>
     </>

@@ -40,7 +40,7 @@ const ListMsaHandler = () => {
   const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 8, // Default page size
+    pageSize: 10, // Default page size
     total: 0,     // Total items  from API
   });
   const [actionClicked, setActionClicked]= useState<boolean>(false);
@@ -147,11 +147,15 @@ const showInactiveMSA=async()=>{
     };
     const oneditPage = (msa_ref_id: string) => {
       setActionClicked(true);
-      navigate(`/msa/edit`, { state: { msa_ref_id: msa_ref_id as string } });
+      navigate(`/MSA Overview/Edit MSA`, {
+        state: { msa_ref_id: msa_ref_id as string },
+      });
     };
     const onrenewPage = (msa_ref_id: string) => {
       setActionClicked(true);
-      navigate(`/msa/renew`, { state: { msa_ref_id: msa_ref_id as string } });
+      navigate(`/MSA Overview/Renew MSA`, {
+        state: { msa_ref_id: msa_ref_id as string },
+      });
     };
   const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
     title: customHeadings[key],
@@ -171,7 +175,7 @@ const showInactiveMSA=async()=>{
         <SyncOutlined
         title='Renew MSA'
         className='listmsa-action-renew'
-        style={{ fontSize: '20px', color: '#DC143C',padding:"10px" }}
+        style={{ fontSize: '16px', color: '#DC143C' ,paddingRight:"10px" }}
         onClick={() => {
           onrenewPage(record.msa_ref_id);
         }}/>
@@ -182,7 +186,7 @@ const showInactiveMSA=async()=>{
          <EditOutlined
          title='Edit MSA'
          className='listmsa-action-edit-icon'
-           style={{ fontSize: '20px', color: '#DC143C',padding:"10px" }}
+           style={{ fontSize: '18px', color: '#DC143C' ,paddingRight:"10px" }}
            onClick={() => {
              oneditPage(record.msa_ref_id);
            }}
@@ -192,7 +196,7 @@ const showInactiveMSA=async()=>{
         <a href={record.msa_doclink}>
        <CloudDownloadOutlined
        title='Download MSA'
-                  style={{ fontSize: '22px', color: '#DC143C',padding:"10px" }}
+                  style={{ fontSize: '18px', color: '#DC143C',paddingRight:"5px" }}
                  />
         </a>
        </span>

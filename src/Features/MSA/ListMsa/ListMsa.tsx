@@ -24,6 +24,7 @@ import { MsaListDataType } from "./types";
 import { useNavigate } from "react-router";
 import Toast from "../../../Components/Toast/Toast";
 import ButtonGroup from "antd/es/button/button-group";
+import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
 const ListMsa = ({
   columns,
   data,
@@ -64,31 +65,26 @@ const ListMsa = ({
   return (
     <>
       <div className={styles.ListMsa}>
+        <BreadCrumbs style={{ marginTop: "1rem" }} />
         <h3 className={styles.ListMsa_heading}>MASTER SERVICE AGREEMENT</h3>
         {/* <div className={styles.ListMsa_Details}> */}
         <div className={styles.ListMsa_Details_Table}>
           <div className={styles.ListMsa_Details_Table_row1}>
-            <div className={styles.ListMsa_Details_Table_row1_col1}>
-              {/* <span className={styles.ListMsa_Details_Table_row1_col1_span}>Show </span>
-                <span>10</span>
-                <span className={styles.ListMsa_Details_Table_row1_col1_span}>entries</span> */}
-            </div>
             <div className={styles.ListMsa_Details_Table_row1_col2}>
-              <ConfigProvider
-                theme={{
-                  token: {
-                    borderRadius: 20,
-                    // borderRadiusLG: 50,
-                  },
-                  components: {
-                    Segmented: {
-                      itemSelectedBg: "#DC143C",
-                      itemSelectedColor: "#FFF",
+              <div className={styles.ListMsa_Details_segment_button}>
+                <ConfigProvider
+                  theme={{
+                    token: {
+                      borderRadius: 20,
                     },
-                  },
-                }}
-              >
-                <div className={styles.ListMsa_Details_Table_row1_msabutton}>
+                    components: {
+                      Segmented: {
+                        itemSelectedBg: "#DC143C",
+                        itemSelectedColor: "#FFF",
+                      },
+                    },
+                  }}
+                >
                   <Segmented
                     className={styles.ListMsa_Details_segment}
                     options={["Active", "Inactive"]}
@@ -98,16 +94,18 @@ const ListMsa = ({
                       handleSegmentChange(value);
                     }}
                   />
-                </div>
-              </ConfigProvider>
-              {ROLE_ID !== 3 && (
-                <button
-                  className={styles.ListMsa_Details_Table_row1_col2_button}
-                  onClick={() => navigate("/msa/add")}
-                >
-                  + Add Msa
-                </button>
-              )}
+                </ConfigProvider>
+              </div>
+              <div className={styles.ListMsa_Details_Table_row1_msabutton}>
+                {ROLE_ID !== 3 && (
+                  <button
+                    className={styles.ListMsa_Details_Table_row1_col2_button}
+                    onClick={() => navigate("/MSA Overview/Add MSA")}
+                  >
+                    + Add Msa
+                  </button>
+                )}
+              </div>
             </div>
           </div>
           <Spin

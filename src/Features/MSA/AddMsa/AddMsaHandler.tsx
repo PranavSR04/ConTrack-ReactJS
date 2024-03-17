@@ -14,6 +14,8 @@ const AddMsaHandler = () => {
     const [form] = Form.useForm();
     const navigate=useNavigate();
     const[msaAdded,setMsaAdded]=useState<boolean>(false);
+    const [spinning, setSpinning] = React.useState<boolean>(false);
+
     const [msaRefId,setMsaRefId]=useState<string>();
     const [fileName,setFileName]=useState<string>();
     const [isLoading, setIsLoading] = useState(false);
@@ -85,16 +87,8 @@ const AddMsaHandler = () => {
       const handleEndDateChange = (date: Moment | null, dateString: string | string[]) => {
         if (typeof dateString === 'string') {
           setFormData({ ...formData, end_date: dateString });
-          if(formData.end_date<=formData.start_date){
-            //message.error("End Date must be greater than Start Date")
-            setDate_validated(true)
-          }else{
-            setDate_validated(false)
-          }
         }
-        
       };
-      //{date_validate?message.error('End date must be greater than the start date'):<></>}
       const handleAddMsa = () => {
         const formstatus = isFormFilled();
           if (formstatus=="field") {
@@ -118,21 +112,18 @@ const AddMsaHandler = () => {
       }
       const SubmitAddMsa=async()=>{
         try {
-          // const formstatus = isFormFilled();
-          // // if (formstatus) {
-          // //   window.alert(
-          // //     "Please fill all required fields before submitting the form."
-          // //   );
-          // } else {
+
           console.log("after setting:", formData)
           setIsLoading(true)
           setShowSpinner(true);
+          setSpinning(true);
+
           //setFullPageSpinner(false);
           const formDatatoSend = new FormData();
           formDatatoSend.append('msa_ref_id', formData.msa_ref_id);
           formDatatoSend.append('client_name', formData.client_name);
           formDatatoSend.append('region', formData.region);
-          
+        
           // Format start_date and end_date
           formDatatoSend.append('start_date', formData.start_date);
           formDatatoSend.append('end_date', formData.end_date);
@@ -154,15 +145,17 @@ const AddMsaHandler = () => {
           
           form.resetFields();
           generateMsaId();
-          navigate('/MSA',{ state: { added:true } })
+          navigate("/MSA Overview", { state: { added: true } });
           //}
         } catch (error) {
           console.error("Error submitting form data:", error);
         }
+        setSpinning(false);
+
       }
       const validateStartDate = async (value:any) => {
         if (value && formData.end_date && moment(value).isAfter(formData.end_date)) {
-          throw new Error('Start date cannot be after end date');
+          throw new Error('End date must be after start date');
         }
       };
     
@@ -219,6 +212,7 @@ const AddMsaHandler = () => {
           isFormFilled={isFormFilled}
           start_date={start_date}
           date_validate={date_validate}
+          spinning={spinning}
         />
     </div>
   )

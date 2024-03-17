@@ -1,59 +1,57 @@
-import React, { useEffect, useState } from 'react'
-import { apiData } from './types';
+import React, { useEffect, useState } from 'react';
 import { fetchDataFromApi } from './api/contractStatus';
 import DoughnutChart from './DoughnutChart';
+import { apiData } from './types';
 
 const DoughnutChartHandler = () => {
-    const [apiData,setApiData]=useState<apiData>();
+    const [contractData, setContractData] = useState<apiData>();
     const [loading, setLoading] = useState<boolean>(true);
+
     useEffect(() => {
         fetchData();
-      }, [ ]);      
-      const fetchData=async()=>{
+    }, []);
+
+    const fetchData = async () => {
         try {
-            // setLoading(true);
             const result = await fetchDataFromApi();
-            setApiData(result.data);
+            setContractData(result.data);
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
             setLoading(false);
         }
-          };
-          const chartData = {
-            labels: ['Active', 'Progress', 'Expiring', 'Closed', 'Expired'],
-            datasets: [
-              {
+    };
+
+    const chartData = {
+        labels: ['Active', 'Progress', 'Expiring'],
+        datasets: [
+            {
                 data: [
-                    apiData?.active || 0,
-                    apiData?.progress || 0,
-                    apiData?.expiring || 0,
-                    apiData?.closed || 0,
-                    apiData?.Expired || 0,
+                    contractData?.active || 0,
+                    contractData?.progress || 0,
+                    contractData?.expiring || 0,
                 ],
                 backgroundColor: [
-                  '#4CAF50', // Active
-                  '#36A2EB', // Progress
-                  '#FFCE56', // Expiring
-                  '#FF6384', // Closed
-                  '#FF0000', // Expired
+                    '#80EE90', // Active
+                    '#36A2EB', // Progress
+                    '#FFA500', // Expiring
                 ],
-              },
-            ],
-          };
-
-          const options = {
-            responsive: true,
-            legend: {
-                labels: {
-                    includeInvisible:false,
-                    borderColor: 'rgba(75,192,192,1)',
-                    fontColor: 'red', // Change font color of legend labels
-                    fontSize: 2, // Change font size of legend labels
-                    fontStyle: 'italic', // Change font style of legend labels
-                },
             },
-        };
+        ],
+    };
+
+    const options = {
+      plugins: {
+        legend: {
+          labels: {
+            font: {
+              size: 11  // Font size
+            },
+            boxWidth: 12  // Color block width
+          }
+        }
+      }
+    };  
   return (
     <>
       <DoughnutChart
@@ -64,4 +62,4 @@ const DoughnutChartHandler = () => {
   )
 }
 
-export default DoughnutChartHandler
+export default DoughnutChartHandler;

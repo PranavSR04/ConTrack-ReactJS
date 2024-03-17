@@ -7,9 +7,11 @@ import BarChartHandler from "../DashBoardBarChart/BarChartHandler";
 import DashBoardMonthlyRevenueHandler from "../../Components/DashBoardRevenue/DashBoardMonthlyRevenueHandler";
 import DashBoardQuaterlyRevenueHandler from "./../../Components/DashBoardRevenue/DashBoardQuaterlyRevenueHandler";
 import DashBoardYearlyRevenueHandler from "../../Components/DashBoardRevenue/DashBoardYearlyRevenueHandler";
-
 import TopRevenueHandler from "../../Components/TopRevenueRegion/TopRevenueHandler";
+import DashBoardContractCountHandler from "../../Components/DashBoardContractsCount/DashBoardContractCountHandler";
+import DashBoardMsaCountHandler from "../../Components/DashBoardContractsCount/DashBoardMsaCountHandler";
 import DoughnutChartHandler from "../../Components/DoughnutChart/DoughnutChartHandler";
+import RegionHorizontalBar from "../../Components/RegionHorizontalBar/RegionHorizontalBar";
 import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 
 const Dashboard = () => {
@@ -19,50 +21,67 @@ const Dashboard = () => {
   const user_name = userObject?.first_name;
   return (
     <>
+      <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "1rem" }} />
       <div className={styles["dashboard-div1"]}>
         {/* <h2 className={styles['dashboard-name']}>Hello, <span style={{color:'#DC143C'}}>{user_name}</span> </h2> */}
         {/* <Card >
       <ContractsCount/>
     </Card> */}
-        <BreadCrumbs />
-        <DashBoardMonthlyRevenueHandler />
-        <DashBoardQuaterlyRevenueHandler />
-        <DashBoardYearlyRevenueHandler />
-        <DashBoardNotificationListHandler />
-        <DoughnutChartHandler />
-        <BarChartHandler />
-        <Card
-          style={{
-            marginLeft: "6rem",
-            width: "25rem",
-            backgroundColor: "rgba(75,192,255,0.1)",
-            border: "1px solid teal",
-          }}
-        >
-          <ScatterPlotHandler />
-        </Card>
-        <Card
-          style={{
-            width: "25rem",
-            marginLeft: "15rem",
-            marginBottom: "20rem",
-            marginTop: "20rem",
-            backgroundColor: "#000000",
-          }}
-        >
-          <BarChartHandler />
-        </Card>
-      </div>
+        <div className={styles["dash-row1-div"]}>
+          <div className={styles["dash-revenue-div"]}>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardMonthlyRevenueHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardQuaterlyRevenueHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardYearlyRevenueHandler />
+            </div>
 
-      <Card
-        style={{
-          marginLeft: "15rem",
-          marginTop: "20rem",
-          backgroundColor: "white",
-        }}
-      >
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardContractCountHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardMsaCountHandler />
+            </div>
+          </div>
+          <div></div>
+          <div className={styles["dash-revenue-div-notifi"]}>
+            <DashBoardNotificationListHandler />
+          </div>
+        </div>
+
+        <div className={styles["dash-row1-charts"]}>
+          <div className={styles["dash-row1-barchart"]}>
+            <BarChartHandler />
+          </div>
+          <div className={styles["dash-row1-doughnut"]}>
+            <DoughnutChartHandler />
+          </div>
+        </div>
+
+        <div>
+          <Card
+            style={{
+              width: "25rem",
+              backgroundColor: "rgba(75,192,255,0.1)",
+              border: "1px solid teal",
+            }}
+          >
+            <ScatterPlotHandler />
+          </Card>
+          <RegionHorizontalBar />
+          <Card
+            style={{
+              marginLeft: "15rem",
+              marginTop: "20rem",
+              backgroundColor: "white",
+            }}
+          ></Card>
+        </div>
         <TopRevenueHandler />
-      </Card>
+      </div>
     </>
   );
 };

@@ -68,7 +68,7 @@ const EditContract = ({
   return (
     <>
       <div className="container">
-        <BreadCrumbs />
+        <BreadCrumbs style={{ marginLeft: "10rem", marginTop: "2rem" }} />
         <h1
           style={{
             marginLeft: "10rem",

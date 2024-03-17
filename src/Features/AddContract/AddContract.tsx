@@ -126,7 +126,7 @@ const AddContract = ({
   return (
     <>
       <div className="container">
-        <BreadCrumbs />
+        <BreadCrumbs style={{ marginLeft: "10rem", marginTop: "1rem" }} />
         <h1
           style={{
             marginLeft: "10rem",

@@ -19,11 +19,12 @@ const AllContractsHandler = () => {
     Record<string, string>
   >({});
   const [loading, setLoading] = useState(false);
-  const [isEmptySearch, setIsEmptySearch] = useState(false);
+  const [isEmptySearch, setIsEmptySearch] = useState<boolean>(false);
   const [actionClicked, setActionClicked] = useState<boolean>(false);
   const [checkedExpiring, setCheckedExpiring] = useState(false);
   const [contractAddToast, setContractAddToast] = useState<boolean>(false);
   const [contractEditToast, setContractEditToast] = useState<boolean>(false);
+  const [isMyContracts, setIsMyContracts] = useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const role_id = parseInt(localStorage.getItem("role_id") || "0", 10);
@@ -84,6 +85,7 @@ const AllContractsHandler = () => {
       //get Api for MyContracts
       if (pagePath === "My Contracts") {
         const USER_ID = localStorage.getItem("user_id") as string; //get user id
+        setIsMyContracts(true);
         const result = await fetchMyContractsApi(
           searchConditions,
           pagination.current,
@@ -100,6 +102,7 @@ const AllContractsHandler = () => {
         });
       } else {
         //get Api for All contracts
+        setIsMyContracts(false);
         const result = await fetchDataFromApi(
           searchConditions,
           pagination.current,
@@ -150,7 +153,9 @@ const AllContractsHandler = () => {
 
   const rowClickHandler = (record: ContractData) => {
     if (!actionClicked) {
-      navigate(`/contract`, { state: { id: record.id as string } });
+      navigate(`${record.contract_ref_id}`, {
+        state: { id: record.id as string },
+      });
     }
   };
   const getColumnSearchProps = (dataIndex: string) => {
@@ -228,7 +233,9 @@ const AllContractsHandler = () => {
 
   const oneditPage = (contract_id: string) => {
     setActionClicked(true);
-    navigate(`/editContract`, { state: { id: contract_id as string } });
+    navigate(`Edit Contract`, {
+      state: { id: contract_id as string },
+    });
   };
 
   columns.push({
@@ -295,6 +302,7 @@ const AllContractsHandler = () => {
         showExpired={showExpired}
         contractAddToast={contractAddToast}
         contractEditToast={contractEditToast}
+        isMyContracts={isMyContracts}
       />
     </>
   );
