@@ -7,8 +7,9 @@ import BarChartHandler from '../DashBoardBarChart/BarChartHandler';
 import DashBoardMonthlyRevenueHandler from '../../Components/DashBoardRevenue/DashBoardMonthlyRevenueHandler';
 import DashBoardQuaterlyRevenueHandler from './../../Components/DashBoardRevenue/DashBoardQuaterlyRevenueHandler';
 import DashBoardYearlyRevenueHandler from '../../Components/DashBoardRevenue/DashBoardYearlyRevenueHandler';
-
 import TopRevenueHandler from '../../Components/TopRevenueRegion/TopRevenueHandler';
+import DoughnutChartHandler from '../../Components/DoughnutChart/DoughnutChartHandler';
+import RegionHorizontalBar from '../../Components/RegionHorizontalBar/RegionHorizontalBar';
 
 const Dashboard = () => {
   const user_id = localStorage.getItem("user_id");
@@ -22,24 +23,40 @@ const Dashboard = () => {
     {/* <Card >
       <ContractsCount/>
     </Card> */}
-    <DashBoardMonthlyRevenueHandler/>
-    <DashBoardQuaterlyRevenueHandler/>
-    <DashBoardYearlyRevenueHandler/>
-    <DashBoardNotificationListHandler/>
-    <Card style={{ marginLeft: '6rem', width: '25rem', backgroundColor: 'rgba(75,192,255,0.1)', border: '1px solid teal' }}>      
+    <div className={styles['dash-row1-div']}>
+    <div className={styles['dash-revenue-div']}>
+    <div className={styles['dash-revenue-div-month']}><DashBoardMonthlyRevenueHandler/></div>
+    <div className={styles['dash-revenue-div-month']}><DashBoardQuaterlyRevenueHandler/></div>
+    <div className={styles['dash-revenue-div-month']}><DashBoardYearlyRevenueHandler/></div>
+    <div className={styles['dash-revenue-div-month']}><DashBoardYearlyRevenueHandler/></div>
+    <div className={styles['dash-revenue-div-month']}><DashBoardYearlyRevenueHandler/></div>
+    </div>
+    <div>
+      
+    </div>
+    <div className={styles['dash-revenue-div-notifi']}><DashBoardNotificationListHandler/></div>
+    </div>
+
+    <div className={styles['dash-row1-charts']}>
+    <div className={styles['dash-row1-barchart']}>
+      <BarChartHandler/>  
+      </div> 
+      <div className={styles['dash-row1-doughnut']}>
+      <DoughnutChartHandler />
+      </div> 
+    </div>
+    
+<div>
+    <Card style={{ width: '25rem', backgroundColor: 'rgba(75,192,255,0.1)', border: '1px solid teal' }}>      
     <ScatterPlotHandler/>
       </Card> 
-      <Card style={{width:'25rem', marginLeft:'15rem',marginBottom:'20rem',marginTop:'20rem',backgroundColor:'#000000'}}>
-      <BarChartHandler/>  
-      </Card>
-     
-      </div>
-
-     
-
+      <RegionHorizontalBar/>
       <Card style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white'}}>
-      <TopRevenueHandler/>
+     
       </Card>
+</div>
+ <TopRevenueHandler/>
+      </div>
 
       
 

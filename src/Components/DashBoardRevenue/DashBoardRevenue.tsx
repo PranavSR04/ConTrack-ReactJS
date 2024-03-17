@@ -3,6 +3,7 @@ import { Card, Col, Row, Statistic } from 'antd'
 import React from 'react'
 import CountUp from 'react-countup';
 import { useCountUp } from 'react-countup';
+import styles from './DashBoardRevenue.module.css'
 interface DashBoardRevenueProps {
   currentMonthRevenue: number;
   previousMonthRevenue: number;
@@ -23,9 +24,11 @@ const DashBoardRevenue = ({currentMonthRevenue,previousMonthRevenue,responsetype
   return (
     <Row gutter={16}>
     <Col span={12}>
-      <Card style={{width:'240px', backgroundColor:'#f4f4f4'}}>
-      <CountUp end={currentMonthRevenue} style={{fontSize:'32px', fontWeight:'600', marginLeft:'15px'}}/>
-      <Statistic title={responsetype}
+      <Card style={{width:'135px',height:'120px',padding:'0px',transform:'scale', backgroundColor:'#f4f4f4'}}>
+      <p style={{fontSize:'15px', paddingLeft:'13%'}}>{responsetype}</p> 
+      <CountUp end={currentMonthRevenue} style={{fontSize:'20px', fontWeight:'600', marginLeft:'15px'}}/>
+      
+      <Statistic className={styles.statistic}  
           value={Math.abs(difference)}
           precision={1}
           valueStyle={{ color: difference >= 0 ? '#3f8600' : 'red' }}

@@ -19,6 +19,7 @@ const AllContracts = ({
   showExpired,
   contractAddToast,
   contractEditToast,
+  isMyContracts
 }: AllContractsPropType) => {
   const navigate = useNavigate();
   const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
@@ -32,9 +33,8 @@ const AllContracts = ({
             <label> Show Expired &nbsp; </label>
             <Switch size="small" onChange={showExpired} />
           </div>
-          {ROLE_ID !== 3 && (
+          {ROLE_ID !== 3 && isMyContracts &&(
             <div className={styles["contracts-buttons-addedBy"]}>
-              {" "}
               <ConfigProvider
                 theme={{
                   token: {
@@ -52,7 +52,7 @@ const AllContracts = ({
                 <div className={styles.ListMsa_Details_Table_row1_msabutton}>
                   <Segmented
                     className={styles.ListMsa_Details_segment}
-                    options={["All", "Added by Me"]}
+                    options={["All", "Added","Associated"]}
                     defaultValue="All"
                     size="middle"
                     // onChange={(value) => {

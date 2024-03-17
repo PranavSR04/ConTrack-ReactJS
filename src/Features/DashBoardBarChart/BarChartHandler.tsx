@@ -26,7 +26,7 @@ const BarChartHandler = () => {
         fetchCount();
     },[]);
   return (
-    <div>
+    <div style={{transform:'scale(1.05)', marginLeft:'40px'}}>
       <BarComponent data={data}/>
     </div>
   )
