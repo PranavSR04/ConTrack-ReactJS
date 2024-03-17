@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,7 +6,7 @@ import {
   Navigate,
   BrowserRouter,
 } from "react-router-dom";
-import AuthContext from "../../Components/AuthContext/AuthContext";
+import AuthContext, { Auth } from "../../Components/AuthContext/AuthContext";
 import LoginHandler from "../Login/LoginHandler";
 import ManageUsersHandler from "../ManageUsers/ManageUsersHandler";
 import AllContractsHandler from "../AllContracts/AllContractsHandler";
@@ -29,6 +29,11 @@ import AddMsaHandler from "../MSA/AddMsa/AddMsaHandler";
 import IndividualContractHandler from "../IndividualContract/IndividualContractHandler";
 
 const AppRoutes = () => {
+  
+  const {roleId} = useContext(Auth)
+    // const ROLE_ID = roleId;
+
+  console.log("ROLE ID from AUTH CONTEXT:",typeof(roleId),roleId)
   const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
 
   return (
@@ -42,7 +47,6 @@ const AppRoutes = () => {
               <Route path="/msauth" element={<SignInButton />} />
               <Route path="/home" element={<Navigate to="/login" />} />
               <Route path="/msauth" element={<SignInButton />} />
-
               <Route path="/login" element={<LoginHandler />}></Route>
               <Route
                 path="/dashboard"
@@ -66,7 +70,7 @@ const AppRoutes = () => {
                   </>
                 }
               ></Route>
-
+              
               {ROLE_ID === 1 || ROLE_ID == undefined ? (
                 <Route
                   path="/manageUser"
