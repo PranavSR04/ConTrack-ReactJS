@@ -43,6 +43,11 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 	};
 
 	const options = {
+		plugins: {
+			legend: {
+				display: false // Hide the legend
+			}
+		},
 		layout: {
 			padding: {
 				left: 90, // Increase the left padding to create space
