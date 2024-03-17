@@ -26,17 +26,13 @@ const Dashboard = () => {
     <DashBoardQuaterlyRevenueHandler/>
     <DashBoardYearlyRevenueHandler/>
     <DashBoardNotificationListHandler/>
+    </div>
     <Card style={{ marginLeft: '6rem', width: '25rem', backgroundColor: 'rgba(75,192,255,0.1)', border: '1px solid teal' }}>      
     <ScatterPlotHandler/>
       </Card> 
-      <Card style={{width:'25rem', marginLeft:'15rem',marginBottom:'20rem',marginTop:'20rem',backgroundColor:'#000000'}}>
+      {/* <Card style={{width:'25rem', marginLeft:'15rem',marginBottom:'20rem',marginTop:'20rem',backgroundColor:'#000000'}}>
       <BarChartHandler/>  
-      </Card>
-     
-      </div>
-
-     
-
+      </Card> */}
       <Card style={{marginLeft:'15rem',marginTop:'20rem',backgroundColor:'white'}}>
       <TopRevenueHandler/>
       </Card>
