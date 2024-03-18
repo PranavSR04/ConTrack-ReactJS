@@ -77,27 +77,27 @@ const AddContract = ({
     });
   };
 
-  const validateStartDate = (rule: any, value: Moment | null) => {
-    if (
-      value &&
-      contractDetails.date_of_signature &&
-      contractDetails.end_date
-    ) {
-      const startDate = moment(value);
-      const dateOfSignature = moment(contractDetails.date_of_signature);
-      const endDate = moment(contractDetails.end_date);
+  // const validateStartDate = (rule: any, value: Moment | null) => {
+  //   if (
+  //     value &&
+  //     contractDetails.date_of_signature &&
+  //     contractDetails.end_date
+  //   ) {
+  //     const startDate = moment(value);
+  //     const dateOfSignature = moment(contractDetails.date_of_signature);
+  //     const endDate = moment(contractDetails.end_date);
 
-      if (startDate.isBefore(dateOfSignature)) {
-        return Promise.reject("Start Date must be after Date of Signature");
-      }
+  //     if (startDate.isBefore(dateOfSignature)) {
+  //       return Promise.reject("Start Date must be after Date of Signature");
+  //     }
 
-      if (startDate.isAfter(endDate)) {
-        return Promise.reject("Start Date must be before End Date");
-      }
-    }
+  //     if (startDate.isAfter(endDate)) {
+  //       return Promise.reject("Start Date must be before End Date");
+  //     }
+  //   }
 
-    return Promise.resolve();
-  };
+  //   return Promise.resolve();
+  // };
 
   const validateEndDate = (rule: any, value: Moment | null) => {
     if (
@@ -230,10 +230,10 @@ const AddContract = ({
                       })
                     }
                   >
-                    <Select.Option value="du1">DU1</Select.Option>
-                    <Select.Option value="du2">DU2</Select.Option>
-                    <Select.Option value="du3">DU3</Select.Option>
-                    <Select.Option value="du4">DU4</Select.Option>
+                    <Select.Option value="DU1">DU1</Select.Option>
+                    <Select.Option value="DU2">DU2</Select.Option>
+                    <Select.Option value="DU3">DU3</Select.Option>
+                    <Select.Option value="DU4">DU4</Select.Option>
                   </Select>
                 </Form.Item>
               </div>
@@ -248,9 +248,9 @@ const AddContract = ({
                       required: true,
                       message: "Please select a Start Date",
                     },
-                    {
-                      validator: validateStartDate,
-                    },
+                    // {
+                    //   validator: validateStartDate,
+                    // },
                   ]}
                 >
                   <DatePicker

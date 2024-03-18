@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NotificationProps, NotificationType } from "./types";
 import styles from "./Notification.module.css";
-import { Navigate, useNavigate } from "react-router";
+import { Navigate, useLocation, useNavigate } from "react-router";
 import { NavCon } from "../NavContext/NavContext";
 
 const Notification = ({
@@ -13,15 +13,59 @@ const Notification = ({
   const { onClose } = useContext(NavCon);
   const navigate = useNavigate();
   const [actionStyle, setActionStyle] = useState<string>("");
+  const location = useLocation();
   const rowClickHandler = (notification: NotificationType) => {
+    const isFromMSAOverview = location.pathname.includes("/MSA Overview");
+    const isFromAllContracts = location.pathname.includes("/AllContracts");
+    const isFromMyContracts = location.pathname.includes("/MyContracts");
+    const isFromDashboard = location.pathname.includes("/Dashboard");
+    const isFromRevenue = location.pathname.includes("/Revenue");
+    const isFromManageUser = location.pathname.includes("/Manage User");
     console.log(notification);
 
-    if (!notification.contract_ref_id) {
+    // if (!notification.msa_id) {
+    //   onClose();
+    //   navigate("/MSA Overview");
+    // } else {
+    //   onClose();
+    //   navigate(`/AllContracts/${notification.contract_ref_id}`, {
+    //     state: { id: notification.contract_id },
+    //   });
+    // }
+
+    if (isFromMSAOverview) {
       onClose();
-      navigate("/MSA Overview");
+      navigate(`/MSA Overview/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
+    } else if (isFromAllContracts) {
+      onClose();
+      navigate(`/AllContracts/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
+    } else if (isFromDashboard) {
+      onClose();
+      navigate(`/Dashboard/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
+    } else if (isFromMyContracts) {
+      onClose();
+      navigate(`/MyContracts/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
+    } else if (isFromRevenue) {
+      onClose();
+      navigate(`/Revenue/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
+    } else if (isFromManageUser) {
+      onClose();
+      navigate(`/Manage User/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
     } else {
       onClose();
-      navigate(`${notification.contract_ref_id}`, {
+      navigate(`/MSA Overview/${notification.contract_ref_id}`, {
         state: { id: notification.contract_id },
       });
     }

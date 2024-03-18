@@ -25,6 +25,7 @@
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.253);
   background-color: white;
   overflow-y: auto;
+  border-radius: 10px;
 }
 
 .maincontainer__milestones::-webkit-scrollbar {
