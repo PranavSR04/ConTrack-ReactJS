@@ -342,12 +342,12 @@ const AddContract = ({
                     alignItems: "flex-start",
                     padding: "-0.6rem 1rem",
                     fontFamily: '"Montserrat", sans-serif',
-                    width: "100%",
+                    width: "120%",
                   }}
                 >
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ marginLeft: "10rem" }}
+                    style={{ marginLeft: "8rem" }}
                   >
                     <div
                       className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -593,7 +593,7 @@ const AddContract = ({
                   {/* Upload Work Schedule */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ width: "46.5%", height: "15rem" }}
+                    style={{ width: "46.5%", height: "10.5rem" }}
                   >
                     <br />
                     <div
@@ -607,19 +607,19 @@ const AddContract = ({
                         justifyContent: "center",
                         alignItems: "center",
                         height: "8rem",
-                        padding: "1rem",
+                        padding: ".5rem",
                         width: "100%",
                       }}
                     >
                       <div
                         style={{
                           border: "2px dashed #ccc",
-                          padding: "3rem",
-                          paddingBottom: "2.5rem",
+                          // padding: "1rem",
+                          paddingBottom: "1rem",
                           textAlign: "center",
                           borderRadius: "5px",
                           width: "33rem",
-                          marginTop: "2.5rem",
+                          marginTop: "-1.5rem",
                         }}
                       >
                         <Upload
@@ -649,7 +649,7 @@ const AddContract = ({
                     style={{
                       width: "36%",
                       marginLeft: "2rem",
-                      height: "15rem",
+                      height: "10.5rem",
                     }}
                   >
                     <br />
@@ -666,12 +666,12 @@ const AddContract = ({
                       }}
                     >
                       <Form.Item
-                        labelCol={{ span: 6 }}
-                        wrapperCol={{ span: 22 }}
-                        style={{ width: "25rem", marginTop: "-1.5rem" }}
+                        // labelCol={{ span: 1 }}
+                        wrapperCol={{ span: 24 }}
+                        style={{ width: "32rem", marginTop: "-1rem"}}
                       >
                         <Input.TextArea
-                          rows={8}
+                          rows={4.5}
                           placeholder="Enter comments and remarks..."
                           value={contractDetails.comments ?? ""}
                           onChange={handleCommentsRemarksChange}
@@ -692,12 +692,12 @@ const AddContract = ({
                     alignItems: "flex-start",
                     padding: "-0.6rem 1rem",
                     fontFamily: '"Montserrat", sans-serif',
-                    width: "100%",
+                    width: "120%",
                   }}
                 >
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ marginLeft: "10rem" }}
+                    style={{ marginLeft: "8rem" }}
                   >
                     <div
                       className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -919,7 +919,7 @@ const AddContract = ({
                   {/* Upload Work Schedule */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ width: "46.5%", height: "15rem" }}
+                    style={{ width: "46.5%", height: "10.5rem" }}
                   >
                     <br />
                     <div
@@ -933,19 +933,19 @@ const AddContract = ({
                         justifyContent: "center",
                         alignItems: "center",
                         height: "8rem",
-                        padding: "1rem",
+                        padding: ".5rem",
                         width: "100%",
                       }}
                     >
                       <div
                         style={{
                           border: "2px dashed #ccc",
-                          padding: "3rem",
-                          paddingBottom: "2.5rem",
+                          // padding: "3rem",
+                          paddingBottom: "1rem",
                           textAlign: "center",
                           borderRadius: "5px",
                           width: "33rem",
-                          marginTop: "2.5rem",
+                          marginTop: "-1.5rem",
                         }}
                       >
                         <Upload
@@ -975,7 +975,7 @@ const AddContract = ({
                     style={{
                       width: "36%",
                       marginLeft: "2rem",
-                      height: "15rem",
+                      height: "10.5rem",
                     }}
                   >
                     <br />
@@ -988,19 +988,19 @@ const AddContract = ({
                       style={{
                         display: "flex",
                         padding: "1rem",
-                        width: "95%",
+                        width: "100%",
                       }}
                     >
                       <Form.Item
-                        labelCol={{ span: 6 }}
-                        wrapperCol={{ span: 22 }}
-                        style={{ width: "35rem", marginTop: "-1.5rem" }}
+                        // labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 24 }}
+                        style={{ width: "32rem", marginTop: "-1rem" }}
                       >
                         <Input.TextArea
-                          rows={8}
+                          rows={4.5}
                           placeholder="Enter comments and remarks..."
                           value={contractDetails.comments ?? ""}
-                          onChange={handleCommentsRemarksChange}
+                          onChange={handleCommentsRemarksChange}  
                         />
                       </Form.Item>
                     </div>
@@ -1008,7 +1008,7 @@ const AddContract = ({
                 </div>
               </>
             )}
-            <Form.Item wrapperCol={{ offset: 4, span: 14 }}>
+            <Form.Item wrapperCol={{ offset: 4, span: 14 }} style={{marginRight: "15rem",}}>
               <Button
                 type="primary"
                 htmlType="submit"
