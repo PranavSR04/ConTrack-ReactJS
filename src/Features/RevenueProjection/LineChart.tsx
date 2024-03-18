@@ -51,10 +51,10 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 		},
 		layout: {
 			padding: {
-				left: 10, // Increase the left padding to create space
+				left: 0, // Increase the left padding to create space
 			},
 			margin: {
-				left: 90,
+				// left: 90,
 			},
 		},
 		scales: {
@@ -64,7 +64,7 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
                		 count: 200,
 						
 				  },
-				  offset: true
+				//   offset: true
 				}
 			  ,
 			y: {
