@@ -9,6 +9,7 @@
   width: 62rem;
   height: 38rem;
   position: fixed;
+  background-color:'white';
   border-radius: .5rem;
 }
 .dashboard-name{

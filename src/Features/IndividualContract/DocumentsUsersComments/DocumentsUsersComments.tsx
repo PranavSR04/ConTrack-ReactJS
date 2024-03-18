@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./DocumentsComments.module.css";
 import { AssociatedUsersType, DocumentsUsersCommentsPropType } from "./types";
 import { FilePdfFilled } from "@ant-design/icons";
+import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
 
 const DocumentsUsersComments = ({
   loading,
@@ -11,9 +12,9 @@ const DocumentsUsersComments = ({
   clientName,
   addendums,
   comments,
-  associatedUsers
+  associatedUsers,
 }: DocumentsUsersCommentsPropType) => {
-    console.log("addendums",addendums)
+  console.log("addendums", addendums);
   return (
     <>
       <div className={`${styles.maincontainer__docusercomm}`}>
@@ -58,15 +59,22 @@ const DocumentsUsersComments = ({
             <h4>Associated Users</h4>
           </div>
           <div className={`${styles.maincontainer__docusercomm__list}`}>
-          <Card>
-            <div className={`${styles.maincontainer__membercomments__members__body__wrapper}`}>
-                {associatedUsers.map((user:AssociatedUsersType, index)=>{
-                    return <div key={index} className={`${styles.maincontainer__membercomments__members__body__wrapper__data}`}>
-                        <p>{user.user_name}</p>
+            <Card>
+              <div
+                className={`${styles.maincontainer__membercomments__members__body__wrapper}`}
+              >
+                {associatedUsers.map((user: AssociatedUsersType, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={`${styles.maincontainer__membercomments__members__body__wrapper__data}`}
+                    >
+                      <p>{user.user_name}</p>
                     </div>
-                })} 
-            </div>
-        </Card>
+                  );
+                })}
+              </div>
+            </Card>
           </div>
         </Card>
         <Card
