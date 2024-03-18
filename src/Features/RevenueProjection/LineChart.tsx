@@ -38,6 +38,7 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 				pointHitRadius: 2,
 				pointHoverBackgroundColor: "blue",
 				tension: 0.1,
+				// fill:true
 			},
 		],
 	};
@@ -50,7 +51,7 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 		},
 		layout: {
 			padding: {
-				left: 90, // Increase the left padding to create space
+				left: 10, // Increase the left padding to create space
 			},
 			margin: {
 				left: 90,
@@ -62,7 +63,8 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 					stepSize: 9, // Increase the step size to create more space between points
                		 count: 200,
 						
-				  }
+				  },
+				  offset: true
 				}
 			  ,
 			y: {

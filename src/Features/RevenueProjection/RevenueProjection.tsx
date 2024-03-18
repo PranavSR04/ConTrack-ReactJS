@@ -31,7 +31,7 @@ const RevenueProjection = ({
       <h2 className={styles.revueneProjection__heading}>REVENUE PROJECTION</h2>
       <div>
         <Card
-          style={{ width: "57rem" }}
+          style={{ width: "65rem" }}
           title={
             <div className={styles.cardTitle}>
               <ConfigProvider
