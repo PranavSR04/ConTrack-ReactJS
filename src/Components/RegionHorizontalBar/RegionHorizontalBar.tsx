@@ -18,8 +18,8 @@ const RegionHorizontalBar = () => {
                 datasets: [{
                     label: 'Contract Count',
                     data: result.data.map((item:apiData) => item.contractCount),
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: '#1C4E80',
+                    borderColor: '#1C4E80',
                     borderWidth: 1,
                 }],
             };

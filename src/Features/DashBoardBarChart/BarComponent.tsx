@@ -15,7 +15,7 @@ const BarComponent = ({data}:BarChartPropType) => {
           {
             label: 'TM Counts',
             data: tmcounts,
-            backgroundColor: '#17a977',
+            backgroundColor: '#1C4E80',
             barPercentage: 0.6,
 
             
@@ -23,7 +23,7 @@ const BarComponent = ({data}:BarChartPropType) => {
           {
             label: 'FF Counts',
             data: ffcounts,
-            backgroundColor: '#177977',
+            backgroundColor: '#0091D5',
             barPercentage: 0.6,
           }
         ],
