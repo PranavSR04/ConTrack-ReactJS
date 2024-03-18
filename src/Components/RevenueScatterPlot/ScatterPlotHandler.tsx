@@ -37,7 +37,7 @@ const ScatterPlotHandler = () => {
                 backgroundColor: 'rgba(75,192,192,0.4)',
                 borderColor: 'rgba(75,192,192,1)',
                 data: scatterData,
-                pointBackgroundColor: 'rgba(50,172,192,71)',
+                pointBackgroundColor: '#0091D5',
                     pointBorderWidth: 1,
                     pointHoverRadius: 10,
                     pointHoverBackgroundColor: 'rgba(75,192,192,1)',
