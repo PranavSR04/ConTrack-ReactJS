@@ -154,8 +154,9 @@ const AddMsa = ({
               >
                 <DatePicker
                   //format="DD-MM-YYYY"
-                  className={styles.AddMsaDetails_inputs}
+                  className={styles.AddMsaDetails_inputs_startdate}
                   onChange={handleDateChange}
+                
                   required
                 />
               </Form.Item>

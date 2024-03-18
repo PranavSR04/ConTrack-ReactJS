@@ -153,14 +153,14 @@ const AddMsaHandler = () => {
         //setSpinning(false);
 
       }
-      const stopSpinning = () => {
-        setTimeout(() => {
-          setSpinning(false);
-        }, 2000); // 2000 milliseconds = 2 seconds
-      };
-      useEffect(() => {
-        stopSpinning();
-      }, []);
+      // const stopSpinning = () => {
+      //   setTimeout(() => {
+      //     setSpinning(false);
+      //   }, 2000); 
+      //};
+      // useEffect(() => {
+      //   stopSpinning();
+      // }, []);
       const validateStartDate = async (value:any) => {
         if (value && formData.end_date && moment(value).isAfter(formData.end_date)) {
           throw new Error('End date must be after start date');
@@ -199,8 +199,6 @@ const AddMsaHandler = () => {
       };
   return (
     <div>
-     
-   
         <AddMsa
           msaRefId={msaRefId}
           handleFileUpload={handleFileUpload}
