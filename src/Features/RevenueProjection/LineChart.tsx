@@ -44,6 +44,7 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 	};
 
 	const options = {
+		maintainAspectRatio: false,
 		plugins: {
 			legend: {
 				display: false // Hide the legend
@@ -64,6 +65,7 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
                		 count: 200,
 						
 				  },
+				//   barThickness: 20,
 				//   offset: true
 				}
 			  ,
