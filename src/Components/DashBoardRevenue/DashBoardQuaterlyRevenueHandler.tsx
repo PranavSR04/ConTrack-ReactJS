@@ -53,7 +53,7 @@ const DashBoardQuaterlyRevenueHandler = () => {
   // Helper function to get the previous quarter based on the current quarter
   const getPreviousQuarter = (currentQuarter: string) => {
     const [year, quarterStr] = currentQuarter.split('-');
-    const quarter = parseInt(quarterStr);
+    const quarter = parseInt('1');
     const previousQuarter = quarter === 1 ? 4 : quarter - 1;
     const previousYear = quarter === 1 ? parseInt(year) - 1 : parseInt(year);
     return `${previousYear}-Q${previousQuarter}`;

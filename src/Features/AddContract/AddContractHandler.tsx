@@ -202,7 +202,8 @@ const AddContractHandler = () => {
     try {
       await addContract(contractDetails);
       setContractAdded(true);
-      navigate("/All Contracts", {
+      console.log("Navigating from");
+      navigate("/AllContracts", {
         state: { added: contractAdded as boolean },
       });
     } catch (error) {

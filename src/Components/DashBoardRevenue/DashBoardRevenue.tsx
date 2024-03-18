@@ -20,6 +20,7 @@ const DashBoardRevenue = ({currentMonthRevenue,previousMonthRevenue,responsetype
   const arrowIcon = difference >= 0 ? <ArrowUpOutlined style={{ color: '#3f8600' }} data-testid="up-arrow" /> : <ArrowDownOutlined style={{ color: 'red' }} data-testid="down-arrow" />;
 console.log({currentMonthRevenue})
 console.log({previousMonthRevenue})
+
   return (
     <Row gutter={16}>
     <Col span={12}>
@@ -28,7 +29,8 @@ console.log({previousMonthRevenue})
       {/* <CountUp end={currentMonthRevenue} style={{fontSize:'20px', fontWeight:'600', marginLeft:'10.8px'}}/> */}
       <div style={{fontSize:'15px', fontWeight:'600', marginLeft:'10.8px'}}>
       <span>USD&nbsp;</span>
-      <CountUp end={currentMonthRevenue}/>
+      <CountUp end={currentMonthRevenue/1000.00}/>
+      <span>k&nbsp;</span>
     </div>
       <Statistic className={styles.statistic}  
           value={Math.abs(difference)}
@@ -36,7 +38,7 @@ console.log({previousMonthRevenue})
           valueStyle={{ color: difference >= 0 ? '#3f8600' : 'red' }}
           prefix={arrowIcon}
           suffix="%"
-          style={{marginLeft:'2px'}}
+          style={{marginLeft:'0.9rem', transform:'scale(1.2)', marginTop:'0.2rem'}}
         />
       </Card>
       

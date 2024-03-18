@@ -33,7 +33,7 @@ const DoughnutChartHandler = () => {
 
                 ],
                 backgroundColor: [
-                    '#A5D8DD', // Expiring
+                    '#89CFF0', // Expiring
                     '#0091D5', // Progress
                     '#1C4E80', // Active
 
