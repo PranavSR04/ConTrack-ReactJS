@@ -3,6 +3,7 @@ import { HeaderPropType } from "./types";
 import styles from "./Header.module.css";
 import { CSVLink } from "react-csv";
 import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
+import { useNavigate } from "react-router";
 
 const Header = ({
   clientName,
@@ -12,6 +13,8 @@ const Header = ({
   contractType,
   du,
   contractStatus,
+  navigateToEditContract,
+  id
 }: HeaderPropType) => {
   return (
     <div className={`${styles.maincontainer__header}`}>
@@ -37,6 +40,7 @@ const Header = ({
           {ROLE_ID !== 3 && (
             <button
               className={`${styles.maincontainer__header__title__edit__button}`}
+              onClick={()=>navigateToEditContract(id)}
             >
               Edit
             </button>

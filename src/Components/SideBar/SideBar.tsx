@@ -38,7 +38,7 @@ const SideBar = ({ children }: SideBarPropType) => {
       localStorage.setItem("activeIndex", index.toString());
     } else if (location.pathname === "/Contract") {
       const contractsIndex = sideBarItem.findIndex(
-        (item) => item.path === "/All Contracts"
+        (item) => item.path === "/AllContracts"
       );
       setIsActiveIndex(contractsIndex);
       localStorage.setItem("activeIndex", contractsIndex.toString());
@@ -49,6 +49,8 @@ const SideBar = ({ children }: SideBarPropType) => {
     { path: "/MSA Overview", name: "MSA", icon: <FaFileAlt /> },
     { path: "/AllContracts", name: "AllContracts", icon: <FaCopy /> },
     { path: "/MyContracts", name: "MyContracts", icon: <FaFileAlt /> },
+    { path: "/AllContracts", name: "Contracts", icon: <FaCopy /> },
+    { path: "/MyContracts", name: "My Contracts", icon: <FaFileAlt /> },
     { path: "/Revenue", name: "Revenue", icon: <FaRegChartBar /> },
   ];
 

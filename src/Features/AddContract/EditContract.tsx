@@ -173,10 +173,10 @@ const EditContract = ({
                       })
                     }
                   >
-                    <Select.Option value="du1">DU1</Select.Option>
-                    <Select.Option value="du2">DU2</Select.Option>
-                    <Select.Option value="du3">DU3</Select.Option>
-                    <Select.Option value="du4">DU4</Select.Option>
+                    <Select.Option value="DU1">DU1</Select.Option>
+                    <Select.Option value="DU2">DU2</Select.Option>
+                    <Select.Option value="DU3">DU3</Select.Option>
+                    <Select.Option value="DU4">DU4</Select.Option>
                   </Select>
                 </Form.Item>
               </div>
