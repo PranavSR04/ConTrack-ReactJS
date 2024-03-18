@@ -52,7 +52,7 @@ const RevenueProjection = ({
                   <Segmented<string>
                     options={["Monthly", "Quarterly", "Yearly"]}
                     defaultValue="Monthly"
-                    size="large"
+                    size="middle"
                     onChange={(value) => {
                       getFilteredValue(value);
                     }}
@@ -77,7 +77,7 @@ const RevenueProjection = ({
                       footer={null}
                     >
                       {renderCheckboxGroup("du", duOptions)}
-                      {renderCheckboxGroup("region", regionOptions)}
+                      {/* {renderCheckboxGroup("region", regionOptions)} */}
                       {renderCheckboxGroup("cType", ["FF", "TM"])}
                     </Modal>
                   </div>

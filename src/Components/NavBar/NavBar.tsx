@@ -11,6 +11,7 @@ import NotificationListHandler from "../NotificationList/NotificationListHandler
 const NavBar = ({username}:NavBarPropType) => {
 	const{showDrawer}=useContext(NavCon);
     const{activeNotificationCount}=useContext(NavCon);
+	const currentUser = JSON.parse(localStorage.getItem("username")||"" );
 
 	return (
 		<>
@@ -26,7 +27,7 @@ const NavBar = ({username}:NavBarPropType) => {
 						</Badge>
 					</a>
 					<NotificationListHandler/>
-					<NavbarText>{username}</NavbarText>
+					<NavbarText>{currentUser}</NavbarText>
 						{/* {designation && (
 							<NavbarText className={styles.designation}>{designation}</NavbarText>
 						)} */}

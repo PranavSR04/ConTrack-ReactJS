@@ -66,6 +66,7 @@ body {
 .container {
   padding-top: 30px;
   width: 800px;
+
   height: 400px;
 }
 .spinner {

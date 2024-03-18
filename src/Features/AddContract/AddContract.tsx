@@ -1000,7 +1000,7 @@ const AddContract = ({
                           rows={8}
                           placeholder="Enter comments and remarks..."
                           value={contractDetails.comments ?? ""}
-                          onChange={handleCommentsRemarksChange}
+                          onChange={handleCommentsRemarksChange}  
                         />
                       </Form.Item>
                     </div>
