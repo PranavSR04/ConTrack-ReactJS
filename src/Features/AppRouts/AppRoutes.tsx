@@ -286,7 +286,7 @@ const AppRoutes = () => {
                   </>
                 }
               />
-              <Route
+              {/* <Route
                 path="/MSA Overview/:contract_ref_id/*"
                 element={
                   <>
@@ -297,7 +297,7 @@ const AppRoutes = () => {
                     <Outlet />
                   </>
                 }
-              />
+              /> */}
 
               <Route
                 path="/Edit Contract"

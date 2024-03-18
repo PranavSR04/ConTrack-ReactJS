@@ -317,7 +317,7 @@ const EditContractHandler = () => {
       console.log("Contract Updated Successfully!");
       setContractEdited(true);
       //   navigate("/AllContracts");
-      navigate("/All Contracts", {
+      navigate("/AllContracts", {
         state: { edited: contractEdited as boolean },
       });
     } catch (error: any) {
@@ -327,35 +327,35 @@ const EditContractHandler = () => {
   };
 
   const handleMilestoneChange = (
-      index: number,
-      field: string,
-      value: string | dayjs.Dayjs | number | null
-    ) => {
-      console.log("index", index);
-      console.log("filed", field);
-      console.log("value", value);
+    index: number,
+    field: string,
+    value: string | dayjs.Dayjs | number | null
+  ) => {
+    console.log("index", index);
+    console.log("filed", field);
+    console.log("value", value);
 
-      let convertedValue: Date | null = null;
-      // Convert dayjs object to Date
-      if (dayjs.isDayjs(value)) {
-        convertedValue = (value as dayjs.Dayjs).toDate();
-      }
-      console.log("conv value", convertedValue);
-      const updatedMilestones = [...milestones];
-      updatedMilestones[index] = {
-        ...updatedMilestones[index],
-        [field]: dayjs.isDayjs(value) ? convertedValue : value,
-      };
-      setMilestones(updatedMilestones);
-
-      // Update contractDetails as well if needed
-      const updatedContractDetails = {
-        ...contractDetails,
-        milestones: updatedMilestones,
-      };
-      console.log(updatedContractDetails);
-      setContractDetails(updatedContractDetails);
+    let convertedValue: Date | null = null;
+    // Convert dayjs object to Date
+    if (dayjs.isDayjs(value)) {
+      convertedValue = (value as dayjs.Dayjs).toDate();
+    }
+    console.log("conv value", convertedValue);
+    const updatedMilestones = [...milestones];
+    updatedMilestones[index] = {
+      ...updatedMilestones[index],
+      [field]: dayjs.isDayjs(value) ? convertedValue : value,
     };
+    setMilestones(updatedMilestones);
+
+    // Update contractDetails as well if needed
+    const updatedContractDetails = {
+      ...contractDetails,
+      milestones: updatedMilestones,
+    };
+    console.log(updatedContractDetails);
+    setContractDetails(updatedContractDetails);
+  };
 
   // const handleMilestoneChange = (
   //     index: number,
@@ -426,8 +426,6 @@ const EditContractHandler = () => {
   //   console.log("updated contractDetails", updatedContractDetails);
   //   setContractDetails(updatedContractDetails);
   // };
-
-
 
   console.log("setContractDetails. milestone", contractDetails.milestones);
   useEffect(() => {

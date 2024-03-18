@@ -26,6 +26,7 @@ import moment from "moment";
 import Toast from "../../Components/Toast/Toast";
 import { useNavigate } from "react-router-dom";
 import AddContract from "./AddContract";
+import { getUser } from "./api/getUser";
 
 // import { RcFile } from "antd/lib/upload";
 
@@ -96,6 +97,8 @@ const AddContractHandler = () => {
     });
     setContractType(value);
   };
+
+  const [fileList, setFileList] = useState<any>();
 
   const handleAddMilestone = () => {
     setMilestones([
@@ -191,6 +194,7 @@ const AddContractHandler = () => {
         ...contractDetails,
         file: info.file as RcFile,
       });
+      setFileList(info.file);
     } catch (e) {
       console.log("file upload error", e);
     }
@@ -250,9 +254,6 @@ const AddContractHandler = () => {
     fetchMSA();
   }, []);
 
-  //   const formattedStartDate = moment(contractDetails.start_date,"YYYY-MM-DD",true);
-  //   const formattedDate = moment(contractDetails.date_of_signature);
-
   const selectClient = async (value: string) => {
     // Fetch client data including region
     try {
@@ -272,6 +273,7 @@ const AddContractHandler = () => {
       console.error("Error fetching client data:", error);
     }
   };
+
   //   console.log("Milestones-test", milestones);
 
   return (
@@ -294,6 +296,7 @@ const AddContractHandler = () => {
       contractDetails={contractDetails}
       setContractDetails={setContractDetails}
       milestones={milestones}
+      // fileList={fileList}
     />
   );
 };

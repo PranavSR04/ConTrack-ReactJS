@@ -23,52 +23,52 @@ const Notification = ({
     const isFromManageUser = location.pathname.includes("/Manage User");
     console.log(notification);
 
-    // if (!notification.msa_id) {
-    //   onClose();
-    //   navigate("/MSA Overview");
-    // } else {
-    //   onClose();
-    //   navigate(`/AllContracts/${notification.contract_ref_id}`, {
-    //     state: { id: notification.contract_id },
-    //   });
-    // }
-
-    if (isFromMSAOverview) {
+    if (!notification.msa_id) {
       onClose();
-      navigate(`/MSA Overview/${notification.contract_ref_id}`, {
-        state: { id: notification.contract_id },
-      });
-    } else if (isFromAllContracts) {
+      navigate("/MSA Overview");
+    } else {
       onClose();
       navigate(`/AllContracts/${notification.contract_ref_id}`, {
         state: { id: notification.contract_id },
       });
-    } else if (isFromDashboard) {
-      onClose();
-      navigate(`/Dashboard/${notification.contract_ref_id}`, {
-        state: { id: notification.contract_id },
-      });
-    } else if (isFromMyContracts) {
-      onClose();
-      navigate(`/MyContracts/${notification.contract_ref_id}`, {
-        state: { id: notification.contract_id },
-      });
-    } else if (isFromRevenue) {
-      onClose();
-      navigate(`/Revenue/${notification.contract_ref_id}`, {
-        state: { id: notification.contract_id },
-      });
-    } else if (isFromManageUser) {
-      onClose();
-      navigate(`/Manage User/${notification.contract_ref_id}`, {
-        state: { id: notification.contract_id },
-      });
-    } else {
-      onClose();
-      navigate(`/MSA Overview/${notification.contract_ref_id}`, {
-        state: { id: notification.contract_id },
-      });
     }
+
+    // if (isFromMSAOverview) {
+    //   onClose();
+    //   navigate(`/MSA Overview/${notification.contract_ref_id}`, {
+    //     state: { id: notification.contract_id },
+    //   });
+    // } else if (isFromAllContracts) {
+    //   onClose();
+    //   navigate(`/AllContracts/${notification.contract_ref_id}`, {
+    //     state: { id: notification.contract_id },
+    //   });
+    // } else if (isFromDashboard) {
+    //   onClose();
+    //   navigate(`/Dashboard/${notification.contract_ref_id}`, {
+    //     state: { id: notification.contract_id },
+    //   });
+    // } else if (isFromMyContracts) {
+    //   onClose();
+    //   navigate(`/MyContracts/${notification.contract_ref_id}`, {
+    //     state: { id: notification.contract_id },
+    //   });
+    // } else if (isFromRevenue) {
+    //   onClose();
+    //   navigate(`/Revenue/${notification.contract_ref_id}`, {
+    //     state: { id: notification.contract_id },
+    //   });
+    // } else if (isFromManageUser) {
+    //   onClose();
+    //   navigate(`/Manage User/${notification.contract_ref_id}`, {
+    //     state: { id: notification.contract_id },
+    //   });
+    // } else {
+    //   onClose();
+    //   navigate(`/MSA Overview/${notification.contract_ref_id}`, {
+    //     state: { id: notification.contract_id },
+    //   });
+    // }
   };
   useEffect(() => {
     if (notification.action.includes("Added")) {

@@ -41,6 +41,7 @@ const AddContract = ({
   contractDetails,
   setContractDetails,
   milestones,
+  // fileList,
 }: AddContractPropType) => {
   // const [contractType, setContractType] = useState<string | null>(null);
 
@@ -627,6 +628,7 @@ const AddContract = ({
                           //   action=""
                           customRequest={handleFileUpload}
                           maxCount={1}
+                          // fileList={fileList || []}
                           // showUploadList={false}
                         >
                           {/* <Button icon={<UploadOutlined />}>
