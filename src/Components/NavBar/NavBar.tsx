@@ -1,16 +1,19 @@
 import React, { useContext } from "react";
 import { Nav, NavItem, NavbarBrand, NavbarText } from "react-bootstrap";
 import styles from "./NavBar.module.css";
-import { Avatar, Badge, Button } from "antd";
+import { Avatar, Badge } from "antd";
 import { IoMdNotifications } from "react-icons/io";
 import logo from "../../img/Subtract.png";
 import { NavBarPropType } from "./types";
 import { NavCon } from "../NavContext/NavContext";
 import NotificationListHandler from "../NotificationList/NotificationListHandler";
 
+
 const NavBar = ({username}:NavBarPropType) => {
 	const{showDrawer}=useContext(NavCon);
     const{activeNotificationCount}=useContext(NavCon);
+	console.log(activeNotificationCount);
+	const currentUser = JSON.parse(localStorage.getItem("username")||"" );
 
 	return (
 		<>
@@ -26,7 +29,7 @@ const NavBar = ({username}:NavBarPropType) => {
 						</Badge>
 					</a>
 					<NotificationListHandler/>
-					<NavbarText>{username}</NavbarText>
+					<NavbarText>{currentUser}</NavbarText>
 						{/* {designation && (
 							<NavbarText className={styles.designation}>{designation}</NavbarText>
 						)} */}
