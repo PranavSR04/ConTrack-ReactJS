@@ -28,7 +28,7 @@ const RenewMsa = ({
   console.log(msaRenewed);
   return (
     <>
-      <BreadCrumbs style={{ marginLeft: "16rem", marginTop: "1rem" }} />
+      <BreadCrumbs style={{ marginLeft: "16rem", marginTop: "0.5rem" }} />
       <div className={styles.AddMsa}>
         <div>
           <h3 className={styles.AddMsa_Heading}>

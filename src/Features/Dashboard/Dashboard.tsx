@@ -21,44 +21,58 @@ const Dashboard = () => {
   const user_name = userObject?.first_name;
   return (
     <>
-      <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "1rem" }} />
+      {/* <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "1rem" }} /> */}
       <div className={styles["dashboard-div1"]}>
         {/* <h2 className={styles['dashboard-name']}>Hello, <span style={{color:'#DC143C'}}>{user_name}</span> </h2> */}
         {/* <Card >
       <ContractsCount/>
     </Card> */}
-    <div className={styles['dash-row1-div']}>
-    <div className={styles['dash-revenue-div']}>
-    <div className={styles['dash-revenue-div-month']}><DashBoardMonthlyRevenueHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardQuaterlyRevenueHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardYearlyRevenueHandler/></div>
+        <div className={styles["dash-row1-div"]}>
+          <div className={styles["dash-revenue-div"]}>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardMonthlyRevenueHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardQuaterlyRevenueHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardYearlyRevenueHandler />
+            </div>
 
-    <div className={styles['dash-revenue-div-month']}><DashBoardContractCountHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardMsaCountHandler/></div>
-    </div>
-    <div className={styles['dash-revenue-div-notifi']}><DashBoardNotificationListHandler/></div>
-    </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardContractCountHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardMsaCountHandler />
+            </div>
+          </div>
+          <div className={styles["dash-revenue-div-notifi"]}>
+            <DashBoardNotificationListHandler />
+          </div>
+        </div>
 
-    <div className={styles['dash-row1-charts']}>
-    <div className={styles['dash-row1-barchart']}>
-      <Card className={styles['dash-row2-ducharts']}><BarChartHandler/> </Card>  
-      </div> 
-      <div className={styles['dash-row1-doughnut']}>     
-      <DoughnutChartHandler />
-      </div> 
-    </div>
-    
-<div  className={styles['dash-row2-charts']}>
-  <Card style={{backgroundColor:'white',marginRight:'1rem'}}>      
-    <ScatterPlotHandler/>
-      </Card> 
- <Card style={{backgroundColor:'white',marginRight:'1rem'}}>
- <RegionHorizontalBar/>
- </Card>
- <Card style={{backgroundColor:'white', }}>
- <TopRevenueHandler/>
- </Card>
-</div>
+        <div className={styles["dash-row1-charts"]}>
+          <div className={styles["dash-row1-barchart"]}>
+            <Card className={styles["dash-row2-ducharts"]}>
+              <BarChartHandler />{" "}
+            </Card>
+          </div>
+          <div className={styles["dash-row1-doughnut"]}>
+            <DoughnutChartHandler />
+          </div>
+        </div>
+
+        <div className={styles["dash-row2-charts"]}>
+          <Card style={{ backgroundColor: "white", marginRight: "1rem" }}>
+            <ScatterPlotHandler />
+          </Card>
+          <Card style={{ backgroundColor: "white", marginRight: "1rem" }}>
+            <RegionHorizontalBar />
+          </Card>
+          <Card style={{ backgroundColor: "white" }}>
+            <TopRevenueHandler />
+          </Card>
+        </div>
       </div>
     </>
   );

@@ -65,7 +65,7 @@ const ListMsa = ({
   return (
     <>
       <div className={styles.ListMsa}>
-        <BreadCrumbs style={{ marginTop: "1rem" }} />
+        {/* <BreadCrumbs style={{ marginTop: "1rem" }} /> */}
         <h3 className={styles.ListMsa_heading}>MASTER SERVICE AGREEMENT</h3>
         {/* <div className={styles.ListMsa_Details}> */}
         <div className={styles.ListMsa_Details_Table}>

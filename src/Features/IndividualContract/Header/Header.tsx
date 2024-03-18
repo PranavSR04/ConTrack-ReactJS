@@ -15,7 +15,7 @@ const Header = ({
 }: HeaderPropType) => {
   return (
     <div className={`${styles.maincontainer__header}`}>
-      <BreadCrumbs style={{ marginTop: "2rem" }} />
+      <BreadCrumbs style={{ marginTop: "0.5rem" }} />
       <div className={`${styles.maincontainer__header__title}`}>
         <div className={`${styles.maincontainer__header__title__contract}`}>
           <h2>
