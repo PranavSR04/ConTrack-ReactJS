@@ -52,7 +52,8 @@ const AddMsa = ({
     <>
       <div className={styles.AddMsa}>
         <div>
-          <BreadCrumbs style={{ marginTop: "1rem" }} />
+          <BreadCrumbs style={{ marginTop: "-1rem" }} />
+          <br />
           <h3 className={styles.AddMsa_Heading}>
             ADD MASTER SERVICE AGREEMENT
           </h3>

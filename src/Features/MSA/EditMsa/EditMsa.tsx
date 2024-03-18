@@ -55,7 +55,7 @@ const EditMsa = ({
 
   return (
     <>
-      <BreadCrumbs style={{ marginTop: "1rem", marginLeft: "16rem" }} />
+      <BreadCrumbs style={{ marginTop: "0.5rem", marginLeft: "16rem" }} />
       <div className={styles.AddMsa}>
         <div>
           <h3 className={styles.AddMsa_Heading}>
