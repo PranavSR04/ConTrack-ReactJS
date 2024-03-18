@@ -6,7 +6,7 @@ const DashBoardContractCountHandler = () => {
     const [error, setError] = useState<string>("");
     const [contractCount, setContractCount] = useState<number>(1);
     const [isError, setIsError] = useState<boolean>(false);
-    const Contract='Total Contracts'
+    const Contract='Contracts'
     useEffect(() => {
         const fetchCount = async () => {
             try {

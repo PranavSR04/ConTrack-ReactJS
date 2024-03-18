@@ -23,8 +23,8 @@ console.log({previousMonthRevenue})
   return (
     <Row gutter={16}>
     <Col span={12}>
-      <Card style={{width:'135px',height:'120px',padding:'0px',transform:'scale', backgroundColor:'#f4f4f4'}}>
-      <p style={{fontSize:'15px', paddingLeft:'13%'}}>{responsetype}</p> 
+      <Card style={{width:'135px',height:'120px',padding:'0px',transform:'scale', backgroundColor:'#ffffff', border:'solid 1px #f9f9f9'}}>
+      <p style={{fontSize:'15px', paddingLeft:'13%', marginBottom:'0.2rem'}}>{responsetype}</p> 
       <CountUp end={currentMonthRevenue} style={{fontSize:'20px', fontWeight:'600', marginLeft:'10.8px'}}/>
       
       <Statistic className={styles.statistic}  
