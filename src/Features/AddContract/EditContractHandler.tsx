@@ -317,43 +317,45 @@ const EditContractHandler = () => {
       console.log("Contract Updated Successfully!");
       setContractEdited(true);
       //   navigate("/AllContracts");
-      navigate("/allContracts", { state: { edited: contractEdited as boolean } });
+      navigate("/All Contracts", {
+        state: { edited: contractEdited as boolean },
+      });
     } catch (error: any) {
       console.error("Error editing contract:", error.message);
       // Optionally, you can set an error state or show a notification to the user
     }
   };
 
-  //   const handleMilestoneChange = (
-  //     index: number,
-  //     field: string,
-  //     value: string | dayjs.Dayjs | number | null
-  //   ) => {
-  //     console.log("index", index);
-  //     console.log("filed", field);
-  //     console.log("value", value);
+  const handleMilestoneChange = (
+      index: number,
+      field: string,
+      value: string | dayjs.Dayjs | number | null
+    ) => {
+      console.log("index", index);
+      console.log("filed", field);
+      console.log("value", value);
 
-  //     let convertedValue: Date | null = null;
-  //     // Convert dayjs object to Date
-  //     if (dayjs.isDayjs(value)) {
-  //       convertedValue = (value as dayjs.Dayjs).toDate();
-  //     }
-  //     console.log("conv value", convertedValue);
-  //     const updatedMilestones = [...milestones];
-  //     updatedMilestones[index] = {
-  //       ...updatedMilestones[index],
-  //       [field]: dayjs.isDayjs(value) ? convertedValue : value,
-  //     };
-  //     setMilestones(updatedMilestones);
+      let convertedValue: Date | null = null;
+      // Convert dayjs object to Date
+      if (dayjs.isDayjs(value)) {
+        convertedValue = (value as dayjs.Dayjs).toDate();
+      }
+      console.log("conv value", convertedValue);
+      const updatedMilestones = [...milestones];
+      updatedMilestones[index] = {
+        ...updatedMilestones[index],
+        [field]: dayjs.isDayjs(value) ? convertedValue : value,
+      };
+      setMilestones(updatedMilestones);
 
-  //     // Update contractDetails as well if needed
-  //     const updatedContractDetails = {
-  //       ...contractDetails,
-  //       milestones: updatedMilestones,
-  //     };
-  //     console.log(updatedContractDetails);
-  //     setContractDetails(updatedContractDetails);
-  //   };
+      // Update contractDetails as well if needed
+      const updatedContractDetails = {
+        ...contractDetails,
+        milestones: updatedMilestones,
+      };
+      console.log(updatedContractDetails);
+      setContractDetails(updatedContractDetails);
+    };
 
   // const handleMilestoneChange = (
   //     index: number,
@@ -387,43 +389,45 @@ const EditContractHandler = () => {
   //     setContractDetails(updatedContractDetails);
   //   };
 
-  const handleMilestoneChange = (
-    index: number,
-    field: string,
-    value: string | dayjs.Dayjs | number | null
-  ) => {
-    console.log("index", index);
-    console.log("field", field);
-    console.log("value", value);
+  // const handleMilestoneChange = (
+  //   index: number,
+  //   field: string,
+  //   value: string | dayjs.Dayjs | number | null
+  // ) => {
+  //   console.log("index", index);
+  //   console.log("field", field);
+  //   console.log("value", value);
 
-    if (!contractDetails || !setContractDetails) {
-      console.error("Contract details not available.");
-      return;
-    }
+  //   if (!contractDetails || !setContractDetails) {
+  //     console.error("Contract details not available.");
+  //     return;
+  //   }
 
-    let convertedValue: Date | null = null;
-    // Convert dayjs object to Date
-    if (dayjs.isDayjs(value)) {
-      convertedValue = (value as dayjs.Dayjs).toDate();
-    }
-    console.log("converted value", convertedValue);
+  //   let convertedValue: Date | null = null;
+  //   // Convert dayjs object to Date
+  //   if (dayjs.isDayjs(value)) {
+  //     convertedValue = (value as dayjs.Dayjs).toDate();
+  //   }
+  //   console.log("converted value", convertedValue);
 
-    const updatedMilestones = [...contractDetails.milestones];
-    const updatedMilestone = {
-      ...updatedMilestones[index],
-      [field]: dayjs.isDayjs(value) ? convertedValue : value,
-    };
+  //   const updatedMilestones = [...contractDetails.milestones];
+  //   const updatedMilestone = {
+  //     ...updatedMilestones[index],
+  //     [field]: dayjs.isDayjs(value) ? convertedValue : value,
+  //   };
 
-    updatedMilestones[index] = updatedMilestone;
-    console.log("upd.milestones", updatedMilestones[index]);
-    // Update contractDetails with the updated milestones
-    const updatedContractDetails = {
-      ...contractDetails,
-      milestones: updatedMilestones,
-    };
-    console.log("updated contractDetails", updatedContractDetails);
-    setContractDetails(updatedContractDetails);
-  };
+  //   updatedMilestones[index] = updatedMilestone;
+  //   console.log("upd.milestones", updatedMilestones[index]);
+  //   // Update contractDetails with the updated milestones
+  //   const updatedContractDetails = {
+  //     ...contractDetails,
+  //     milestones: updatedMilestones,
+  //   };
+  //   console.log("updated contractDetails", updatedContractDetails);
+  //   setContractDetails(updatedContractDetails);
+  // };
+
+
 
   console.log("setContractDetails. milestone", contractDetails.milestones);
   useEffect(() => {

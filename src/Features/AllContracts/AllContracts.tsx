@@ -5,6 +5,7 @@ import { AllContractsPropType, ContractData } from "./types";
 import { useNavigate } from "react-router";
 import { LoadingOutlined } from "@ant-design/icons";
 import Toast from "../../Components/Toast/Toast";
+import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 
 const AllContracts = ({
   columns,
@@ -27,14 +28,18 @@ const AllContracts = ({
 
   return (
     <>
+      <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "2rem" }} />;
       <h3 className={styles["contracts-h1"]}>{pageTitle}</h3>
       <div className={styles["contracts-table"]}>
         <div className={styles["contracts-buttons"]}>
           <div className={styles["contracts-buttons-expired"]}>
-            <label className={styles['contracts-button-switch']}> Show Expired &nbsp; </label>
+            <label className={styles["contracts-button-switch"]}>
+              {" "}
+              Show Expired &nbsp;{" "}
+            </label>
             <Switch size="small" onChange={showExpired} />
           </div>
-          {ROLE_ID !== 3 && isMyContracts &&(
+          {ROLE_ID !== 3 && isMyContracts && (
             <div className={styles["contracts-buttons-addedBy"]}>
               <ConfigProvider
                 theme={{
@@ -66,7 +71,7 @@ const AllContracts = ({
           {ROLE_ID !== 3 && (
             <Button
               className={styles["contracts-addContract"]}
-              onClick={() => navigate("/addContract")}
+              onClick={() => navigate("Add Contract")}
             >
               + Add Contract
             </Button>
