@@ -52,7 +52,7 @@
   border-radius: 20px; 
 }
 
-.Notification_style1__-dmbFadded> p {
+.Notification_style1__0gYptadded> p {
   margin-top: 10%;
   background-color: #e9d2f4;
   color: #320249;
@@ -62,7 +62,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style1__-dmbFedited> p{
+.Notification_style1__0gYptedited> p{
   margin-top: 10px;
   background-color: #eba68d;
   color: #451b0c;
@@ -72,7 +72,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style1__-dmbFrenewed> p{
+.Notification_style1__0gYptrenewed> p{
   margin-top: 10px;
   background-color: #ACF3A0;
   color: #1F9423;
@@ -82,7 +82,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style1__-dmbFexpired> p{
+.Notification_style1__0gYptexpired> p{
   margin-top: 10px;
   background-color: #DC143C;
   color: #5F2828;
@@ -92,7 +92,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style1__-dmbFexpiring> p{
+.Notification_style1__0gYptexpiring> p{
   margin-top: 10px;
   background-color: #F2E291;
   color: #9F7D24;
@@ -152,7 +152,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style1__-dmbFcardStyle_right{
+.Notification_style1__0gYptcardStyle_right{
   flex: 7;
   padding-left: 6px;
   text-align: left;
