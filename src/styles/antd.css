@@ -8,6 +8,10 @@
 .status-closed{
     background-color:#eb6c859c;
 }
+
+.status-Expiring{
+    background-color:#f5b235d3;
+}
 .ant-tag{
     width: 81px;
     text-align: center;

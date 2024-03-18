@@ -81,6 +81,8 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
 
 			localStorage.setItem("role_id",contrack_response.contrackUser.role_id.toString());
 			localStorage.setItem("user", JSON.stringify(contrack_response.user));
+			localStorage.setItem("username", JSON.stringify(contrack_response.contrackUser.user_name));
+
 			navigate('/Dashboard');
 		} else {
 			showModal();

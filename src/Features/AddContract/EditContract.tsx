@@ -68,11 +68,11 @@ const EditContract = ({
   return (
     <>
       <div className="container">
-        <BreadCrumbs style={{ marginLeft: "10rem", marginTop: "2rem" }} />
+        <BreadCrumbs style={{ marginLeft: "10rem", marginTop: "0.5rem" }} />
         <h1
           style={{
             marginLeft: "10rem",
-            paddingTop: "2rem",
+            paddingTop: "0.7rem",
             fontWeight: 700,
             fontSize: "1.2rem",
           }}
@@ -173,10 +173,10 @@ const EditContract = ({
                       })
                     }
                   >
-                    <Select.Option value="du1">DU1</Select.Option>
-                    <Select.Option value="du2">DU2</Select.Option>
-                    <Select.Option value="du3">DU3</Select.Option>
-                    <Select.Option value="du4">DU4</Select.Option>
+                    <Select.Option value="DU1">DU1</Select.Option>
+                    <Select.Option value="DU2">DU2</Select.Option>
+                    <Select.Option value="DU3">DU3</Select.Option>
+                    <Select.Option value="DU4">DU4</Select.Option>
                   </Select>
                 </Form.Item>
               </div>
@@ -273,12 +273,12 @@ const EditContract = ({
                     alignItems: "flex-start",
                     padding: "-0.6rem 1rem",
                     fontFamily: '"Montserrat", sans-serif',
-                    width: "100%",
+                    width: "120%",
                   }}
                 >
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ marginLeft: "10rem" }}
+                    style={{ marginLeft: "8 rem" }}
                   >
                     <div
                       className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -450,7 +450,7 @@ const EditContract = ({
                                 wrapperCol={{ span: 20 }}
                                 required
                                 initialValue={milestone.percentage}
-                              >
+                              > 
                                 <InputNumber
                                   style={{ width: "100%" }}
                                   onChange={(value) =>
@@ -514,12 +514,12 @@ const EditContract = ({
                     alignItems: "flex-start",
                     padding: "-0.6rem 1rem",
                     fontFamily: '"Montserrat", sans-serif',
-                    width: "100%",
+                    width: "120%",
                   }}
                 >
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ marginLeft: "10rem" }}
+                    style={{ marginLeft: "8rem" }}
                   >
                     <div
                       className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -752,7 +752,7 @@ const EditContract = ({
               {/* Upload Work Schedule */}
               <div
                 className={`contract_details ${styles.contract_details}`}
-                style={{ width: "46.5%", height: "15rem" }}
+                style={{ width: "46.5%", height: "10.5rem" }}
               >
                 <br />
                 <div
@@ -766,19 +766,19 @@ const EditContract = ({
                     justifyContent: "center",
                     alignItems: "center",
                     height: "8rem",
-                    padding: "1rem",
+                    padding: ".5rem",
                     width: "100%",
                   }}
                 >
                   <div
                     style={{
                       border: "2px dashed #ccc",
-                      padding: "3rem",
-                      paddingBottom: "2.5rem",
+                      // padding: "3rem",
+                      paddingBottom: "1rem",
                       textAlign: "center",
                       borderRadius: "5px",
                       width: "33rem",
-                      marginTop: "2.5rem",
+                      marginTop: "-1.5rem",
                     }}
                   >
                     <Upload
@@ -786,9 +786,12 @@ const EditContract = ({
                       //   action=""
                       customRequest={handleFileUpload}
                     >
-                      <Button icon={<UploadOutlined />}>
-                        Click to Upload (Max: 50MB)
-                      </Button>
+                      <div style={{ marginTop: "1rem" }}>
+                            <p>Drag & drop or click to upload</p>
+                            <Button icon={<UploadOutlined />}>
+                              Select File
+                            </Button>
+                          </div>
                     </Upload>
                   </div>
                 </div>
@@ -797,7 +800,7 @@ const EditContract = ({
               {/* Comments and Remarks */}
               <div
                 className={`contract_details ${styles.contract_details}`}
-                style={{ width: "36%", marginLeft: "2rem", height: "15rem" }}
+                style={{ width: "36%", marginLeft: "2rem", height: "10.5rem" }}
               >
                 <br />
                 <div
@@ -809,16 +812,16 @@ const EditContract = ({
                   style={{
                     display: "flex",
                     padding: "1rem",
-                    width: "95%",
+                    width: "100%",
                   }}
                 >
                   <Form.Item
-                    labelCol={{ span: 6 }}
-                    wrapperCol={{ span: 22 }}
-                    style={{ width: "35rem", marginTop: "-1.5rem" }}
+                    // labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 24 }}
+                    style={{ width: "32rem", marginTop: "-1rem" }}
                   >
                     <Input.TextArea
-                      rows={8}
+                      rows={4.5}
                       value={contractDetails.comments || ""}
                       onChange={(e) => handleCommentsRemarksChange(e)}
                     />
@@ -830,14 +833,15 @@ const EditContract = ({
               style={{
                 display: "flex",
                 justifyContent: "flex-end",
-                marginRight: "2rem",
-                marginTop: "2rem",
+                marginRight: "53rem",
+                marginTop: "1rem",
+                paddingBottom:"1rem"
               }}
             >
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{ marginRight: "1rem" }}
+                style={{ marginRight: "2rem" }}
                 className={
                   contractType
                     ? styles.submitButton

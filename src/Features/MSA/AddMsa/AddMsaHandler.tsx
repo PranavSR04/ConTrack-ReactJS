@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AddMsa from './AddMsa'
 import { Form, Modal, Spin, message } from 'antd';
 import moment, { Moment } from 'moment';
@@ -7,6 +7,8 @@ import axios from 'axios';
 import { postapi } from './api/postapi';
 import ListMsaHandler from '../ListMsa/ListMsaHandler';
 import { useNavigate } from 'react-router';
+import { NavCon } from '../../../Components/NavContext/NavContext';
+import { fetchNotification } from '../../../Components/NotificationList/Api/getNotifications';
 
 const AddMsaHandler = () => {
   const user_id: number = parseInt(localStorage.getItem('user_id') || "0");
@@ -26,8 +28,11 @@ const AddMsaHandler = () => {
     const[fullPageSpinner,setFullPageSpinner]=useState<boolean>(false);
     const [start_date,setstart_date]=useState<string>();
     const[date_validate,setDate_validated]=useState<boolean>(false);
+    const{setActiveNotificationCount}=useContext(NavCon);
+
     useEffect( ()=>{
         generateMsaId()
+  
     },[]);
     const generateMsaId= async ()=>{
       try {
@@ -145,14 +150,24 @@ const AddMsaHandler = () => {
           
           form.resetFields();
           generateMsaId();
+          const SENDTO_ID = parseInt(localStorage.getItem("user_id") || '0', 10);
+          await fetchNotification(1, 10,SENDTO_ID); 
           navigate("/MSA Overview", { state: { added: true } });
           //}
         } catch (error) {
           console.error("Error submitting form data:", error);
         }
-        setSpinning(false);
+        //setSpinning(false);
 
       }
+      const stopSpinning = () => {
+        setTimeout(() => {
+          setSpinning(false);
+        }, 2000); // 2000 milliseconds = 2 seconds
+      };
+      useEffect(() => {
+        stopSpinning();
+      }, []);
       const validateStartDate = async (value:any) => {
         if (value && formData.end_date && moment(value).isAfter(formData.end_date)) {
           throw new Error('End date must be after start date');

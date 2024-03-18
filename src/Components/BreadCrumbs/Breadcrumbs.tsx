@@ -45,10 +45,9 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ style }) => {
   const location = useLocation();
   const pathSnippets = location.pathname.split("/").filter((i) => i);
 
-  // Generate breadcrumb items from pathSnippets
   const breadcrumbItems = pathSnippets.map((_, index) => {
     const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
-    const breadcrumbName = pathSnippets[index].replace(/%20/g, " "); // Replace %20 with space
+    const breadcrumbName = pathSnippets[index].replace(/%20/g, " "); 
     return {
       path: url,
       breadcrumbName,

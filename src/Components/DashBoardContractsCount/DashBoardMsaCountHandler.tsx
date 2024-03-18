@@ -6,7 +6,7 @@ const DashBoardMsaCountHandler = () => {
     const [error, setError] = useState<string>("");
     const [msaCount, setMsaCount] = useState<number>(1);
     const [isError, setIsError] = useState<boolean>(false);
-    const Msa='Active MSAs'
+    const Msa="MSA's"
     useEffect(() => {
         const fetchCount = async () => {
             try {

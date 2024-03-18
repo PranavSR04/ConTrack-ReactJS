@@ -17,18 +17,15 @@ const DashBoardCount = ({ contractCount, Contract }: countType) => {
             height: "120px",
             padding: "0px",
             transform: "scale",
-            backgroundColor: "#f4f4f4",
+            backgroundColor: "#1C4E80",
+            color: "white",
+            textAlign: "center",
           }}
         >
-          <p style={{ fontSize: "15px", paddingLeft: "13%" }}>{Contract}</p>
+          <p style={{ fontSize: "15px", marginBottom: "0.1rem" }}>{Contract}</p>
           <CountUp
             end={contractCount}
-            style={{
-              fontSize: "20px",
-              fontWeight: "600",
-              marginLeft: "22.6px ",
-              marginBottom: "1px",
-            }}
+            style={{ fontSize: "25px", fontWeight: "600", marginBottom: "2px" }}
           />
         </Card>
       </Col>

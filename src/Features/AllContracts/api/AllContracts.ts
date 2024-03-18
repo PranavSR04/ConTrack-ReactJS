@@ -6,7 +6,7 @@ export const fetchDataFromApi = async (
   searchConditions: Condition,
   currentPage: number,
   pageSize: number,
-  checkedExpiring:boolean
+  checkedExpiring:boolean,
 ) => {
   try {
     let queryString: string[] = [];

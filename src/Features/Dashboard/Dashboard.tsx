@@ -20,24 +20,36 @@ const Dashboard = () => {
   const userObject = JSON.parse(userString);
   const user_name = userObject?.first_name;
   return (
-    <>
-      <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "1rem" }} />
+    < >
+      {/* <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "1rem" }} /> */}
       <div className={styles["dashboard-div1"]}>
         {/* <h2 className={styles['dashboard-name']}>Hello, <span style={{color:'#DC143C'}}>{user_name}</span> </h2> */}
         {/* <Card >
       <ContractsCount/>
     </Card> */}
-    <div className={styles['dash-row1-div']}>
-    <div className={styles['dash-revenue-div']}>
-    <div className={styles['dash-revenue-div-month']}><DashBoardMonthlyRevenueHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardQuaterlyRevenueHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardYearlyRevenueHandler/></div>
+        <div className={styles["dash-row1-div"]}>
+          <div className={styles["dash-revenue-div"]}>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardMonthlyRevenueHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardQuaterlyRevenueHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardYearlyRevenueHandler />
+            </div>
 
-    <div className={styles['dash-revenue-div-month']}><DashBoardContractCountHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardMsaCountHandler/></div>
-    </div>
-    <div className={styles['dash-revenue-div-notifi']}><DashBoardNotificationListHandler/></div>
-    </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardContractCountHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardMsaCountHandler />
+            </div>
+          </div>
+          <div className={styles["dash-revenue-div-notifi"]}>
+            <DashBoardNotificationListHandler />
+          </div>
+        </div>
 
     <div className={styles['dash-row1-charts']}>
     <div className={styles['dash-row1-barchart']}>
@@ -49,10 +61,10 @@ const Dashboard = () => {
     </div>
     
 <div  className={styles['dash-row2-charts']}>
-  <Card style={{backgroundColor:'white',marginRight:'1rem'}}>      
+  <Card style={{backgroundColor:'white',marginRight:'.8rem'}}>      
     <ScatterPlotHandler/>
       </Card> 
- <Card style={{backgroundColor:'white',marginRight:'1rem'}}>
+ <Card style={{backgroundColor:'white',marginRight:'.8rem'}}>
  <RegionHorizontalBar/>
  </Card>
  <Card style={{backgroundColor:'white', }}>

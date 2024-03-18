@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { HeaderHandlerPropType, HeadingHandlerType } from "./types";
 import Header from "./Header";
+import { useNavigate } from "react-router";
 
-const HeaderHandler = ({ responses }: HeaderHandlerPropType) => {
+const HeaderHandler = ({ responses, id }: HeaderHandlerPropType) => {
   const [error, setError] = useState<string>("");
   const [contractRefId, setContractRefId] = useState<string>("");
   const [clientName, setClientName] = useState<string>("");
   const [contractExcelData, setContractExcelData] = useState<
     (string | number)[][]
   >([]);
-  const [contractType, setContractType] = useState<string>("")
+  const [contractType, setContractType] = useState<string>("");
   const [contractStatus, setContractStatus] = useState<string>("");
   const [du, setDU] = useState<string>("");
   const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("response in Header Handler", responses);
@@ -111,6 +113,12 @@ const HeaderHandler = ({ responses }: HeaderHandlerPropType) => {
     }
   };
 
+  const navigateToEditContract = (id: string) => {
+    navigate(`Edit Contract`, {
+      state: { id: id as string },
+    });
+  };
+
   return (
     <>
       <Header
@@ -121,6 +129,8 @@ const HeaderHandler = ({ responses }: HeaderHandlerPropType) => {
         contractType={contractType}
         du={du}
         contractStatus={contractStatus}
+        navigateToEditContract={navigateToEditContract}
+        id={id}
       />
     </>
   );
