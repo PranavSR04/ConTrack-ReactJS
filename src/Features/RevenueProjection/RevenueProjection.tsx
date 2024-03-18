@@ -31,7 +31,7 @@ const RevenueProjection = ({
       <h2 className={styles.revueneProjection__heading}>REVENUE PROJECTION</h2>
       <div>
         <Card
-          style={{ width: "57rem" }}
+          style={{ width: "65rem" }}
           title={
             <div className={styles.cardTitle}>
               <ConfigProvider
@@ -52,7 +52,7 @@ const RevenueProjection = ({
                   <Segmented<string>
                     options={["Monthly", "Quarterly", "Yearly"]}
                     defaultValue="Monthly"
-                    size="large"
+                    size="middle"
                     onChange={(value) => {
                       getFilteredValue(value);
                     }}
@@ -77,7 +77,7 @@ const RevenueProjection = ({
                       footer={null}
                     >
                       {renderCheckboxGroup("du", duOptions)}
-                      {renderCheckboxGroup("region", regionOptions)}
+                      {/* {renderCheckboxGroup("region", regionOptions)} */}
                       {renderCheckboxGroup("cType", ["FF", "TM"])}
                     </Modal>
                   </div>

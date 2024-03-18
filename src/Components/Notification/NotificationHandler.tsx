@@ -43,7 +43,7 @@ const NotificationHandler = ({ notification }:NotificationHandlerProps) => {
     const updatedDate = new Date(notification.updated_at);
     const calculatedDifference = dateCalculation(updatedDate);
     setDifference(calculatedDifference);
-  }, [notification.updated_at]);
+  }, []);
     return <Notification notification={notification} difference={difference} stylenames={stylename} />;
 }
 
