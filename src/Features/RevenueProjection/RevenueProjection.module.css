@@ -43,7 +43,7 @@ body {
 .large_column {
   
   width: 800px;
-  transform: scale(1.2);
+  /* transform: scale(1.2); */
   overflow-x: scroll;
 }
 .large_column::-webkit-scrollbar {
@@ -67,13 +67,14 @@ body {
   padding-top: 30px;
   width: 800px;
   height: 400px;
+  /* margin-left: 20px; */
 }
 .spinner {
   justify-content: center; /* Center the spinner horizontally */
   align-items: center;
 }
 .filtericon {
-  margin-left: 35rem;
+  margin-left: 45rem;
   align-self: flex-end;
   cursor: pointer;
 }
