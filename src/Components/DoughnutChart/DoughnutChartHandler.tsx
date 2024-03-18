@@ -23,18 +23,20 @@ const DoughnutChartHandler = () => {
     };
 
     const chartData = {
-        labels: ['Active', 'Progress', 'Expiring'],
+        labels: ['Expiring', 'Progress', 'Active'],
         datasets: [
             {
                 data: [
-                    contractData?.active || 0,
-                    contractData?.progress || 0,
                     contractData?.expiring || 0,
+                    contractData?.progress || 0,
+                    contractData?.active || 0,
+
                 ],
                 backgroundColor: [
-                    '#80EE90', // Active
-                    '#36A2EB', // Progress
-                    '#FFA500', // Expiring
+                    '#A5D8DD', // Expiring
+                    '#0091D5', // Progress
+                    '#1C4E80', // Active
+
                 ],
             },
         ],
