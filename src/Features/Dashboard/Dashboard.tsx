@@ -20,7 +20,7 @@ const Dashboard = () => {
   const userObject = JSON.parse(userString);
   const user_name = userObject?.first_name;
   return (
-    <>
+    < >
       {/* <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "1rem" }} /> */}
       <div className={styles["dashboard-div1"]}>
         {/* <h2 className={styles['dashboard-name']}>Hello, <span style={{color:'#DC143C'}}>{user_name}</span> </h2> */}
