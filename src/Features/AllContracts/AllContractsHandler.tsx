@@ -83,7 +83,7 @@ const AllContractsHandler = () => {
       let pagePath = locationPaths[locationPaths.length - 1]; //get the corresponding page path.
       console.log("location", pagePath);
       //get Api for MyContracts
-      if (pagePath === "My Contracts") {
+      if (pagePath === "MyContracts") {
         const USER_ID = localStorage.getItem("user_id") as string; //get user id
         setIsMyContracts(true);
         const result = await fetchMyContractsApi(

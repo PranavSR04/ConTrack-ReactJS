@@ -3,6 +3,7 @@ import { ContractApiType } from "../../../ContractView/FixedFee/types";
 
 export interface HeaderHandlerPropType {
   responses: ContractApiType | AxiosError<unknown, any> | undefined;
+  id: string;
 }
 
 export interface HeadingHandlerType {
@@ -17,6 +18,8 @@ export interface HeaderPropType {
   contractType: string;
   du: string;
   contractStatus: string;
+  navigateToEditContract: (id: string) => void;
+  id: string
 }
 
 export interface HandlerPropType {
