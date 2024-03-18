@@ -181,7 +181,7 @@ const SubmitEditMsa = async () => {
       setShowListMsa(true);
    
     form.resetFields();
-    navigate('/MSA',{ state: { edited:true } })
+    navigate("/MSA Overview", { state: { edited: true } });
     }
   } catch (error) {
     console.error("Error submitting form data:", error);

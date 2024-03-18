@@ -33,7 +33,7 @@ import AddContract from "./AddContract";
 //   onSubmit: (data: ContractDetails) => void;
 // }
 
-const AddContractHandler= () => {
+const AddContractHandler = () => {
   const [contractDetails, setContractDetails] = useState<ContractDetails>({
     msa_id: "",
     clientName: "",
@@ -47,7 +47,7 @@ const AddContractHandler= () => {
     milestone: [
       {
         milestones: "",
-        expectedCompletionDate: null,
+        expectedCompletionDate: "",
         percentage: null,
         amount: null,
       },
@@ -58,6 +58,8 @@ const AddContractHandler= () => {
     estimated_amount: null,
     contract_added_by: 3,
   });
+
+  const [uploadedFile, setUploadedFile] = useState(null);
 
   const [contractAdded, setContractAdded] = useState<boolean>(false);
   const [milestones, setMilestones] = useState<Milestone[]>(
@@ -100,7 +102,7 @@ const AddContractHandler= () => {
       ...milestones,
       {
         milestones: "",
-        expectedCompletionDate: null,
+        expectedCompletionDate: "",
         percentage: null,
         amount: null,
       },
@@ -190,7 +192,7 @@ const AddContractHandler= () => {
         file: info.file as RcFile,
       });
     } catch (e) {
-      console.log("file upload error is", e);
+      console.log("file upload error", e);
     }
   };
 
@@ -200,7 +202,9 @@ const AddContractHandler= () => {
     try {
       await addContract(contractDetails);
       setContractAdded(true);
-      navigate("/AllContracts",{ state: { added:contractAdded as boolean } });
+      navigate("/All Contracts", {
+        state: { added: contractAdded as boolean },
+      });
     } catch (error) {
       console.log("Form not submitted");
     }

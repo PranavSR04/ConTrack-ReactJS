@@ -6,7 +6,8 @@ import TextArea from "antd/es/input/TextArea";
 import { RenewMsaPropType } from "./types";
 import CloseContractModal from "../../ContractView/Documents/CloseContractModal";
 import RenewMsaModal from "./RenewMsaModal";
-import Toast from '../../../Components/Toast/Toast';
+import Toast from "../../../Components/Toast/Toast";
+import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
 
 const RenewMsa = ({
   msa_ref_id,
@@ -24,9 +25,10 @@ const RenewMsa = ({
   spinning,
   msaRenewed,
 }: RenewMsaPropType) => {
-  console.log(msaRenewed)
+  console.log(msaRenewed);
   return (
     <>
+      <BreadCrumbs style={{ marginLeft: "16rem", marginTop: "0.5rem" }} />
       <div className={styles.AddMsa}>
         <div>
           <h3 className={styles.AddMsa_Heading}>
@@ -78,7 +80,12 @@ const RenewMsa = ({
                 Region
                 <span className={styles.AddMsaDetails_star}>*</span>
                 <br />
-                <Input name="region" className={styles.AddMsaDetails_inputs} value={region} disabled/>
+                <Input
+                  name="region"
+                  className={styles.AddMsaDetails_inputs}
+                  value={region}
+                  disabled
+                />
               </Form.Item>
             </div>
             <div className={styles.AddMsaDetails_row2}>
@@ -88,7 +95,7 @@ const RenewMsa = ({
               >
                 Start Date
                 <span className={styles.AddMsaDetails_star}>*</span>
-                <br /> 
+                <br />
                 <DatePicker
                   format="YYYY-MM-DD"
                   className={styles.AddMsaDetails_inputs}
@@ -112,7 +119,11 @@ const RenewMsa = ({
               </Form.Item>
             </div>
             <div className={styles.AddMsaDetails_row3}>
-              <Form.Item name="file" className={styles.AddMsaDetails_row3_col1} required>
+              <Form.Item
+                name="file"
+                className={styles.AddMsaDetails_row3_col1}
+                required
+              >
                 Upload Master Service Agreement
                 <span className={styles.AddMsaDetails_star}>*</span>
                 <br />
@@ -169,12 +180,14 @@ const RenewMsa = ({
           </Form>
         </div>
         <RenewMsaModal
-        visible={visible}
-        submitRenewMsa={submitRenewMsa}
-        onCancel={onCancel}
+          visible={visible}
+          submitRenewMsa={submitRenewMsa}
+          onCancel={onCancel}
         />
         <Spin spinning={spinning} fullscreen />
-        {msaRenewed&&<Toast messageType="success" message='MSA Renewd'></Toast>}
+        {msaRenewed && (
+          <Toast messageType="success" message="MSA Renewd"></Toast>
+        )}
       </div>
     </>
   );

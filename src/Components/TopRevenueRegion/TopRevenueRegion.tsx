@@ -7,7 +7,8 @@ import { TopRevenueRegionHandlerPropType } from './type';
 const TopRevenueRegion = ({fetchTopRevenueRegions,barChartData,data}:TopRevenueRegionHandlerPropType) => {
   return (
 
-    <div style={{height: '400px', width: '600px', transform:'scale(0.7)'}}>
+    <div style={{height: '23rem', width: '18rem',paddingLeft:'0%', transform:'scale(1)'}}>
+        <p style={{fontSize:'.7rem',textAlign:'center'}}>  Top Revenue Regions</p>
      <Bar
             data={data}
             options={{

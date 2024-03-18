@@ -8,7 +8,7 @@ export interface RcFile extends File {
 
 export interface Milestone {
   milestones: string | null;
-  expectedCompletionDate: Date | null;
+  expectedCompletionDate: string;
   percentage?: number | null;
   amount: number | null;
 }
