@@ -42,7 +42,7 @@ body {
 
 .large_column {
   
-  width: 800px;
+  width: 1000px;
   /* transform: scale(1.2); */
   overflow-x: scroll;
 }
@@ -65,7 +65,7 @@ body {
 }
 .container {
   padding-top: 30px;
-  width: 800px;
+  width: 1000px;
   height: 400px;
   /* margin-left: 20px; */
 }
