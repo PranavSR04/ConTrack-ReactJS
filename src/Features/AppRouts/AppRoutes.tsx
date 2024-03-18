@@ -106,7 +106,7 @@ const AppRoutes = () => {
               {/* <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route> */}
 
               <Route
-                path="/All Contracts"
+                path="/AllContracts"
                 element={
                   <>
                     <NavBarHandler />
@@ -117,7 +117,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/My Contracts"
+                path="/MyContracts"
                 element={
                   <>
                     <NavBarHandler />
