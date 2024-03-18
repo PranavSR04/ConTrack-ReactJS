@@ -16,12 +16,12 @@ const RenewMsaHandler = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [spinning, setSpinning] = React.useState<boolean>(false);
   const [filePdf, setFilePdf] = useState<RcFile | null>();
-  const [msaRenewed, setMsaRenewed] = useState<boolean>(false)
+  const [msaRenewed, setMsaRenewed] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { msa_ref_id }= location.state as LocationStateProps;
-  console.log("Id:", msa_ref_id)
+  const { msa_ref_id } = location.state as LocationStateProps;
+  console.log("Id:", msa_ref_id);
 
   const [msaData, setMsaData] = useState({
     client_name: "",
@@ -95,8 +95,7 @@ const RenewMsaHandler = () => {
       console.log("filepdf:", filePdf);
       // setMsaRenewed(true)
     }
-  }, [msaData, 
-  ]);
+  }, [msaData]);
 
   const handleFileUpload = (info: any) => {
     setFormData({ ...formData, file: info.file as RcFile });
@@ -133,23 +132,26 @@ const RenewMsaHandler = () => {
         formDatatoSend.append("file", filePdf || "");
 
         // Sending the changed values to the API
-        await postRenewMsa(msa_ref_id, user_id, formDatatoSend).then(() => {
-          // Only set msaRenewed to true if the API call succeeds
-          setMsaRenewed(true);
-          console.log("msaRenewed is now true");
-      })
-      .catch((error) => {
-          console.error("Error submitting form data:", error);
-          window.alert("Error occurred while submitting the form. Please try again.");
-      });
+        await postRenewMsa(msa_ref_id, user_id, formDatatoSend)
+          .then(() => {
+            // Only set msaRenewed to true if the API call succeeds
+            setMsaRenewed(true);
+            console.log("msaRenewed is now true");
+          })
+          .catch((error) => {
+            console.error("Error submitting form data:", error);
+            window.alert(
+              "Error occurred while submitting the form. Please try again."
+            );
+          });
         // setMsaRenewed(true);
         setSpinning(false);
-        navigate("/msa");
+        navigate("/MSA Overview");
       }
     } catch (error) {
       console.error("Error submitting form data:", error);
       setSpinning(false);
-      navigate("/msa");
+      navigate("/MSA Overview");
     } finally {
       // Close the modal
       onCancel();

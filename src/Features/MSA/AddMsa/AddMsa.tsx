@@ -19,6 +19,7 @@ import styles from "../Msa.module.css";
 import { AddMsaPropsType } from "./types";
 import Toast from "../../../Components/Toast/Toast";
 import moment from "moment";
+import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
 const AddMsa = ({
   SubmitAddMsa,
   fileName,
@@ -38,20 +39,21 @@ const AddMsa = ({
   isFormFilled,
   start_date,
   date_validate,
-  spinning
+  spinning,
 }: AddMsaPropsType) => {
- console.log("msa addded for toaster",msaAdded);
-console.log("msa_ref_id is",msaRefId);
-const [form] = Form.useForm();
-const onFinish = (values:any) => {
-  console.log('Start Date:', start_date);
-  
-};
-console.log('date validation condition',date_validate)
+  console.log("msa addded for toaster", msaAdded);
+  console.log("msa_ref_id is", msaRefId);
+  const [form] = Form.useForm();
+  const onFinish = (values: any) => {
+    console.log("Start Date:", start_date);
+  };
+  console.log("date validation condition", date_validate);
   return (
     <>
       <div className={styles.AddMsa}>
         <div>
+          <BreadCrumbs style={{ marginTop: "-1rem" }} />
+          <br />
           <h3 className={styles.AddMsa_Heading}>
             ADD MASTER SERVICE AGREEMENT
           </h3>
@@ -71,8 +73,8 @@ console.log('date validation condition',date_validate)
               <Form.Item
                 className={styles.AddMsaDetails_row1_col1}
                 name="msa_ref_id"
-                labelCol={{span:24}}
-                wrapperCol={{span:24}}
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
                 label="MSA Reference ID"
                 valuePropName={msaRefId}
               >
@@ -86,42 +88,46 @@ console.log('date validation condition',date_validate)
               <Form.Item
                 className={styles.AddMsaDetails_row1_col2}
                 name="client_name"
-                label={<div>Client Name
-                <span style={{ color: 'red' }}> *</span></div>
-              }
-               labelCol={{span:24}}
-               wrapperCol={{span:24}}
-               rules={[
-                { required: true, message: 'Please enter the Client Name' },
-                { 
-                  pattern: /^.{5,}$/, 
-                message: 'Client name must contain at least 5 characters' 
-              }
-            ]}
-            
+                label={
+                  <div>
+                    Client Name
+                    <span style={{ color: "red" }}> *</span>
+                  </div>
+                }
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
+                rules={[
+                  { required: true, message: "Please enter the Client Name" },
+                  {
+                    pattern: /^.{5,}$/,
+                    message: "Client name must contain at least 5 characters",
+                  },
+                ]}
               >
                 <Input
                   name="client_name"
                   className={styles.AddMsaDetails_inputs}
-                   onChange={handleInputChange}
-                  
+                  onChange={handleInputChange}
                 />
               </Form.Item>
               <Form.Item
                 className={styles.AddMsaDetails_row1_col3}
                 name="region"
-                label={<div>Region
-                  <span style={{ color: 'red' }}> *</span></div>
+                label={
+                  <div>
+                    Region
+                    <span style={{ color: "red" }}> *</span>
+                  </div>
                 }
-                 labelCol={{span:24}}
-                 wrapperCol={{span:24}}
-                 rules={[
-                  { required: true, message: 'Please enter the Region' },
-                  { 
-                    pattern: /^[a-zA-Z]+$/, 
-                  message: 'Region must be letters' 
-                }
-              ]}
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
+                rules={[
+                  { required: true, message: "Please enter the Region" },
+                  {
+                    pattern: /^[a-zA-Z]+$/,
+                    message: "Region must be letters",
+                  },
+                ]}
               >
                 <Input
                   name="region"
@@ -134,14 +140,17 @@ console.log('date validation condition',date_validate)
               <Form.Item
                 className={styles.AddMsaDetails_row2_col1}
                 name="start_date"
-                label={<div>Start Date
-                  <span style={{ color: 'red' }}> *</span></div>
+                label={
+                  <div>
+                    Start Date
+                    <span style={{ color: "red" }}> *</span>
+                  </div>
                 }
-                 labelCol={{span:24}}
-                 wrapperCol={{span:24}}
-                 rules={[
-                  { required: true, message: 'Please enter the Start Date' }
-              ]}
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
+                rules={[
+                  { required: true, message: "Please enter the Start Date" },
+                ]}
               >
                 <DatePicker
                   //format="DD-MM-YYYY"
@@ -153,19 +162,20 @@ console.log('date validation condition',date_validate)
               <Form.Item
                 className={styles.AddMsaDetails_row2_col2}
                 name="end_date"
-                label={<div>End Date
-                  <span style={{ color: 'red' }}> *</span></div>
+                label={
+                  <div>
+                    End Date
+                    <span style={{ color: "red" }}> *</span>
+                  </div>
                 }
-                 labelCol={{span:24}}
-                 wrapperCol={{span:24}}
-                 rules={[
-                  { required: true, message: 'Please enter the End Date' },
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
+                rules={[
+                  { required: true, message: "Please enter the End Date" },
                   {
-                    validator:validateStartDate
-                  }
-                  
-              ]}
-        
+                    validator: validateStartDate,
+                  },
+                ]}
               >
                 <DatePicker
                   //format="DD-MM-YYYY"
@@ -176,19 +186,19 @@ console.log('date validation condition',date_validate)
               </Form.Item>
             </div>
             <div className={styles.AddMsaDetails_row3}>
-              <Form.Item 
-              name="file" 
-              className={styles.AddMsaDetails_row3_col1}
-             
-                label={<div>Upload Master Service Agreement
-                  <span style={{ color: 'red' }}> *</span></div>
+              <Form.Item
+                name="file"
+                className={styles.AddMsaDetails_row3_col1}
+                label={
+                  <div>
+                    Upload Master Service Agreement
+                    <span style={{ color: "red" }}> *</span>
+                  </div>
                 }
-                 labelCol={{span:24}}
-                 wrapperCol={{span:24}}
-                 rules={[
-                  { required: true, message: 'Please upload File' },
-              ]}>
-
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
+                rules={[{ required: true, message: "Please upload File" }]}
+              >
                 {fileName ? (
                   <div>
                     <FilePdfOutlined
@@ -220,14 +230,15 @@ console.log('date validation condition',date_validate)
               <Form.Item
                 name="comments"
                 className={styles.AddMsaDetails_row3_col2}
-                label={<div>Comments/Remarks
-                  <span style={{ color: 'red' }}> *</span></div>
+                label={
+                  <div>
+                    Comments/Remarks
+                    <span style={{ color: "red" }}> *</span>
+                  </div>
                 }
-                 labelCol={{span:24}}
-                 wrapperCol={{span:24}}
-                 
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
               >
-
                 <TextArea
                   rows={4}
                   name="comments"
@@ -243,18 +254,14 @@ console.log('date validation condition',date_validate)
             >
               Add MSA
             </Button>
-            
+
             <Modal
               title="Confirm Add MSA"
               visible={isModalVisible}
               // onOk={handleOk}
               onCancel={handleCancel}
               footer={[
-                <Button
-                  key="ok"
-                  type="primary"
-                  onClick={handleOk}
-                >
+                <Button key="ok" type="primary" onClick={handleOk}>
                   Yes
                 </Button>,
                 <Button key="cancel" onClick={handleCancel}>
@@ -262,13 +269,9 @@ console.log('date validation condition',date_validate)
                 </Button>,
               ]}
             >
-    
               <Spin spinning={spinning} fullscreen />
             </Modal>
           </Form>
-  
-         
-          
         </div>
       </div>
     </>

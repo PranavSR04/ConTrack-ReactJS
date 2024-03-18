@@ -145,14 +145,22 @@ const AddMsaHandler = () => {
           
           form.resetFields();
           generateMsaId();
-          navigate('/MSA',{ state: { added:true } })
+          navigate("/MSA Overview", { state: { added: true } });
           //}
         } catch (error) {
           console.error("Error submitting form data:", error);
         }
-        setSpinning(false);
+        //setSpinning(false);
 
       }
+      const stopSpinning = () => {
+        setTimeout(() => {
+          setSpinning(false);
+        }, 2000); // 2000 milliseconds = 2 seconds
+      };
+      useEffect(() => {
+        stopSpinning();
+      }, []);
       const validateStartDate = async (value:any) => {
         if (value && formData.end_date && moment(value).isAfter(formData.end_date)) {
           throw new Error('End date must be after start date');

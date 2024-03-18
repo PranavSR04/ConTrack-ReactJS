@@ -147,11 +147,15 @@ const showInactiveMSA=async()=>{
     };
     const oneditPage = (msa_ref_id: string) => {
       setActionClicked(true);
-      navigate(`/msa/edit`, { state: { msa_ref_id: msa_ref_id as string } });
+      navigate(`/MSA Overview/Edit MSA`, {
+        state: { msa_ref_id: msa_ref_id as string },
+      });
     };
     const onrenewPage = (msa_ref_id: string) => {
       setActionClicked(true);
-      navigate(`/msa/renew`, { state: { msa_ref_id: msa_ref_id as string } });
+      navigate(`/MSA Overview/Renew MSA`, {
+        state: { msa_ref_id: msa_ref_id as string },
+      });
     };
   const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
     title: customHeadings[key],

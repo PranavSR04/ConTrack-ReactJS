@@ -12,11 +12,10 @@ import AllContracts from "./AllContracts";
 import { useNavigate } from "react-router";
 import tableStyles from "./contractsList.module.css";
 import { useLocation } from "react-router";
+import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 const AllContractsHandler = () => {
   const [data, setData] = useState<ContractData[]>([]);
-  const [searchConditions, setSearchConditions] = useState<
-    Record<string, string>
-  >({});
+  const [searchConditions, setSearchConditions] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [isEmptySearch, setIsEmptySearch] = useState<boolean>(false);
   const [actionClicked, setActionClicked] = useState<boolean>(false);
@@ -24,10 +23,12 @@ const AllContractsHandler = () => {
   const [contractAddToast, setContractAddToast] = useState<boolean>(false);
   const [contractEditToast, setContractEditToast] = useState<boolean>(false);
   const [isMyContracts, setIsMyContracts] = useState<boolean>(false);
+  const [slideroption, setSlideroption] = useState<string>('');
   const navigate = useNavigate();
   const location = useLocation();
   const role_id = parseInt(localStorage.getItem("role_id") || "0", 10);
   const [pageTitle, setPageTitle] = useState("CONTRACTS OVERVIEW");
+
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10, // Default page size
@@ -45,6 +46,21 @@ const AllContractsHandler = () => {
     setSearchConditions({}); //clear search from Api
     setIsEmptySearch(true);
   };
+  const handleSegmentChange = (value: string) => {
+    if(value==='All'){
+      setSlideroption('');
+      clearSearch();
+    }
+    else if(value==='Associated'){
+      setSlideroption('associated_by_me');
+      clearSearch();
+    }
+    else{
+      setSlideroption('added_by_me');
+      clearSearch();
+    }
+  }
+  
 
   useEffect(() => {
     setSearchConditions({}); //clear search and search entry
@@ -83,13 +99,14 @@ const AllContractsHandler = () => {
       //get Api for MyContracts
       if (pagePath === "MyContracts") {
         const USER_ID = localStorage.getItem("user_id") as string; //get user id
-        setIsMyContracts(true)
+        setIsMyContracts(true);
         const result = await fetchMyContractsApi(
           searchConditions,
           pagination.current,
           pagination.pageSize,
           USER_ID,
-          checkedExpiring
+          checkedExpiring,
+          slideroption
         );
         setData(result.data);
         setPageTitle("MY CONTRACTS");
@@ -105,10 +122,11 @@ const AllContractsHandler = () => {
           searchConditions,
           pagination.current,
           pagination.pageSize,
-          checkedExpiring
+          checkedExpiring,
         );
         setData(result.data);
         setPageTitle("CONTRACTS OVERVIEW");
+
         console.log("result:", result.data);
         console.log("toatal page", result.total);
         setPagination({
@@ -150,7 +168,9 @@ const AllContractsHandler = () => {
 
   const rowClickHandler = (record: ContractData) => {
     if (!actionClicked) {
-      navigate(`/contract`, { state: { id: record.id as string } });
+      navigate(`${record.contract_ref_id}`, {
+        state: { id: record.id as string },
+      });
     }
   };
   const getColumnSearchProps = (dataIndex: string) => {
@@ -228,7 +248,9 @@ const AllContractsHandler = () => {
 
   const oneditPage = (contract_id: string) => {
     setActionClicked(true);
-    navigate(`/editContract`, { state: { id: contract_id as string } });
+    navigate(`Edit Contract`, {
+      state: { id: contract_id as string },
+    });
   };
 
   columns.push({
@@ -248,6 +270,8 @@ const AllContractsHandler = () => {
         className = "status-closed";
       } else if (status === "Expired") {
         className = "status-closed";
+      }else if (status === "Expiring") {
+        className = "status-Expiring";
       }
       return (
         <Tag
@@ -296,6 +320,7 @@ const AllContractsHandler = () => {
         contractAddToast={contractAddToast}
         contractEditToast={contractEditToast}
         isMyContracts={isMyContracts}
+        handleSegmentChange={handleSegmentChange}
       />
     </>
   );
