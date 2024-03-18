@@ -8,7 +8,7 @@
   height:80px;
   width:320px;
   transition: transform 0.3s ease;
-  
+ 
 }
 .style2:hover{
   display: flex;
@@ -49,10 +49,10 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
 
-.Notification_style1__9gMtnadded> p {
+.Notification_style1__0gYptadded> p {
 margin-top: 10%;
 background-color: #e9d2f4;
 color: #320249;
@@ -60,9 +60,9 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
-.Notification_style1__9gMtnedited> p{
+.Notification_style1__0gYptedited> p{
 margin-top: 10px;
 background-color: #eba68d;
 color: #451b0c;
@@ -70,9 +70,9 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
-.Notification_style1__9gMtnrenewed> p{
+.Notification_style1__0gYptrenewed> p{
 margin-top: 10px;
 background-color: #ACF3A0;
 color: #1F9423;
@@ -80,9 +80,9 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
-.Notification_style1__9gMtnexpired> p{
+.Notification_style1__0gYptexpired> p{
 margin-top: 10px;
 background-color: #DC143C;
 color: #5F2828;
@@ -90,9 +90,9 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
-.Notification_style1__9gMtnexpiring> p{
+.Notification_style1__0gYptexpiring> p{
 margin-top: 10px;
 background-color: #F2E291;
 color: #9F7D24;
@@ -100,7 +100,7 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
 .Notification_style2__O2Jsladded> p {
 margin-top: 10%;
@@ -110,7 +110,7 @@ font-weight:700;
 font-size: 10px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
 .Notification_style2__O2Jsledited> p{
 margin-top: 10px;
@@ -120,7 +120,7 @@ font-weight:700;
 font-size: 10px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
 .Notification_style2__O2Jslrenewed> p{
 margin-top: 10px;
@@ -130,7 +130,7 @@ font-weight:700;
 font-size: 10px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
 .Notification_style2__O2Jslexpired> p{
 margin-top: 10px;
@@ -140,7 +140,7 @@ font-weight:700;
 font-size: 10px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
 .Notification_style2__O2Jslexpiring> p{
 margin-top: 10px;
@@ -150,9 +150,9 @@ font-weight:700;
 font-size: 10px;
 padding: 9%;
 width: 60px;
-border-radius: 20px; 
+border-radius: 20px;
 }
-.Notification_style1__9gMtncardStyle_right{
+.Notification_style1__0gYptcardStyle_right{
 flex: 7;
 padding-left: 6px;
 text-align: left;
@@ -174,9 +174,9 @@ font-size: 12px;
 margin-top: 10px;
 }
 .listStyle{
-max-height: calc(99vh - 50px - 50px); 
+max-height: calc(99vh - 50px - 50px);
 overflow-y: auto;
-scrollbar-width: none; 
+scrollbar-width: none;
 -ms-overflow-style: none;
 text-align: center;
 font-size: 15px;
