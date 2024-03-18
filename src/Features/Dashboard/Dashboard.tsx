@@ -27,17 +27,29 @@ const Dashboard = () => {
         {/* <Card >
       <ContractsCount/>
     </Card> */}
-    <div className={styles['dash-row1-div']}>
-    <div className={styles['dash-revenue-div']}>
-    <div className={styles['dash-revenue-div-month']}><DashBoardMonthlyRevenueHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardQuaterlyRevenueHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardYearlyRevenueHandler/></div>
+        <div className={styles["dash-row1-div"]}>
+          <div className={styles["dash-revenue-div"]}>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardMonthlyRevenueHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardQuaterlyRevenueHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardYearlyRevenueHandler />
+            </div>
 
-    <div className={styles['dash-revenue-div-month']}><DashBoardContractCountHandler/></div>
-    <div className={styles['dash-revenue-div-month']}><DashBoardMsaCountHandler/></div>
-    </div>
-    <div className={styles['dash-revenue-div-notifi']}><DashBoardNotificationListHandler/></div>
-    </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardContractCountHandler />
+            </div>
+            <div className={styles["dash-revenue-div-month"]}>
+              <DashBoardMsaCountHandler />
+            </div>
+          </div>
+          <div className={styles["dash-revenue-div-notifi"]}>
+            <DashBoardNotificationListHandler />
+          </div>
+        </div>
 
     <div className={styles['dash-row1-charts']}>
     <div className={styles['dash-row1-barchart']}>

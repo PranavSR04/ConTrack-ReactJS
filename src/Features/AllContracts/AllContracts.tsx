@@ -28,7 +28,7 @@ const AllContracts = ({
 
   return (
     <>
-      <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "2rem" }} />;
+      {/* <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "2rem" }} />; */}
       <h3 className={styles["contracts-h1"]}>{pageTitle}</h3>
       <div className={styles["contracts-table"]}>
         <div className={styles["contracts-buttons"]}>
