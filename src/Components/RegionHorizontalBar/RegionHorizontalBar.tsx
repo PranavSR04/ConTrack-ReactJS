@@ -18,8 +18,8 @@ const RegionHorizontalBar = () => {
                 datasets: [{
                     label: 'Contract Count',
                     data: result.data.map((item:apiData) => item.contractCount),
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: '#1C4E80',
+                    borderColor: '#1C4E80',
                     borderWidth: 1,
                 }],
             };
@@ -56,7 +56,7 @@ const RegionHorizontalBar = () => {
       };
 
     return (
-        <div style={{ width:'17.6rem',height:'20rem'}}>
+        <div style={{ width:'19.6rem',height:'28rem'}}>
             <p style={{fontSize:'.7rem',textAlign:'center'}}>  Top Contract Regions</p>
             {regionData&& <Bar data={regionData} options={options} />}
             

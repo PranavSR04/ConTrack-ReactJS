@@ -51,28 +51,26 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className={styles["dash-row1-charts"]}>
-          <div className={styles["dash-row1-barchart"]}>
-            <Card className={styles["dash-row2-ducharts"]}>
-              <BarChartHandler />{" "}
-            </Card>
-          </div>
-          <div className={styles["dash-row1-doughnut"]}>
-            <DoughnutChartHandler />
-          </div>
-        </div>
-
-        <div className={styles["dash-row2-charts"]}>
-          <Card style={{ backgroundColor: "white", marginRight: "1rem" }}>
-            <ScatterPlotHandler />
-          </Card>
-          <Card style={{ backgroundColor: "white", marginRight: "1rem" }}>
-            <RegionHorizontalBar />
-          </Card>
-          <Card style={{ backgroundColor: "white" }}>
-            <TopRevenueHandler />
-          </Card>
-        </div>
+    <div className={styles['dash-row1-charts']}>
+    <div className={styles['dash-row1-barchart']}>
+      <Card className={styles['dash-row2-ducharts']}><BarChartHandler/> </Card>  
+      </div> 
+      <div className={styles['dash-row1-doughnut']}>     
+      <DoughnutChartHandler />
+      </div> 
+    </div>
+    
+<div  className={styles['dash-row2-charts']}>
+  <Card style={{backgroundColor:'white',marginRight:'.8rem'}}>      
+    <ScatterPlotHandler/>
+      </Card> 
+ <Card style={{backgroundColor:'white',marginRight:'.8rem'}}>
+ <RegionHorizontalBar/>
+ </Card>
+ <Card style={{backgroundColor:'white', }}>
+ <TopRevenueHandler/>
+ </Card>
+</div>
       </div>
     </>
   );

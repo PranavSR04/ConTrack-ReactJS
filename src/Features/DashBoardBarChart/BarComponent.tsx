@@ -8,6 +8,11 @@ const BarComponent = ({data}:BarChartPropType) => {
     const labels = data.map(item => item.du);
     const tmcounts = data.map(item => item.TM);
     const ffcounts = data.map(item => item.FF);
+    const tmMax = Math.max(...tmcounts);
+    const ffMax = Math.max(...ffcounts);
+    const maxDataValue = Math.max(tmMax, ffMax);
+
+    
     const dataset = {
         labels: labels,
         
@@ -15,7 +20,7 @@ const BarComponent = ({data}:BarChartPropType) => {
           {
             label: 'TM Counts',
             data: tmcounts,
-            backgroundColor: '#17a977',
+            backgroundColor: '#1C4E80',
             barPercentage: 0.6,
 
             
@@ -23,7 +28,7 @@ const BarComponent = ({data}:BarChartPropType) => {
           {
             label: 'FF Counts',
             data: ffcounts,
-            backgroundColor: '#177977',
+            backgroundColor: '#0091D5',
             barPercentage: 0.6,
           }
         ],
@@ -49,10 +54,11 @@ const BarComponent = ({data}:BarChartPropType) => {
               text: 'Contract Count'
           },
             min: 0,
-            max: 10
+            max: Math.ceil(maxDataValue * 1.1)
             
-          }
+          },
         }
+        
       };
       
   

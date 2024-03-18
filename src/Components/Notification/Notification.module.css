@@ -52,7 +52,7 @@
   border-radius: 20px; 
 }
 
-.Notification_style1__9gMtnadded> p {
+.Notification_style1__0gYptadded> p {
   margin-top: 10%;
   background-color: #e9d2f4;
   color: #320249;
@@ -62,7 +62,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style1__9gMtnedited> p{
+.Notification_style1__0gYptedited> p{
   margin-top: 10px;
   background-color: #eba68d;
   color: #451b0c;
@@ -72,7 +72,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style1__9gMtnrenewed> p{
+.Notification_style1__0gYptrenewed> p{
   margin-top: 10px;
   background-color: #ACF3A0;
   color: #1F9423;
@@ -82,7 +82,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style1__9gMtnexpired> p{
+.Notification_style1__0gYptexpired> p{
   margin-top: 10px;
   background-color: #DC143C;
   color: #5F2828;
@@ -92,7 +92,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style1__9gMtnexpiring> p{
+.Notification_style1__0gYptexpiring> p{
   margin-top: 10px;
   background-color: #F2E291;
   color: #9F7D24;
@@ -102,7 +102,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style2__O2Jsladded> p {
+.Notification_style2__w-PiDadded> p {
   margin-top: 10%;
   background-color: #e9d2f4;
   color: #320249;
@@ -112,7 +112,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style2__O2Jsledited> p{
+.Notification_style2__w-PiDedited> p{
   margin-top: 10px;
   background-color: #eba68d;
   color: #451b0c;
@@ -122,7 +122,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style2__O2Jslrenewed> p{
+.Notification_style2__w-PiDrenewed> p{
   margin-top: 10px;
   background-color: #ACF3A0;
   color: #1F9423;
@@ -132,7 +132,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style2__O2Jslexpired> p{
+.Notification_style2__w-PiDexpired> p{
   margin-top: 10px;
   background-color: #DC143C;
   color: #5F2828;
@@ -142,7 +142,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style2__O2Jslexpiring> p{
+.Notification_style2__w-PiDexpiring> p{
   margin-top: 10px;
   background-color: #F2E291;
   color: #9F7D24;
@@ -152,7 +152,7 @@
   width: 60px;
   border-radius: 20px; 
 }
-.Notification_style1__9gMtncardStyle_right{
+.Notification_style1__0gYptcardStyle_right{
   flex: 7;
   padding-left: 6px;
   text-align: left;
@@ -166,7 +166,7 @@
   font-size: 8px;
   margin-top: 10px;
 }
-.Notification_style2__O2JslcardStyle_right{
+.Notification_style2__w-PiDcardStyle_right{
   flex: 7;
   padding-left: 6px;
   text-align: left;

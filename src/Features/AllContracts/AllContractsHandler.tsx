@@ -15,9 +15,7 @@ import { useLocation } from "react-router";
 import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 const AllContractsHandler = () => {
   const [data, setData] = useState<ContractData[]>([]);
-  const [searchConditions, setSearchConditions] = useState<
-    Record<string, string>
-  >({});
+  const [searchConditions, setSearchConditions] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [isEmptySearch, setIsEmptySearch] = useState<boolean>(false);
   const [actionClicked, setActionClicked] = useState<boolean>(false);
@@ -25,6 +23,7 @@ const AllContractsHandler = () => {
   const [contractAddToast, setContractAddToast] = useState<boolean>(false);
   const [contractEditToast, setContractEditToast] = useState<boolean>(false);
   const [isMyContracts, setIsMyContracts] = useState<boolean>(false);
+  const [slideroption, setSlideroption] = useState<string>('');
   const navigate = useNavigate();
   const location = useLocation();
   const role_id = parseInt(localStorage.getItem("role_id") || "0", 10);
@@ -47,6 +46,21 @@ const AllContractsHandler = () => {
     setSearchConditions({}); //clear search from Api
     setIsEmptySearch(true);
   };
+  const handleSegmentChange = (value: string) => {
+    if(value==='All'){
+      setSlideroption('');
+      clearSearch();
+    }
+    else if(value==='Associated'){
+      setSlideroption('associated_by_me');
+      clearSearch();
+    }
+    else{
+      setSlideroption('added_by_me');
+      clearSearch();
+    }
+  }
+  
 
   useEffect(() => {
     setSearchConditions({}); //clear search and search entry
@@ -91,7 +105,8 @@ const AllContractsHandler = () => {
           pagination.current,
           pagination.pageSize,
           USER_ID,
-          checkedExpiring
+          checkedExpiring,
+          slideroption
         );
         setData(result.data);
         setPageTitle("MY CONTRACTS");
@@ -107,7 +122,7 @@ const AllContractsHandler = () => {
           searchConditions,
           pagination.current,
           pagination.pageSize,
-          checkedExpiring
+          checkedExpiring,
         );
         setData(result.data);
         setPageTitle("CONTRACTS OVERVIEW");
@@ -255,6 +270,8 @@ const AllContractsHandler = () => {
         className = "status-closed";
       } else if (status === "Expired") {
         className = "status-closed";
+      }else if (status === "Expiring") {
+        className = "status-Expiring";
       }
       return (
         <Tag
@@ -303,6 +320,7 @@ const AllContractsHandler = () => {
         contractAddToast={contractAddToast}
         contractEditToast={contractEditToast}
         isMyContracts={isMyContracts}
+        handleSegmentChange={handleSegmentChange}
       />
     </>
   );
