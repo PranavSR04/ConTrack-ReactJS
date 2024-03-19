@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import ListMsa from './ListMsa'
-import { LocationStateProps, MsaData, TableColumn } from './types';
-import { Button, Input, Menu, Space, TableColumnsType } from 'antd';
-import { CloudDownloadOutlined, DownOutlined, EditOutlined, SearchOutlined, SyncOutlined } from '@ant-design/icons';
-import styles from "./ListMsa.module.css";
-import axios from 'axios';
+import { MsaData, TableColumn } from './types';
+import { Button, Input} from 'antd';
+import { CloudDownloadOutlined, EditOutlined, SearchOutlined, SyncOutlined } from '@ant-design/icons';
 import { getapi } from './api/getapi';
 import { TablePaginationConfig } from 'antd/lib';
 import { FilterConfirmProps } from 'antd/es/table/interface';
@@ -19,6 +17,7 @@ const ListMsaHandler = () => {
   const location = useLocation();
   const [added, setAdded] = useState(false);
   const[edited,setEdited]=useState(false);
+  const[renew,setRenew]=useState(false)
 
   useEffect(() => {
       if (location.state) {
@@ -28,6 +27,8 @@ const ListMsaHandler = () => {
         }
         else if (location.state.edited) {
          setEdited(true);
+      }else if (location.state.renew){
+        setRenew(true)
       }
           setTimeout(() => {
             window.history.replaceState(null, '');
@@ -68,9 +69,7 @@ const ListMsaHandler = () => {
     try {
       setActionClicked(false)
       const response = await getapi(pagination.current, pagination.pageSize,searchConditions);
-     // const inactiveresponse= await getapi_inactivemsa(pagination.current, pagination.pageSize,searchConditions);
       setData(response.data);
-     // console.log("inactive response",inactiveresponse)
       setPagination({
         ...pagination,
         total: response.total,
@@ -115,6 +114,10 @@ const showInactiveMSA=async()=>{
   const getColumnSearchProps = (dataIndex: string) => {
     return{
     filterDropdown: ({ selectedKeys,confirm, setSelectedKeys}: { selectedKeys: React.Key[]; confirm: (param?: FilterConfirmProps) => void;setSelectedKeys: (selectedKeys: React.Key[]) => void;}) => { 
+      if (dataIndex === 'msa_ref_id') {
+                return null;
+    }
+
       return (<div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           placeholder={`Search ${(customHeadings as Record<string, string>)[dataIndex]}`}
@@ -131,10 +134,14 @@ const showInactiveMSA=async()=>{
       </div>
       )
     },
-    filterIcon: () => (
-      <SearchOutlined/>
-    ),
-    }};
+    filterIcon: (filtered:boolean) => {
+      if(dataIndex==='msa_ref_id'){
+         return null;
+      }
+      return <SearchOutlined/>
+    },
+    };
+  };
     const onSearch = ( selectedKeys: string, selectedField: string) => {
       setIsEmptySearch(false); 
       setSearchConditions((prevConditions) => ({...prevConditions, [selectedField]: selectedKeys }));
@@ -161,7 +168,7 @@ const showInactiveMSA=async()=>{
     title: customHeadings[key],
     dataIndex: key,
     key,
-    sorter: (a: MsaData, b: MsaData) => (a[key as keyof MsaData]).localeCompare(b[key as keyof MsaData]),
+    sorter: key === 'msa_ref_id' ? false : (a: MsaData, b: MsaData) => (a[key as keyof MsaData]).localeCompare(b[key as keyof MsaData]),
     sortDirections: ['ascend', 'descend'],
     ...getColumnSearchProps(key),
   }));
@@ -223,6 +230,7 @@ const showInactiveMSA=async()=>{
     fetchData={fetchData}
     showInactiveMSA={showInactiveMSA}
     rowClassName={rowClassName}
+    renew={renew}
    />
   )
   }

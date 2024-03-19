@@ -30,22 +30,19 @@ const EditMsa = ({
   handleEditMsa,
   isModalVisible,
   handleCancel,
-  isLoading,
   handleInputChange,
   handleDateChange,
   handleEndDateChange,
   SubmitEditMsa,
   fileCancel,
-  fileUpload,
   showFile,
   handleFileUpload,
   fileName,
-  handleOk,
-  fullPageSpinner,
   validateStartDate,
   validateClientName,
   validateRegion,
   spinning,
+  beforeUpload
 }: EditMsaHandlertype) => {
   console.log("start date:", msaData.start_date);
   const navigate = useNavigate();
@@ -85,7 +82,7 @@ const EditMsa = ({
                   name="msa_ref_id"
                   value={msa_ref_id}
                   readOnly
-                  className={styles.AddMsaDetails_inputs}
+                  className={styles.AddMsaDetails_inputs_msarefid}
                 />
               </Form.Item>
               <Form.Item
@@ -133,10 +130,6 @@ const EditMsa = ({
                   {
                     validator: validateRegion,
                   },
-                  //   {
-                  //     pattern: /^[a-zA-Z]+$/,
-                  //   message: 'Region must be letters'
-                  // }
                 ]}
               >
                 <Input
@@ -159,15 +152,17 @@ const EditMsa = ({
                 }
                 labelCol={{ span: 24 }}
                 wrapperCol={{ span: 24 }}
-                rules={[
-                  { required: true, message: "Please enter the Start Date" },
-                ]}
+                valuePropName={msaData.start_date}
                 required
               >
                 <DatePicker
                   className={styles.AddMsaDetails_inputs}
-                  format="YYYY-MM-DD"
                   onChange={handleDateChange}
+                  value={
+                    msaData.start_date
+                      ? moment(msaData.start_date, "YYYY-MM-DD")
+                      : undefined
+                  }
                 />
               </Form.Item>
               <Form.Item
@@ -182,17 +177,19 @@ const EditMsa = ({
                 labelCol={{ span: 24 }}
                 wrapperCol={{ span: 24 }}
                 rules={[
-                  { required: true, message: "Please enter the End Date" },
                   {
                     validator: validateStartDate,
                   },
                 ]}
+                valuePropName={msaData.end_date}
                 required
               >
                 <DatePicker
-                  format="YYYY-MM-DD"
                   className={styles.AddMsaDetails_inputs}
                   onChange={handleEndDateChange}
+                  value={msaData.end_date
+                    ?moment(msaData.end_date, "YYYY-MM-DD"):
+                    undefined}
                 />
               </Form.Item>
             </div>
@@ -234,6 +231,10 @@ const EditMsa = ({
                 ) : fileName ? (
                   <>
                     <div>
+                    {/* <CloseOutlined
+                      className={styles.EditMsaDetails_row3_col1_closeicon}
+                      onClick={fileCancel}
+                    /> */}
                       <FilePdfOutlined
                         className={styles.AddMsaDetails_row3_col1_fileicon}
                       />
@@ -249,8 +250,9 @@ const EditMsa = ({
                       action=""
                       listType="picture-card"
                       fileList={[]}
-                      accept=".pdf"
+                      accept=".pdf,.docx"
                       customRequest={handleFileUpload}
+                      beforeUpload={beforeUpload}
                     >
                       <button
                         style={{ border: 0, background: "none" }}
@@ -291,11 +293,15 @@ const EditMsa = ({
               Edit MSA
             </Button>
             <Modal
-              title="Confirm Edit MSA"
+              title="Are you sure you want to edit this MSA?"
               visible={isModalVisible}
-              onCancel={handleCancel}
+              // onCancel={handleCancel}
+              // onOk={handleOk}
               footer={[
-                <Button key="ok" type="primary" onClick={handleOk}>
+                <Button 
+                className={styles.modal_okbutton}
+                key="ok" 
+                onClick={SubmitEditMsa}>
                   Yes
                 </Button>,
                 <Button key="cancel" onClick={handleCancel}>

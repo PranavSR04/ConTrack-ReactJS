@@ -72,7 +72,7 @@ const NotificationListHandler = () => {
         };
 
         fetchData();
-    }, [page]);
+    },[]);
 
     const viewMoreClick = () => {
         setPage(prevPage => prevPage + 1);
