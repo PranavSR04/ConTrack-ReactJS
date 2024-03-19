@@ -1,7 +1,7 @@
-// import { render, screen, fireEvent } from "@testing-library/react"
-// import { BrowserRouter } from "react-router-dom";
-// import { AllContractsPropType, ContractData } from "../../Features/AllContracts/types";
-// import AllContractsHandler from "../../Features/AllContracts/AllContractsHandler";
+import { render, screen, fireEvent } from "@testing-library/react"
+import { BrowserRouter } from "react-router-dom";
+import { AllContractsPropType, ContractData } from "../../Features/AllContracts/types";
+import AllContractsHandler from "../../Features/AllContracts/AllContractsHandler";
 // describe('group1',()=>{
 //     const mockTask:ContractData[]=[{id:'1', contract_ref_id:'A111',client_name: 'string',
 //     start_date: 'string',
