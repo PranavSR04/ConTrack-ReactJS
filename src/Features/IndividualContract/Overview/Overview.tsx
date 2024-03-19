@@ -76,7 +76,7 @@ const Overview = ({
               <h5
                 className={`${styles.maincontainer__overviewpayment__content__list__value}`}
               >
-                {contractTerm && contractTerm} Years
+                {contractTerm && contractTerm !== 0 ? `${contractTerm} Years` : '1 Year'} 
               </h5>
             </div>
           </div>
