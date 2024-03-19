@@ -72,6 +72,7 @@ const EditContractHandler = () => {
     ExistingMilestone[]
   >([]);
   const navigate = useNavigate();
+  const [spinning, setSpinning] = React.useState<boolean>(false);
 
   useEffect(() => {
     if (id) {
@@ -86,22 +87,6 @@ const EditContractHandler = () => {
       const contractData = data?.data;
       console.log("getContract api:", contractData);
       if (contractData) {
-        // console.log("Data",  contractData.data[0], contractData.data[0].contract_ref_id);
-        // const {
-        //   client_name,
-        //   contract_ref_id,
-        //   du,
-        //   start_date,
-        //   end_date,
-        //   date_of_signature,
-        //   contract_type,
-        //   milestones,
-        //   estimated_amount,
-        // } = contractData.data[0];
-        // console.log("Cname", client_name);
-        // console.log("Start Date", start_date);
-        // console.log("ContractRef ID", contract_ref_id);
-        // console.log("du", contractDetails.du);
         setContractDetails(contractData.data[0]);
         setExistingMilestone(contractData.data[0].milestones);
       }
@@ -313,6 +298,7 @@ const EditContractHandler = () => {
       };
 
       console.log("Updated Contract Details:", updatedContractDetails);
+      setSpinning(true);
       await editContract(updatedContractDetails, CON_ID);
       console.log("Contract Updated Successfully!");
       setContractEdited(true);
@@ -482,6 +468,7 @@ const EditContractHandler = () => {
       setContractDetails={setContractDetails}
       milestones={milestones}
       existingMilestone={existingMilestone}
+      spinning={spinning}
       //   milestones={existingMilestone}
     />
   );

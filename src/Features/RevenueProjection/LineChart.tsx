@@ -38,17 +38,24 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 				pointHitRadius: 2,
 				pointHoverBackgroundColor: "blue",
 				tension: 0.1,
+				// fill:true
 			},
 		],
 	};
 
 	const options = {
+		maintainAspectRatio: false,
+		plugins: {
+			legend: {
+				display: false // Hide the legend
+			}
+		},
 		layout: {
 			padding: {
-				left: 90, // Increase the left padding to create space
+				left: 0, // Increase the left padding to create space
 			},
 			margin: {
-				left: 90,
+				// left: 90,
 			},
 		},
 		scales: {
@@ -57,7 +64,9 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 					stepSize: 9, // Increase the step size to create more space between points
                		 count: 200,
 						
-				  }
+				  },
+				//   barThickness: 20,
+				//   offset: true
 				}
 			  ,
 			y: {
@@ -69,10 +78,10 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 					count: 10,
 					beginAtZero: true,
 					callback: function (value: any) {
-						if (value >= 1000000) {
+						if (value >= 0) {
 							return (value / 1000000).toFixed(2) + 'M';
-						} else if (value >= 1000) {
-							return (value / 1000).toFixed(2) + 'K';
+						// } else if (value >= 1000) {
+						// 	return (value / 1000).toFixed(2) + 'K';
 						} else {
 							return value.toFixed(2);
 						}

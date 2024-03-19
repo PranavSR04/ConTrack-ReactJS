@@ -11,6 +11,8 @@ import {
   Input,
   InputNumber,
   Select,
+  SelectProps,
+  Spin,
   Upload,
 } from "antd";
 import {
@@ -26,6 +28,7 @@ const AddContract = ({
   contractAdded,
   contractType,
   selectClient,
+  selectUser,
   handleMilestoneChange,
   handleSubmit,
   handleFileUpload,
@@ -37,12 +40,25 @@ const AddContract = ({
   handleAddMilestone,
   handleContractTypeChange,
   getClientName,
+  getUserName,
   clientNameOptions,
+  userNameOptions,
   contractDetails,
   setContractDetails,
   milestones,
-  // fileList,
+  spinning,
 }: AddContractPropType) => {
+  console.log("userNameOptions", userNameOptions);
+  const handleChange = (value: string[]) => {
+    console.log(`selected ${value}`);
+  };
+  const optionr: SelectProps["options"] = [];
+  for (let i = 10; i < 36; i++) {
+    optionr.push({
+      label: i.toString(36) + i,
+      value: i.toString(36) + i,
+    });
+  }
   // const [contractType, setContractType] = useState<string | null>(null);
 
   // const handleSubmit = (data: ContractDetails) => {
@@ -77,28 +93,6 @@ const AddContract = ({
       date_of_signature: dateOfSignatureString,
     });
   };
-
-  // const validateStartDate = (rule: any, value: Moment | null) => {
-  //   if (
-  //     value &&
-  //     contractDetails.date_of_signature &&
-  //     contractDetails.end_date
-  //   ) {
-  //     const startDate = moment(value);
-  //     const dateOfSignature = moment(contractDetails.date_of_signature);
-  //     const endDate = moment(contractDetails.end_date);
-
-  //     if (startDate.isBefore(dateOfSignature)) {
-  //       return Promise.reject("Start Date must be after Date of Signature");
-  //     }
-
-  //     if (startDate.isAfter(endDate)) {
-  //       return Promise.reject("Start Date must be before End Date");
-  //     }
-  //   }
-
-  //   return Promise.resolve();
-  // };
 
   const validateEndDate = (rule: any, value: Moment | null) => {
     if (
@@ -343,12 +337,12 @@ const AddContract = ({
                     alignItems: "flex-start",
                     padding: "-0.6rem 1rem",
                     fontFamily: '"Montserrat", sans-serif',
-                    width: "100%",
+                    width: "120%",
                   }}
                 >
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ marginLeft: "10rem" }}
+                    style={{ marginLeft: "8rem" }}
                   >
                     <div
                       className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -579,6 +573,14 @@ const AddContract = ({
                       <Select
                         mode="tags"
                         placeholder="Please select or type"
+                        allowClear
+                        options={userNameOptions}
+                        onSearch={getUserName}
+                        // showSearch={}
+                        // filterOption={true}
+                        // labelInValue={true}
+                        onChange={selectUser}
+                        // onSelect={selectUser}
                         style={{
                           width: "100%",
                           height: "100%",
@@ -594,7 +596,7 @@ const AddContract = ({
                   {/* Upload Work Schedule */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ width: "46.5%", height: "15rem" }}
+                    style={{ width: "46.5%", height: "10.5rem" }}
                   >
                     <br />
                     <div
@@ -608,19 +610,19 @@ const AddContract = ({
                         justifyContent: "center",
                         alignItems: "center",
                         height: "8rem",
-                        padding: "1rem",
+                        padding: ".5rem",
                         width: "100%",
                       }}
                     >
                       <div
                         style={{
                           border: "2px dashed #ccc",
-                          padding: "3rem",
-                          paddingBottom: "2.5rem",
+                          // padding: "1rem",
+                          paddingBottom: "1rem",
                           textAlign: "center",
                           borderRadius: "5px",
                           width: "33rem",
-                          marginTop: "2.5rem",
+                          marginTop: "-1.5rem",
                         }}
                       >
                         <Upload
@@ -651,7 +653,7 @@ const AddContract = ({
                     style={{
                       width: "36%",
                       marginLeft: "2rem",
-                      height: "15rem",
+                      height: "10.5rem",
                     }}
                   >
                     <br />
@@ -668,12 +670,21 @@ const AddContract = ({
                       }}
                     >
                       <Form.Item
-                        labelCol={{ span: 6 }}
-                        wrapperCol={{ span: 22 }}
-                        style={{ width: "25rem", marginTop: "-1.5rem" }}
+                        // labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 24 }}
+                        style={{ width: "32rem", marginTop: "-1rem" }}
+                        rules={[
+                          {
+                            max: 5,
+                            message:
+                              "Maximum 5 characters allowed for comments",
+                          },
+                        ]}
+                        validateTrigger="onChange"
+                        name="comments"
                       >
                         <Input.TextArea
-                          rows={8}
+                          rows={4.5}
                           placeholder="Enter comments and remarks..."
                           value={contractDetails.comments ?? ""}
                           onChange={handleCommentsRemarksChange}
@@ -694,12 +705,12 @@ const AddContract = ({
                     alignItems: "flex-start",
                     padding: "-0.6rem 1rem",
                     fontFamily: '"Montserrat", sans-serif',
-                    width: "100%",
+                    width: "120%",
                   }}
                 >
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ marginLeft: "10rem" }}
+                    style={{ marginLeft: "8rem" }}
                   >
                     <div
                       className={`contract_details_heading ${styles.contract_details_heading}`}
@@ -906,6 +917,14 @@ const AddContract = ({
                       <Select
                         mode="tags"
                         placeholder="Please select or type"
+                        allowClear
+                        options={userNameOptions}
+                        onSearch={getUserName}
+                        // showSearch={}
+                        // filterOption={true}
+                        // labelInValue={true}
+                        onChange={selectUser}
+                        // onSelect={selectUser}
                         style={{
                           width: "100%",
                           height: "100%",
@@ -921,7 +940,7 @@ const AddContract = ({
                   {/* Upload Work Schedule */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
-                    style={{ width: "46.5%", height: "15rem" }}
+                    style={{ width: "46.5%", height: "10.5rem" }}
                   >
                     <br />
                     <div
@@ -935,19 +954,19 @@ const AddContract = ({
                         justifyContent: "center",
                         alignItems: "center",
                         height: "8rem",
-                        padding: "1rem",
+                        padding: ".5rem",
                         width: "100%",
                       }}
                     >
                       <div
                         style={{
                           border: "2px dashed #ccc",
-                          padding: "3rem",
-                          paddingBottom: "2.5rem",
+                          // padding: "3rem",
+                          paddingBottom: "1rem",
                           textAlign: "center",
                           borderRadius: "5px",
                           width: "33rem",
-                          marginTop: "2.5rem",
+                          marginTop: "-1.5rem",
                         }}
                       >
                         <Upload
@@ -977,7 +996,7 @@ const AddContract = ({
                     style={{
                       width: "36%",
                       marginLeft: "2rem",
-                      height: "15rem",
+                      height: "10.5rem",
                     }}
                   >
                     <br />
@@ -990,16 +1009,25 @@ const AddContract = ({
                       style={{
                         display: "flex",
                         padding: "1rem",
-                        width: "95%",
+                        width: "100%",
                       }}
                     >
                       <Form.Item
-                        labelCol={{ span: 6 }}
-                        wrapperCol={{ span: 22 }}
-                        style={{ width: "35rem", marginTop: "-1.5rem" }}
+                        // labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 24 }}
+                        style={{ width: "32rem", marginTop: "-1rem" }}
+                        rules={[
+                          {
+                            max: 5,
+                            message:
+                              "Maximum 5 characters allowed for comments",
+                          },
+                        ]}
+                        validateTrigger="onChange"
+                        name="comments"
                       >
                         <Input.TextArea
-                          rows={8}
+                          rows={4.5}
                           placeholder="Enter comments and remarks..."
                           value={contractDetails.comments ?? ""}
                           onChange={handleCommentsRemarksChange}
@@ -1010,7 +1038,10 @@ const AddContract = ({
                 </div>
               </>
             )}
-            <Form.Item wrapperCol={{ offset: 4, span: 14 }}>
+            <Form.Item
+              wrapperCol={{ offset: 4, span: 14 }}
+              style={{ marginRight: "15rem" }}
+            >
               <Button
                 type="primary"
                 htmlType="submit"
@@ -1024,6 +1055,7 @@ const AddContract = ({
                 Add Contract
               </Button>
             </Form.Item>
+            <Spin spinning={spinning} fullscreen />
           </Form>
         </>
       </div>

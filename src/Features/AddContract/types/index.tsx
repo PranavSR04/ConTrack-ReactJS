@@ -24,7 +24,7 @@ export interface ContractDetails {
   date_of_signature: string;
   contract_type: "FF" | "TM";
   milestone: Milestone[];
-  associatedMembers: string[];
+  assoc_users: [{ user_id: number }] | [];
   file: RcFile | null;
   comments: string | null;
   estimated_amount: number | null;
@@ -48,10 +48,19 @@ export interface ContractDetails {
 //   contract_added_by: number;
 // }
 
+export interface AssociatedMember {
+  username: string;
+  user_id: number;
+}
+
 export interface AddContractPropType {
   contractAdded: boolean;
   contractType: string | null;
+  spinning: boolean;
   selectClient: (value: string) => Promise<void>;
+  // selectUser: (value: ContractDetails["assoc_users"]) => Promise<void>;
+  userNameOptions: AssociatedMember[];
+  selectUser: (data: AssociatedMember) => void;
   handleMilestoneChange: (
     index: number,
     field: string,
@@ -75,9 +84,15 @@ export interface AddContractPropType {
   clientNameOptions: {
     value: string;
   }[];
+  getUserName: (searchValue: string) => Promise<void>;
+  // userNameOptions: {
+  //   value: string;
+  // }[];
   contractDetails: ContractDetails;
   setContractDetails: React.Dispatch<React.SetStateAction<ContractDetails>>;
   milestones: Milestone[];
+  // newAmount: number;
+  // setNewAmount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface LocationStateProps {
@@ -93,6 +108,7 @@ export interface EditContractPropType {
     field: string,
     value: string | dayjs.Dayjs | number | null
   ) => void;
+  spinning: boolean;
   handleFileUpload: (info: UploadRequestOption<any>) => void;
   handleCommentsRemarksChange: (
     e: React.ChangeEvent<HTMLTextAreaElement>

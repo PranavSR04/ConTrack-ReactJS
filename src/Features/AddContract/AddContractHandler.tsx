@@ -14,7 +14,7 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import { Upload } from "antd";
-import { Milestone, ContractDetails, RcFile } from "./types";
+import { Milestone, ContractDetails, RcFile, AssociatedMember } from "./types";
 import styles from "./AddContract.module.css";
 import "./api/api";
 import dayjs from "dayjs";
@@ -27,6 +27,7 @@ import Toast from "../../Components/Toast/Toast";
 import { useNavigate } from "react-router-dom";
 import AddContract from "./AddContract";
 import { getUser } from "./api/getUser";
+import { forEach } from "lodash";
 
 // import { RcFile } from "antd/lib/upload";
 
@@ -53,7 +54,7 @@ const AddContractHandler = () => {
         amount: null,
       },
     ],
-    associatedMembers: [],
+    assoc_users: [],
     file: null as RcFile | null,
     comments: "",
     estimated_amount: null,
@@ -66,11 +67,15 @@ const AddContractHandler = () => {
   const [milestones, setMilestones] = useState<Milestone[]>(
     contractDetails.milestone
   );
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number[]>([]);
 
   const [clientNameOptions, setClientNameOptions] = useState<
     { value: string }[]
   >([]);
-
+  const [spinning, setSpinning] = React.useState<boolean>(false);
+  const [userNameOptions, setUserNameOptions] = useState<AssociatedMember[]>(
+    []
+  );
   const navigate = useNavigate();
 
   const getClientName = async (searchValue: string) => {
@@ -87,6 +92,80 @@ const AddContractHandler = () => {
       console.error("Error fetching client names:", error);
     }
   };
+
+  const getUserName = async () => {
+    try {
+      const response = await getUser();
+      console.log("API RESPONSE onSearch:", response);
+
+      // Ensure response.data is an array
+      if (Array.isArray(response.data.data)) {
+        //  const userNames = response.data.data.map(
+        //    (item: any) => item.user_name
+        //  );
+
+        console.log("RESPONSE>DATA.DATA", response.data.data);
+
+        const userList: AssociatedMember[] = response.data.data.map(
+          (data: { user_name: string; id: number }) => ({
+            label: data.user_name,
+            value: data.id,
+          })
+        );
+
+        console.log("userLIST AFTER MAP", userList);
+
+        // Remove duplicate names and convert to options format
+        // const uniqueOptions: { value: string }[] = Array.from(
+        //   new Set(userNames)
+        // ).map((name) => ({ value: name as string }));
+
+        setUserNameOptions(userList);
+        console.log("SETTED USERNAME OPTIONS", userNameOptions);
+      } else {
+        console.error("Invalid data format for user names. Expected an array.");
+      }
+    } catch (error) {
+      console.error("Error fetching user names:", error);
+    }
+  };
+
+  // const getUserName = async (searchValue: string) => {
+  //   console.log("before try", searchValue);
+  //   try {
+  //     // const userList:ContractDetails["associatedMembers"]
+  //     const response = await getUser(searchValue);
+  //     console.log("API RESPONSE onSearch:", response);
+
+  //     // Ensure response.data is an array
+  //     if (Array.isArray(response.data.data)) {
+  //       const userNames = response.data.data.map((item: any) => item.user_name);
+
+  //       console.log("RESPONSE>DATA.DATA", response.data.data);
+
+  //       const userList: AssociatedMember[] = response.data.data.map(
+  //         (data: { user_name: string; id: number }) => ({
+  //           label: data.user_name,
+  //           value: data.id,
+  //         })
+  //       );
+
+  //       console.log("userLIST AFTER MAP", userList);
+
+  //       // Remove duplicate names and convert to options format
+  //       // const uniqueOptions: { value: string }[] = Array.from(
+  //       //   new Set(userNames)
+  //       // ).map((name) => ({ value: name as string }));
+
+  //       setUserNameOptions(userList);
+  //       console.log("SETTED USERNAME OPTIONS", userNameOptions);
+  //     } else {
+  //       console.error("Invalid data format for user names. Expected an array.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching user names:", error);
+  //   }
+  // };
 
   const [contractType, setContractType] = useState<string | null>(null);
 
@@ -141,10 +220,10 @@ const AddContractHandler = () => {
   ) => {
     // console.log("rendered");
     if (value !== undefined && contractDetails.estimated_amount !== null) {
+      const paymentAmount =
+        (value / 100) * (contractDetails.estimated_amount ?? 0);
       const updatedMilestones = milestones.map((milestone, idx) => {
         if (idx === index) {
-          const paymentAmount =
-            (value / 100) * (contractDetails.estimated_amount ?? 0);
           // console.log("consoled amount", paymentAmount)
           return {
             ...milestone,
@@ -176,10 +255,14 @@ const AddContractHandler = () => {
       });
     }
   };
+
   const handleCommentsRemarksChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    const value = e.target.value;
+    let value = e.target.value;
+    if (value.length > 5) {
+      value = value.slice(0, 5);
+    }
     setContractDetails({
       ...contractDetails,
       comments: value,
@@ -204,7 +287,9 @@ const AddContractHandler = () => {
     // onSubmit(contractDetails);
 
     try {
+      setSpinning(true);
       await addContract(contractDetails);
+
       setContractAdded(true);
       console.log("Navigating from");
       navigate("/AllContracts", {
@@ -252,6 +337,20 @@ const AddContractHandler = () => {
       }
     };
     fetchMSA();
+    getUserName();
+  }, []);
+
+  useEffect(() => {
+    let responses;
+    const fetchUser = async () => {
+      try {
+        responses = await getUser();
+        console.log("User response", responses.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchUser();
   }, []);
 
   const selectClient = async (value: string) => {
@@ -271,6 +370,66 @@ const AddContractHandler = () => {
       }
     } catch (error) {
       console.error("Error fetching client data:", error);
+    }
+  };
+  let updatedAssocMembers: any = [];
+  const selectUser = (data: AssociatedMember) => {
+    // try {
+    //   const response = await getUser(value);
+    //   const userData = response.data[0];
+    //   console.log("User data", userData);
+    //   if (userData) {
+    //     // Update contractDetails with user_id in associatedMembers
+    //     const updatedAssocMembers = [
+    //       ...contractDetails.associatedMembers,
+    //       { user_id: userData.user_id },
+    //     ];
+
+    //     setContractDetails({
+    //       ...contractDetails,
+    //       associatedMembers: updatedAssocMembers,
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.error("Error fetching user data:", error);
+    // }
+    if (data) {
+      Object.entries(data).forEach(([key, value]) => {
+        console.log("Key:", key);
+        console.log("Value:", value);
+
+        if (
+          !contractDetails.assoc_users.some((user) => user.user_id === value)
+        ) {
+          const updatedAssoc = [
+            ...contractDetails.assoc_users,
+            { user_id: value },
+          ];
+          updatedAssocMembers = [...updatedAssocMembers, ...updatedAssoc];
+        } else {
+          console.log("Skipping duplicate value:", value);
+        }
+      });
+      // console.log("SELECT DATA", typeof data, "actual value:", data);
+      // const updatedAssoc = [...contractDetails.assoc_users, { user_id: data }];
+
+      // updatedAssocMembers = [...updatedAssocMembers, ...updatedAssoc];
+
+      console.log("UpdatedAssoc", updatedAssocMembers);
+
+      setContractDetails({
+        ...contractDetails,
+        assoc_users: updatedAssocMembers,
+      });
+      // const updatedEmployeeIds = data.map((option) => option.user_id);
+      // console.log("SELECTED EMPLOYEE IDS:", updatedEmployeeIds);
+
+      // Update selectedEmployeeId with new array of user_ids
+      // setSelectedEmployeeId((prevIds) => [...prevIds, data]);
+      // console.log("ASSOC USER ARRAY", selectedEmployeeId);
+      // const extractedId = data[0].user_id;
+      // console.log("EXTRACTEDD Employee ID :", extractedId);
+      // setSelectedEmployeeId(data[0].user_id);
     }
   };
 
@@ -293,9 +452,13 @@ const AddContractHandler = () => {
       handleContractTypeChange={handleContractTypeChange}
       getClientName={getClientName}
       clientNameOptions={clientNameOptions}
+      getUserName={getUserName}
+      selectUser={selectUser}
+      userNameOptions={userNameOptions}
       contractDetails={contractDetails}
       setContractDetails={setContractDetails}
       milestones={milestones}
+      spinning={spinning}
       // fileList={fileList}
     />
   );

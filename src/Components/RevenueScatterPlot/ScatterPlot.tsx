@@ -17,7 +17,7 @@ const ScatterPlot = ({fetchContractRevenue,scatterData,data}:ScatterPlotHandlerP
 
     
     return(
-        <div style={{transform: 'scale(1)',width:'19.8rem'}}>
+        <div style={{transform: 'scale(1)',height:'34rem',paddingTop:'1.6rem'}}>
             <Scatter
                 data={data}
                 options={{

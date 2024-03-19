@@ -22,54 +22,60 @@ const Notification = ({
     const isFromRevenue = location.pathname.includes("/Revenue");
     const isFromManageUser = location.pathname.includes("/Manage User");
     console.log(notification);
-
-    if (!notification.msa_id) {
+    if (notification.contract_id) {
       onClose();
-      navigate("/MSA Overview");
-    } else {
+      navigate(`/AllContracts/${notification.contract_ref_id}`);  
+    
+    if (isFromMSAOverview) {
+      onClose();
+      navigate(`/MSA Overview/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
+    } else if (isFromAllContracts) {
       onClose();
       navigate(`/AllContracts/${notification.contract_ref_id}`, {
         state: { id: notification.contract_id },
       });
+    } else if (isFromDashboard) {
+      onClose();
+      navigate(`/Dashboard/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
+    } else if (isFromMyContracts) {
+      onClose();
+      navigate(`/MyContracts/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
+    } else if (isFromRevenue) {
+      onClose();
+      navigate(`/Revenue/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
+    } else if (isFromManageUser) {
+      onClose();
+      navigate(`/Manage User/${notification.contract_ref_id}`, {
+        state: { id: notification.contract_id },
+      });
+    } else {
+      onClose();
+      navigate(`/MSA Overview`)
+    }}
+    else{
+      onClose();
+      navigate('/MSA Overview')
     }
-
-    // if (isFromMSAOverview) {
-    //   onClose();
-    //   navigate(`/MSA Overview/${notification.contract_ref_id}`, {
-    //     state: { id: notification.contract_id },
-    //   });
-    // } else if (isFromAllContracts) {
-    //   onClose();
-    //   navigate(`/AllContracts/${notification.contract_ref_id}`, {
-    //     state: { id: notification.contract_id },
-    //   });
-    // } else if (isFromDashboard) {
-    //   onClose();
-    //   navigate(`/Dashboard/${notification.contract_ref_id}`, {
-    //     state: { id: notification.contract_id },
-    //   });
-    // } else if (isFromMyContracts) {
-    //   onClose();
-    //   navigate(`/MyContracts/${notification.contract_ref_id}`, {
-    //     state: { id: notification.contract_id },
-    //   });
-    // } else if (isFromRevenue) {
-    //   onClose();
-    //   navigate(`/Revenue/${notification.contract_ref_id}`, {
-    //     state: { id: notification.contract_id },
-    //   });
-    // } else if (isFromManageUser) {
-    //   onClose();
-    //   navigate(`/Manage User/${notification.contract_ref_id}`, {
-    //     state: { id: notification.contract_id },
-    //   });
-    // } else {
-    //   onClose();
-    //   navigate(`/MSA Overview/${notification.contract_ref_id}`, {
-    //     state: { id: notification.contract_id },
-    //   });
-    // }
-  };
+  
+  
+  // if (!notification.msa_id) {
+  //   onClose();
+  //   navigate("/MSA Overview");
+  // } else {
+  //   onClose();
+  //   navigate(`/AllContracts/${notification.contract_ref_id}`, {
+  //     state: { id: notification.contract_id },
+  //   });
+  // }
+};
   useEffect(() => {
     if (notification.action.includes("Added")) {
       setActionStyle(styles[`${styles[stylenames]}added`]);
