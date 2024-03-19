@@ -23,27 +23,26 @@ const AddMsaHandler = () => {
     const[date_validate,setDate_validated]=useState<boolean>(false);
     const{setActiveNotificationCount}=useContext(NavCon);
 
-    useEffect( ()=>{
-        generateMsaId()
-  
-    },[]);
-    const generateMsaId= async ()=>{
-      try {
-        let uniqueIdGenerated = false;
-        let generatedId = "";
-        while (!uniqueIdGenerated) {
-          generatedId = `MSA${Math.floor(Math.random() * 1000)}`;
-          const exists =  await getapi(generatedId);
-                  if (!exists) {
-                      uniqueIdGenerated = true;
-                  }
+  useEffect(() => {
+    generateMsaId();
+  }, []);
+  const generateMsaId = async () => {
+    try {
+      let uniqueIdGenerated = false;
+      let generatedId = "";
+      while (!uniqueIdGenerated) {
+        generatedId = `MSA${Math.floor(Math.random() * 1000)}`;
+        const exists = await getapi(generatedId);
+        if (!exists) {
+          uniqueIdGenerated = true;
         }
-        setMsaRefId(generatedId ); 
-        setFormData({ ...formData, msa_ref_id: generatedId });
-      } catch (error) {
-        console.error("Error generating MSA ID:", error);
       }
+      setMsaRefId(generatedId);
+      setFormData({ ...formData, msa_ref_id: generatedId });
+    } catch (error) {
+      console.error("Error generating MSA ID:", error);
     }
+  };
 
     const [formData, setFormData] = useState({
         msa_ref_id: '',
@@ -119,21 +118,21 @@ const AddMsaHandler = () => {
           console.log("after setting:", formData)
           setSpinning(true);
 
-          //setFullPageSpinner(false);
-          const formDatatoSend = new FormData();
-          formDatatoSend.append('msa_ref_id', formData.msa_ref_id);
-          formDatatoSend.append('client_name', formData.client_name);
-          formDatatoSend.append('region', formData.region);
-        
-          // Format start_date and end_date
-          formDatatoSend.append('start_date', formData.start_date);
-          formDatatoSend.append('end_date', formData.end_date);
-          
-          formDatatoSend.append('comments', formData.comments);
-          formDatatoSend.append('file', formData.file||'');
-          
-          await postapi(formDatatoSend,user_id);
-          //console.log("Is this page posting after post")
+      //setFullPageSpinner(false);
+      const formDatatoSend = new FormData();
+      formDatatoSend.append("msa_ref_id", formData.msa_ref_id);
+      formDatatoSend.append("client_name", formData.client_name);
+      formDatatoSend.append("region", formData.region);
+
+      // Format start_date and end_date
+      formDatatoSend.append("start_date", formData.start_date);
+      formDatatoSend.append("end_date", formData.end_date);
+
+      formDatatoSend.append("comments", formData.comments);
+      formDatatoSend.append("file", formData.file || "");
+
+      await postapi(formDatatoSend, user_id);
+      //console.log("Is this page posting after post")
 
           setMsaAdded(true);
           // setIsModalVisible(false);
@@ -159,34 +158,33 @@ const AddMsaHandler = () => {
     
       
 
-      const handleCancel = () => {
-        setIsModalVisible(false);
-      };
-      console.log("msa added value before add msa",msaAdded)
-      const isFormFilled = () => {
-        console.log("test", fileName);
-        console.log("test clent name", formData.client_name);
-        if (
-          formData.client_name == "" ||
-          formData.region == "" ||
-          formData.start_date == "" ||
-          formData.end_date == "" ||
-          fileName == null
-        ) {
-          
-          return "field";
-        }else if(formData.end_date<=formData.start_date){
-          if(formData.end_date<=formData.start_date){
-            //message.error("End Date must be greater than Start Date")
-            setDate_validated(true)
-          }else{
-            setDate_validated(false)
-          }
-          return "date";
-        } else {
-          return false;
-        }
-      };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  console.log("msa added value before add msa", msaAdded);
+  const isFormFilled = () => {
+    console.log("test", fileName);
+    console.log("test clent name", formData.client_name);
+    if (
+      formData.client_name == "" ||
+      formData.region == "" ||
+      formData.start_date == "" ||
+      formData.end_date == "" ||
+      fileName == null
+    ) {
+      return "field";
+    } else if (formData.end_date <= formData.start_date) {
+      if (formData.end_date <= formData.start_date) {
+        //message.error("End Date must be greater than Start Date")
+        setDate_validated(true);
+      } else {
+        setDate_validated(false);
+      }
+      return "date";
+    } else {
+      return false;
+    }
+  };
   return (
     <div>
         <AddMsa
@@ -208,7 +206,7 @@ const AddMsaHandler = () => {
           beforeUpload={beforeUpload}
         />
     </div>
-  )
-}
+  );
+};
 
-export default AddMsaHandler
+export default AddMsaHandler;

@@ -233,6 +233,7 @@ const ManageUsersHandler = () => {
       //   }))
       // );
           setDropdownOptions(empList);
+          console.log("SET EMPLOYEE LIST",dropdownOptions)
       console.log('Original',dropdownOptions);
     } catch (error:any) {
       console.error('Error fetching data with search:', error);
@@ -462,7 +463,6 @@ const ManageUsersHandler = () => {
     // Add a custom class to alternate rows for styling
     return index % 2 === 0 ? userTableStyles.evenRow : userTableStyles.oddRow;
   };
-
 
   return (
 
