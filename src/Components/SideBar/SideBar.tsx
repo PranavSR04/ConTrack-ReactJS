@@ -32,7 +32,9 @@ const SideBar = ({ children }: SideBarPropType) => {
   useEffect(() => {
     const index = sideBarItem.findIndex(
       (item) => item.path === location.pathname
+      
     );
+    console.log(location.pathname);
     if (index !== -1) {
       setIsActiveIndex(index);
       localStorage.setItem("activeIndex", index.toString());
@@ -40,15 +42,24 @@ const SideBar = ({ children }: SideBarPropType) => {
       const contractsIndex = sideBarItem.findIndex(
         (item) => item.path === "/All Contracts"
       );
+
       setIsActiveIndex(contractsIndex);
       localStorage.setItem("activeIndex", contractsIndex.toString());
+    }else if(location.pathname === "/MSA%20Overview"){
+      localStorage.setItem("activeIndex", "1");
+      setIsActiveIndex(1);
+
+    }else if(location.pathname === "/Manage%20User"){
+      localStorage.setItem("activeIndex", "5");
+      setIsActiveIndex(5);
+      
     }
   }, [location.pathname]);
   const commonSideItems = [
     { path: "/Dashboard", name: "Dashboard", icon: <FaBars /> },
     { path: "/MSA Overview", name: "MSA", icon: <FaFileAlt /> },
-    { path: "/AllContracts", name: "AllContracts", icon: <FaCopy /> },
-    { path: "/MyContracts", name: "MyContracts", icon: <FaFileAlt /> },
+    { path: "/AllContracts", name: "All Contracts", icon: <FaCopy /> },  
+    { path: "/MyContracts", name: "My Contracts", icon: <FaFileAlt /> },
     { path: "/Revenue", name: "Revenue", icon: <FaRegChartBar /> },
   ];
 

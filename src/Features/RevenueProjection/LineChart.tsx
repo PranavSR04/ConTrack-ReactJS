@@ -69,10 +69,10 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 					count: 10,
 					beginAtZero: true,
 					callback: function (value: any) {
-						if (value >= 1000000) {
+						if (value >=0) {
 							return (value / 1000000).toFixed(2) + 'M';
-						} else if (value >= 1000) {
-							return (value / 1000).toFixed(2) + 'K';
+						// } else if (value >= 1000) {
+						// 	return (value / 1000).toFixed(2) + 'K';
 						} else {
 							return value.toFixed(2);
 						}

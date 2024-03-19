@@ -13,6 +13,7 @@ const Notification = ({
   const { onClose } = useContext(NavCon);
   const navigate = useNavigate();
   const [actionStyle, setActionStyle] = useState<string>("");
+  const [cardStyle, setCardStyle] = useState<string>("");
   const rowClickHandler = (notification: NotificationType) => {
     console.log(notification);
 
@@ -28,28 +29,30 @@ const Notification = ({
   };
   useEffect(() => {
     if (notification.action.includes("Added")) {
-      setActionStyle(styles[`${styles[stylenames]}added`]);
-      console.log("this is new style", `${styles[stylenames]}added`);
+      setActionStyle(`${stylenames}added`);
+      console.log("this is new style", actionStyle);
     } else if (notification.action === "Edited") {
-      setActionStyle(styles[`${styles[stylenames]}edited`]);
+      setActionStyle(`${stylenames}edited`);
     } else if (notification.action === "Expiring") {
-      setActionStyle(styles[`${styles[stylenames]}expiring`]);
+      setActionStyle(`${stylenames}expiring`);
     } else if (notification.action === "Expired") {
-      setActionStyle(styles[`${styles[stylenames]}expired`]);
+      setActionStyle(`${stylenames}expired`);
     } else if (notification.action === "Renewed") {
-      setActionStyle(styles[`${styles[stylenames]}renewed`]);
+      setActionStyle(`${stylenames}renewed`);
     }
-    console.log(notification.client_name);
-  }, []);
+    setCardStyle(`${stylenames}cardStyle_right`)
+    console.log(`${stylenames}cardStyle_right`)
+  }, [notification.action, stylenames]);
   return (
     <div
-      className={`${styles[stylenames]}`}
+    className={styles[stylenames]}
       onClick={() => rowClickHandler(notification)}
     >
-      <div className={actionStyle}>
+    <div className={styles[actionStyle]}>
         <p>{notification.action.toUpperCase()}</p>
       </div>
-      <div className={styles[`${styles[stylenames]}cardStyle_right`]}>
+      
+      <div className={styles[`${stylenames}cardStyle_right`]}>
         <b>
           {notification.contract_ref_id
             ? `  ${notification.contract_ref_id}: Contract ${notification.action} for ${notification.client_name}`

@@ -18,6 +18,7 @@ const NavContext = ({ children }: { children: React.ReactNode }) =>  {
       setOpen(true);
       const user: userType = { user_id: SENDTO_ID };
       const response = await postNotificationStatus(user);
+      console.log("response data",response)
     };
    
     const onClose = () => {
