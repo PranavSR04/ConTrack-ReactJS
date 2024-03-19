@@ -57,7 +57,7 @@ const ManageUsers = ({
 ManageUsersPropType) => {
   return (
     <>
-      {/* <BreadCrumbs /> */}
+      <BreadCrumbs />
       <h2 className={`${userTableStyles.pageTitle}`}>MANAGE USER</h2>
       <div className={` ${userTableStyles.wholeTable} `}>
         <div className={`${userTableStyles.searchEmployeeCluster}`}>
