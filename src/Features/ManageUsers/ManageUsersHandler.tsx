@@ -233,6 +233,7 @@ const ManageUsersHandler = () => {
       //   }))
       // );
           setDropdownOptions(empList);
+          console.log("SET EMPLOYEE LIST",dropdownOptions)
       console.log('Original',dropdownOptions);
     } catch (error:any) {
       console.error('Error fetching data with search:', error);
