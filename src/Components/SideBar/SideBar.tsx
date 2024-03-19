@@ -32,7 +32,9 @@ const SideBar = ({ children }: SideBarPropType) => {
   useEffect(() => {
     const index = sideBarItem.findIndex(
       (item) => item.path === location.pathname
+      
     );
+    console.log(location.pathname);
     if (index !== -1) {
       setIsActiveIndex(index);
       localStorage.setItem("activeIndex", index.toString());
@@ -40,8 +42,17 @@ const SideBar = ({ children }: SideBarPropType) => {
       const contractsIndex = sideBarItem.findIndex(
         (item) => item.path === "/AllContracts"
       );
+
       setIsActiveIndex(contractsIndex);
       localStorage.setItem("activeIndex", contractsIndex.toString());
+    }else if(location.pathname === "/MSA%20Overview"){
+      localStorage.setItem("activeIndex", "1");
+      setIsActiveIndex(1);
+
+    }else if(location.pathname === "/Manage%20User"){
+      localStorage.setItem("activeIndex", "5");
+      setIsActiveIndex(5);
+      
     }
   }, [location.pathname]);
   const commonSideItems = [
