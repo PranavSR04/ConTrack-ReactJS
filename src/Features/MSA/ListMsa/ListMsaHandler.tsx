@@ -114,6 +114,10 @@ const showInactiveMSA=async()=>{
   const getColumnSearchProps = (dataIndex: string) => {
     return{
     filterDropdown: ({ selectedKeys,confirm, setSelectedKeys}: { selectedKeys: React.Key[]; confirm: (param?: FilterConfirmProps) => void;setSelectedKeys: (selectedKeys: React.Key[]) => void;}) => { 
+      if (dataIndex === 'msa_ref_id') {
+                return null;
+    }
+
       return (<div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           placeholder={`Search ${(customHeadings as Record<string, string>)[dataIndex]}`}
@@ -130,10 +134,14 @@ const showInactiveMSA=async()=>{
       </div>
       )
     },
-    filterIcon: () => (
-      <SearchOutlined/>
-    ),
-    }};
+    filterIcon: (filtered:boolean) => {
+      if(dataIndex==='msa_ref_id'){
+         return null;
+      }
+      return <SearchOutlined/>
+    },
+    };
+  };
     const onSearch = ( selectedKeys: string, selectedField: string) => {
       setIsEmptySearch(false); 
       setSearchConditions((prevConditions) => ({...prevConditions, [selectedField]: selectedKeys }));
@@ -160,7 +168,7 @@ const showInactiveMSA=async()=>{
     title: customHeadings[key],
     dataIndex: key,
     key,
-    sorter: (a: MsaData, b: MsaData) => (a[key as keyof MsaData]).localeCompare(b[key as keyof MsaData]),
+    sorter: key === 'msa_ref_id' ? false : (a: MsaData, b: MsaData) => (a[key as keyof MsaData]).localeCompare(b[key as keyof MsaData]),
     sortDirections: ['ascend', 'descend'],
     ...getColumnSearchProps(key),
   }));
