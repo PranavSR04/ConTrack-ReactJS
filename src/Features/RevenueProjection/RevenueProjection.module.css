@@ -1,7 +1,7 @@
 
 .revueneProjection {
   margin-top: 20px;
-  margin-left: 15rem;
+  margin-left: 16rem;
   margin-right: 1.5rem;
   font-family: "Montserrat", sans-serif;
   
@@ -42,8 +42,8 @@ body {
 
 .large_column {
   
-  width: 800px;
-  transform: scale(1.2);
+  width: 1000px;
+  /* transform: scale(1.2); */
   overflow-x: scroll;
 }
 .large_column::-webkit-scrollbar {
@@ -65,15 +65,16 @@ body {
 }
 .container {
   padding-top: 30px;
-  width: 800px;
+  width: 1000px;
   height: 400px;
+  /* margin-left: 20px; */
 }
 .spinner {
   justify-content: center; /* Center the spinner horizontally */
   align-items: center;
 }
 .filtericon {
-  margin-left: 35rem;
+  margin-left: 5rem;
   align-self: flex-end;
   cursor: pointer;
 }
@@ -82,4 +83,7 @@ body {
   max-height: 20px;
   margin-left: 68%;
 }
+.rangepicker{
+  margin-left: 20rem;
 
+}

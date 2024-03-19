@@ -55,7 +55,7 @@ const AddContractHandler = () => {
     associatedMembers: [],
     file: null as RcFile | null,
     comments: "",
-    estimated_amount: null,
+    estimated_amount: 0,
     contract_added_by: 3,
   });
 
@@ -132,34 +132,46 @@ const AddContractHandler = () => {
     };
     setContractDetails(updatedContractDetails);
   };
-  const handlePaymentPercentageChange = (
-    index: number,
-    value: number | undefined
-  ) => {
-    // console.log("rendered");
+
+  const [newMilestoneAmount, setNewMilestoneAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(0);
+  const handlePaymentPercentageChange = (index: number, value: number | undefined) => {
     if (value !== undefined && contractDetails.estimated_amount !== null) {
+      const paymentAmount = (value / 100) * contractDetails.estimated_amount;
       const updatedMilestones = milestones.map((milestone, idx) => {
         if (idx === index) {
-          const paymentAmount =
-            (value / 100) * (contractDetails.estimated_amount ?? 0);
-          // console.log("consoled amount", paymentAmount)
+          console.log("Payment amount",paymentAmount);
           return {
             ...milestone,
             percentage: value,
-            amount: paymentAmount,
+            amount: paymentAmount,        
           };
         } else return milestone;
-      });
-      setMilestones(updatedMilestones);
 
+      });
+   
+      setMilestones(updatedMilestones);
+      console.log("updatedMilestones",updatedMilestones);
+  
       // Also update the contractDetails if needed
       const updatedContractDetails = {
         ...contractDetails,
         milestone: updatedMilestones,
       };
+    
+
+      setAmount(paymentAmount)
       setContractDetails(updatedContractDetails);
+      console.log("new check milestone amount",amount)
+      console.log("updatedContractDetails",updatedContractDetails);
+
     }
   };
+  
+  useEffect(()=>{
+    console.log("new check milestone amount",newMilestoneAmount)
+    setNewMilestoneAmount(amount);
+  },[amount])
 
   const handleTotalContractValueChange = (value: number | null) => {
     if (value !== undefined && value !== null) {
@@ -176,7 +188,10 @@ const AddContractHandler = () => {
   const handleCommentsRemarksChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    const value = e.target.value;
+    let value = e.target.value;
+    if (value.length > 5) {
+      value = value.slice(0, 5);
+    }
     setContractDetails({
       ...contractDetails,
       comments: value,
@@ -202,7 +217,8 @@ const AddContractHandler = () => {
     try {
       await addContract(contractDetails);
       setContractAdded(true);
-      navigate("/All Contracts", {
+      console.log("Navigating from");
+      navigate("/AllContracts", {
         state: { added: contractAdded as boolean },
       });
     } catch (error) {
@@ -234,6 +250,7 @@ const AddContractHandler = () => {
       milestone: updatedMilestones,
     };
     setContractDetails(updatedContractDetails);
+
   };
 
   useEffect(() => {
@@ -293,6 +310,7 @@ const AddContractHandler = () => {
       contractDetails={contractDetails}
       setContractDetails={setContractDetails}
       milestones={milestones}
+      // newMilestoneAmount={newMilestoneAmount}
     />
   );
 };
