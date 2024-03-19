@@ -24,6 +24,7 @@ const RenewMsa = ({
   modalPopUp,
   spinning,
   msaRenewed,
+  beforeUpload
 }: RenewMsaPropType) => {
   console.log(msaRenewed);
   return (
@@ -142,7 +143,8 @@ const RenewMsa = ({
                     action=""
                     listType="picture-card"
                     // fileList={[]}
-                    // accept=".pdf"
+                    accept=".pdf,.docx"
+                    beforeUpload={beforeUpload}
                     customRequest={handleFileUpload}
                   >
                     <button

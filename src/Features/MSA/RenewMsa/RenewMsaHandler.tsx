@@ -6,7 +6,7 @@ import { LocationStateProps } from "./types";
 import { Moment } from "moment";
 import moment from "moment";
 import { postRenewMsa } from "./api/postRenewMsa";
-import { Form } from "antd";
+import { Form, message } from "antd";
 import { RcFile } from "antd/es/upload";
 
 const RenewMsaHandler = () => {
@@ -17,6 +17,7 @@ const RenewMsaHandler = () => {
   const [spinning, setSpinning] = React.useState<boolean>(false);
   const [filePdf, setFilePdf] = useState<RcFile | null>();
   const [msaRenewed, setMsaRenewed] = useState<boolean>(false);
+  const maxSize = 10 * 1024 * 1024;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -96,7 +97,13 @@ const RenewMsaHandler = () => {
       // setMsaRenewed(true)
     }
   }, [msaData]);
-
+  const beforeUpload = (file:RcFile) => {
+    if (file.size > maxSize) {
+      message.error('File must be smaller than 10MB!');
+      return false; // Cancel upload
+    }
+    return true; // Continue with upload
+  };
   const handleFileUpload = (info: any) => {
     setFormData({ ...formData, file: info.file as RcFile });
     console.log("setting form data file", formData.file);
@@ -146,7 +153,7 @@ const RenewMsaHandler = () => {
           });
         // setMsaRenewed(true);
         setSpinning(false);
-        navigate("/MSA Overview");
+        navigate("/MSA Overview", { state: { renew: true } });
       }
     } catch (error) {
       console.error("Error submitting form data:", error);
@@ -233,6 +240,7 @@ const RenewMsaHandler = () => {
         modalPopUp={modalPopUp}
         spinning={spinning}
         msaRenewed={msaRenewed}
+        beforeUpload={beforeUpload}
       />
     </div>
   );

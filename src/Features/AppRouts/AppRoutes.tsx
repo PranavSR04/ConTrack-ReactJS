@@ -82,7 +82,7 @@ const AppRoutes = () => {
                 }
               ></Route>
 
-              {ROLE_ID === 1 || ROLE_ID == undefined ? (
+              {/* {ROLE_ID === 1 || ROLE_ID === undefined ? (
                 <Route
                   path="/Manage User"
                   element={
@@ -103,8 +103,8 @@ const AppRoutes = () => {
                     </>
                   }
                 />
-              )}
-              {/* <Route path="/manageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route> */}
+              )} */}
+              { ROLE_ID===1 && <Route path="/ManageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>}
 
               <Route
                 path="/AllContracts"

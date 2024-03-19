@@ -26,8 +26,8 @@ export interface ContractDetails {
   milestone: Milestone[];
   assoc_users: [{ user_id: number }] | [];
   file: RcFile | null;
-  comments: string | null;
-  estimated_amount: number | null;
+  comments: string;
+  estimated_amount: number;
   contract_added_by: number;
 }
 // export interface ContractDetailsEditType {

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddContractHandler from "./AddContractHandler";
-import { AddContractPropType, ContractDetails } from "./types";
+import { AddContractPropType, ContractDetails, Milestone } from "./types";
 import styles from "./AddContract.module.css";
 
 import {
@@ -66,6 +66,12 @@ const AddContract = ({
   //   console.log("Form Data:", data);
   //   // You can make API calls, dispatch actions, etc. here
   // };
+
+  const[upMiles,setUPMiles]=useState<Milestone[]>();
+console.log(milestones);
+useEffect(()=>{
+  setUPMiles(milestones);
+},[milestones])
 
   const handleStartDateChange = (value: Moment | null) => {
     const startDateString = value ? value.format("YYYY-MM-DD") : "";
@@ -424,7 +430,7 @@ const AddContract = ({
                         </div>
                       </div>
                     </div>
-                    {milestones.map((milestone, index) => (
+                    {upMiles?.map((milestone, index) => (
                       <div
                         key={index}
                         style={{
@@ -497,43 +503,43 @@ const AddContract = ({
                             marginTop: "-1.7rem",
                           }}
                         >
-                          <Form.Item
-                            name={`milestones[${index}].percentage`}
-                            labelCol={{ span: 20 }}
-                            wrapperCol={{ span: 20 }}
-                            required
-                          >
-                            <InputNumber
-                              style={{ width: "100%" }}
-                              onChange={(value) =>
-                                handlePaymentPercentageChange(
-                                  index,
-                                  value as number
-                                )
-                              }
-                            />
-                          </Form.Item>
-                        </div>
+                            <Form.Item
+                              name={`milestones[${index}].percentage`}
+                              labelCol={{ span: 20 }}
+                              wrapperCol={{ span: 20 }}
+                              required
+                            >
+                              <InputNumber
+                                style={{ width: "100%" }}
+                                onChange={(value) => handlePaymentPercentageChange(index, value as number)}
+                              />
 
-                        <div
-                          style={{
-                            width: "20%",
-                            marginRight: "1rem",
-                            marginBottom: "0.5rem",
-                            marginTop: "-1.7rem",
-                          }}
-                        >
-                          <Form.Item
-                            name={`milestones[${index}].amount`}
-                            labelCol={{ span: 20 }}
-                            wrapperCol={{ span: 20 }}
-                            required
+                            </Form.Item>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "20%",
+                              marginRight: "1rem",
+                              marginBottom: "0.5rem",
+                              marginTop: "-1.7rem",
+                            }}
                           >
-                            <InputNumber
-                              style={{ width: "100%" }}
-                              value={milestone.amount}
-                            />
-                          </Form.Item>
+                            <Form.Item
+                              name={`milestones[${index}].amount`}
+                              labelCol={{ span: 20 }}
+                              wrapperCol={{ span: 20 }}
+                              required
+                              // initialValue={newMilestoneAmount}
+                              
+                            >
+                              <InputNumber
+                                style={{ width: "100%" }}
+                                // value={milestone.amount}
+                                // value={newMilestoneAmount}
+                                
+                              />
+                            </Form.Item>
                         </div>
                         {index >= 0 && (
                           <Button
@@ -1018,9 +1024,9 @@ const AddContract = ({
                         style={{ width: "32rem", marginTop: "-1rem" }}
                         rules={[
                           {
-                            max: 5,
+                            max: 200,
                             message:
-                              "Maximum 5 characters allowed for comments",
+                              "Maximum 200 characters allowed for comments",
                           },
                         ]}
                         validateTrigger="onChange"

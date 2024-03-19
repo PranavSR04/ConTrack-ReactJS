@@ -57,7 +57,7 @@ const AddContractHandler = () => {
     assoc_users: [],
     file: null as RcFile | null,
     comments: "",
-    estimated_amount: null,
+    estimated_amount: 0,
     contract_added_by: 3,
   });
 
@@ -214,11 +214,13 @@ const AddContractHandler = () => {
     };
     setContractDetails(updatedContractDetails);
   };
+
+  const [newMilestoneAmount, setNewMilestoneAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(0);
   const handlePaymentPercentageChange = (
     index: number,
     value: number | undefined
   ) => {
-    // console.log("rendered");
     if (value !== undefined && contractDetails.estimated_amount !== null) {
       const paymentAmount =
         (value / 100) * (contractDetails.estimated_amount ?? 0);
@@ -232,16 +234,27 @@ const AddContractHandler = () => {
           };
         } else return milestone;
       });
+
       setMilestones(updatedMilestones);
+      console.log("updatedMilestones", updatedMilestones);
 
       // Also update the contractDetails if needed
       const updatedContractDetails = {
         ...contractDetails,
         milestone: updatedMilestones,
       };
+
+      setAmount(paymentAmount);
       setContractDetails(updatedContractDetails);
+      console.log("new check milestone amount", amount);
+      console.log("updatedContractDetails", updatedContractDetails);
     }
   };
+
+  useEffect(() => {
+    console.log("new check milestone amount", newMilestoneAmount);
+    setNewMilestoneAmount(amount);
+  }, [amount]);
 
   const handleTotalContractValueChange = (value: number | null) => {
     if (value !== undefined && value !== null) {
@@ -260,8 +273,8 @@ const AddContractHandler = () => {
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     let value = e.target.value;
-    if (value.length > 5) {
-      value = value.slice(0, 5);
+    if (value.length > 200) {
+      value = value.slice(0, 200);
     }
     setContractDetails({
       ...contractDetails,

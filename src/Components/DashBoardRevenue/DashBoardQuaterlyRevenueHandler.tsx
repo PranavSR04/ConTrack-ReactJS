@@ -41,24 +41,25 @@ const DashBoardQuaterlyRevenueHandler = () => {
     }
   };
 
-  // Helper function to get the current quarter (e.g., "2022-Q2")
   const getCurrentQuarter = () => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
     const quarter = Math.ceil(currentMonth / 3);
+    console.log(quarter)
     return `${currentYear}-Q${quarter}`;
   };
 
-  // Helper function to get the previous quarter based on the current quarter
   const getPreviousQuarter = (currentQuarter: string) => {
     const [year, quarterStr] = currentQuarter.split('-');
     const quarter = parseInt('1');
     const previousQuarter = quarter === 1 ? 4 : quarter - 1;
     const previousYear = quarter === 1 ? parseInt(year) - 1 : parseInt(year);
+    console.log(quarter)
+    console.log(previousQuarter);
     return `${previousYear}-Q${previousQuarter}`;
+    
   };
-
   return (
     <DashBoardRevenue currentMonthRevenue={currentQuarterRevenue} previousMonthRevenue={previousQuarterRevenue} responsetype={responsetype} />
   );
