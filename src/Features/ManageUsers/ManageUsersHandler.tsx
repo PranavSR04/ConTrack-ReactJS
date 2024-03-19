@@ -463,7 +463,6 @@ const ManageUsersHandler = () => {
     return index % 2 === 0 ? userTableStyles.evenRow : userTableStyles.oddRow;
   };
 
-
   return (
 
     <ManageUsers
