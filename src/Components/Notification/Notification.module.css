@@ -8,18 +8,9 @@
   height:80px;
   width:320px;
   transition: transform 0.3s ease;
- 
- 
+  
 }
 .style2:hover{
-  display: flex;
-  background-color: #f0eded;
-  border-radius: 10px;
-  padding: 16px;
-  margin: 2px 0 20px 4px;
-  height:80px;
-  width:320px;
-  transform: translateY(-5px);
   display: flex;
   background-color: #f0eded;
   border-radius: 10px;
@@ -40,25 +31,8 @@ width:271px;
 font-size: small;
 transition: transform 0.3s ease;
 
-display: flex;
-background-color: #ffffff;
-border-radius: 10px;
-box-shadow:0 0 4px rgba(0, 0, 0, 0.1);
-margin: 2px 0 20px 4px;
-height:45px;
-width:271px;
-font-size: small;
-transition: transform 0.3s ease;
-
 }
 .style1:hover{
-display: flex;
-background-color: #f0eded;
-border-radius: 10px;
-margin: 2px 0 20px 4px;
-height:45px;
-width:271px;
-transform: translateY(-5px);
 display: flex;
 background-color: #f0eded;
 border-radius: 10px;
@@ -191,11 +165,6 @@ padding-left: 6px;
 text-align: left;
 font-size: 8px;
 margin-top: 10px;
-flex: 7;
-padding-left: 6px;
-text-align: left;
-font-size: 8px;
-margin-top: 10px;
 }
 .style2cardStyle_right{
   flex: 7;
@@ -205,11 +174,9 @@ margin-top: 10px;
   margin-top: 10px;
 }
 .listStyle{
-max-height: calc(99vh - 50px - 50px);
-max-height: calc(99vh - 50px - 50px);
+max-height: calc(99vh - 50px - 50px); 
 overflow-y: auto;
-scrollbar-width: none;
-scrollbar-width: none;
+scrollbar-width: none; 
 -ms-overflow-style: none;
 text-align: center;
 font-size: 15px;
@@ -220,15 +187,8 @@ cursor: pointer;
 margin-top: 55px;
 box-shadow: none;
 /* box-shadow: 0px !important; */
-margin-top: 55px;
-box-shadow: none;
-/* box-shadow: 0px !important; */
 }
 .viewMore {
-margin-bottom: 30px;
-text-align: center;
-color: #1890ff;
-cursor: pointer;
 margin-bottom: 30px;
 text-align: center;
 color: #1890ff;
@@ -237,13 +197,8 @@ cursor: pointer;
 
 .viewMore:hover {
 text-decoration: underline;
-text-decoration: underline;
 }
 .difference{
-font-size: 11px;
-font-weight: 100;
-padding-left: 5px;
-padding-top: 10px;
 font-size: 11px;
 font-weight: 100;
 padding-left: 5px;
