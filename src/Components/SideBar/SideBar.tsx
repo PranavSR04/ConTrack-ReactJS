@@ -47,15 +47,15 @@ const SideBar = ({ children }: SideBarPropType) => {
   const commonSideItems = [
     { path: "/Dashboard", name: "Dashboard", icon: <FaBars /> },
     { path: "/MSA Overview", name: "MSA", icon: <FaFileAlt /> },
-    // { path: "/AllContracts", name: "AllContracts", icon: <FaCopy /> },
-    // { path: "/MyContracts", name: "MyContracts", icon: <FaFileAlt /> },
-    { path: "/AllContracts", name: "Contracts", icon: <FaCopy /> },
-    { path: "/MyContracts", name: "My Contracts", icon: <FaFileAlt /> },
+    { path: "/AllContracts", name: "AllContracts", icon: <FaCopy /> },
+    { path: "/MyContracts", name: "MyContracts", icon: <FaFileAlt /> },
+    // { path: "/AllContracts", name: "Contracts", icon: <FaCopy /> },
+    // { path: "/MyContracts", name: "My Contracts", icon: <FaFileAlt /> },
     { path: "/Revenue", name: "Revenue", icon: <FaRegChartBar /> },
   ];
 
   const superadminSideItem = {
-    path: "/Manage User",
+    path: "/ManageUser",
     name: "ManageUser",
     icon: <FaUserCog />,
   };

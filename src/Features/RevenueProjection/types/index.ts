@@ -20,6 +20,9 @@ export type RevenueProjectionPropType = {
 	duOptions: string[];
 	selectedFilters: {};
 	id:number |undefined;
+	onhandledatechange:(dates: any, dateStrings: any) => void;
+	filterEndDate:string|undefined;
+	filterStartDate:string|undefined;	
 };
 export type RevenueProjectionHandlerPropType = {
 	id?:number;
@@ -39,6 +42,8 @@ export interface LineChartHandlerPtopType {
 	filter: string;
 	selectedFilters: SelectedFiltersType;
 	id:number |undefined
+	filterEndDate:string|undefined;
+	filterStartDate:string|undefined;
 	
 }
 
