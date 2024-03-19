@@ -41,6 +41,8 @@ const LineChartHandler = ({
 	filter,
 	selectedFilters,
 	id,
+	filterEndDate,
+	filterStartDate
 }: LineChartHandlerPtopType) => {
 	const [revenueData, setRevenueData] = useState<
 		RevenueProjectionData[] | undefined
@@ -51,13 +53,15 @@ const LineChartHandler = ({
 	useEffect(() => {
 		fetRevenue();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [filter, selectedFilters]);
+	}, [filter, selectedFilters,filterStartDate,filterEndDate]);
 	console.log(selectedFilters);
 	const fetRevenue = async () => {
 		const requestBody = {
 			type: filter.toLowerCase(),
 			du: selectedFilters.du,
 			ctype: selectedFilters.cType,
+			startdate:filterStartDate,
+			enddate:filterEndDate
 		};
 		setLoading(true);
 		try {
