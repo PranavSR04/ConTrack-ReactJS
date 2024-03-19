@@ -8,18 +8,9 @@
   height:80px;
   width:320px;
   transition: transform 0.3s ease;
- 
- 
+  
 }
 .style2:hover{
-  display: flex;
-  background-color: #f0eded;
-  border-radius: 10px;
-  padding: 16px;
-  margin: 2px 0 20px 4px;
-  height:80px;
-  width:320px;
-  transform: translateY(-5px);
   display: flex;
   background-color: #f0eded;
   border-radius: 10px;
@@ -40,25 +31,8 @@ width:271px;
 font-size: small;
 transition: transform 0.3s ease;
 
-display: flex;
-background-color: #ffffff;
-border-radius: 10px;
-box-shadow:0 0 4px rgba(0, 0, 0, 0.1);
-margin: 2px 0 20px 4px;
-height:45px;
-width:271px;
-font-size: small;
-transition: transform 0.3s ease;
-
 }
 .style1:hover{
-display: flex;
-background-color: #f0eded;
-border-radius: 10px;
-margin: 2px 0 20px 4px;
-height:45px;
-width:271px;
-transform: translateY(-5px);
 display: flex;
 background-color: #f0eded;
 border-radius: 10px;
@@ -75,11 +49,10 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
 
-.Notification_style1__0gYptadded> p {
+.Notification_style1__9gMtnadded> p {
 margin-top: 10%;
 background-color: #e9d2f4;
 color: #320249;
@@ -87,10 +60,9 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
-.Notification_style1__0gYptedited> p{
+.Notification_style1__9gMtnedited> p{
 margin-top: 10px;
 background-color: #eba68d;
 color: #451b0c;
@@ -98,10 +70,9 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
-.Notification_style1__0gYptrenewed> p{
+.Notification_style1__9gMtnrenewed> p{
 margin-top: 10px;
 background-color: #ACF3A0;
 color: #1F9423;
@@ -109,10 +80,9 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
-.Notification_style1__0gYptexpired> p{
+.Notification_style1__9gMtnexpired> p{
 margin-top: 10px;
 background-color: #DC143C;
 color: #5F2828;
@@ -120,10 +90,9 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
-.Notification_style1__0gYptexpiring> p{
+.Notification_style1__9gMtnexpiring> p{
 margin-top: 10px;
 background-color: #F2E291;
 color: #9F7D24;
@@ -131,10 +100,9 @@ font-weight:700;
 font-size: 8px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
-.Notification_style2__QA5Xfadded> p {
+.Notification_style2__O2Jsladded> p {
 margin-top: 10%;
 background-color: #e9d2f4;
 color: #320249;
@@ -142,10 +110,9 @@ font-weight:700;
 font-size: 10px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
-.Notification_style2__QA5Xfedited> p{
+.Notification_style2__O2Jsledited> p{
 margin-top: 10px;
 background-color: #eba68d;
 color: #451b0c;
@@ -153,10 +120,9 @@ font-weight:700;
 font-size: 10px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
-.Notification_style2__QA5Xfrenewed> p{
+.Notification_style2__O2Jslrenewed> p{
 margin-top: 10px;
 background-color: #ACF3A0;
 color: #1F9423;
@@ -164,10 +130,9 @@ font-weight:700;
 font-size: 10px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
-.Notification_style2__QA5Xfexpired> p{
+.Notification_style2__O2Jslexpired> p{
 margin-top: 10px;
 background-color: #DC143C;
 color: #5F2828;
@@ -175,10 +140,9 @@ font-weight:700;
 font-size: 10px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
-.Notification_style2__QA5Xfexpiring> p{
+.Notification_style2__O2Jslexpiring> p{
 margin-top: 10px;
 background-color: #F2E291;
 color: #9F7D24;
@@ -186,10 +150,9 @@ font-weight:700;
 font-size: 10px;
 padding: 9%;
 width: 60px;
-border-radius: 20px;
-border-radius: 20px;
+border-radius: 20px; 
 }
-.Notification_style1__0gYptcardStyle_right{
+.Notification_style1__9gMtncardStyle_right{
 flex: 7;
 padding-left: 6px;
 text-align: left;
@@ -202,13 +165,8 @@ padding-left: 6px;
 text-align: left;
 font-size: 8px;
 margin-top: 10px;
-flex: 7;
-padding-left: 6px;
-text-align: left;
-font-size: 8px;
-margin-top: 10px;
 }
-.Notification_style2__QA5XfcardStyle_right{
+.Notification_style2__O2JslcardStyle_right{
 flex: 7;
 padding-left: 6px;
 text-align: left;
@@ -216,11 +174,9 @@ font-size: 12px;
 margin-top: 10px;
 }
 .listStyle{
-max-height: calc(99vh - 50px - 50px);
-max-height: calc(99vh - 50px - 50px);
+max-height: calc(99vh - 50px - 50px); 
 overflow-y: auto;
-scrollbar-width: none;
-scrollbar-width: none;
+scrollbar-width: none; 
 -ms-overflow-style: none;
 text-align: center;
 font-size: 15px;
@@ -231,15 +187,8 @@ cursor: pointer;
 margin-top: 55px;
 box-shadow: none;
 /* box-shadow: 0px !important; */
-margin-top: 55px;
-box-shadow: none;
-/* box-shadow: 0px !important; */
 }
 .viewMore {
-margin-bottom: 30px;
-text-align: center;
-color: #1890ff;
-cursor: pointer;
 margin-bottom: 30px;
 text-align: center;
 color: #1890ff;
@@ -248,13 +197,8 @@ cursor: pointer;
 
 .viewMore:hover {
 text-decoration: underline;
-text-decoration: underline;
 }
 .difference{
-font-size: 11px;
-font-weight: 100;
-padding-left: 5px;
-padding-top: 10px;
 font-size: 11px;
 font-weight: 100;
 padding-left: 5px;
