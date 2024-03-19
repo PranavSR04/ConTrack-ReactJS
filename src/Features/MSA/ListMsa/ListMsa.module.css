@@ -5,7 +5,6 @@
     margin-left: 16rem;
     margin-right: 1.5rem;
     font-family: 'Montserrat', sans-serif;
-
 }
 .ListMsa_Details_Table_row1_col1{
     font-weight: 500; 
@@ -15,7 +14,7 @@
 .ListMsa_heading{
     font-weight: 700; /* Bold weight */
     font-size: 1.2rem; /* Font size 40 */
-    width: 60rem;
+    width: 65rem;
   padding: 2%;
   margin-left: -1rem;
 }
@@ -31,7 +30,7 @@
     box-shadow: 0px 0px 8px rgba(146, 145, 145, 0.253);
    padding: 1rem;
    border-radius: 0.5rem;
-   width: 60rem;
+   width: 65rem;
    margin-top: -1rem;
    
    

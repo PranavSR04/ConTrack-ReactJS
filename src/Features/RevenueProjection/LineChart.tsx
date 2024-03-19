@@ -25,12 +25,12 @@ ChartJS.register(
 	Tooltip
 );
 
-const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
+const LineChart= ({ revenueData, loading, error }: LineChartPropType) => {
 	const data = {
 		labels: revenueData?.map((date) => date.Date),
 		datasets: [
 			{
-				label: "Revenue $",
+				label: "Revenue USD",
 				data: revenueData?.map((date) => date.Revenue),
 				// fill: false,
 				borderColor: "rgb(75, 192, 192)",
@@ -72,7 +72,7 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 			y: {
 				title: {
 					display: true,
-					text: "Revenue in $",
+					text: "Revenue USD",
 				},
 				ticks: {
 					count: 10,

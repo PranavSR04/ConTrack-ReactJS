@@ -55,7 +55,7 @@ const SideBar = ({ children }: SideBarPropType) => {
   ];
 
   const superadminSideItem = {
-    path: "/Manage User",
+    path: "/ManageUser",
     name: "ManageUser",
     icon: <FaUserCog />,
   };
