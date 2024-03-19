@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddContractHandler from "./AddContractHandler";
-import { AddContractPropType, ContractDetails } from "./types";
+import { AddContractPropType, ContractDetails, Milestone } from "./types";
 import styles from "./AddContract.module.css";
 
 import {
@@ -41,7 +41,9 @@ const AddContract = ({
   contractDetails,
   setContractDetails,
   milestones,
+  // newMilestoneAmount,
 }: AddContractPropType) => {
+  // console.log("check in add",newMilestoneAmount)
   // const [contractType, setContractType] = useState<string | null>(null);
 
   // const handleSubmit = (data: ContractDetails) => {
@@ -49,6 +51,12 @@ const AddContract = ({
   //   console.log("Form Data:", data);
   //   // You can make API calls, dispatch actions, etc. here
   // };
+
+  const[upMiles,setUPMiles]=useState<Milestone[]>();
+console.log(milestones);
+useEffect(()=>{
+  setUPMiles(milestones);
+},[milestones])
 
   const handleStartDateChange = (value: Moment | null) => {
     const startDateString = value ? value.format("YYYY-MM-DD") : "";
@@ -76,6 +84,12 @@ const AddContract = ({
       date_of_signature: dateOfSignatureString,
     });
   };
+  // const validateComments = (_, value) => {
+  //   if (value && value.length > 5) {
+  //     return Promise.reject(new Error('Maximum 5 characters allowed'));
+  //   }
+  //   return Promise.resolve();
+  // };
 
   // const validateStartDate = (rule: any, value: Moment | null) => {
   //   if (
@@ -429,7 +443,7 @@ const AddContract = ({
                         </div>
                       </div>
                     </div>
-                    {milestones.map((milestone, index) => (
+                    {upMiles?.map((milestone, index) => (
                       <div
                         key={index}
                         style={{
@@ -502,43 +516,43 @@ const AddContract = ({
                             marginTop: "-1.7rem",
                           }}
                         >
-                          <Form.Item
-                            name={`milestones[${index}].percentage`}
-                            labelCol={{ span: 20 }}
-                            wrapperCol={{ span: 20 }}
-                            required
-                          >
-                            <InputNumber
-                              style={{ width: "100%" }}
-                              onChange={(value) =>
-                                handlePaymentPercentageChange(
-                                  index,
-                                  value as number
-                                )
-                              }
-                            />
-                          </Form.Item>
-                        </div>
+                            <Form.Item
+                              name={`milestones[${index}].percentage`}
+                              labelCol={{ span: 20 }}
+                              wrapperCol={{ span: 20 }}
+                              required
+                            >
+                              <InputNumber
+                                style={{ width: "100%" }}
+                                onChange={(value) => handlePaymentPercentageChange(index, value as number)}
+                              />
 
-                        <div
-                          style={{
-                            width: "20%",
-                            marginRight: "1rem",
-                            marginBottom: "0.5rem",
-                            marginTop: "-1.7rem",
-                          }}
-                        >
-                          <Form.Item
-                            name={`milestones[${index}].amount`}
-                            labelCol={{ span: 20 }}
-                            wrapperCol={{ span: 20 }}
-                            required
+                            </Form.Item>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "20%",
+                              marginRight: "1rem",
+                              marginBottom: "0.5rem",
+                              marginTop: "-1.7rem",
+                            }}
                           >
-                            <InputNumber
-                              style={{ width: "100%" }}
-                              value={milestone.amount}
-                            />
-                          </Form.Item>
+                            <Form.Item
+                              name={`milestones[${index}].amount`}
+                              labelCol={{ span: 20 }}
+                              wrapperCol={{ span: 20 }}
+                              required
+                              // initialValue={newMilestoneAmount}
+                              
+                            >
+                              <InputNumber
+                                style={{ width: "100%" }}
+                                // value={milestone.amount}
+                                // value={newMilestoneAmount}
+                                
+                              />
+                            </Form.Item>
                         </div>
                         {index >= 0 && (
                           <Button
@@ -669,6 +683,14 @@ const AddContract = ({
                         // labelCol={{ span: 1 }}
                         wrapperCol={{ span: 24 }}
                         style={{ width: "32rem", marginTop: "-1rem"}}
+                        rules={[
+                          {
+                            max: 5,
+                            message: "Maximum 5 characters allowed for comments",
+                          },
+                        ]}
+                        
+                       
                       >
                         <Input.TextArea
                           rows={4.5}
@@ -995,11 +1017,19 @@ const AddContract = ({
                         // labelCol={{ span: 6 }}
                         wrapperCol={{ span: 24 }}
                         style={{ width: "32rem", marginTop: "-1rem" }}
+                        rules={[
+                          {
+                            max: 5,
+                            message: "Maximum 5 characters allowed for comments",
+                          },
+                        ]}
+                        validateTrigger="onChange"
+                        name="comments"
                       >
                         <Input.TextArea
                           rows={4.5}
                           placeholder="Enter comments and remarks..."
-                          value={contractDetails.comments ?? ""}
+                          value={contractDetails.comments}
                           onChange={handleCommentsRemarksChange}  
                         />
                       </Form.Item>
