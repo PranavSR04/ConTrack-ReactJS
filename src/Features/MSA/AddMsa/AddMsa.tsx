@@ -21,7 +21,6 @@ import Toast from "../../../Components/Toast/Toast";
 import moment from "moment";
 import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
 const AddMsa = ({
-  SubmitAddMsa,
   fileName,
   msaRefId,
   msaAdded,
@@ -32,14 +31,12 @@ const AddMsa = ({
   handleAddMsa,
   isModalVisible,
   handleCancel,
-  isLoading,
   handleOk,
-  fullPageSpinner,
   validateStartDate,
-  isFormFilled,
   start_date,
   date_validate,
   spinning,
+  beforeUpload
 }: AddMsaPropsType) => {
   console.log("msa addded for toaster", msaAdded);
   console.log("msa_ref_id is", msaRefId);
@@ -82,7 +79,7 @@ const AddMsa = ({
                   name="msa_ref_id"
                   value={msaRefId}
                   readOnly
-                  className={styles.AddMsaDetails_inputs}
+                  className={styles.AddMsaDetails_inputs_msarefid}
                 />
               </Form.Item>
               <Form.Item
@@ -215,8 +212,9 @@ const AddMsa = ({
                     action=""
                     listType="picture-card"
                     fileList={[]}
-                    accept=".pdf"
+                    accept=".pdf,.docx"
                     customRequest={handleFileUpload}
+                    beforeUpload={beforeUpload}
                   >
                     <button
                       style={{ border: 0, background: "none" }}
@@ -257,15 +255,21 @@ const AddMsa = ({
             </Button>
 
             <Modal
-              title="Confirm Add MSA"
+              title="Are you sure you want to add this MSA?"
               visible={isModalVisible}
-              // onOk={handleOk}
               onCancel={handleCancel}
+              className={styles.modal_msa}
               footer={[
-                <Button key="ok" type="primary" onClick={handleOk}>
+                <Button 
+                className={styles.modal_okbutton}
+                key="ok"
+                 onClick={handleOk}>
                   Yes
                 </Button>,
-                <Button key="cancel" onClick={handleCancel}>
+                <Button 
+                key="cancel" 
+                className={styles.modal_cancelbutton}
+                onClick={handleCancel}>
                   No
                 </Button>,
               ]}

@@ -1,3 +1,4 @@
+import { RcFile } from "antd/es/upload";
 import { Moment } from "moment";
 
 export interface LocationStateProps {
@@ -19,6 +20,7 @@ export interface RenewMsaPropType{
     modalPopUp: () => void
     spinning: boolean
     msaRenewed: boolean
+    beforeUpload: (file: RcFile) => boolean
 }
 
 export interface RenewMsaModalPropsType{

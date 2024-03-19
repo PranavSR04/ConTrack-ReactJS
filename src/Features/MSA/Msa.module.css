@@ -31,7 +31,7 @@
   display: flex;
 }
 .AddMsaDetails_row1{
-    margin-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 .AddMsaDetails_row1_col1,
 .AddMsaDetails_row1_col2,
@@ -56,7 +56,7 @@
   background-color: crimson;
   width: 9rem;
   font-family: "Montserrat", sans-serif;
-  font-weight: 500; /* Bold weight */
+  font-weight: 500;
   font-size: 0.8rem;
   height: 2.7rem;
   margin-left: 25rem;
@@ -64,7 +64,6 @@
 .AddMsaDetails_row3_col1_filename {
   font-size: 0.9rem;
 }
-
 .document_link {
   text-decoration: none;
   color: black;
@@ -88,4 +87,18 @@
 .AddMsaDetails_inputs_startdate{
   width: 15rem;
 }
-
+.AddMsaDetails_inputs_msarefid{
+  width: 15rem;
+  background-color: rgb(239, 237, 237);
+}
+.modal_okbutton{
+  background-color: crimson;
+  flex:1;
+  justify-content: center;
+}
+.modal_cancelbutton{
+  flex: 1;
+}
+.modal_msa{
+  display: flex;
+}
