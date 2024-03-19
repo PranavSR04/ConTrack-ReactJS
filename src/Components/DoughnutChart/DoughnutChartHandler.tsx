@@ -30,13 +30,11 @@ const DoughnutChartHandler = () => {
                     contractData?.expiring || 0,
                     contractData?.progress || 0,
                     contractData?.active || 0,
-
                 ],
                 backgroundColor: [
                     '#89CFF0', // Expiring
                     '#0091D5', // Progress
                     '#1C4E80', // Active
-
                 ],
             },
         ],

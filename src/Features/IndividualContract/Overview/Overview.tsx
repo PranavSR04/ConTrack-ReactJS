@@ -76,7 +76,7 @@ const Overview = ({
               <h5
                 className={`${styles.maincontainer__overviewpayment__content__list__value}`}
               >
-                {contractTerm && contractTerm} Years
+                {contractTerm && contractTerm !== 0 ? `${contractTerm} Years` : '1 Year'} 
               </h5>
             </div>
           </div>
@@ -86,7 +86,7 @@ const Overview = ({
           loading={loading}
         >
           <div className={`${styles.maincontainer__overviewpayment__title}`}>
-            <h4>Reveue Details</h4>
+            <h4>Revenue Details</h4>
           </div>
           <div
             className={`${styles.maincontainer__overviewpayment__content__list}`}
@@ -122,7 +122,7 @@ const Overview = ({
           <div
             className={`${styles.maincontainer__overviewpayment__content__list}`}
           >
-            <h5>Revenue generated</h5>
+            <h5>Generated Revenue</h5>
             <h5
               className={`${styles.maincontainer__overviewpayment__content__list__value}`}
             >
@@ -132,7 +132,7 @@ const Overview = ({
           <div
             className={`${styles.maincontainer__overviewpayment__content__list}`}
           >
-            <h5>Revenue yet to recive</h5>
+            <h5>Pending Revenue</h5>
             <h5
               className={`${styles.maincontainer__overviewpayment__content__list__value}`}
             >

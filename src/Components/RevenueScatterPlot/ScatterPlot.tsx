@@ -39,7 +39,7 @@ const ScatterPlot = ({fetchContractRevenue,scatterData,data}:ScatterPlotHandlerP
                             ticks: {
                                 callback: function(value) {
                                     const numericValue = Number(value); 
-                    return (numericValue / 1000) + 'k';
+                    return (numericValue / 1000000) + 'M';
                                 }
                             }
                         }
