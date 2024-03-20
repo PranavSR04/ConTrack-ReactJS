@@ -89,7 +89,7 @@ const ListMsa = ({
                     className={styles.ListMsa_Details_Table_row1_col2_button}
                     onClick={() => navigate("/MSA Overview/Add MSA")}
                   >
-                    + ADD MSA
+                    + Add MSA
                   </button>
                 )}
               </div>
