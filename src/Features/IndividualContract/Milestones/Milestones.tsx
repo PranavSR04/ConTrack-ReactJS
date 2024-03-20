@@ -24,7 +24,7 @@ const Milestones = ({milestones, isCompletedCount}: MilestonesPropType) => {
             items={milestones && milestones.map((milestone, index) => ({
                 title: `${milestone.milestone_desc}`,
                 subTitle: `\nCompletion Date: ${milestone.milestone_enddate}`,
-                description: `Amount: ${milestone.amount} USD`,
+                description: `Amount: ${parseFloat(milestone.amount) / 1000}K USD`,
                 // status: index === currentStepIndex ? "process" : index < currentStepIndex ? "finish" : "wait",
             }))}
           />

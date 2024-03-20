@@ -59,22 +59,20 @@ const DocumentsUsersComments = ({
             <h4>Associated Users</h4>
           </div>
           <div className={`${styles.maincontainer__docusercomm__list}`}>
-            <Card>
-              <div
-                className={`${styles.maincontainer__membercomments__members__body__wrapper}`}
-              >
-                {associatedUsers.map((user: AssociatedUsersType, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={`${styles.maincontainer__membercomments__members__body__wrapper__data}`}
-                    >
-                      <p>{user.user_name}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            </Card>
+            <div
+              className={`${styles.maincontainer__membercomments__members__body__wrapper}`}
+            >
+              {associatedUsers.map((user: AssociatedUsersType, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={`${styles.maincontainer__membercomments__members__body__wrapper__data}`}
+                  >
+                    <p>{user.user_name}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </Card>
         <Card
