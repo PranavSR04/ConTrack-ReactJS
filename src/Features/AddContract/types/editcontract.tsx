@@ -70,6 +70,7 @@ export interface LocationStateProps {
 export interface EditContractPropType {
   contractAdded: boolean;
   contractType: string | null;
+  spinning: boolean;
   selectClient: (value: string) => Promise<void>;
   handleMilestoneChange: (
     index: number,

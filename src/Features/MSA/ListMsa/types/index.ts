@@ -48,7 +48,8 @@ export interface Condition {
     columns:TableColumn[];
     msaAdded?:boolean;
     msaEdited?:boolean;
-    edited: boolean
+    edited: boolean;
+    renew: boolean;
     handleSegmentChange?: (value: string) => void;
     getRowClassName: (record: any, index: number) => "even-row" | "odd-row";
     showInactiveMSA: () => Promise<void>;

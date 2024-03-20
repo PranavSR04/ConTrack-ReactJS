@@ -25,12 +25,12 @@ ChartJS.register(
 	Tooltip
 );
 
-const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
+const LineChart= ({ revenueData, loading, error }: LineChartPropType) => {
 	const data = {
 		labels: revenueData?.map((date) => date.Date),
 		datasets: [
 			{
-				label: "Revenue $",
+				label: "Revenue USD",
 				data: revenueData?.map((date) => date.Revenue),
 				// fill: false,
 				borderColor: "rgb(75, 192, 192)",
@@ -72,7 +72,7 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 			y: {
 				title: {
 					display: true,
-					text: "Revenue in $",
+					text: "Revenue USD",
 				},
 				ticks: {
 					count: 10,
@@ -94,20 +94,25 @@ const LineChart = ({ revenueData, loading, error }: LineChartPropType) => {
 	};
 
 	return (
-		<div className={styles.body}>
+		<div className={styles.body} >
 			<div className={styles.large_column}>
-				<div className={styles.container}>
+				<div className={styles.container} >
 					{loading ? (
-						<Spin
+						// <div data-testid="line-chart-spinner">
+						<Spin 
+							data-testid="line-chart-spinner"
 							className={styles.spinner}
 							indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />}
 						/>
+						// </div>
 					) : revenueData ? (
-						<Line data={data} options={options}>
+					
+						<Line data={data} options={options}  data-testid="line-chart" >
 							{" "}
 						</Line>
+					
 					) : (
-						<Card>{error?.error}</Card>
+						<Card data-testid="line-chart-error">{error?.error}</Card>
 					)}
 				</div>
 			</div>

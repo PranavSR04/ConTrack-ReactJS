@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddContractHandler from "./AddContractHandler";
-import { AddContractPropType, ContractDetails } from "./types";
+import { AddContractPropType, ContractDetails, Milestone } from "./types";
 import styles from "./AddContract.module.css";
 
 import {
@@ -11,6 +11,8 @@ import {
   Input,
   InputNumber,
   Select,
+  SelectProps,
+  Spin,
   Upload,
 } from "antd";
 import {
@@ -26,6 +28,7 @@ const AddContract = ({
   contractAdded,
   contractType,
   selectClient,
+  selectUser,
   handleMilestoneChange,
   handleSubmit,
   handleFileUpload,
@@ -37,11 +40,25 @@ const AddContract = ({
   handleAddMilestone,
   handleContractTypeChange,
   getClientName,
+  getUserName,
   clientNameOptions,
+  userNameOptions,
   contractDetails,
   setContractDetails,
   milestones,
+  spinning,
 }: AddContractPropType) => {
+  console.log("userNameOptions", userNameOptions);
+  const handleChange = (value: string[]) => {
+    console.log(`selected ${value}`);
+  };
+  const optionr: SelectProps["options"] = [];
+  for (let i = 10; i < 36; i++) {
+    optionr.push({
+      label: i.toString(36) + i,
+      value: i.toString(36) + i,
+    });
+  }
   // const [contractType, setContractType] = useState<string | null>(null);
 
   // const handleSubmit = (data: ContractDetails) => {
@@ -49,6 +66,12 @@ const AddContract = ({
   //   console.log("Form Data:", data);
   //   // You can make API calls, dispatch actions, etc. here
   // };
+
+  const[upMiles,setUPMiles]=useState<Milestone[]>();
+console.log(milestones);
+useEffect(()=>{
+  setUPMiles(milestones);
+},[milestones])
 
   const handleStartDateChange = (value: Moment | null) => {
     const startDateString = value ? value.format("YYYY-MM-DD") : "";
@@ -76,28 +99,6 @@ const AddContract = ({
       date_of_signature: dateOfSignatureString,
     });
   };
-
-  // const validateStartDate = (rule: any, value: Moment | null) => {
-  //   if (
-  //     value &&
-  //     contractDetails.date_of_signature &&
-  //     contractDetails.end_date
-  //   ) {
-  //     const startDate = moment(value);
-  //     const dateOfSignature = moment(contractDetails.date_of_signature);
-  //     const endDate = moment(contractDetails.end_date);
-
-  //     if (startDate.isBefore(dateOfSignature)) {
-  //       return Promise.reject("Start Date must be after Date of Signature");
-  //     }
-
-  //     if (startDate.isAfter(endDate)) {
-  //       return Promise.reject("Start Date must be before End Date");
-  //     }
-  //   }
-
-  //   return Promise.resolve();
-  // };
 
   const validateEndDate = (rule: any, value: Moment | null) => {
     if (
@@ -363,7 +364,7 @@ const AddContract = ({
                       }}
                     >
                       <Form.Item
-                        label="Total Contract Value"
+                        label="Total Contract Value (USD)"
                         name="estimated_amount"
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 8 }}
@@ -425,11 +426,11 @@ const AddContract = ({
                       </div>
                       <div style={{ width: "20%", marginRight: "1rem" }}>
                         <div style={{ marginBottom: "0.5rem" }}>
-                          Payment Amount(US$)
+                          Payment Amount(USD)
                         </div>
                       </div>
                     </div>
-                    {milestones.map((milestone, index) => (
+                    {upMiles?.map((milestone, index) => (
                       <div
                         key={index}
                         style={{
@@ -502,43 +503,51 @@ const AddContract = ({
                             marginTop: "-1.7rem",
                           }}
                         >
-                          <Form.Item
-                            name={`milestones[${index}].percentage`}
-                            labelCol={{ span: 20 }}
-                            wrapperCol={{ span: 20 }}
-                            required
-                          >
-                            <InputNumber
-                              style={{ width: "100%" }}
-                              onChange={(value) =>
-                                handlePaymentPercentageChange(
-                                  index,
-                                  value as number
-                                )
-                              }
-                            />
-                          </Form.Item>
-                        </div>
+                            <Form.Item
+                              name={`milestones[${index}].percentage`}
+                              labelCol={{ span: 20 }}
+                              wrapperCol={{ span: 20 }}
+                              required
+                            >
+                              <InputNumber
+                                style={{ width: "100%" }}
+                                onChange={(value) => handlePaymentPercentageChange(index, value as number)}
+                              />
 
-                        <div
-                          style={{
-                            width: "20%",
-                            marginRight: "1rem",
-                            marginBottom: "0.5rem",
-                            marginTop: "-1.7rem",
-                          }}
-                        >
-                          <Form.Item
-                            name={`milestones[${index}].amount`}
-                            labelCol={{ span: 20 }}
-                            wrapperCol={{ span: 20 }}
-                            required
+                            </Form.Item>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "20%",
+                              marginRight: "1rem",
+                              marginBottom: "0.5rem",
+                              marginTop: "-1.7rem",
+                            }}
                           >
-                            <InputNumber
-                              style={{ width: "100%" }}
-                              value={milestone.amount}
-                            />
-                          </Form.Item>
+                            <Form.Item
+                              name={`milestones[${index}].amount`}
+                              labelCol={{ span: 20 }}
+                              wrapperCol={{ span: 20 }}
+                              required
+                              // initialValue={newMilestoneAmount}
+                              
+                            >
+                               <Input
+                               style={{display:"none"}}
+                               value={milestone.amount?milestone.amount:0}
+                               
+                               />
+                             
+                              <InputNumber
+                                style={{ width: "100%" }}
+                                // onBeforeInput={()=>{milestone.amount?milestone.amount:0}}
+                                value={milestone.amount || 0}
+                                disabled
+                                // value={newMilestoneAmount}
+                                
+                              />
+                            </Form.Item>
                         </div>
                         {index >= 0 && (
                           <Button
@@ -578,6 +587,14 @@ const AddContract = ({
                       <Select
                         mode="tags"
                         placeholder="Please select or type"
+                        allowClear
+                        options={userNameOptions}
+                        onSearch={getUserName}
+                        // showSearch={}
+                        // filterOption={true}
+                        // labelInValue={true}
+                        onChange={selectUser}
+                        // onSelect={selectUser}
                         style={{
                           width: "100%",
                           height: "100%",
@@ -627,6 +644,7 @@ const AddContract = ({
                           //   action=""
                           customRequest={handleFileUpload}
                           maxCount={1}
+                          // fileList={fileList || []}
                           // showUploadList={false}
                         >
                           {/* <Button icon={<UploadOutlined />}>
@@ -666,9 +684,18 @@ const AddContract = ({
                       }}
                     >
                       <Form.Item
-                        // labelCol={{ span: 1 }}
+                        // labelCol={{ span: 6 }}
                         wrapperCol={{ span: 24 }}
-                        style={{ width: "32rem", marginTop: "-1rem"}}
+                        style={{ width: "32rem", marginTop: "-1rem" }}
+                        rules={[
+                          {
+                            max: 5,
+                            message:
+                              "Maximum 5 characters allowed for comments",
+                          },
+                        ]}
+                        validateTrigger="onChange"
+                        name="comments"
                       >
                         <Input.TextArea
                           rows={4.5}
@@ -714,7 +741,7 @@ const AddContract = ({
                       }}
                     >
                       <Form.Item
-                        label="Total Contract Value"
+                        label="Total Contract Value (USD)"
                         name="estimated_amount"
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 8 }}
@@ -904,6 +931,14 @@ const AddContract = ({
                       <Select
                         mode="tags"
                         placeholder="Please select or type"
+                        allowClear
+                        options={userNameOptions}
+                        onSearch={getUserName}
+                        // showSearch={}
+                        // filterOption={true}
+                        // labelInValue={true}
+                        onChange={selectUser}
+                        // onSelect={selectUser}
                         style={{
                           width: "100%",
                           height: "100%",
@@ -995,12 +1030,21 @@ const AddContract = ({
                         // labelCol={{ span: 6 }}
                         wrapperCol={{ span: 24 }}
                         style={{ width: "32rem", marginTop: "-1rem" }}
+                        rules={[
+                          {
+                            max: 200,
+                            message:
+                              "Maximum 200 characters allowed for comments",
+                          },
+                        ]}
+                        validateTrigger="onChange"
+                        name="comments"
                       >
                         <Input.TextArea
                           rows={4.5}
                           placeholder="Enter comments and remarks..."
                           value={contractDetails.comments ?? ""}
-                          onChange={handleCommentsRemarksChange}  
+                          onChange={handleCommentsRemarksChange}
                         />
                       </Form.Item>
                     </div>
@@ -1008,7 +1052,10 @@ const AddContract = ({
                 </div>
               </>
             )}
-            <Form.Item wrapperCol={{ offset: 4, span: 14 }} style={{marginRight: "15rem",}}>
+            <Form.Item
+              wrapperCol={{ offset: 4, span: 14 }}
+              style={{ marginRight: "15rem" }}
+            >
               <Button
                 type="primary"
                 htmlType="submit"
@@ -1022,6 +1069,7 @@ const AddContract = ({
                 Add Contract
               </Button>
             </Form.Item>
+            <Spin spinning={spinning} fullscreen />
           </Form>
         </>
       </div>

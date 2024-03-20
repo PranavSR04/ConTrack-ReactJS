@@ -1,6 +1,8 @@
+/* eslint-disable testing-library/prefer-screen-queries */
 import { MilestonesPropType } from "../../Features/IndividualContract/Milestones/types";
 import Milestones from "../../Features/IndividualContract/Milestones/Milestones";
 import { render } from "@testing-library/react";
+import React from "react";
 
 describe("IndividualContract component", () => {
   it("renders without crashing", () => {
