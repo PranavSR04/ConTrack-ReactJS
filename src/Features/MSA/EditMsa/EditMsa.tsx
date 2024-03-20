@@ -317,7 +317,8 @@ const EditMsa = ({
                 </Button>,
                 <Button key="cancel" onClick={handleCancel}>
                   No
-                </Button>,
+                </Button>
+                
               ]}
             ></Modal>
             <Spin spinning={spinning} fullscreen />

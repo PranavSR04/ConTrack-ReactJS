@@ -38,6 +38,8 @@ const ListMsaHandler = () => {
   
   const [data, setData] = useState<MsaData[]>([]);
   const [isEmptySearch, setIsEmptySearch] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
   const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
   const [pagination, setPagination] = useState({
     current: 1,
@@ -60,6 +62,8 @@ const ListMsaHandler = () => {
     if(isActive){
 
     fetchData();
+    
+    
     }else{
       setActionClicked(true)
       showInactiveMSA();
@@ -69,6 +73,7 @@ const ListMsaHandler = () => {
     try {
       setActionClicked(false)
       const response = await getapi(pagination.current, pagination.pageSize,searchConditions);
+      setLoading(false)
       setData(response.data);
       setPagination({
         ...pagination,
@@ -231,6 +236,7 @@ const showInactiveMSA=async()=>{
     showInactiveMSA={showInactiveMSA}
     rowClassName={rowClassName}
     renew={renew}
+    loading={loading}
    />
   )
   }

@@ -266,7 +266,6 @@ const AddMsa = ({
               onCancel={handleCancel}
               className={styles.modal_msa}
               footer={[
-                <div className={styles.modal_buttons}>
                 <Button 
                 className={styles.modal_okbutton}
                 key="ok"
@@ -279,8 +278,7 @@ const AddMsa = ({
                   onClick={handleCancel}
                 >
                   No
-                </Button>,
-                </div>
+                </Button>
               ]}
             >
               <Spin spinning={spinning} fullscreen />
