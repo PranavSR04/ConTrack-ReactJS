@@ -76,7 +76,9 @@ const Overview = ({
               <h5
                 className={`${styles.maincontainer__overviewpayment__content__list__value}`}
               >
-                {contractTerm && contractTerm !== 0 ? `${contractTerm} Years` : '1 Year'} 
+                {contractTerm && contractTerm !== 0
+                  ? `${contractTerm} Years`
+                  : "1 Year"}
               </h5>
             </div>
           </div>
@@ -95,7 +97,7 @@ const Overview = ({
             <h5
               className={`${styles.maincontainer__overviewpayment__content__list__value}`}
             >
-              {estimatedAmount} USD
+              {estimatedAmount / 1000000}M USD
             </h5>
           </div>
           <div
@@ -106,7 +108,6 @@ const Overview = ({
               className={`${styles.maincontainer__overviewpayment__content__list__value}`}
             >
               {isCompletedCount}
-              {/* <span> of</span> {milestoneCount} */}
             </h5>
           </div>
           <div
@@ -126,7 +127,11 @@ const Overview = ({
             <h5
               className={`${styles.maincontainer__overviewpayment__content__list__value}`}
             >
-              {revenueGenerated} USD
+              {revenueGenerated !== 0
+                ? revenueGenerated / 1000000 > 1
+                  ? `${revenueGenerated / 1000000}M`
+                  : `${revenueGenerated / 1000}K`
+                : 0}{" USD"}
             </h5>
           </div>
           <div
@@ -136,7 +141,11 @@ const Overview = ({
             <h5
               className={`${styles.maincontainer__overviewpayment__content__list__value}`}
             >
-              {totalRevenue - revenueGenerated} USD
+              {totalRevenue - revenueGenerated !== 0
+                ? (totalRevenue - revenueGenerated) / 1000000 > 1
+                  ? `${(totalRevenue - revenueGenerated) / 1000000}M`
+                  : `${(totalRevenue - revenueGenerated) / 1000}K`
+                : 0}{" USD"}
             </h5>
           </div>
         </Card>
