@@ -298,6 +298,7 @@ const EditMsa = ({
               onCancel={handleCancel}
               // onOk={handleOk}
               footer={[
+                
                 <Button 
                 className={styles.modal_okbutton}
                 key="ok" 
@@ -306,7 +307,8 @@ const EditMsa = ({
                 </Button>,
                 <Button key="cancel" onClick={handleCancel}>
                   No
-                </Button>,
+                </Button>
+                
               ]}
             ></Modal>
             <Spin spinning={spinning} fullscreen />
