@@ -58,7 +58,14 @@ const ManageUsers = ({
 ManageUsersPropType) => {
   return (
     <>
-      <BreadCrumbs />
+      {/* <BreadCrumbs
+        style={{
+          fontSize: 17,
+          // color: "red !important",
+          fontStyle: "italic",
+          marginLeft: "15rem",
+        }}
+      /> */}
       <h2 className={`${userTableStyles.pageTitle}`}>MANAGE USER</h2>
       <div className={` ${userTableStyles.wholeTable} `}>
         <div className={`${userTableStyles.searchEmployeeCluster}`}>
@@ -75,9 +82,13 @@ ManageUsersPropType) => {
               getEmployee(text);
               debouncedFetchData(text);
             }}
-            notFoundContent={dropDownLoading ? <Spin
-              indicator={<LoadingOutlined style={{ fontSize: 15 }} spin />}
-          /> : null}
+            notFoundContent={
+              dropDownLoading ? (
+                <Spin
+                  indicator={<LoadingOutlined style={{ fontSize: 15 }} spin />}
+                />
+              ) : null
+            }
           />
 
           <Select
@@ -172,8 +183,10 @@ ManageUsersPropType) => {
               indicator: (
                 <div>
                   <Spin
-                            indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />}
-                        />
+                    indicator={
+                      <LoadingOutlined style={{ fontSize: 30 }} spin />
+                    }
+                  />
                 </div>
               ),
               spinning: loading,
@@ -197,6 +210,7 @@ ManageUsersPropType) => {
         onConfirm={() => selectedUser && handleDelete(selectedUser)}
         userName={selectedUser ? selectedUser.user_name : ""}
       />
+
     </>
   );
 };

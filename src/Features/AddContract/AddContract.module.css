@@ -3,8 +3,6 @@
   background-color: #dedede;
   font-weight: normal;
   font-family: "Montserrat", sans-serif;
-
-  /* overflow: hidden; */
 }
 
 .contract_details {
@@ -24,9 +22,6 @@
   font-size: 1rem;
   font-weight: 500;
   font-family: "Montserrat", sans-serif;
-  
-
-  /* margin-left: 14rem;   */
 }
 
 .customDatePicker {
@@ -35,7 +30,7 @@
 
 .redAsterisk {
   color: red;
-  margin-left: 4px; /* Adjust as needed */
+  margin-left: 4px;
 }
 
 .submitButton {

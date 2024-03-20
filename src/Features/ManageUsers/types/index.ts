@@ -1,5 +1,4 @@
 import { DebouncedFunc } from "lodash";
-import { LabeledValue,SelectProps,SelectValue } from 'antd/es/select';
 
 export interface ManageUsersPropType {
   handleAddUser: () => void;
