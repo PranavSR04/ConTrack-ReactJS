@@ -10,7 +10,7 @@ const CloseContract = ({
     closeContract,
     modalPopUp,
     contractStatus}: CloseContractPropType) => {
-
+      // Getting the ROLE_ID to check if close contract button needs to be shown to readers
       const ROLE_ID=parseInt(localStorage.getItem('role_id') || '0', 10);
   return (
     <>

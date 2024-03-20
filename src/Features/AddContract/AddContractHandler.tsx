@@ -1,39 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  AutoComplete,
-  Button,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Select,
-} from "antd";
-import {
-  PlusOutlined,
-  CloseCircleOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
-import { Upload } from "antd";
 import { Milestone, ContractDetails, RcFile, AssociatedMember } from "./types";
-import styles from "./AddContract.module.css";
 import "./api/api";
 import dayjs from "dayjs";
 import { getMSA } from "./api/getMSA";
-import { AxiosResponse } from "axios";
 import { addContract } from "./api/api";
 import { UploadRequestOption } from "rc-upload/lib/interface";
-import moment from "moment";
-import Toast from "../../Components/Toast/Toast";
 import { useNavigate } from "react-router-dom";
 import AddContract from "./AddContract";
 import { getUser } from "./api/getUser";
-import { forEach } from "lodash";
-
-// import { RcFile } from "antd/lib/upload";
-
-// interface AddContractHandlerProps {
-//   onSubmit: (data: ContractDetails) => void;
-// }
 
 const AddContractHandler = () => {
   const [contractDetails, setContractDetails] = useState<ContractDetails>({
@@ -62,13 +36,11 @@ const AddContractHandler = () => {
   });
 
   const [uploadedFile, setUploadedFile] = useState(null);
-
   const [contractAdded, setContractAdded] = useState<boolean>(false);
   const [milestones, setMilestones] = useState<Milestone[]>(
     contractDetails.milestone
   );
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<number[]>([]);
-
   const [clientNameOptions, setClientNameOptions] = useState<
     { value: string }[]
   >([]);
@@ -76,8 +48,15 @@ const AddContractHandler = () => {
   const [userNameOptions, setUserNameOptions] = useState<AssociatedMember[]>(
     []
   );
+  const [contractType, setContractType] = useState<string | null>(null);
+  const [fileList, setFileList] = useState<any>();
+  const [newMilestoneAmount, setNewMilestoneAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(0);
+  let updatedAssocMembers: any = [];
+
   const navigate = useNavigate();
 
+  // Function to fetch client names
   const getClientName = async (searchValue: string) => {
     try {
       const response = await getMSA(searchValue);
@@ -93,17 +72,13 @@ const AddContractHandler = () => {
     }
   };
 
+  // Function to fetch user names
   const getUserName = async () => {
     try {
       const response = await getUser();
       console.log("API RESPONSE onSearch:", response);
 
-      // Ensure response.data is an array
       if (Array.isArray(response.data.data)) {
-        //  const userNames = response.data.data.map(
-        //    (item: any) => item.user_name
-        //  );
-
         console.log("RESPONSE>DATA.DATA", response.data.data);
 
         const userList: AssociatedMember[] = response.data.data.map(
@@ -112,14 +87,7 @@ const AddContractHandler = () => {
             value: data.id,
           })
         );
-
         console.log("userLIST AFTER MAP", userList);
-
-        // Remove duplicate names and convert to options format
-        // const uniqueOptions: { value: string }[] = Array.from(
-        //   new Set(userNames)
-        // ).map((name) => ({ value: name as string }));
-
         setUserNameOptions(userList);
         console.log("SETTED USERNAME OPTIONS", userNameOptions);
       } else {
@@ -130,45 +98,7 @@ const AddContractHandler = () => {
     }
   };
 
-  // const getUserName = async (searchValue: string) => {
-  //   console.log("before try", searchValue);
-  //   try {
-  //     // const userList:ContractDetails["associatedMembers"]
-  //     const response = await getUser(searchValue);
-  //     console.log("API RESPONSE onSearch:", response);
-
-  //     // Ensure response.data is an array
-  //     if (Array.isArray(response.data.data)) {
-  //       const userNames = response.data.data.map((item: any) => item.user_name);
-
-  //       console.log("RESPONSE>DATA.DATA", response.data.data);
-
-  //       const userList: AssociatedMember[] = response.data.data.map(
-  //         (data: { user_name: string; id: number }) => ({
-  //           label: data.user_name,
-  //           value: data.id,
-  //         })
-  //       );
-
-  //       console.log("userLIST AFTER MAP", userList);
-
-  //       // Remove duplicate names and convert to options format
-  //       // const uniqueOptions: { value: string }[] = Array.from(
-  //       //   new Set(userNames)
-  //       // ).map((name) => ({ value: name as string }));
-
-  //       setUserNameOptions(userList);
-  //       console.log("SETTED USERNAME OPTIONS", userNameOptions);
-  //     } else {
-  //       console.error("Invalid data format for user names. Expected an array.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching user names:", error);
-  //   }
-  // };
-
-  const [contractType, setContractType] = useState<string | null>(null);
-
+  // Function to handle contract type change
   const handleContractTypeChange = (value: "FF" | "TM") => {
     setContractDetails({
       ...contractDetails,
@@ -177,8 +107,7 @@ const AddContractHandler = () => {
     setContractType(value);
   };
 
-  const [fileList, setFileList] = useState<any>();
-
+  // Function to add a new milestone
   const handleAddMilestone = () => {
     setMilestones([
       ...milestones,
@@ -191,12 +120,14 @@ const AddContractHandler = () => {
     ]);
   };
 
+  // Function to remove a milestone
   const removeMilestone = (index: number) => {
     const updatedMilestones = [...milestones];
     updatedMilestones.splice(index, 1);
     setMilestones(updatedMilestones);
   };
 
+  // Function to set amount for all milestones
   const handleAmount = (paymentamount: number | null) => {
     const updatedMilestones = milestones.map((milestone) => {
       return {
@@ -206,8 +137,6 @@ const AddContractHandler = () => {
       };
     });
     setMilestones(updatedMilestones);
-
-    // Also update the contractDetails if needed
     const updatedContractDetails = {
       ...contractDetails,
       milestone: updatedMilestones,
@@ -215,8 +144,7 @@ const AddContractHandler = () => {
     setContractDetails(updatedContractDetails);
   };
 
-  const [newMilestoneAmount, setNewMilestoneAmount] = useState<number>(0);
-  const [amount, setAmount] = useState<number>(0);
+  // Function to handle payment percentage change for a milestone
   const handlePaymentPercentageChange = (
     index: number,
     value: number | undefined
@@ -226,7 +154,6 @@ const AddContractHandler = () => {
         (value / 100) * (contractDetails.estimated_amount ?? 0);
       const updatedMilestones = milestones.map((milestone, idx) => {
         if (idx === index) {
-          // console.log("consoled amount", paymentAmount)
           return {
             ...milestone,
             percentage: value,
@@ -234,16 +161,12 @@ const AddContractHandler = () => {
           };
         } else return milestone;
       });
-
       setMilestones(updatedMilestones);
       console.log("updatedMilestones", updatedMilestones);
-
-      // Also update the contractDetails if needed
       const updatedContractDetails = {
         ...contractDetails,
         milestone: updatedMilestones,
       };
-
       setAmount(paymentAmount);
       setContractDetails(updatedContractDetails);
       console.log("new check milestone amount", amount);
@@ -251,11 +174,13 @@ const AddContractHandler = () => {
     }
   };
 
+  // Update new milestone amount when amount changes
   useEffect(() => {
     console.log("new check milestone amount", newMilestoneAmount);
     setNewMilestoneAmount(amount);
   }, [amount]);
 
+  // Function to handle total contract value change
   const handleTotalContractValueChange = (value: number | null) => {
     if (value !== undefined && value !== null) {
       setContractDetails({
@@ -269,6 +194,7 @@ const AddContractHandler = () => {
     }
   };
 
+  // Function to handle comments/remarks change
   const handleCommentsRemarksChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -282,6 +208,7 @@ const AddContractHandler = () => {
     });
   };
 
+  // Function to handle file upload
   const handleFileUpload = (info: UploadRequestOption<any>) => {
     try {
       console.log("File uploaded successfully:", info.file as RcFile);
@@ -296,9 +223,8 @@ const AddContractHandler = () => {
     }
   };
 
+  // Function to handle form submission
   const handleSubmit = async () => {
-    // onSubmit(contractDetails);
-
     try {
       setSpinning(true);
       await addContract(contractDetails);
@@ -313,13 +239,13 @@ const AddContractHandler = () => {
     }
   };
 
+  // Function to handle milestone change
   const handleMilestoneChange = (
     index: number,
     field: string,
     value: string | dayjs.Dayjs | number | null
   ) => {
     let convertedValue: Date | null = null;
-    // Convert dayjs object to Date
     if (dayjs.isDayjs(value)) {
       convertedValue = (value as dayjs.Dayjs).toDate();
     }
@@ -330,8 +256,6 @@ const AddContractHandler = () => {
       [field]: dayjs.isDayjs(value) ? convertedValue : value,
     };
     setMilestones(updatedMilestones);
-
-    // Update contractDetails as well if needed
     const updatedContractDetails = {
       ...contractDetails,
       milestone: updatedMilestones,
@@ -339,12 +263,13 @@ const AddContractHandler = () => {
     setContractDetails(updatedContractDetails);
   };
 
+  // Hook to fetch MSA and user data on component mount
   useEffect(() => {
     let responses;
     const fetchMSA = async () => {
       try {
         responses = await getMSA();
-        console.log("msa response", responses.data);
+        console.log("MSA response", responses.data);
       } catch (err) {
         console.log(err);
       }
@@ -352,7 +277,6 @@ const AddContractHandler = () => {
     fetchMSA();
     getUserName();
   }, []);
-
   useEffect(() => {
     let responses;
     const fetchUser = async () => {
@@ -366,14 +290,13 @@ const AddContractHandler = () => {
     fetchUser();
   }, []);
 
+  // Function to select a client
   const selectClient = async (value: string) => {
-    // Fetch client data including region
     try {
       const response = await getMSA(value);
       const clientData = response.data[0];
       console.log("Client data", clientData);
       if (clientData) {
-        // Update contractDetails with client data
         setContractDetails({
           ...contractDetails,
           msa_id: clientData.id,
@@ -385,32 +308,13 @@ const AddContractHandler = () => {
       console.error("Error fetching client data:", error);
     }
   };
-  let updatedAssocMembers: any = [];
-  const selectUser = (data: AssociatedMember) => {
-    // try {
-    //   const response = await getUser(value);
-    //   const userData = response.data[0];
-    //   console.log("User data", userData);
-    //   if (userData) {
-    //     // Update contractDetails with user_id in associatedMembers
-    //     const updatedAssocMembers = [
-    //       ...contractDetails.associatedMembers,
-    //       { user_id: userData.user_id },
-    //     ];
 
-    //     setContractDetails({
-    //       ...contractDetails,
-    //       associatedMembers: updatedAssocMembers,
-    //     });
-    //   }
-    // } catch (error) {
-    //   console.error("Error fetching user data:", error);
-    // }
+  // Function to select a user
+  const selectUser = (data: AssociatedMember) => {
     if (data) {
       Object.entries(data).forEach(([key, value]) => {
         console.log("Key:", key);
         console.log("Value:", value);
-
         if (
           !contractDetails.assoc_users.some((user) => user.user_id === value)
         ) {
@@ -423,30 +327,13 @@ const AddContractHandler = () => {
           console.log("Skipping duplicate value:", value);
         }
       });
-      // console.log("SELECT DATA", typeof data, "actual value:", data);
-      // const updatedAssoc = [...contractDetails.assoc_users, { user_id: data }];
-
-      // updatedAssocMembers = [...updatedAssocMembers, ...updatedAssoc];
-
       console.log("UpdatedAssoc", updatedAssocMembers);
-
       setContractDetails({
         ...contractDetails,
         assoc_users: updatedAssocMembers,
       });
-      // const updatedEmployeeIds = data.map((option) => option.user_id);
-      // console.log("SELECTED EMPLOYEE IDS:", updatedEmployeeIds);
-
-      // Update selectedEmployeeId with new array of user_ids
-      // setSelectedEmployeeId((prevIds) => [...prevIds, data]);
-      // console.log("ASSOC USER ARRAY", selectedEmployeeId);
-      // const extractedId = data[0].user_id;
-      // console.log("EXTRACTEDD Employee ID :", extractedId);
-      // setSelectedEmployeeId(data[0].user_id);
     }
   };
-
-  //   console.log("Milestones-test", milestones);
 
   return (
     <AddContract
@@ -472,7 +359,6 @@ const AddContractHandler = () => {
       setContractDetails={setContractDetails}
       milestones={milestones}
       spinning={spinning}
-      // fileList={fileList}
     />
   );
 };

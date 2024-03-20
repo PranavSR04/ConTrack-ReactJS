@@ -71,6 +71,17 @@ const AppRoutes = () => {
                 }
               />
               <Route
+                path="/Dashboard/:contract_ref_id/Edit Contract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <EditContractHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
                 path="/Revenue"
                 element={
                   <>

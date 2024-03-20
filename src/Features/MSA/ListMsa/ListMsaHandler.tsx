@@ -12,37 +12,19 @@ import tableStyles from './ListMsa.module.css'  ;
 
 
 const ListMsaHandler = () => {
-  //let added=false;
   const navigate=useNavigate();
   const location = useLocation();
   const [added, setAdded] = useState(false);
   const[edited,setEdited]=useState(false);
-  const[renew,setRenew]=useState(false)
-
-  useEffect(() => {
-      if (location.state) {
-        if (location.state.added) {
-          setAdded(true);
-          console.log(added);
-        }
-        else if (location.state.edited) {
-         setEdited(true);
-      }else if (location.state.renew){
-        setRenew(true)
-      }
-          setTimeout(() => {
-            window.history.replaceState(null, '');
-        }, 0);
-      }
-  }, [location.state]);
-  
+  const[renew,setRenew]=useState(false);
   const [data, setData] = useState<MsaData[]>([]);
   const [isEmptySearch, setIsEmptySearch] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [searchConditions, setSearchConditions] = useState<Record<string,string>>({});
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 10, // Default page size
-    total: 0,     // Total items  from API
+    pageSize: 10, 
+    total: 0, 
   });
   const [actionClicked, setActionClicked]= useState<boolean>(false);
   const[isActive,setIsActive]=useState<boolean>(true);
@@ -54,21 +36,48 @@ const ListMsaHandler = () => {
     'added_by_user': ' Added By'
   };
 
-  const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10);    
+  const ROLE_ID = parseInt(localStorage.getItem('role_id') || '0', 10); 
+  // useEffect to handle changes in location state
+  useEffect(() => {
+    if (location.state) {
+      // Check if MSA was added
+      if (location.state.added) {
+        setAdded(true);
+        console.log(added);
+      }
+      // Check if MSA was edited
+      else if (location.state.edited) {
+       setEdited(true);
+    }
+    // Check if MSA was renew
+    else if (location.state.renew){
+      setRenew(true)
+    }
+        setTimeout(() => {
+          window.history.replaceState(null, '');
+      }, 0);
+    }
+}, [location.state]); 
 
+  // Fetch data based on search conditions, pagination, and isActive status
   useEffect(() => {
     if(isActive){
-
+      // Fetch data based on search conditions and pagination
     fetchData();
     }else{
+      // If component is inactive, show inactive MSA
       setActionClicked(true)
       showInactiveMSA();
     }
   }, [searchConditions,pagination.current, pagination.pageSize]);
+  // Function to fetch data based on search conditions, pagination, and page size
   const fetchData = async () => {
     try {
-      setActionClicked(false)
+      setActionClicked(false);
+      // Fetch data from API
       const response = await getapi(pagination.current, pagination.pageSize,searchConditions);
+      setLoading(false);
+       // Set fetched data and update pagination
       setData(response.data);
       setPagination({
         ...pagination,
@@ -79,10 +88,13 @@ const ListMsaHandler = () => {
       console.error("Error fetching data:", error);
     }
   };
+  // Function to fetch inactive MSA data
 const showInactiveMSA=async()=>{
   try {
+    // Set active flag to false and action clicked flag to true
     setIsActive(false);
     setActionClicked(true);
+    // Fetch inactive MSA data from API
     const inactiveresponse= await getapi_inactivemsa(pagination.current, pagination.pageSize,searchConditions);
     console.log(inactiveresponse)
     setData(inactiveresponse);
@@ -95,7 +107,7 @@ const showInactiveMSA=async()=>{
     console.error("Error fetching data:", error);
   }
 }
-  console.log("Data for Table:",data)
+// Function to handle pagination and page size change in the table
   const handleTableChange = (pagination: TablePaginationConfig) => {
     if ('current' in pagination && 'pageSize' in pagination) {
       setPagination({
@@ -106,14 +118,17 @@ const showInactiveMSA=async()=>{
     }
   
   };
+  // Function to apply custom row class names for alternate rows
   const rowClassName = (record:MsaData, index: number): string => {
-    // Add a custom class to alternate rows
     return index % 2 === 0 ? tableStyles['oddRow'] : tableStyles['evenRow'];
   };
+  // Array of desired column keys to be displayed in the table
   const desiredColumnKeys = ['msa_ref_id', 'client_name', 'start_date', 'end_date'];
+  // Function to get search properties for a specific column
   const getColumnSearchProps = (dataIndex: string) => {
     return{
     filterDropdown: ({ selectedKeys,confirm, setSelectedKeys}: { selectedKeys: React.Key[]; confirm: (param?: FilterConfirmProps) => void;setSelectedKeys: (selectedKeys: React.Key[]) => void;}) => { 
+      // Custom filter dropdown content based on the column
       if (dataIndex === 'msa_ref_id') {
                 return null;
     }
@@ -135,6 +150,7 @@ const showInactiveMSA=async()=>{
       )
     },
     filterIcon: (filtered:boolean) => {
+      // Display filter icon based on the column
       if(dataIndex==='msa_ref_id'){
          return null;
       }
@@ -142,28 +158,33 @@ const showInactiveMSA=async()=>{
     },
     };
   };
+  // Function to handle search for a specific column
     const onSearch = ( selectedKeys: string, selectedField: string) => {
       setIsEmptySearch(false); 
       setSearchConditions((prevConditions) => ({...prevConditions, [selectedField]: selectedKeys }));
+      // Update search conditions with the selected keys and field
       console.log(searchConditions);
     };
-  
+    // Function to clear search conditions and reset search flag
     const clearSearch = ( ) => {
       setSearchConditions({});
       setIsEmptySearch(true);    
     };
+    // Function to navigate to the edit MSA page with the provided MSA reference ID
     const oneditPage = (msa_ref_id: string) => {
       setActionClicked(true);
       navigate(`/MSA Overview/Edit MSA`, {
         state: { msa_ref_id: msa_ref_id as string },
       });
     };
+    // Function to navigate to the renew MSA page with the given MSA reference ID
     const onrenewPage = (msa_ref_id: string) => {
       setActionClicked(true);
       navigate(`/MSA Overview/Renew MSA`, {
         state: { msa_ref_id: msa_ref_id as string },
       });
     };
+  // Array to hold table column configurations
   const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
     title: customHeadings[key],
     dataIndex: key,
@@ -172,10 +193,12 @@ const showInactiveMSA=async()=>{
     sortDirections: ['ascend', 'descend'],
     ...getColumnSearchProps(key),
   }));
+  // Add action column conditionally based on ROLE_ID
   {   ROLE_ID !==3 &&
     columns.push({
      title: 'Action',
      key: 'action',
+     // Render function to display action icons
      render: (text:any, record:MsaData) => (
       <div className='listmsa-action-icons'>
       <span className='listmsa-action-renew'>
@@ -212,9 +235,7 @@ const showInactiveMSA=async()=>{
      ),
    });
   }
-
-  
-
+  // Function to determine row class name for alternate row styling
    const getRowClassName = (record: any, index: number) => {
     return index % 2 === 0 ? 'even-row' : 'odd-row';
   };
@@ -231,6 +252,7 @@ const showInactiveMSA=async()=>{
     showInactiveMSA={showInactiveMSA}
     rowClassName={rowClassName}
     renew={renew}
+    loading={loading}
    />
   )
   }

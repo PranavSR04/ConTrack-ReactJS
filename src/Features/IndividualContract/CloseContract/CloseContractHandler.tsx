@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { HandlerPropType } from "../Header/types";
 import { useNavigate } from "react-router";
 import { postCloseContract } from "../api/postCloseContract";
 import {
@@ -21,25 +20,27 @@ const CloseContractHandler = ({
     getContractStatus(responses);
   }, [responses]);
 
+  // Function which is used to set the data required from response
   const getContractStatus: CloseContractHandlerType["getContractStatus"] = (
     responses
   ) => {
     if (responses && responses.data && responses.data.length > 0) {
-      // console.log("addendum", responses.data[0].addendum)
       setContractStatus(responses.data[0].contract_status);
     }
   };
 
+  // Function which triggers on cancel or close button of modal
   const onCancel = () => {
     setVisible(false);
   };
 
+  // Function to trigger modal pop up
   const modalPopUp = () => {
     setVisible(true);
   };
 
+  // Function to change contract_status to Closed
   const closeContract = async () => {
-    // console.log("closed");
     try {
       await postCloseContract(id);
       console.log("Closed contract with id:", id);

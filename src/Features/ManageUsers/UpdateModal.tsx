@@ -8,11 +8,10 @@ interface UpdateModalProps {
     visible: boolean;
     onCancel: () => void;
     updateUser: () => void;
-
+    
     // onOk: (roleId: number | undefined) => void;
     roleOptions: RoleOption[];
-    // editedUser: User | null; // Add this line
-    // selectedRoleId: number | undefined; // Include these props
+
      setSelectedRoleId: React.Dispatch<React.SetStateAction<number | undefined>>; 
   }
 

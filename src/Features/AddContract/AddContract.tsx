@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import AddContractHandler from "./AddContractHandler";
-import { AddContractPropType, ContractDetails, Milestone } from "./types";
+import { useEffect, useState } from "react";
+import { AddContractPropType, Milestone } from "./types";
 import styles from "./AddContract.module.css";
-// import bcstyles from "../../Components/BreadCrumbs/breadcrumbs.module.css";
-
 import {
   AutoComplete,
   Button,
@@ -12,7 +9,6 @@ import {
   Input,
   InputNumber,
   Select,
-  SelectProps,
   Spin,
   Upload,
 } from "antd";
@@ -20,16 +16,11 @@ import {
   PlusOutlined,
   CloseCircleOutlined,
   UploadOutlined,
-  UnderlineOutlined,
 } from "@ant-design/icons";
-import Toast from "../../Components/Toast/Toast";
 import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 import moment, { Moment } from "moment";
-import { rgbToRgb, rgbaToArgbHex } from "@ctrl/tinycolor";
-import flex from "antd/lib/flex";
 
 const AddContract = ({
-  contractAdded,
   contractType,
   selectClient,
   selectUser,
@@ -52,24 +43,13 @@ const AddContract = ({
   milestones,
   spinning,
 }: AddContractPropType) => {
-  console.log("userNameOptions", userNameOptions);
-  const handleChange = (value: string[]) => {
-    console.log(`selected ${value}`);
-  };
-  const optionr: SelectProps["options"] = [];
-  for (let i = 10; i < 36; i++) {
-    optionr.push({
-      label: i.toString(36) + i,
-      value: i.toString(36) + i,
-    });
-  }
-
   const [upMiles, setUPMiles] = useState<Milestone[]>();
-  console.log(milestones);
+
   useEffect(() => {
     setUPMiles(milestones);
   }, [milestones]);
 
+  // Function to handle changes in the start date of the contract
   const handleStartDateChange = (value: Moment | null) => {
     const startDateString = value ? value.format("YYYY-MM-DD") : "";
     setContractDetails({
@@ -78,22 +58,25 @@ const AddContract = ({
     });
   };
 
+  // Function to handle changes in the end date of the contract
   const handleEndDateChange = (value: Moment | null) => {
-    const endDateString = value ? value.format("YYYY-MM-DD") : ""; // Convert Moment to string
+    const endDateString = value ? value.format("YYYY-MM-DD") : "";
     setContractDetails({
       ...contractDetails,
       end_date: endDateString,
     });
   };
 
+  // Function to handle changes in the date of signature of the contract
   const handleDateOfSignatureChange = (value: Moment | null) => {
-    const dateOfSignatureString = value ? value.format("YYYY-MM-DD") : ""; // Convert Moment to string
+    const dateOfSignatureString = value ? value.format("YYYY-MM-DD") : "";
     setContractDetails({
       ...contractDetails,
       date_of_signature: dateOfSignatureString,
     });
   };
 
+  // Validation function for end date
   const validateEndDate = (rule: any, value: Moment | null) => {
     if (
       value &&
@@ -105,6 +88,7 @@ const AddContract = ({
     return Promise.resolve();
   };
 
+  // Validation function for date of signature
   const validateDateOfSignature = (rule: any, value: Moment | null) => {
     if (
       value &&
@@ -117,6 +101,8 @@ const AddContract = ({
     }
     return Promise.resolve();
   };
+
+  // Validation function for checking if percentage is greater than 100
   const checkPercentage = (_: any, value: number) => {
     if (value > 100) {
       return Promise.reject(new Error("% > 100"));
@@ -124,23 +110,9 @@ const AddContract = ({
     return Promise.resolve();
   };
 
-  // const checkSumOfPercentage = (
-  //   _: any,
-  //   allValues: { milestones: any[]; percentage: number }
-  // ) => {
-  //   let total = 0;
-  //   allValues.milestones.forEach((milestone: { percentage: number }) => {
-  //     total += milestone.percentage || 0;
-  //   });
-  //   total += allValues.percentage || 0; // Include the current milestone's percentage
-  //   if (total !== 100) {
-  //     return Promise.reject(new Error("Total percentage must be 100"));
-  //   }
-  //   return Promise.resolve();
-  // };
-
+  // Validation function for checking sum of percentages for milestones
   const checkSumOfPercentage = (index: number, value: any) => {
-    let total = value; // Start with the current milestone's value
+    let total = value;
     milestones.forEach((milestone, i) => {
       if (i !== index) {
         total += milestone.percentage || 0;
@@ -149,24 +121,9 @@ const AddContract = ({
 
     if (total !== 100) {
       return Promise.reject(new Error("% error"));
-      // return Promise.reject();
     }
     return Promise.resolve();
   };
-
-  // const checkSumOfPercentage = (index: number, value: any) => {
-  //   let total = 0;
-  //   milestones.forEach((milestone, i) => {
-  //     if (i !== index) {
-  //       total += milestone.percentage || 0;
-  //     }
-  //   });
-
-  //   if (total >= 100) {
-  //     return Promise.reject(new Error("Total percentage must not exceed 100"));
-  //   }
-  //   return Promise.resolve();
-  // };
 
   return (
     <>
@@ -175,8 +132,7 @@ const AddContract = ({
           style={{
             marginLeft: "10rem",
             marginTop: "0.7rem",
-            fontSize: 17,
-            // color: "red !important",
+            fontSize: 16,
             fontStyle: "italic",
           }}
         />
@@ -190,16 +146,7 @@ const AddContract = ({
         >
           ADD CONTRACT
         </h1>
-        {/* <AddContractHandler onSubmit={handleSubmit} /> */}
         <>
-          {contractAdded ? (
-            <Toast
-              message="Contract Added successfully!"
-              messageType="success"
-            />
-          ) : (
-            <></>
-          )}
           <Form
             labelCol={{ span: 4 }}
             wrapperCol={{ span: 14 }}
@@ -216,7 +163,6 @@ const AddContract = ({
                 Contract Details
               </div>
 
-              {/* Contract Details Form Items */}
               <div
                 style={{
                   display: "flex",
@@ -385,7 +331,6 @@ const AddContract = ({
 
             {contractType === "FF" && (
               <>
-                {/* Milestone Details */}
                 <div
                   style={{
                     display: "flex",
@@ -441,7 +386,6 @@ const AddContract = ({
                         Add
                       </Button>
                     </div>
-                    {/* Headers */}
                     <div
                       style={{
                         display: "flex",
@@ -487,7 +431,6 @@ const AddContract = ({
                           flexWrap: "wrap",
                           padding: "1rem",
                           paddingLeft: "3rem",
-                          // padding: "0.5rem 1rem",
                           alignItems: "center",
                         }}
                       >
@@ -605,8 +548,6 @@ const AddContract = ({
                             name={`milestones[${index}].amount`}
                             labelCol={{ span: 20 }}
                             wrapperCol={{ span: 20 }}
-
-                            // initialValue={newMilestoneAmount}
                           >
                             <Input
                               style={{ display: "none" }}
@@ -615,10 +556,8 @@ const AddContract = ({
 
                             <InputNumber
                               style={{ width: "100%" }}
-                              // onBeforeInput={()=>{milestone.amount?milestone.amount:0}}
                               value={milestone.amount || 0}
                               disabled
-                              // value={newMilestoneAmount}
                             />
                           </Form.Item>
                         </div>
@@ -639,7 +578,6 @@ const AddContract = ({
                   </div>
                 </div>
 
-                {/* Associated Members */}
                 <div
                   className={`contract_details ${styles.contract_details}`}
                   style={{ width: "46.5%" }}
@@ -663,11 +601,7 @@ const AddContract = ({
                         allowClear
                         options={userNameOptions}
                         onSearch={getUserName}
-                        // showSearch={}
-                        // filterOption={true}
-                        // labelInValue={true}
                         onChange={selectUser}
-                        // onSelect={selectUser}
                         style={{
                           width: "100%",
                           height: "100%",
@@ -680,7 +614,6 @@ const AddContract = ({
                 </div>
 
                 <div style={{ display: "flex", width: "100%" }}>
-                  {/* Upload Work Schedule */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
                     style={{ width: "46.5%", height: "10.5rem" }}
@@ -704,7 +637,6 @@ const AddContract = ({
                       <div
                         style={{
                           border: "2px dashed #ccc",
-                          // padding: "1rem",
                           paddingBottom: "1rem",
                           textAlign: "center",
                           borderRadius: "5px",
@@ -727,8 +659,6 @@ const AddContract = ({
                       </div>
                     </div>
                   </div>
-
-                  {/* Comments and Remarks */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
                     style={{
@@ -751,7 +681,6 @@ const AddContract = ({
                       }}
                     >
                       <Form.Item
-                        // labelCol={{ span: 6 }}
                         wrapperCol={{ span: 24 }}
                         style={{ width: "32rem", marginTop: "-1rem" }}
                         rules={[
@@ -779,7 +708,6 @@ const AddContract = ({
 
             {contractType === "TM" && (
               <>
-                {/* Milestone Details */}
                 <div
                   style={{
                     display: "flex",
@@ -838,7 +766,6 @@ const AddContract = ({
                       </Button>
                     </div>
 
-                    {/* Headers */}
                     <div
                       style={{
                         display: "flex",
@@ -973,7 +900,6 @@ const AddContract = ({
                               style={{ width: "100%" }}
                               value={milestone.amount}
                               onChange={(e) => handleAmount(e)}
-                              // onChange={(value) => handleAmount(index, value)}
                             />
                           </Form.Item>
                         </div>
@@ -994,7 +920,6 @@ const AddContract = ({
                   </div>
                 </div>
 
-                {/* Associated Members */}
                 <div
                   className={`contract_details ${styles.contract_details}`}
                   style={{ width: "46.5%" }}
@@ -1018,11 +943,7 @@ const AddContract = ({
                         allowClear
                         options={userNameOptions}
                         onSearch={getUserName}
-                        // showSearch={}
-                        // filterOption={true}
-                        // labelInValue={true}
                         onChange={selectUser}
-                        // onSelect={selectUser}
                         style={{
                           width: "100%",
                           height: "100%",
@@ -1035,7 +956,6 @@ const AddContract = ({
                 </div>
 
                 <div style={{ display: "flex", width: "100%" }}>
-                  {/* Upload Work Schedule */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
                     style={{ width: "46.5%", height: "10.5rem" }}
@@ -1059,7 +979,6 @@ const AddContract = ({
                       <div
                         style={{
                           border: "2px dashed #ccc",
-                          // padding: "3rem",
                           paddingBottom: "1rem",
                           textAlign: "center",
                           borderRadius: "5px",
@@ -1069,14 +988,9 @@ const AddContract = ({
                       >
                         <Upload
                           accept=".pdf"
-                          //   action=""
                           customRequest={handleFileUpload}
                           maxCount={1}
-                          // showUploadList={false}
                         >
-                          {/* <Button icon={<UploadOutlined />}>
-                            Click to Upload (Max: 50MB)
-                          </Button> */}
                           <div style={{ marginTop: "1rem" }}>
                             <p>Drag & drop or click to upload</p>
                             <Button icon={<UploadOutlined />}>
@@ -1088,7 +1002,6 @@ const AddContract = ({
                     </div>
                   </div>
 
-                  {/* Comments and Remarks */}
                   <div
                     className={`contract_details ${styles.contract_details}`}
                     style={{
@@ -1111,7 +1024,6 @@ const AddContract = ({
                       }}
                     >
                       <Form.Item
-                        // labelCol={{ span: 6 }}
                         wrapperCol={{ span: 24 }}
                         style={{ width: "32rem", marginTop: "-1rem" }}
                         rules={[

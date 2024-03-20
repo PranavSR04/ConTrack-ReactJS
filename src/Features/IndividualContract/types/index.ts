@@ -60,7 +60,6 @@ export interface Milestone {
 
   export interface IndividualContractPropType{
     id: string;
-    // responses: ContractApiType | undefined;
     responses: ContractApiType|AxiosError<unknown, any>|undefined;
     loading: boolean;
   }
