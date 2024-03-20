@@ -8,17 +8,10 @@ import {
   Spin,
   Upload,
 } from "antd";
-import {
-  FilePdfOutlined,
-  LoadingOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { FilePdfOutlined, PlusOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
-import React from "react";
 import styles from "../Msa.module.css";
 import { AddMsaPropsType } from "./types";
-import Toast from "../../../Components/Toast/Toast";
-import moment from "moment";
 import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
 const AddMsa = ({
   fileName,
@@ -38,13 +31,6 @@ const AddMsa = ({
   spinning,
   beforeUpload,
 }: AddMsaPropsType) => {
-  console.log("msa addded for toaster", msaAdded);
-  console.log("msa_ref_id is", msaRefId);
-  const [form] = Form.useForm();
-  const onFinish = (values: any) => {
-    console.log("Start Date:", start_date);
-  };
-  console.log("date validation condition", date_validate);
   return (
     <>
       <div className={styles.AddMsa}>
@@ -53,7 +39,6 @@ const AddMsa = ({
             style={{
               marginTop: "-1rem",
               fontSize: 17,
-              // color: "red !important",
               fontStyle: "italic",
             }}
           />
@@ -71,7 +56,6 @@ const AddMsa = ({
             encType="multipart/form-data"
             style={{ maxWidth: 600 }}
             requiredMark={false}
-            onFinish={onFinish}
           >
             <div className={styles.AddMsaDetails_row1}>
               <Form.Item
@@ -157,7 +141,6 @@ const AddMsa = ({
                 ]}
               >
                 <DatePicker
-                  //format="DD-MM-YYYY"
                   className={styles.AddMsaDetails_inputs_startdate}
                   onChange={handleDateChange}
                   required
@@ -182,7 +165,6 @@ const AddMsa = ({
                 ]}
               >
                 <DatePicker
-                  //format="DD-MM-YYYY"
                   className={styles.AddMsaDetails_inputs}
                   onChange={handleEndDateChange}
                   required
@@ -266,10 +248,11 @@ const AddMsa = ({
               onCancel={handleCancel}
               className={styles.modal_msa}
               footer={[
-                <Button 
-                className={styles.modal_okbutton}
-                key="ok"
-                 onClick={handleOk}>
+                <Button
+                  className={styles.modal_okbutton}
+                  key="ok"
+                  onClick={handleOk}
+                >
                   Yes
                 </Button>,
                 <Button
@@ -278,7 +261,7 @@ const AddMsa = ({
                   onClick={handleCancel}
                 >
                   No
-                </Button>
+                </Button>,
               ]}
             >
               <Spin spinning={spinning} fullscreen />
