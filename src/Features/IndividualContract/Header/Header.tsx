@@ -21,7 +21,7 @@ const Header = ({
         style={{
           // marginLeft: "3rem",
           marginTop: "0.7rem",
-          fontSize: 17,
+          fontSize: 16,
           // color: "red !important",
           fontStyle: "italic",
         }}

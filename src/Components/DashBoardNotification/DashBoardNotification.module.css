@@ -24,27 +24,22 @@ body{
   transform: translateY(-5px);
 }
 .containerList{
-  /* margin-left: 67%; */
     background-color: #ffffff;
     padding-left: 2%;
     margin-left: 1.5%;
     width: 19rem;
-    /* margin-top: 10rem; */
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     height: 22rem;
-    /* max-height: calc(99vh - 50px - 50px);  */
-  overflow-y: auto;
-  scrollbar-width: none; 
-  -ms-overflow-style: none;
-  text-align: center;
-  font-size: 15px;
-  cursor: pointer;
+    overflow-y: auto;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+    text-align: center;
+    font-size: 15px;
+    cursor: pointer;
 }
 .container_color{
-    
     margin-left: 380px;
-
 }
 
 .container_time,
