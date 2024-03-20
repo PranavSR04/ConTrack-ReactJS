@@ -1,4 +1,4 @@
-.style2{
+.Notificationstyle{
   display: flex;
   background-color: #ffffff;
   border-radius: 10px;
@@ -10,7 +10,7 @@
   transition: transform 0.3s ease;
   
 }
-.style2:hover{
+.Notificationstyle:hover{
   display: flex;
   background-color: #f0eded;
   border-radius: 10px;
@@ -20,7 +20,7 @@
   width:320px;
   transform: translateY(-5px);
 }
-.style1{
+.DashBoardStyle{
 display: flex;
 background-color: #ffffff;
 border-radius: 10px;
@@ -32,7 +32,7 @@ font-size: small;
 transition: transform 0.3s ease;
 
 }
-.style1:hover{
+.DashBoardStyle:hover{
 display: flex;
 background-color: #f0eded;
 border-radius: 10px;
@@ -41,18 +41,8 @@ height:45px;
 width:271px;
 transform: translateY(-5px);
 }
-/* .style1added> p {
-  margin-top: 10%;
-  background-color: #e9d2f4;
-  color: #320249;
-  font-weight:700;
-  font-size: 8px;
-  padding: 9%;
-  width: 60px;
-  border-radius: 20px; 
-} */
 
-.style1added> p {
+.DashBoardStyleadded> p {
   margin-top: 10%;
   background-color: #e9d2f4;
   color: #320249;
@@ -62,7 +52,7 @@ transform: translateY(-5px);
   width: 60px;
   border-radius: 20px; 
 }
-.style1edited> p{
+.DashBoardStyleedited> p{
   margin-top: 10px;
   background-color: #eba68d;
   color: #451b0c;
@@ -72,7 +62,7 @@ transform: translateY(-5px);
   width: 60px;
   border-radius: 20px; 
 }
-.style1renewed> p{
+.DashBoardStylerenewed> p{
   margin-top: 10px;
   background-color: #ACF3A0;
   color: #1F9423;
@@ -82,7 +72,7 @@ transform: translateY(-5px);
   width: 60px;
   border-radius: 20px; 
 }
-.style1expired> p{
+.DashBoardStyleexpired> p{
   margin-top: 10px;
   background-color: #DC143C;
   color: #5F2828;
@@ -92,7 +82,7 @@ transform: translateY(-5px);
   width: 60px;
   border-radius: 20px; 
 }
-.style1expiring> p{
+.DashBoardStyleexpiring> p{
   margin-top: 10px;
   background-color: #F2E291;
   color: #9F7D24;
@@ -102,7 +92,7 @@ transform: translateY(-5px);
   width: 60px;
   border-radius: 20px; 
 }
-.style2added> p {
+.Notificationstyleadded> p {
   margin-top: 10%;
   background-color: #e9d2f4;
   color: #320249;
@@ -112,7 +102,7 @@ transform: translateY(-5px);
   width: 60px;
   border-radius: 20px; 
 }
-.style2edited> p{
+.Notificationstyleedited> p{
   margin-top: 10px;
   background-color: #eba68d;
   color: #451b0c;
@@ -122,7 +112,7 @@ transform: translateY(-5px);
   width: 60px;
   border-radius: 20px; 
 }
-.style2renewed> p{
+.Notificationstylerenewed> p{
   margin-top: 10px;
   background-color: #ACF3A0;
   color: #1F9423;
@@ -132,7 +122,7 @@ transform: translateY(-5px);
   width: 60px;
   border-radius: 20px; 
 }
-.style2expired> p{
+.Notificationstyleexpired> p{
   margin-top: 10px;
   background-color: #DC143C;
   color: #5F2828;
@@ -142,7 +132,7 @@ transform: translateY(-5px);
   width: 60px;
   border-radius: 20px; 
 }
-.style2expiring> p{
+.Notificationstyleexpiring> p{
   margin-top: 10px;
   background-color: #F2E291;
   color: #9F7D24;
@@ -152,21 +142,14 @@ transform: translateY(-5px);
   width: 60px;
   border-radius: 20px; 
 }
-.style1cardStyle_right{
+.DashBoardStylecardStyle_right{
   flex: 7;
   padding-left: 6px;
   text-align: left;
   font-size: 8px;
   margin-top: 10px;
 }
-.style1cardStyle_right{
-flex: 7;
-padding-left: 6px;
-text-align: left;
-font-size: 8px;
-margin-top: 10px;
-}
-.style2cardStyle_right{
+.NotificationstylecardStyle_right{
   flex: 7;
   padding-left: 6px;
   text-align: left;
