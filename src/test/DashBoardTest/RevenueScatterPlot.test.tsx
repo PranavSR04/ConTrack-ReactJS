@@ -15,3 +15,4 @@ describe('ScatterPlot', () => {
     expect(scatterPlotElement).toBeInTheDocument();
   });
 });
+
