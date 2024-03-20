@@ -132,7 +132,7 @@ const AddContract = ({
           style={{
             marginLeft: "10rem",
             marginTop: "0.7rem",
-            fontSize: 17,
+            fontSize: 16,
             fontStyle: "italic",
           }}
         />

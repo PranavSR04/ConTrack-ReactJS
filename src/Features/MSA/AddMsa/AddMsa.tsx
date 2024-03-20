@@ -52,7 +52,7 @@ const AddMsa = ({
           <BreadCrumbs
             style={{
               marginTop: "-1rem",
-              fontSize: 17,
+              fontSize: 16,
               // color: "red !important",
               fontStyle: "italic",
             }}
