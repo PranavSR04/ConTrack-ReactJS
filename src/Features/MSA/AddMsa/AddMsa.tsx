@@ -36,7 +36,7 @@ const AddMsa = ({
   start_date,
   date_validate,
   spinning,
-  beforeUpload
+  beforeUpload,
 }: AddMsaPropsType) => {
   console.log("msa addded for toaster", msaAdded);
   console.log("msa_ref_id is", msaRefId);
@@ -49,7 +49,14 @@ const AddMsa = ({
     <>
       <div className={styles.AddMsa}>
         <div>
-          <BreadCrumbs style={{ marginTop: "-1rem" }} />
+          <BreadCrumbs
+            style={{
+              marginTop: "-1rem",
+              fontSize: 17,
+              // color: "red !important",
+              fontStyle: "italic",
+            }}
+          />
           <br />
           <h3 className={styles.AddMsa_Heading}>
             ADD MASTER SERVICE AGREEMENT
@@ -153,7 +160,6 @@ const AddMsa = ({
                   //format="DD-MM-YYYY"
                   className={styles.AddMsaDetails_inputs_startdate}
                   onChange={handleDateChange}
-                
                   required
                 />
               </Form.Item>
@@ -267,10 +273,11 @@ const AddMsa = ({
                  onClick={handleOk}>
                   Yes
                 </Button>,
-                <Button 
-                key="cancel" 
-                className={styles.modal_cancelbutton}
-                onClick={handleCancel}>
+                <Button
+                  key="cancel"
+                  className={styles.modal_cancelbutton}
+                  onClick={handleCancel}
+                >
                   No
                 </Button>,
                 </div>
