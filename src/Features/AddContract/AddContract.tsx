@@ -366,7 +366,7 @@ const AddContract = ({
                       }}
                     >
                       <Form.Item
-                        label="Total Contract Value"
+                        label="Total Contract Value (USD)"
                         name="estimated_amount"
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 8 }}
@@ -428,7 +428,7 @@ const AddContract = ({
                       </div>
                       <div style={{ width: "20%", marginRight: "1rem" }}>
                         <div style={{ marginBottom: "0.5rem" }}>
-                          Payment Amount(US$)
+                          Payment Amount(USD)
                         </div>
                       </div>
                     </div>
@@ -523,27 +523,37 @@ const AddContract = ({
                           </Form.Item>
                         </div>
 
-                        <div
-                          style={{
-                            width: "20%",
-                            marginRight: "1rem",
-                            marginBottom: "0.5rem",
-                            marginTop: "-1.7rem",
-                          }}
-                        >
-                          <Form.Item
-                            name={`milestones[${index}].amount`}
-                            labelCol={{ span: 20 }}
-                            wrapperCol={{ span: 20 }}
-                            required
-                            // initialValue={newMilestoneAmount}
+                          <div
+                            style={{
+                              width: "20%",
+                              marginRight: "1rem",
+                              marginBottom: "0.5rem",
+                              marginTop: "-1.7rem",
+                            }}
                           >
-                            <InputNumber
-                              style={{ width: "100%" }}
-                              // value={milestone.amount}
-                              // value={newMilestoneAmount}
-                            />
-                          </Form.Item>
+                            <Form.Item
+                              name={`milestones[${index}].amount`}
+                              labelCol={{ span: 20 }}
+                              wrapperCol={{ span: 20 }}
+                              required
+                              // initialValue={newMilestoneAmount}
+                              
+                            >
+                               <Input
+                               style={{display:"none"}}
+                               value={milestone.amount?milestone.amount:0}
+                               
+                               />
+                             
+                              <InputNumber
+                                style={{ width: "100%" }}
+                                // onBeforeInput={()=>{milestone.amount?milestone.amount:0}}
+                                value={milestone.amount || 0}
+                                disabled
+                                // value={newMilestoneAmount}
+                                
+                              />
+                            </Form.Item>
                         </div>
                         {index >= 0 && (
                           <Button
@@ -737,7 +747,7 @@ const AddContract = ({
                       }}
                     >
                       <Form.Item
-                        label="Total Contract Value"
+                        label="Total Contract Value (USD)"
                         name="estimated_amount"
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 8 }}

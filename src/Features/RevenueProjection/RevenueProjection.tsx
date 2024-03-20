@@ -94,44 +94,46 @@ const RevenueProjection = ({
                         </>
                       )}
 
-                      <HiOutlineFilter
-                        className={styles.filtericon}
-                        size={20}
-                        onClick={showFilterModal}
-                      />
-                    </>
-                  )}
-                  <div className={styles.filterModal}>
-                    <Modal
-                      title="Revenue Filter"
-                      open={isFilterModalOpen}
-                      onOk={handleOk}
-                      onCancel={handleCancel}
-                      mask={false}
-                      className={styles.filterModal}
-                      footer={null}
-                    >
-                      {renderCheckboxGroup("du", duOptions)}
-                      {/* {renderCheckboxGroup("region", regionOptions)} */}
-                      {renderCheckboxGroup("cType", ["FF", "TM"])}
-                    </Modal>
-                  </div>
-                </div>
-              </ConfigProvider>
-            </div>
-          }
-        >
-          <LineChartHandler
-            filter={filter}
-            selectedFilters={selectedFilters}
-            id={revenueid}
+											<HiOutlineFilter
+												className={styles.filtericon}
+												size={20}
+												onClick={showFilterModal}
+											/>
+                     
+										</>
+									)}
+									<div className={styles.filterModal}>
+										<Modal
+											title="Revenue Filter"
+											open={isFilterModalOpen}
+											onOk={handleOk}
+											onCancel={handleCancel}
+											mask={false}
+											className={styles.filterModal}
+											footer={null}
+										>
+											{renderCheckboxGroup("du", duOptions)}
+											{/* {renderCheckboxGroup("region", regionOptions)} */}
+											{renderCheckboxGroup("cType", ["FF", "TM"])}
+										</Modal>
+									</div>
+								</div>
+							</ConfigProvider>
+						</div>
+					}
+				>
+					<div data-testid="line-chart">
+					<LineChartHandler
+						filter={filter}
+						selectedFilters={selectedFilters}
+						id={revenueid}
             filterStartDate={filterStartDate}
             filterEndDate={filterEndDate}
-          />
-        </Card>
-      </div>
-    </div>
-  );
+					/></div>
+				</Card>
+			</div>
+		</div>
+	);
 };
 
 export default RevenueProjection;
