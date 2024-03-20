@@ -17,7 +17,15 @@ const Header = ({
   return (
     <div className={`${styles.maincontainer__header}`}>
       <div className={`${styles.maincontainer__header__title}`}>
-        <BreadCrumbs />;
+        {/* <BreadCrumbs
+          style={{
+            fontSize: 17,
+            // color: "red !important",
+            fontStyle: "italic",
+            marginLeft: "-10rem",
+          }}
+        /> */}
+        ;
         <div className={`${styles.maincontainer__header__title__contract}`}>
           <h2>
             {clientName} <span>#{contractRefId}</span>

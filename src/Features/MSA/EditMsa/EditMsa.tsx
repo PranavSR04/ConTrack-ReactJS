@@ -52,7 +52,15 @@ const EditMsa = ({
 
   return (
     <>
-      <BreadCrumbs style={{ marginTop: "0.5rem", marginLeft: "16rem" }} />
+      <BreadCrumbs
+        style={{
+          marginTop: "0.5rem",
+          marginLeft: "16rem",
+          fontSize: 17,
+          // color: "red !important",
+          fontStyle: "italic",
+        }}
+      />
       <div className={styles.AddMsa}>
         <div>
           <h3 className={styles.AddMsa_Heading}>
@@ -187,9 +195,11 @@ const EditMsa = ({
                 <DatePicker
                   className={styles.AddMsaDetails_inputs}
                   onChange={handleEndDateChange}
-                  value={msaData.end_date
-                    ?moment(msaData.end_date, "YYYY-MM-DD"):
-                    undefined}
+                  value={
+                    msaData.end_date
+                      ? moment(msaData.end_date, "YYYY-MM-DD")
+                      : undefined
+                  }
                 />
               </Form.Item>
             </div>
@@ -231,7 +241,7 @@ const EditMsa = ({
                 ) : fileName ? (
                   <>
                     <div>
-                    {/* <CloseOutlined
+                      {/* <CloseOutlined
                       className={styles.EditMsaDetails_row3_col1_closeicon}
                       onClick={fileCancel}
                     /> */}
@@ -298,10 +308,11 @@ const EditMsa = ({
               // onCancel={handleCancel}
               // onOk={handleOk}
               footer={[
-                <Button 
-                className={styles.modal_okbutton}
-                key="ok" 
-                onClick={SubmitEditMsa}>
+                <Button
+                  className={styles.modal_okbutton}
+                  key="ok"
+                  onClick={SubmitEditMsa}
+                >
                   Yes
                 </Button>,
                 <Button key="cancel" onClick={handleCancel}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddContractHandler from "./AddContractHandler";
 import { AddContractPropType, ContractDetails, Milestone } from "./types";
 import styles from "./AddContract.module.css";
+// import bcstyles from "../../Components/BreadCrumbs/breadcrumbs.module.css";
 
 import {
   AutoComplete,
@@ -19,10 +20,13 @@ import {
   PlusOutlined,
   CloseCircleOutlined,
   UploadOutlined,
+  UnderlineOutlined,
 } from "@ant-design/icons";
 import Toast from "../../Components/Toast/Toast";
 import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 import moment, { Moment } from "moment";
+import { rgbToRgb, rgbaToArgbHex } from "@ctrl/tinycolor";
+import flex from "antd/lib/flex";
 
 const AddContract = ({
   contractAdded,
@@ -59,19 +63,12 @@ const AddContract = ({
       value: i.toString(36) + i,
     });
   }
-  // const [contractType, setContractType] = useState<string | null>(null);
 
-  // const handleSubmit = (data: ContractDetails) => {
-  //   // Handle the form submission data
-  //   console.log("Form Data:", data);
-  //   // You can make API calls, dispatch actions, etc. here
-  // };
-
-  const[upMiles,setUPMiles]=useState<Milestone[]>();
-console.log(milestones);
-useEffect(()=>{
-  setUPMiles(milestones);
-},[milestones])
+  const [upMiles, setUPMiles] = useState<Milestone[]>();
+  console.log(milestones);
+  useEffect(() => {
+    setUPMiles(milestones);
+  }, [milestones]);
 
   const handleStartDateChange = (value: Moment | null) => {
     const startDateString = value ? value.format("YYYY-MM-DD") : "";
@@ -87,9 +84,6 @@ useEffect(()=>{
       ...contractDetails,
       end_date: endDateString,
     });
-    // Here you can submit the end_date directly to the database
-    // Example:
-    // submitEndDateToDatabase(value);
   };
 
   const handleDateOfSignatureChange = (value: Moment | null) => {
@@ -127,7 +121,15 @@ useEffect(()=>{
   return (
     <>
       <div className="container">
-        <BreadCrumbs style={{ marginLeft: "10rem", marginTop: "0.5rem" }} />
+        <BreadCrumbs
+          style={{
+            marginLeft: "10rem",
+            marginTop: "0.7rem",
+            fontSize: 17,
+            // color: "red !important",
+            fontStyle: "italic",
+          }}
+        />
         <h1
           style={{
             marginLeft: "10rem",
@@ -503,43 +505,45 @@ useEffect(()=>{
                             marginTop: "-1.7rem",
                           }}
                         >
-                            <Form.Item
-                              name={`milestones[${index}].percentage`}
-                              labelCol={{ span: 20 }}
-                              wrapperCol={{ span: 20 }}
-                              required
-                            >
-                              <InputNumber
-                                style={{ width: "100%" }}
-                                onChange={(value) => handlePaymentPercentageChange(index, value as number)}
-                              />
-
-                            </Form.Item>
-                          </div>
-
-                          <div
-                            style={{
-                              width: "20%",
-                              marginRight: "1rem",
-                              marginBottom: "0.5rem",
-                              marginTop: "-1.7rem",
-                            }}
+                          <Form.Item
+                            name={`milestones[${index}].percentage`}
+                            labelCol={{ span: 20 }}
+                            wrapperCol={{ span: 20 }}
+                            required
                           >
-                            <Form.Item
-                              name={`milestones[${index}].amount`}
-                              labelCol={{ span: 20 }}
-                              wrapperCol={{ span: 20 }}
-                              required
-                              // initialValue={newMilestoneAmount}
-                              
-                            >
-                              <InputNumber
-                                style={{ width: "100%" }}
-                                // value={milestone.amount}
-                                // value={newMilestoneAmount}
-                                
-                              />
-                            </Form.Item>
+                            <InputNumber
+                              style={{ width: "100%" }}
+                              onChange={(value) =>
+                                handlePaymentPercentageChange(
+                                  index,
+                                  value as number
+                                )
+                              }
+                            />
+                          </Form.Item>
+                        </div>
+
+                        <div
+                          style={{
+                            width: "20%",
+                            marginRight: "1rem",
+                            marginBottom: "0.5rem",
+                            marginTop: "-1.7rem",
+                          }}
+                        >
+                          <Form.Item
+                            name={`milestones[${index}].amount`}
+                            labelCol={{ span: 20 }}
+                            wrapperCol={{ span: 20 }}
+                            required
+                            // initialValue={newMilestoneAmount}
+                          >
+                            <InputNumber
+                              style={{ width: "100%" }}
+                              // value={milestone.amount}
+                              // value={newMilestoneAmount}
+                            />
+                          </Form.Item>
                         </div>
                         {index >= 0 && (
                           <Button
@@ -681,9 +685,9 @@ useEffect(()=>{
                         style={{ width: "32rem", marginTop: "-1rem" }}
                         rules={[
                           {
-                            max: 5,
+                            max: 200,
                             message:
-                              "Maximum 5 characters allowed for comments",
+                              "Maximum 200 characters allowed for comments",
                           },
                         ]}
                         validateTrigger="onChange"

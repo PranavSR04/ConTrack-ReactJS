@@ -70,7 +70,15 @@ const EditContract = ({
   return (
     <>
       <div className="container">
-        <BreadCrumbs style={{ marginLeft: "10rem", marginTop: "0.5rem" }} />
+        <BreadCrumbs
+          style={{
+            marginLeft: "10rem",
+            marginTop: "0.7rem",
+            fontSize: 17,
+            // color: "red !important",
+            fontStyle: "italic",
+          }}
+        />
         <h1
           style={{
             marginLeft: "10rem",

@@ -24,12 +24,20 @@ const RenewMsa = ({
   modalPopUp,
   spinning,
   msaRenewed,
-  beforeUpload
+  beforeUpload,
 }: RenewMsaPropType) => {
   console.log(msaRenewed);
   return (
     <>
-      <BreadCrumbs style={{ marginLeft: "16rem", marginTop: "0.5rem" }} />
+      <BreadCrumbs
+        style={{
+          marginLeft: "16rem",
+          marginTop: "0.5rem",
+          fontSize: 17,
+          // color: "red !important",
+          fontStyle: "italic",
+        }}
+      />
       <div className={styles.AddMsa}>
         <div>
           <h3 className={styles.AddMsa_Heading}>
