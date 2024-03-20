@@ -6,7 +6,6 @@ import { getapi } from './api/getapi';
 import { postapi } from './api/postapi';
 import { useNavigate } from 'react-router';
 import { NavContexts } from '../../../Components/NavContext/NavContext';
-import { fetchNotification } from '../../../Components/NotificationList/Api/getNotifications';
 import { RcFile } from 'antd/es/upload';
 
 const AddMsaHandler = () => {
@@ -139,8 +138,6 @@ const AddMsaHandler = () => {
             setIsModalVisible(false);
           form.resetFields();
           generateMsaId();
-          const SENDTO_ID = parseInt(localStorage.getItem("user_id") || '0', 10);
-          await fetchNotification(1, 10,SENDTO_ID); 
           navigate("/MSA Overview", { state: { added: true } });
           //}
         } catch (error) {
