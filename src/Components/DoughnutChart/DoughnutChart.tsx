@@ -10,7 +10,7 @@ const DoughnutChart = ({loading, chartData, options}:DougnutChartPropsType) => {
     <>
     <div style={{ width:'14.4rem',height:'14.4rem'}}>
    <Card style={{ height:'14.2rem'}}> {loading?<div>Loading...</div>:<><Doughnut data={chartData} options={options}></Doughnut>
-    <p style={{fontSize:'.7rem',textAlign:'center'}}>Contract Status</p></>}
+    <p style={{fontSize:'.8rem',textAlign:'center'}}>Contract Status</p></>}
   </Card>
       </div>
     </>

@@ -22,22 +22,23 @@ const ListMsa = ({
   fetchData,
   edited,
   rowClassName,
+  loading,
   renew
 }: MsaListDataType) => {
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
 
-  useEffect(() => {
-    // Simulate loading for 3 seconds
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2500);
+  // useEffect(() => {
+  //   // Simulate loading for 3 seconds
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2500);
 
     // Clear the timer on component unmount
-    return () => clearTimeout(timer);
-  }, []);
+    // return () => clearTimeout(timer);
+  // }, []);
   const [activeTab, setActiveTab] = useState("Active");
 
   const handleSegmentChange = (value: string) => {
@@ -49,8 +50,11 @@ const ListMsa = ({
     }
   };
 
+  console.log("SPINNING LOADING",loading)
+
   return (
     <>
+    
       <div className={styles.ListMsa}>
         {/* <BreadCrumbs style={{ marginTop: "1rem" }} /> */}
         <h3 className={styles.ListMsa_heading}>MASTER SERVICE AGREEMENT</h3>
@@ -95,10 +99,10 @@ const ListMsa = ({
               </div>
             </div>
           </div>
-          <Spin
-            spinning={loading}
-            indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />}
-          >
+          {/* { loading && <Spin
+            // spinning={loading}
+            indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />} 
+          >} */}
             <Table
               locale={{ emptyText: " " }}
               columns={columns}
@@ -145,8 +149,18 @@ const ListMsa = ({
               onChange={handleTableChange}
               size="small"
               rowClassName={rowClassName}
-            ></Table>
-          </Spin>
+              loading={{
+                indicator: (
+                  <div>
+                    <LoadingOutlined style={{ fontSize: 30 }} spin />{" "}
+                  </div>
+                ),
+                spinning: loading,
+              }}
+            >
+              
+            </Table>
+          {/* </Spin> */}
           {msaAdded ? (
             <Toast
               messageType="success"
@@ -165,6 +179,8 @@ const ListMsa = ({
         </div>
       </div>
       {/* </div> */}
+
+      {/* {loading && <Spin fullscreen spinning={loading}/>} */}
     </>
   );
 };

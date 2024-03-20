@@ -50,6 +50,7 @@ export interface Condition {
     msaEdited?:boolean;
     edited: boolean;
     renew: boolean;
+    loading:boolean
     handleSegmentChange?: (value: string) => void;
     getRowClassName: (record: any, index: number) => "even-row" | "odd-row";
     showInactiveMSA: () => Promise<void>;

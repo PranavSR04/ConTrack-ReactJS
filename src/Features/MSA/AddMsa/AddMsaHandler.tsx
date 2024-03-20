@@ -118,13 +118,11 @@ const AddMsaHandler = () => {
           console.log("after setting:", formData)
           setSpinning(true);
 
-      //setFullPageSpinner(false);
       const formDatatoSend = new FormData();
       formDatatoSend.append("msa_ref_id", formData.msa_ref_id);
       formDatatoSend.append("client_name", formData.client_name);
       formDatatoSend.append("region", formData.region);
 
-      // Format start_date and end_date
       formDatatoSend.append("start_date", formData.start_date);
       formDatatoSend.append("end_date", formData.end_date);
 
@@ -132,21 +130,16 @@ const AddMsaHandler = () => {
       formDatatoSend.append("file", formData.file || "");
 
       await postapi(formDatatoSend, user_id);
-      //console.log("Is this page posting after post")
 
           setMsaAdded(true);
-          // setIsModalVisible(false);
             setIsModalVisible(false);
           form.resetFields();
           generateMsaId();
-          const SENDTO_ID = parseInt(localStorage.getItem("user_id") || '0', 10);
-          await fetchNotification(1, 10,SENDTO_ID); 
           navigate("/MSA Overview", { state: { added: true } });
-          //}
+
         } catch (error) {
           console.error("Error submitting form data:", error);
         }
-        //setSpinning(false);
 
       }
 
