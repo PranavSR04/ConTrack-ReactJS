@@ -210,6 +210,7 @@ ManageUsersPropType) => {
         onConfirm={() => selectedUser && handleDelete(selectedUser)}
         userName={selectedUser ? selectedUser.user_name : ""}
       />
+
     </>
   );
 };

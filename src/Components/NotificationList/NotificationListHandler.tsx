@@ -4,7 +4,7 @@ import NotificationList from './NotificationList';
 import axios from 'axios';
 import { fetchNotification } from './Api/getNotifications';
 import NavBar from '../NavBar/NavBar';
-import { NavCon } from '../NavContext/NavContext';
+import { NavContexts } from '../NavContext/NavContext';
 
 const NotificationListHandler = () => {
     const [notifications, setNotifications] = useState<NotificationType[]>([]);
@@ -14,7 +14,7 @@ const NotificationListHandler = () => {
     const [page, setPage] = useState<number>(1);
     const [hasViewMore, setHasViewMore] = useState<boolean>(true);
     const [showDrawer, setShowDrawer] = useState<boolean>(false);
-    const{setActiveNotificationCount}=useContext(NavCon);
+    const{setActiveNotificationCount,activeNotificationCount}=useContext(NavContexts);
 
     const toggleNotifications = () => {
         setShowDrawer(prevState => !prevState);
@@ -72,7 +72,7 @@ const NotificationListHandler = () => {
         };
 
         fetchData();
-    },[]);
+    },[page]);
 
     const viewMoreClick = () => {
         setPage(prevPage => prevPage + 1);

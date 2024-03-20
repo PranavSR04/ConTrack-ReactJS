@@ -41,7 +41,13 @@ const ScatterPlot = ({fetchContractRevenue,scatterData,data}:ScatterPlotHandlerP
                                     const numericValue = Number(value); 
                     return (numericValue / 1000000) + 'M';
                                 }
-                            }
+                            },
+                            
+                        },
+                    },
+                    plugins: {
+                        tooltip: {
+                            enabled: false // Disable tooltip hover
                         }
                     }
                 }}

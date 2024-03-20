@@ -109,15 +109,15 @@
 }
 
 .maincontainer__membercomments__members__body__wrapper__data{
-    border: solid 1px black;
-    border-radius: 2px;
+    border-radius: 8px;
     width: max-content;
     height: max-content;
-    font-size: small;
+    font-size: x-small;
     align-content: center;
     justify-content: center;
-    padding: 0.2rem 0.3rem 0rem 0.2rem;
-    margin: 0.2rem 0.2rem;
+    margin: 0.1rem;
+    padding: 0.5rem 0.2rem 0rem 0.2rem;
+    background-color: #e6edf4;
 }
 
 .maincontainer__membercomments__members__body__wrapper::-webkit-scrollbar {

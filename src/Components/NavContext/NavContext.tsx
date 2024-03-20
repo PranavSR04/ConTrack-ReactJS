@@ -3,7 +3,7 @@ import { NavPropType } from './types'
 import { postNotificationStatus } from '../NotificationList/Api/putNotificationCountStatus';
 import { userType } from '../NotificationList/types';
 
-export const NavCon=createContext<NavPropType>({
+export const NavContexts=createContext<NavPropType>({
     showDrawer:()=>{},
     open:true,
     onClose:()=>{},
@@ -26,9 +26,9 @@ const NavContext = ({ children }: { children: React.ReactNode }) =>  {
         setActiveNotificationCount(0);
       };
   return (
-    <NavCon.Provider value={{showDrawer,open,onClose,activeNotificationCount,setActiveNotificationCount}}>
+    <NavContexts.Provider value={{showDrawer,open,onClose,activeNotificationCount,setActiveNotificationCount}}>
             {children}
-    </NavCon.Provider>
+    </NavContexts.Provider>
   )
 }
 

@@ -69,7 +69,8 @@
     "@types/lodash": "^4.14.202",
     "@types/react": "^18.2.65",
     "@types/react-countup": "^4.3.1",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "jest-canvas-mock": "^2.5.2"
   },
   "jest": {
     "transformIgnorePatterns": [

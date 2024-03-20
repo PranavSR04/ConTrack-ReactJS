@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { NotificationProps, NotificationType } from "./types";
 import styles from "./Notification.module.css";
 import { Navigate, useLocation, useNavigate } from "react-router";
-import { NavCon } from "../NavContext/NavContext";
+import { NavContexts } from "../NavContext/NavContext";
 
 const Notification = ({
   notification,
@@ -10,7 +10,7 @@ const Notification = ({
   stylenames,
 }: NotificationProps) => {
   console.log(stylenames);
-  const { onClose } = useContext(NavCon);
+  const { onClose } = useContext(NavContexts);
   const navigate = useNavigate();
   const [actionStyle, setActionStyle] = useState<string>("");
   const [cardStyle, setCardStyle] = useState<string>("");
