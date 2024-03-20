@@ -12,7 +12,6 @@ import AllContracts from "./AllContracts";
 import { useNavigate } from "react-router";
 import tableStyles from "./contractsList.module.css";
 import { useLocation } from "react-router";
-import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 const AllContractsHandler = () => {
   const [data, setData] = useState<ContractData[]>([]);
   const [searchConditions, setSearchConditions] = useState<Record<string, string>>({});
