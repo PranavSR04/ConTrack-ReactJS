@@ -139,8 +139,6 @@ const AddMsaHandler = () => {
             setIsModalVisible(false);
           form.resetFields();
           generateMsaId();
-          const SENDTO_ID = parseInt(localStorage.getItem("user_id") || '0', 10);
-          await fetchNotification(1, 10,SENDTO_ID); 
           navigate("/MSA Overview", { state: { added: true } });
           //}
         } catch (error) {
