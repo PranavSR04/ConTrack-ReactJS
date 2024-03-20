@@ -1,15 +1,5 @@
-import React, { useState } from "react";
 import styles from "../Msa.module.css";
-import {
-  Button,
-  DatePicker,
-  Flex,
-  Form,
-  Input,
-  Modal,
-  Spin,
-  Upload,
-} from "antd";
+import { Button, DatePicker, Form, Input, Modal, Spin, Upload } from "antd";
 import {
   CloseOutlined,
   FilePdfOutlined,
@@ -17,9 +7,7 @@ import {
 } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 import { EditMsaHandlertype } from "./types";
-import { values } from "@ant-design/plots/es/core/utils";
-import moment, { Moment } from "moment";
-import { ToastBody } from "react-bootstrap";
+import moment from "moment";
 import Toast from "../../../Components/Toast/Toast";
 import { useNavigate } from "react-router";
 import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
@@ -42,17 +30,18 @@ const EditMsa = ({
   validateClientName,
   validateRegion,
   spinning,
-  beforeUpload
+  beforeUpload,
 }: EditMsaHandlertype) => {
-  console.log("start date:", msaData.start_date);
-  const navigate = useNavigate();
-  const formattedStartDate = moment(msaData.start_date);
-  console.log("selected start date", formattedStartDate);
-  const formattedEndDate = moment(msaData.end_date);
-
   return (
     <>
-      <BreadCrumbs style={{ marginTop: "0.5rem", marginLeft: "16rem" }} />
+      <BreadCrumbs
+        style={{
+          marginTop: "0.5rem",
+          marginLeft: "16rem",
+          fontSize: 17,
+          fontStyle: "italic",
+        }}
+      />
       <div className={styles.AddMsa}>
         <div>
           <h3 className={styles.AddMsa_Heading}>
@@ -112,7 +101,7 @@ const EditMsa = ({
                   value={msaData.client_name}
                   className={styles.AddMsaDetails_inputs}
                   onChange={handleInputChange}
-                />{" "}
+                />
               </Form.Item>
               <Form.Item
                 className={styles.AddMsaDetails_row1_col3}
@@ -187,9 +176,11 @@ const EditMsa = ({
                 <DatePicker
                   className={styles.AddMsaDetails_inputs}
                   onChange={handleEndDateChange}
-                  value={msaData.end_date
-                    ?moment(msaData.end_date, "YYYY-MM-DD"):
-                    undefined}
+                  value={
+                    msaData.end_date
+                      ? moment(msaData.end_date, "YYYY-MM-DD")
+                      : undefined
+                  }
                 />
               </Form.Item>
             </div>
@@ -231,10 +222,6 @@ const EditMsa = ({
                 ) : fileName ? (
                   <>
                     <div>
-                    {/* <CloseOutlined
-                      className={styles.EditMsaDetails_row3_col1_closeicon}
-                      onClick={fileCancel}
-                    /> */}
                       <FilePdfOutlined
                         className={styles.AddMsaDetails_row3_col1_fileicon}
                       />
@@ -295,13 +282,13 @@ const EditMsa = ({
             <Modal
               title="Are you sure you want to edit this MSA?"
               visible={isModalVisible}
-              // onCancel={handleCancel}
-              // onOk={handleOk}
+              onCancel={handleCancel}
               footer={[
-                <Button 
-                className={styles.modal_okbutton}
-                key="ok" 
-                onClick={SubmitEditMsa}>
+                <Button
+                  className={styles.modal_okbutton}
+                  key="ok"
+                  onClick={SubmitEditMsa}
+                >
                   Yes
                 </Button>,
                 <Button key="cancel" onClick={handleCancel}>

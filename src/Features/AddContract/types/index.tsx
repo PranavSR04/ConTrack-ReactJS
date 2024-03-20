@@ -30,23 +30,6 @@ export interface ContractDetails {
   estimated_amount: number;
   contract_added_by: number;
 }
-// export interface ContractDetailsEditType {
-//   msa_id: string;
-//   client_name: string;
-//   contract_ref_id: string;
-//   region: string;
-//   du: string;
-//   start_date: string;
-//   end_date: string;
-//   date_of_signature: string;
-//   contract_type: "FF" | "TM";
-//   milestone: Milestone[];
-//   associatedMembers: string[];
-//   file: RcFile | null;
-//   comments: string | null;
-//   estimated_amount: number | null;
-//   contract_added_by: number;
-// }
 
 export interface AssociatedMember {
   username: string;
@@ -58,7 +41,6 @@ export interface AddContractPropType {
   contractType: string | null;
   spinning: boolean;
   selectClient: (value: string) => Promise<void>;
-  // selectUser: (value: ContractDetails["assoc_users"]) => Promise<void>;
   userNameOptions: AssociatedMember[];
   selectUser: (data: AssociatedMember) => void;
   handleMilestoneChange: (
@@ -85,14 +67,9 @@ export interface AddContractPropType {
     value: string;
   }[];
   getUserName: (searchValue: string) => Promise<void>;
-  // userNameOptions: {
-  //   value: string;
-  // }[];
   contractDetails: ContractDetails;
   setContractDetails: React.Dispatch<React.SetStateAction<ContractDetails>>;
   milestones: Milestone[];
-  // newAmount: number;
-  // setNewAmount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface LocationStateProps {

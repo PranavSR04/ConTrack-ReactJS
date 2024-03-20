@@ -38,22 +38,22 @@ const EditMsaHandler = () => {
     comments: "",
     file: null as RcFile | null  
   });
-
+  // Call the autoFillMsa function with msa_ref_id in every render
   useEffect(() => {
     if (msa_ref_id) {
       autoFillMsa(msa_ref_id);
     }
   }, []);
-
+//Function to set MsaId
   const autoFillMsa = async (msa_ref_id: string) => {
     try {
+      // Fetch MSA data from API using msa_ref_id
       const data = await getapi(msa_ref_id);
       const msa_data = data?.data;
       setShowFile(true)
       if (msa_data) {
         const { client_name, region, start_date, end_date, msa_doclink } =
           msa_data;
-        // Updating state with the extracted values
         setMsaData((prevState) => ({
           ...prevState,
           client_name: client_name,
@@ -67,6 +67,7 @@ const EditMsaHandler = () => {
       console.error("Error generating MSA ID:", error);
     }
   };
+  // Update form data with MSA data when msaData or formData.file changes
   useEffect(() => {
     setFormData({
       client_name: msaData.client_name,
@@ -76,18 +77,20 @@ const EditMsaHandler = () => {
       comments: msaData.comments,
       file: null as RcFile | null,
     });
-    console.log("useeffect formdata", formData);
     if (formData.file !== null) {
       setFilePdf(formData.file);
       console.log("filepdf:", filePdf);
     }
   }, [msaData, filePdf]);
+  //Function to cancel file 
   const fileCancel = () => {
     setShowFile(false)
   };
+  // Function to handle input change events
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    // Destructure the 'name' and 'value' from the event target
     const { name, value } = e.target;
     setMsaData((prevState) => ({
       ...prevState,
@@ -98,6 +101,7 @@ const EditMsaHandler = () => {
       [name]: value,
     }));
   };
+  // Function to handle start date change events
   const handleDateChange = (
     date: Moment | null,
     dateString: string | string[]
@@ -107,6 +111,7 @@ const EditMsaHandler = () => {
       setFormData({...formData,start_date:dateString})
     } 
   };
+  // Function to handle end date change events
   const handleEndDateChange = (
     date: Moment | null,
     dateString: string | string[]
@@ -116,13 +121,15 @@ const EditMsaHandler = () => {
       setFormData({...formData,start_date:dateString})
     } 
   };
+  // Function to handle file upload before actual upload
   const beforeUpload = (file:RcFile) => {
     if (file.size > maxSize) {
       message.error('File must be smaller than 10MB!');
-      return false; // Cancel upload
+      return false; 
     }
-    return true; // Continue with upload
+    return true; 
   };
+  // Function to handle file upload
   const handleFileUpload = (info: any) => {
     try{
           setFormData({...formData,file:info.file as RcFile})
@@ -134,7 +141,9 @@ const EditMsaHandler = () => {
       console.log("file upload error is", e)
     }
     };
+  // Function to handle the addition of MSA
   const handleEditMsa = () => {
+    // Check if the form is filled correctly
     const formstatus = isFormFilled();
       if (formstatus=="field") {
         window.alert(
@@ -149,7 +158,7 @@ const EditMsaHandler = () => {
 
         }
 };
-
+// Function to submit the MSA data
 const SubmitEditMsa = async () => {
   try {
     
@@ -167,12 +176,14 @@ const SubmitEditMsa = async () => {
     formDatatoSend.append("comments", formData.comments);
     formDatatoSend.append("file", filePdf || "");
    console.log("Data to be send: ",formDatatoSend);
+   // Post form data to the API
     await postapi(formDatatoSend, msa_ref_id, user_id);
     setMsaEdited(true);
 
     setIsModalVisible(false);
    
     form.resetFields();
+    // Navigate to MSA Overview page with edited state
     navigate("/MSA Overview", { state: { edited: true } });
 
   } catch (error) {
@@ -180,29 +191,32 @@ const SubmitEditMsa = async () => {
   }
   setSpinning(false)
 };
-
+//Function to handle cancellation of form
 const handleCancel = () => {
   setIsModalVisible(false);
 };
+//Function to validate start date
 const validateStartDate = async (value:any) => {
   if (value && formData.end_date && moment(value).isAfter(formData.end_date)) {
     throw new Error('End date must be after start date');
   }
 };
+//Function to validate client name
 const validateClientName=async(value:any)=>{
   if(formData.client_name==null)
   {
     throw new Error("Client cannot be empty")
   }
 }
+//Function to validate region
 const validateRegion=async(value:any)=>{
   if(formData.region==null)
   {
     throw new Error("Region cannot be empty")
   }
 }
-
-  const isFormFilled = () => {
+// Function to check if all required fields are filled
+const isFormFilled = () => {
     if (
       formData.client_name == "" ||
       formData.region == "" ||

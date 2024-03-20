@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import DashBoardNotification from './DashBoardNotification';
-import { DashBoardNotificationHandlerPropType, NotificationType } from './types';
+import { DashBoardNotificationHandlerPropType} from './types';
 import Notification from '../Notification/Notification';
 
 const DashBoardNotificationHandler:React.FC<DashBoardNotificationHandlerPropType>= ({notification}) => {
     const[difference,setDifference]=useState<string>(''); 
-    const stylename='style1'; 
+    const stylename='DashBoardStyle'; 
     useEffect(() => {
         const dateCalculation = (date: Date) => {
           const currentDate = new Date();

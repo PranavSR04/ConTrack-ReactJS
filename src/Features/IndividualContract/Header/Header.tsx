@@ -13,11 +13,19 @@ const Header = ({
   du,
   contractStatus,
   navigateToEditContract,
-  id
+  id,
 }: HeaderPropType) => {
   return (
     <div className={`${styles.maincontainer__header}`}>
-      <BreadCrumbs style={{ marginTop: "0.5rem" }} />
+      <BreadCrumbs
+        style={{
+          // marginLeft: "3rem",
+          marginTop: "0.7rem",
+          fontSize: 17,
+          // color: "red !important",
+          fontStyle: "italic",
+        }}
+      />
       <div className={`${styles.maincontainer__header__title}`}>
         <div className={`${styles.maincontainer__header__title__contract}`}>
           <h2>
@@ -39,7 +47,7 @@ const Header = ({
           {ROLE_ID !== 3 && (
             <button
               className={`${styles.maincontainer__header__title__edit__button}`}
-              onClick={()=>navigateToEditContract(id)}
+              onClick={() => navigateToEditContract(id)}
             >
               Edit
             </button>
