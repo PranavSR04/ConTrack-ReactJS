@@ -117,6 +117,56 @@ const AddContract = ({
     }
     return Promise.resolve();
   };
+  const checkPercentage = (_: any, value: number) => {
+    if (value > 100) {
+      return Promise.reject(new Error("% > 100"));
+    }
+    return Promise.resolve();
+  };
+
+  // const checkSumOfPercentage = (
+  //   _: any,
+  //   allValues: { milestones: any[]; percentage: number }
+  // ) => {
+  //   let total = 0;
+  //   allValues.milestones.forEach((milestone: { percentage: number }) => {
+  //     total += milestone.percentage || 0;
+  //   });
+  //   total += allValues.percentage || 0; // Include the current milestone's percentage
+  //   if (total !== 100) {
+  //     return Promise.reject(new Error("Total percentage must be 100"));
+  //   }
+  //   return Promise.resolve();
+  // };
+
+  const checkSumOfPercentage = (index: number, value: any) => {
+    let total = value; // Start with the current milestone's value
+    milestones.forEach((milestone, i) => {
+      if (i !== index) {
+        total += milestone.percentage || 0;
+      }
+    });
+
+    if (total !== 100) {
+      return Promise.reject(new Error("% error"));
+      // return Promise.reject();
+    }
+    return Promise.resolve();
+  };
+
+  // const checkSumOfPercentage = (index: number, value: any) => {
+  //   let total = 0;
+  //   milestones.forEach((milestone, i) => {
+  //     if (i !== index) {
+  //       total += milestone.percentage || 0;
+  //     }
+  //   });
+
+  //   if (total >= 100) {
+  //     return Promise.reject(new Error("Total percentage must not exceed 100"));
+  //   }
+  //   return Promise.resolve();
+  // };
 
   return (
     <>
@@ -251,9 +301,6 @@ const AddContract = ({
                       required: true,
                       message: "Please select a Start Date",
                     },
-                    // {
-                    //   validator: validateStartDate,
-                    // },
                   ]}
                 >
                   <DatePicker
@@ -456,7 +503,12 @@ const AddContract = ({
                             name={`milestones[${index}].milestones`}
                             labelCol={{ span: 24 }}
                             wrapperCol={{ span: 24 }}
-                            required
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please enter milestone description!",
+                              },
+                            ]}
                           >
                             <Input
                               value={milestone.milestones || ""}
@@ -483,7 +535,13 @@ const AddContract = ({
                             name={`milestones[${index}].expectedCompletionDate`}
                             labelCol={{ span: 24 }}
                             wrapperCol={{ span: 24 }}
-                            required
+                            rules={[
+                              {
+                                required: true,
+                                message:
+                                  "Please enter Expected Completion Date!",
+                              },
+                            ]}
                           >
                             <DatePicker
                               style={{ width: "100%" }}
@@ -510,6 +568,18 @@ const AddContract = ({
                             labelCol={{ span: 20 }}
                             wrapperCol={{ span: 20 }}
                             required
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please input percentage!",
+                              },
+                              { validator: checkPercentage },
+                              {
+                                validator: (_, value) =>
+                                  checkSumOfPercentage(index, value),
+                                validateTrigger: "onSubmit",
+                              },
+                            ]}
                           >
                             <InputNumber
                               style={{ width: "100%" }}
@@ -523,37 +593,34 @@ const AddContract = ({
                           </Form.Item>
                         </div>
 
-                          <div
-                            style={{
-                              width: "20%",
-                              marginRight: "1rem",
-                              marginBottom: "0.5rem",
-                              marginTop: "-1.7rem",
-                            }}
+                        <div
+                          style={{
+                            width: "20%",
+                            marginRight: "1rem",
+                            marginBottom: "0.5rem",
+                            marginTop: "-1.7rem",
+                          }}
+                        >
+                          <Form.Item
+                            name={`milestones[${index}].amount`}
+                            labelCol={{ span: 20 }}
+                            wrapperCol={{ span: 20 }}
+
+                            // initialValue={newMilestoneAmount}
                           >
-                            <Form.Item
-                              name={`milestones[${index}].amount`}
-                              labelCol={{ span: 20 }}
-                              wrapperCol={{ span: 20 }}
-                              required
-                              // initialValue={newMilestoneAmount}
-                              
-                            >
-                               <Input
-                               style={{display:"none"}}
-                               value={milestone.amount?milestone.amount:0}
-                               
-                               />
-                             
-                              <InputNumber
-                                style={{ width: "100%" }}
-                                // onBeforeInput={()=>{milestone.amount?milestone.amount:0}}
-                                value={milestone.amount || 0}
-                                disabled
-                                // value={newMilestoneAmount}
-                                
-                              />
-                            </Form.Item>
+                            <Input
+                              style={{ display: "none" }}
+                              value={milestone.amount ? milestone.amount : 0}
+                            />
+
+                            <InputNumber
+                              style={{ width: "100%" }}
+                              // onBeforeInput={()=>{milestone.amount?milestone.amount:0}}
+                              value={milestone.amount || 0}
+                              disabled
+                              // value={newMilestoneAmount}
+                            />
+                          </Form.Item>
                         </div>
                         {index >= 0 && (
                           <Button
@@ -647,15 +714,9 @@ const AddContract = ({
                       >
                         <Upload
                           accept=".pdf"
-                          //   action=""
                           customRequest={handleFileUpload}
                           maxCount={1}
-                          // fileList={fileList || []}
-                          // showUploadList={false}
                         >
-                          {/* <Button icon={<UploadOutlined />}>
-                            Click to Upload (Max: 50MB)
-                          </Button> */}
                           <div style={{ marginTop: "1rem" }}>
                             <p>Drag & drop or click to upload</p>
                             <Button icon={<UploadOutlined />}>
@@ -836,7 +897,12 @@ const AddContract = ({
                             name={`milestones[${index}].milestones`}
                             labelCol={{ span: 24 }}
                             wrapperCol={{ span: 24 }}
-                            required
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please enter milestone description!",
+                              },
+                            ]}
                           >
                             <Input
                               value={milestone.milestones || ""}
@@ -863,7 +929,13 @@ const AddContract = ({
                             name={`milestones[${index}].expectedCompletionDate`}
                             labelCol={{ span: 24 }}
                             wrapperCol={{ span: 24 }}
-                            required
+                            rules={[
+                              {
+                                required: true,
+                                message:
+                                  "Please enter Expected Completion Date!",
+                              },
+                            ]}
                           >
                             <DatePicker
                               style={{ width: "100%" }}
@@ -890,12 +962,18 @@ const AddContract = ({
                             name={`milestones[${index}].amount`}
                             labelCol={{ span: 20 }}
                             wrapperCol={{ span: 20 }}
-                            required
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please enter amount!",
+                              },
+                            ]}
                           >
                             <InputNumber
                               style={{ width: "100%" }}
                               value={milestone.amount}
                               onChange={(e) => handleAmount(e)}
+                              // onChange={(value) => handleAmount(index, value)}
                             />
                           </Form.Item>
                         </div>
