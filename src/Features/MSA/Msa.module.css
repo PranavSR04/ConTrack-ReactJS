@@ -96,7 +96,7 @@
   color: white;
   /* flex:1; */
   justify-content: center;
- /* margin-right: 12rem; */
+ /* margin-right: 10rem; */
 }
 .modal_cancelbutton{
   flex: 1;
@@ -105,8 +105,5 @@
 
 }
 .modal_msa{
-   min-height: 50rem;
-}
-.modal_buttons{
-  margin-right: 12rem;
+   margin-top: 100rem;
 }

@@ -21,6 +21,7 @@ const HeaderHandler = ({ responses, id }: HeaderHandlerPropType) => {
     getContractHeading(responses);
   }, [responses]);
 
+  // Function which is used to set the data required from response
   const getContractHeading: HeadingHandlerType["getContractHeading"] = (
     responses
   ) => {
@@ -36,6 +37,7 @@ const HeaderHandler = ({ responses, id }: HeaderHandlerPropType) => {
         const responseDataArray = [responses.data[0]];
         let dataWithHeaders = [];
 
+        // dataArray contains data items from the response
         const dataArray = responseDataArray.map((item) => {
           const row = [
             item.id,
@@ -104,15 +106,17 @@ const HeaderHandler = ({ responses, id }: HeaderHandlerPropType) => {
 
         console.log(dataWithHeaders);
 
+        // Setting the data to be passed to Header component for exporting into excel
         setContractExcelData(dataWithHeaders);
       } else {
-        console.error("Error fetching contract data:", responses); // Log the error response
+        console.error("Error fetching contract data:", responses);
       }
     } else {
       setError("Failed to get response");
     }
   };
 
+  // Function whcih triggers the navigation on click of edit button
   const navigateToEditContract = (id: string) => {
     navigate(`Edit Contract`, {
       state: { id: id as string },

@@ -4,13 +4,13 @@ import Notification from '../Notification/Notification';
 
 const DashBoardNotificationHandler:React.FC<DashBoardNotificationHandlerPropType>= ({notification}) => {
     const[difference,setDifference]=useState<string>(''); 
-    const stylename='DashBoardStyle'; 
+    const stylename='DashBoardStyle'; //For giving styles
     useEffect(() => {
-        const dateCalculation = (date: Date) => {
+         //Function to calculate time difference between current time and provided date.
+          const dateCalculation = (date: Date) => {
           const currentDate = new Date();
-         
           const timeDifference = Math.floor((currentDate.getTime() - date.getTime())/1000);
-         
+         //return the time with display content
           if (timeDifference < 0) {
             return 'Just now';
           } else if (timeDifference < 60) {

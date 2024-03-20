@@ -1,44 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  AutoComplete,
-  Button,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Select,
-  Menu,
-} from "antd";
-import {
-  PlusOutlined,
-  CloseCircleOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
-import { Upload } from "antd";
-import {
-  Milestone,
-  ContractDetails,
-  RcFile,
-  LocationStateProps,
-  ExistingMilestone,
-  //   ExistingMilestone,
-} from "./types";
-import styles from "./AddContract.module.css";
+import { RcFile, LocationStateProps, ExistingMilestone } from "./types";
 import "./api/api";
 import dayjs from "dayjs";
 import { getMSA } from "./api/getMSA";
-import { AxiosResponse } from "axios";
-import { addContract } from "./api/api";
-import { UploadRequestOption } from "rc-upload/lib/interface"; // Import UploadRequestOption
-import moment from "moment";
-import Toast from "../../Components/Toast/Toast";
 import { useLocation, useNavigate } from "react-router-dom";
-import AddContract from "./AddContract";
 import EditContract from "./EditContract";
 import { editContract } from "./api/editContract";
 import { getapi } from "./api/getContract";
 import { EditContractDetails } from "./types/editcontract";
-// import { RcFile } from "antd/lib/upload";
 
 const EditContractHandler = () => {
   const location = useLocation();
@@ -71,19 +40,30 @@ const EditContractHandler = () => {
   const [existingMilestone, setExistingMilestone] = useState<
     ExistingMilestone[]
   >([]);
+  const [contractEdited, setContractEdited] = useState<boolean>(false);
+  const [milestones, setMilestones] = useState<ExistingMilestone[]>(
+    contractDetails.milestones || []
+  );
+  const [contractType, setContractType] = useState<string | null>(null);
+  const [clientNameOptions, setClientNameOptions] = useState<
+    { value: string }[]
+  >([]);
+
+  const [contractPdf, setContractPdf] = useState<RcFile | null>();
   const navigate = useNavigate();
   const [spinning, setSpinning] = React.useState<boolean>(false);
 
+  // Effect to auto-fill contract details when `id` changes
   useEffect(() => {
     if (id) {
       autoFillContract(id);
     }
   }, [id]);
 
+  // Function to auto-fill contract details based on ID
   const autoFillContract = async (id: string) => {
     try {
       const data = await getapi(id);
-
       const contractData = data?.data;
       console.log("getContract api:", contractData);
       if (contractData) {
@@ -94,18 +74,8 @@ const EditContractHandler = () => {
       console.error("error in filling");
     }
   };
-  console.log("setted existing milestones;", existingMilestone);
-  const [contractEdited, setContractEdited] = useState<boolean>(false);
-  const [milestones, setMilestones] = useState<ExistingMilestone[]>(
-    contractDetails.milestones || []
-  );
 
-  const [clientNameOptions, setClientNameOptions] = useState<
-    { value: string }[]
-  >([]);
-
-  const [contractPdf, setContractPdf] = useState<RcFile | null>();
-
+  // Function to fetch client names based on search value
   const getClientName = async (searchValue: string) => {
     try {
       const response = await getMSA(searchValue);
@@ -121,8 +91,7 @@ const EditContractHandler = () => {
     }
   };
 
-  const [contractType, setContractType] = useState<string | null>(null);
-
+  // Function to handle contract type change
   const handleContractTypeChange = (value: "FF" | "TM") => {
     setContractDetails({
       ...contractDetails,
@@ -131,47 +100,9 @@ const EditContractHandler = () => {
     setContractType(value);
   };
 
-  //   const handleAddMilestone = () => {
-  //     console.log(milestones);
-  //     setExistingMilestone([
-  //       ...existingMilestone,
-  //       {
-  //         milestone_desc: "",
-  //         milestone_enddate: null,
-  //         percentage: null,
-  //         amount: null,
-  //       },
-  //     ]);
-  //   };
-  //   const handleAddMilestone = () => {
-  //     console.log(milestones);
-  //     setExistingMilestone([ ...existingMilestone,
-  //       {
-  //         milestones: "",
-  //         expectedCompletionDate: null,
-  //         percentage: null,
-  //         amount: null,
-  //       },
-  //     ]);
-  //   };
-
-  // const handleAddMilestone = () => {
-  //   console.log(existingMilestone);
-
-  //   // Convert the new format to the existing format
-  //  const newMilestone = {
-  //    milestone_desc: "",
-  //    milestone_enddate: null,
-  //    percentage: null,
-  //    amount: null,
-  //  };
-
-  //   setExistingMilestone([...existingMilestone, newMilestone]);
-  // };
+  // Function to add a new milestone
   const handleAddMilestone = () => {
     console.log(existingMilestone);
-
-    // Create a new milestone in the desired format
     const newMilestone = {
       milestone_desc: "",
       milestone_enddate: null,
@@ -179,22 +110,17 @@ const EditContractHandler = () => {
       amount: null,
     };
     console.log(newMilestone);
-
-    // Add the new milestone to the existingMilestone array
     setExistingMilestone([...existingMilestone, newMilestone]);
   };
 
-  //   const removeMilestone = (index: number) => {
-  //     const updatedMilestones = [...milestones];
-  //     updatedMilestones.splice(index, 1);
-  //     setMilestones(updatedMilestones);
-  //   };
+  // Function to remove a milestone
   const removeMilestone = (index: number) => {
     const updatedMilestones = [...existingMilestone];
     updatedMilestones.splice(index, 1);
     setExistingMilestone(updatedMilestones);
   };
 
+  // Function to handle amount change
   const handleAmount = (paymentamount: number | null) => {
     const updatedMilestones = milestones.map((milestone) => {
       return {
@@ -213,6 +139,7 @@ const EditContractHandler = () => {
     setContractDetails(updatedContractDetails);
   };
 
+  // Function to handle payment percentage change
   const handlePaymentPercentageChange = (
     index: number,
     value: number | undefined
@@ -248,6 +175,7 @@ const EditContractHandler = () => {
     }
   };
 
+  // Function to handle total contract value change
   const handleTotalContractValueChange = (value: number | null) => {
     if (value !== undefined && value !== null) {
       setContractDetails({
@@ -260,6 +188,8 @@ const EditContractHandler = () => {
       });
     }
   };
+
+  // Function to handle comments/remarks change
   const handleCommentsRemarksChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -270,6 +200,7 @@ const EditContractHandler = () => {
     });
   };
 
+  // Function to handle file upload
   const handleFileUpload = (info: any) => {
     setContractDetails({
       ...contractDetails,
@@ -285,7 +216,7 @@ const EditContractHandler = () => {
     }
   };
 
-  //   setContractDetails({ ...contractDetails, file: contractPdf });
+  // Function to handle contract update
   const handleUpdate = async () => {
     console.log("Data to updtae", contractDetails);
     try {
@@ -312,6 +243,7 @@ const EditContractHandler = () => {
     }
   };
 
+  // Function to handle milestone change
   const handleMilestoneChange = (
     index: number,
     field: string,
@@ -342,84 +274,14 @@ const EditContractHandler = () => {
     console.log(updatedContractDetails);
     setContractDetails(updatedContractDetails);
   };
-
-  // const handleMilestoneChange = (
-  //     index: number,
-  //     field: string,
-  //     value: string | dayjs.Dayjs | number | null
-  //   ) => {
-  //     console.log("index", index);
-  //     console.log("field", field);
-  //     console.log("value", value);
-
-  //     let convertedValue: Date | null = null;
-  //     // Convert dayjs object to Date
-  //     if (dayjs.isDayjs(value)) {
-  //       convertedValue = (value as dayjs.Dayjs).toDate();
-  //     }
-  //     console.log("converted value", convertedValue);
-
-  //     const updatedMilestones = [...milestones];
-  //     updatedMilestones[index] = {
-  //       ...updatedMilestones[index],
-  //       [field]: dayjs.isDayjs(value) ? convertedValue : value,
-  //     };
-  //     setMilestones(updatedMilestones);
-
-  //     // Update contractDetails as well if needed
-  //     const updatedContractDetails = {
-  //       ...contractDetails,
-  //       milestones: updatedMilestones,
-  //     };
-  //     console.log("updated contractDetails", updatedContractDetails);
-  //     setContractDetails(updatedContractDetails);
-  //   };
-
-  // const handleMilestoneChange = (
-  //   index: number,
-  //   field: string,
-  //   value: string | dayjs.Dayjs | number | null
-  // ) => {
-  //   console.log("index", index);
-  //   console.log("field", field);
-  //   console.log("value", value);
-
-  //   if (!contractDetails || !setContractDetails) {
-  //     console.error("Contract details not available.");
-  //     return;
-  //   }
-
-  //   let convertedValue: Date | null = null;
-  //   // Convert dayjs object to Date
-  //   if (dayjs.isDayjs(value)) {
-  //     convertedValue = (value as dayjs.Dayjs).toDate();
-  //   }
-  //   console.log("converted value", convertedValue);
-
-  //   const updatedMilestones = [...contractDetails.milestones];
-  //   const updatedMilestone = {
-  //     ...updatedMilestones[index],
-  //     [field]: dayjs.isDayjs(value) ? convertedValue : value,
-  //   };
-
-  //   updatedMilestones[index] = updatedMilestone;
-  //   console.log("upd.milestones", updatedMilestones[index]);
-  //   // Update contractDetails with the updated milestones
-  //   const updatedContractDetails = {
-  //     ...contractDetails,
-  //     milestones: updatedMilestones,
-  //   };
-  //   console.log("updated contractDetails", updatedContractDetails);
-  //   setContractDetails(updatedContractDetails);
-  // };
-
   console.log("setContractDetails. milestone", contractDetails.milestones);
+
+  // Effect to fetch MSA data on component mount
   useEffect(() => {
     let responses;
     const fetchMSA = async () => {
       try {
         responses = await getMSA();
-        // console.log("msa response", responses.data);
       } catch (err) {
         console.log(err);
       }
@@ -427,14 +289,13 @@ const EditContractHandler = () => {
     fetchMSA();
   }, []);
 
+  // Function to select a client
   const selectClient = async (value: string) => {
-    // Fetch client data including region
     try {
       const response = await getMSA(value);
       const clientData = response.data[0];
       console.log("Client data", clientData);
       if (clientData) {
-        // Update contractDetails with client data
         setContractDetails({
           ...contractDetails,
           msa_id: clientData.id,
@@ -469,7 +330,6 @@ const EditContractHandler = () => {
       milestones={milestones}
       existingMilestone={existingMilestone}
       spinning={spinning}
-      //   milestones={existingMilestone}
     />
   );
 };

@@ -6,7 +6,7 @@ interface countType {
   contractCount: number;
   Contract: string;
 }
-
+//Dashboard count component to display a count with a label.
 const DashBoardCount = ({ contractCount, Contract }: countType) => {
   return (
     <Row gutter={16}>

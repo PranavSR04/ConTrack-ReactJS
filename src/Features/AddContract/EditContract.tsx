@@ -1,20 +1,14 @@
-import React, { useState } from "react";
-import AddContractHandler from "./AddContractHandler";
 import { EditContractPropType } from "./types";
 import moment from "moment";
-
-import EditContractHandler from "./EditContractHandler";
 import styles from "./AddContract.module.css";
 
 import {
   AutoComplete,
   Button,
   DatePicker,
-  Dropdown,
   Form,
   Input,
   InputNumber,
-  Menu,
   Select,
   Spin,
   Upload,
@@ -26,7 +20,6 @@ import {
 } from "@ant-design/icons";
 import Toast from "../../Components/Toast/Toast";
 import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
-import dayjs from "dayjs";
 
 const EditContract = ({
   handleUpdate,
@@ -41,21 +34,14 @@ const EditContract = ({
   handleAmount,
   removeMilestone,
   handleAddMilestone,
-  handleContractTypeChange,
   getClientName,
   clientNameOptions,
   contractDetails,
   setContractDetails,
-  milestones,
   existingMilestone,
   spinning,
 }: EditContractPropType) => {
-  console.log("############3", contractDetails.client_name);
-  const onFinish = (values: any) => {
-    console.log("Received values:", values);
-  };
-  console.log("existing milestone", existingMilestone);
-
+  //Function to get Contract Type
   const getContractTypeName = () => {
     switch (contractDetails.contract_type) {
       case "FF":
@@ -70,7 +56,14 @@ const EditContract = ({
   return (
     <>
       <div className="container">
-        <BreadCrumbs style={{ marginLeft: "10rem", marginTop: "0.5rem" }} />
+        <BreadCrumbs
+          style={{
+            marginLeft: "10rem",
+            marginTop: "0.7rem",
+            fontSize: 16,
+            fontStyle: "italic",
+          }}
+        />
         <h1
           style={{
             marginLeft: "10rem",
@@ -81,16 +74,7 @@ const EditContract = ({
         >
           EDIT CONTRACT
         </h1>
-        {/* <AddContractHandler onSubmit={handleSubmit} /> */}
         <>
-          {contractEdited ? (
-            <Toast
-              message="Contract Edited successfully!"
-              messageType="success"
-            />
-          ) : (
-            <></>
-          )}
           <Form
             labelCol={{ span: 4 }}
             wrapperCol={{ span: 14 }}
@@ -107,7 +91,6 @@ const EditContract = ({
                 Contract Details
               </div>
 
-              {/* Contract Details Form Items */}
               <div
                 style={{
                   display: "flex",
@@ -115,7 +98,6 @@ const EditContract = ({
                   fontFamily: '"Montserrat", sans-serif',
                 }}
               >
-                {" "}
                 <Form.Item
                   label="Client Name"
                   labelCol={{ span: 15 }}
@@ -265,10 +247,8 @@ const EditContract = ({
               </div>
             </div>
 
-            {/* Render Fixed Fee Components */}
             {contractDetails.contract_type === "FF" && (
               <>
-                {/* Milestone Details */}
                 <div
                   style={{
                     display: "flex",
@@ -300,7 +280,6 @@ const EditContract = ({
                         required
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 8 }}
-                        // style={{ paddingLeft: "1rem" }}
                       >
                         <InputNumber
                           value={contractDetails.estimated_amount}
@@ -329,7 +308,6 @@ const EditContract = ({
                     </div>
 
                     <div>
-                      {/* Headers */}
                       <div
                         style={{
                           display: "flex",
@@ -397,7 +375,6 @@ const EditContract = ({
                                 required
                               >
                                 <Input
-                                  //   value={milestone.milestones || ""}
                                   onChange={(e) =>
                                     handleMilestoneChange(
                                       index,
@@ -506,10 +483,8 @@ const EditContract = ({
               </>
             )}
 
-            {/* Render T&M Components */}
             {contractDetails.contract_type === "TM" && (
               <>
-                {/* Milestone Details */}
                 <div
                   style={{
                     display: "flex",
@@ -541,7 +516,6 @@ const EditContract = ({
                         required
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 8 }}
-                        // style={{ paddingLeft: "1rem" }}
                       >
                         <InputNumber
                           value={contractDetails.estimated_amount}
@@ -570,7 +544,6 @@ const EditContract = ({
                     </div>
 
                     <div>
-                      {/* Headers */}
                       <div
                         style={{
                           display: "flex",
@@ -633,7 +606,6 @@ const EditContract = ({
                                 required
                               >
                                 <Input
-                                  //   value={milestone.milestones || ""}
                                   onChange={(e) =>
                                     handleMilestoneChange(
                                       index,
@@ -653,13 +625,6 @@ const EditContract = ({
                                 marginTop: "-1.7rem",
                               }}
                             >
-                              {/* <Form.Item
-                                name={`milestones[${index}].milestone_enddate`}
-                                labelCol={{ span: 24 }}
-                                wrapperCol={{ span: 24 }}
-                                required
-                                initialValue={milestone.milestone_enddate}
-                              > */}
                               <DatePicker
                                 style={{ width: "100%" }}
                                 value={
@@ -678,7 +643,6 @@ const EditContract = ({
                                   )
                                 }
                               />
-                              {/* </Form.Item> */}
                             </div>
 
                             <div
@@ -723,7 +687,6 @@ const EditContract = ({
               </>
             )}
 
-            {/* Associated Members */}
             <div
               className={`contract_details ${styles.contract_details}`}
               style={{ width: "46.5%" }}
@@ -751,7 +714,6 @@ const EditContract = ({
             </div>
 
             <div style={{ display: "flex", width: "100%" }}>
-              {/* Upload Work Schedule */}
               <div
                 className={`contract_details ${styles.contract_details}`}
                 style={{ width: "46.5%", height: "10.5rem" }}
@@ -775,7 +737,6 @@ const EditContract = ({
                   <div
                     style={{
                       border: "2px dashed #ccc",
-                      // padding: "3rem",
                       paddingBottom: "1rem",
                       textAlign: "center",
                       borderRadius: "5px",
@@ -797,7 +758,6 @@ const EditContract = ({
                 </div>
               </div>
 
-              {/* Comments and Remarks */}
               <div
                 className={`contract_details ${styles.contract_details}`}
                 style={{ width: "36%", marginLeft: "2rem", height: "10.5rem" }}
@@ -816,7 +776,6 @@ const EditContract = ({
                   }}
                 >
                   <Form.Item
-                    // labelCol={{ span: 6 }}
                     wrapperCol={{ span: 24 }}
                     style={{ width: "32rem", marginTop: "-1rem" }}
                   >

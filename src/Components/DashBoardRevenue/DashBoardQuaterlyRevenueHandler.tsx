@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchRevenueProjection } from '../../Features/RevenueProjection/api/getRevenueProjection';
 import { AxiosError } from 'axios';
 import DashBoardRevenue from './DashBoardRevenue';
-
+//Component to handle quarterly revenue data fetching and rendering.
 const DashBoardQuaterlyRevenueHandler = () => {
   const [revenueData, setRevenueData] = useState<{ [key: string]: number } | undefined>();
   const [error, setError] = useState<any>();
@@ -12,23 +12,24 @@ const DashBoardQuaterlyRevenueHandler = () => {
   useEffect(() => {
     fetchQuarterlyRevenue();
   }, []);
-
+ // Function to fetch quarterly revenue data
   const fetchQuarterlyRevenue = async () => {
     const requestBody = {
       type: 'quarterly',
     };
    
     try {
+       // Fetch revenue projection data
       const { data }: { data: { [key: string]: number } } = await fetchRevenueProjection(undefined, requestBody);
-      
       if (data instanceof AxiosError) {
         console.log(data.response?.data);
         setError(data.response?.data);
       } else {
+        // Get current quarter and its revenue
         const currentQuarter = getCurrentQuarter();
         const currentQuarterRevenue = data[currentQuarter] || 0;
         setCurrentQuarterRevenue(currentQuarterRevenue);
-
+        // Get previous quarter and its revenue
         const previousQuarter = getPreviousQuarter(currentQuarter);
         const previousQuarterRevenue = data[previousQuarter] || 0;
         setPreviousQuarterRevenue(previousQuarterRevenue);
@@ -40,7 +41,7 @@ const DashBoardQuaterlyRevenueHandler = () => {
       setError(error);
     }
   };
-
+// Function to get current quarter
   const getCurrentQuarter = () => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -49,7 +50,7 @@ const DashBoardQuaterlyRevenueHandler = () => {
     console.log(quarter)
     return `${currentYear}-Q${quarter}`;
   };
-
+// Function to get previous quarter
   const getPreviousQuarter = (currentQuarter: string) => {
     const [year, quarterStr] = currentQuarter.split('-');
     const quarter = parseInt('1');
