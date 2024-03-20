@@ -1,34 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ListMsa.module.css";
 import {
-  Button,
   ConfigProvider,
-  Dropdown,
-  Menu,
-  Pagination,
   Segmented,
-  Space,
   Spin,
   Table,
-  TableColumnsType,
 } from "antd";
-import { TableProps } from "react-bootstrap";
-import axios from "axios";
 import {
-  DownOutlined,
-  EditOutlined,
   LoadingOutlined,
-  SyncOutlined,
 } from "@ant-design/icons";
 import { MsaListDataType } from "./types";
 import { useNavigate } from "react-router";
 import Toast from "../../../Components/Toast/Toast";
-import ButtonGroup from "antd/es/button/button-group";
-import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
 const ListMsa = ({
   columns,
   data,
-  getRowClassName,
   pagination,
   handleTableChange,
   msaAdded,
@@ -36,6 +22,7 @@ const ListMsa = ({
   fetchData,
   edited,
   rowClassName,
+  renew
 }: MsaListDataType) => {
   const navigate = useNavigate();
 
@@ -102,7 +89,7 @@ const ListMsa = ({
                     className={styles.ListMsa_Details_Table_row1_col2_button}
                     onClick={() => navigate("/MSA Overview/Add MSA")}
                   >
-                    + Add Msa
+                    + ADD MSA
                   </button>
                 )}
               </div>
@@ -165,14 +152,16 @@ const ListMsa = ({
               messageType="success"
               message="MSA Added Successfully"
             ></Toast>
-          ) : edited ? (
+          ) : (edited ? (
             <Toast
               messageType="success"
               message="MSA Edited Successfully"
             ></Toast>
-          ) : (
-            <></>
-          )}
+          ) :<></>)}
+          {renew? (<Toast
+              messageType="success"
+              message="MSA Renewed Successfully"
+            ></Toast>):<></>}
         </div>
       </div>
       {/* </div> */}

@@ -19,6 +19,7 @@ import { ManageUserHandlerPropType, ManageUsersPropType } from "./types";
 import Toast from "../../Components/Toast/Toast";
 import { LabeledValue } from "antd/es/select";
 import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const ManageUsers = ({
   handleAddUser,
@@ -57,7 +58,7 @@ const ManageUsers = ({
 ManageUsersPropType) => {
   return (
     <>
-      {/* <BreadCrumbs /> */}
+      <BreadCrumbs />
       <h2 className={`${userTableStyles.pageTitle}`}>MANAGE USER</h2>
       <div className={` ${userTableStyles.wholeTable} `}>
         <div className={`${userTableStyles.searchEmployeeCluster}`}>
@@ -74,7 +75,9 @@ ManageUsersPropType) => {
               getEmployee(text);
               debouncedFetchData(text);
             }}
-            notFoundContent={dropDownLoading ? <Spin size="small" /> : null}
+            notFoundContent={dropDownLoading ? <Spin
+              indicator={<LoadingOutlined style={{ fontSize: 15 }} spin />}
+          /> : null}
           />
 
           <Select
@@ -168,7 +171,9 @@ ManageUsersPropType) => {
             loading={{
               indicator: (
                 <div>
-                  <Spin />
+                  <Spin
+                            indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />}
+                        />
                 </div>
               ),
               spinning: loading,

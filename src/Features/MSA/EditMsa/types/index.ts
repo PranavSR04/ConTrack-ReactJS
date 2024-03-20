@@ -7,19 +7,15 @@ export interface EditMsaHandlertype{
 
  msaEdited:boolean;
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    handleDateChange?: (date: Moment | null, dateString: string | string[]) => void;
+   handleDateChange?: (date: Moment | null, dateString: string | string[]) => void;
     handleEndDateChange?: (date: Moment | null, dateString: string | string[]) => void
+   beforeUpload: (file: RcFile) => boolean
     SubmitEditMsa: React.MouseEventHandler<HTMLElement> | undefined
     handleEditMsa: () => void;
     isModalVisible: boolean;
     handleCancel: () => void;
-    isLoading: boolean;
     validateStartDate: (value: any) => Promise<void>;
-    //  confirmLoading:boolean
-    handleOk?: () => Promise<void>;
-    fullPageSpinner?: boolean;
     fileCancel: () => void;
-    fileUpload: boolean;
     showFile: boolean;
     handleFileUpload: (info: any) => void;
     fileName: string | undefined;
