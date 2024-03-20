@@ -8,10 +8,12 @@ const DashBoardContractCountHandler = () => {
     const [isError, setIsError] = useState<boolean>(false);
     const Contract='Contracts'
     useEffect(() => {
+         // Function to fetch contract count
         const fetchCount = async () => {
             try {
                 setError('');
                 setIsError(false);
+                // Fetch contract count from API
                 const response = await fetchDuCount();
                 if (response.totalContractsCount !== undefined) {
                     setContractCount(response.totalContractsCount);

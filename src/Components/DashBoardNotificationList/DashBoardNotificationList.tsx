@@ -4,21 +4,18 @@ import { DashBoardNotificationListPropType } from './types';
 import styles from '../DashBoardNotification/DashBoardNotification.module.css'
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from 'antd';
-
-const DashBoardNotificationList:React.FC<DashBoardNotificationListPropType> = ({notifications, isLoading, isError, error}) => {
+//list the Dashboard notification 
+const DashBoardNotificationList=({notifications, isLoading, isError, error}:DashBoardNotificationListPropType) => {
   return (
     <div className={styles.containerList}>
       <p>Latest Notifications</p>
-      {isLoading &&<Spin
-    
-    indicator={<LoadingOutlined style={{ fontSize: 20 }} spin />}
-  />}
+      {isLoading &&<Spin indicator={<LoadingOutlined style={{ fontSize: 20 }} spin />} />}
       {isError && <p>No Notification</p>}
       <div className={styles.listStyle}>
-        {notifications.map(notification => (
-            <DashBoardNotificationHandler key={notification.log_id} notification={notification} />
-        ))}
-    </div>
+          {notifications.map(notification => (
+              <DashBoardNotificationHandler key={notification.log_id} notification={notification} />
+          ))}
+      </div>
     </div>
   )
 }

@@ -40,13 +40,13 @@ const RenewMsaHandler = () => {
     comments: "",
     file: null as RcFile | null,
   });
-
+  //Function to autofill msa_ref_id
   useEffect(() => {
     if (msa_ref_id) {
       autoFillMsa(msa_ref_id);
     }
   }, []);
-
+  //Function to get the msa id
   const autoFillMsa = async (msa_ref_id: string) => {
     try {
       const responses = await getapi(msa_ref_id);
@@ -55,7 +55,6 @@ const RenewMsaHandler = () => {
       if (msa_data) {
         const { client_name, region, start_date, end_date, comments } =
           msa_data;
-        // Log the extracted values for debugging
         console.log("Destructured msa values:", {
           client_name,
           region,
@@ -90,13 +89,13 @@ const RenewMsaHandler = () => {
       comments: msaData.comments,
       file: null as RcFile | null,
     });
-    console.log("useeffect formdata", formData);
     if (formData.file !== null) {
       setFilePdf(formData.file);
       console.log("filepdf:", filePdf);
       // setMsaRenewed(true)
     }
   }, [msaData]);
+  //Function to handle file size before upload
   const beforeUpload = (file:RcFile) => {
     if (file.size > maxSize) {
       message.error('File must be smaller than 10MB!');
@@ -104,6 +103,7 @@ const RenewMsaHandler = () => {
     }
     return true; // Continue with upload
   };
+  //Function to handle file upload
   const handleFileUpload = (info: any) => {
     setFormData({ ...formData, file: info.file as RcFile });
     console.log("setting form data file", formData.file);
@@ -117,7 +117,7 @@ const RenewMsaHandler = () => {
       console.log("file upload error is", e);
     }
   };
-
+  //Function to submit the renew msa form
   const submitRenewMsa = async () => {
     try {
       // Checking if form is filled before submission
@@ -164,18 +164,17 @@ const RenewMsaHandler = () => {
       onCancel();
     }
   };
-
+  //Function to handle input changes
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    console.log("typing: ", name, "and", value);
     setMsaData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
-
+  //Function to handle start date
   const handleStartDateChange = (
     date: Moment | null,
     dateString: string | string[]
@@ -187,6 +186,7 @@ const RenewMsaHandler = () => {
       console.log("error ; type of date string: ", typeof dateString);
     }
   };
+  //Function to handle End date
   const handleEndDateChange = (
     date: Moment | null,
     dateString: string | string[]
@@ -198,18 +198,16 @@ const RenewMsaHandler = () => {
       console.log("error ; type of date string: ", typeof dateString);
     }
   };
-
+  //Function to cancel form
   const onCancel = () => {
     setVisible(false);
   };
-
+  //Function to handle Modal PopUp
   const modalPopUp = () => {
     setVisible(true);
   };
-
+  //Function to check form fields are entered
   const isFormFilled = () => {
-    console.log("test", fileName);
-    console.log("test clent name", formData.client_name);
     if (
       formData.client_name == "" ||
       formData.region == "" ||

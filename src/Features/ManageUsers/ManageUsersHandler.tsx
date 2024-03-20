@@ -14,10 +14,6 @@ import { deleteUser } from "./api/putDeleteUser";
 import { updateUser } from "./api/putUpdateUser";
 import Swal, { SweetAlertCustomClass } from "sweetalert2";
 import { Select } from "antd/lib";
-import { LabeledValue,SelectProps,SelectValue } from 'antd/es/select';
-
-type SelectRef = React.RefObject<LabeledValue | null> | React.MutableRefObject<LabeledValue | null>;
-
 
 const ManageUsersHandler = () => {
   const [columns, setColumns] = useState<TableColumn[]>([]);
@@ -92,12 +88,12 @@ const ManageUsersHandler = () => {
         total: response.data.data.total,
       });
 
-      // setUserUpdated(false)
-
       const list: User[] = result.data.data || [];
       //Storing the first user to get the columns title
       const firstObject: User = list[0] || {};
       const cols: TableColumn[] = [];
+
+      //to get the column title we extract the first record
 
       for (const key in firstObject) {
         // Customize column titles based on the 'key'
@@ -114,7 +110,6 @@ const ManageUsersHandler = () => {
             case "contracts_count":
               customTitle = "Associated Contracts";
               break;
-            // Add more cases if needed
             default:
               customTitle = key; // Use the key as the title by default
           }
@@ -124,19 +119,18 @@ const ManageUsersHandler = () => {
             dataIndex: key,
             sorter:
               //Applying sorting logic to only required fields
-              key === "role_access" || key === "id"
+              key === "role_access" || key === "id"  //don't apply the sorting to role_access and id
                 ? false
                 : (a, b) => {
-                    // Add sorting logic for specific columns if needed
                     if (key === "user_name") {
                       return (a[key] as string).localeCompare(b[key] as string);
                     } else if (key === "contracts_count") {
                       return (a[key] as number) - (b[key] as number);
                     }
-                    // If no special sorting required, return 0
+                    // If no sorting required, return 0
                     return 0;
                   },
-            //To prevent ID from displaying in the table
+            //To prevent ID from being displayed in the table
             width: key === "id" ? 0 : undefined,
           };
           cols.push(col);
@@ -152,7 +146,7 @@ const ManageUsersHandler = () => {
             <EditOutlined
               className={`${userTableStyles.actionIcon}`}
               onClick={(e) => {
-                //Keeping the user list visible
+                //Keeping the user list visible when the icon is clicked
                 e.stopPropagation();
                 // updateUser(record)
                 showUpdateChoice(record);
@@ -170,13 +164,14 @@ const ManageUsersHandler = () => {
       };
       //Storing all the required titles
     {     
+      //if the data fetched is not empty
       result.data.data.length!== 0 &&
       cols.push(actionColumn);
     }      
 
    setColumns(cols);
 
-      // Initialize dataSource once with the mapped list
+      // Initialize datasource once with the mapped list
       setDataSource(
         list.map((data: User) => ({
           id: data.id,
@@ -185,6 +180,7 @@ const ManageUsersHandler = () => {
           contracts_count: data.contracts_count,
         }))
       );
+      //loading boolean value for spinner 
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -226,18 +222,12 @@ const ManageUsersHandler = () => {
       })
     );
 
-      // const uniqueOptions = new Set(
-      //   result.map((res: Employee) => ({
-      //     id: res.id,
-      //     value: `${res.id}. ${res.first_name} ${res.middle_name} ${res.last_name}`,
-      //   }))
-      // );
           setDropdownOptions(empList);
           console.log("SET EMPLOYEE LIST",dropdownOptions)
-      console.log('Original',dropdownOptions);
     } catch (error:any) {
       console.error('Error fetching data with search:', error);
       if (error.response && error.response.status === 404){
+        //display a toast if no employee is found
         setEmployeeNotFoundToast(true)
         setTimeout(() => {
           setEmployeeNotFoundToast(false);
@@ -248,16 +238,17 @@ const ManageUsersHandler = () => {
     }
   };
 
+  //debouner for preventing api calls for every keychange
   const debouncedFetchData = debounce(fetchEmployeeList, 2000);
 
   useEffect(() => {}, [dropdownOptions]);
 
+  //passing the selected employee's ID 
   const onSelectEmployee = (data: EmployeeOption | null) => {
     if (data) {
         const extractedId = data.value;
         console.log("Employee ID :", extractedId);
         setSelectedEmployeeId(extractedId);
-        
     }
 };
 
@@ -265,6 +256,7 @@ const ManageUsersHandler = () => {
     setSearchEmployee(value);
   };
 
+  //get all the roles
   const fetchRoles = async () => {
     try {
       setLoading(true);
@@ -273,11 +265,12 @@ const ManageUsersHandler = () => {
       const result = response.data;
       console.log(result);
 
+      //for preventing 'SUPER ADMIN' to be displayed in the roles
       const accessValues = result
         .filter(
           (res: { role_name: string; role_access: string; id: number }) =>
             res.role_name !== "Super Admin"
-        ) // Exclude "Admin" role
+        ) 
         .map((res: { role_name: string; role_access: string; id: number }) => ({
           access: res.role_access,
           id: res.id,
@@ -303,46 +296,28 @@ const ManageUsersHandler = () => {
   };
 
   useEffect(() => {
-
     // Log the updated value of selectedRoleId
   }, [selectedRoleId,selectedEmployeeId]);
 
-  // useEffect(() => {
-  //   fetchRoles();
-  // }, []);
-
+  //Adding a user to system
   const addUserToSystem = async (employee_id: number, role_id: number) => {
     try {
       setLoading(true);
       await addUser(employee_id, role_id);
+      //toaster call
       setUserAdded(true);
       setTimeout(() => {
         setUserAdded(false);
       }, 5000);
-
-      //toaster call
     } catch (error:any) {
-      console.error("Error adding user to the system:", error);
-    //       if (error.response && error.response.status === 422) {
-    //   // User already exists, show SweetAlert
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'User Already Exists',
-    //     text: 'The user you are trying to add already exists.',
-    //   });
-    // }
+      console.error("Error adding user to the system:", error)
     if (error.response && error.response.status === 422) {
-      // Display a toast with custom message for 422 status
-      // return <Toast message="User already exists" messageType="error" />;
+      // Display a toast 
       setShowToast(true);
-
-      // Optionally, you can set a timeout to hide the toast after a certain duration
       setTimeout(() => {
         setShowToast(false);
       }, 5000); 
     }
-      
-
     } finally {
       setLoading(false);
     }
@@ -360,6 +335,7 @@ const ManageUsersHandler = () => {
     }
   };
 
+  //to show role choices to be updated
   const showUpdateChoice = (record: User) => {
     if (record.role_access === "Full Access") {
       setUserToBeUpdated("Super Admin");
@@ -375,6 +351,7 @@ const ManageUsersHandler = () => {
     }
   };
 
+  //to update a user's role
   const handleUpdateUser = async (selectedRoleId: number | undefined) => {
     try {
       setLoading(true);
@@ -409,10 +386,11 @@ const ManageUsersHandler = () => {
     setDeleteConfirmationVisible(false);
   };
 
-  //
+  //function to delete an user
   const handleDelete = async (selectedUser: User): Promise<void> => {
     try {
       await deleteUser(selectedUser);
+      //for toast
       setUserDeleted(true);
       setDataSource(dataSource);
       setTimeout(() => {
@@ -465,7 +443,6 @@ const ManageUsersHandler = () => {
   };
 
   return (
-
     <ManageUsers
      handleAddUser={handleAddUser}
      showDeleteConfirmation={showDeleteConfirmation}
@@ -504,7 +481,6 @@ const ManageUsersHandler = () => {
      emptyUserToast={emptyUserToast}
      employeeNotFoundToast={employeeNotFoundToast}
      dropDownLoading={dropDownLoading}
-
      />
   )
 }
