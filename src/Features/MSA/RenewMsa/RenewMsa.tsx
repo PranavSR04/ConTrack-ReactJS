@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
 import styles from "../Msa.module.css";
 import { Button, DatePicker, Form, Input, Upload, Spin } from "antd";
 import { FilePdfOutlined, PlusOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 import { RenewMsaPropType } from "./types";
-import CloseContractModal from "../../ContractView/Documents/CloseContractModal";
 import RenewMsaModal from "./RenewMsaModal";
 import Toast from "../../../Components/Toast/Toast";
 import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
@@ -34,7 +32,6 @@ const RenewMsa = ({
           marginLeft: "16rem",
           marginTop: "0.5rem",
           fontSize: 17,
-          // color: "red !important",
           fontStyle: "italic",
         }}
       />
@@ -150,7 +147,6 @@ const RenewMsa = ({
                   <Upload
                     action=""
                     listType="picture-card"
-                    // fileList={[]}
                     accept=".pdf,.docx"
                     beforeUpload={beforeUpload}
                     customRequest={handleFileUpload}
