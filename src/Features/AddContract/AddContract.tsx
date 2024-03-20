@@ -11,6 +11,8 @@ import {
   Input,
   InputNumber,
   Select,
+  SelectProps,
+  Spin,
   Upload,
 } from "antd";
 import {
@@ -26,6 +28,7 @@ const AddContract = ({
   contractAdded,
   contractType,
   selectClient,
+  selectUser,
   handleMilestoneChange,
   handleSubmit,
   handleFileUpload,
@@ -37,13 +40,25 @@ const AddContract = ({
   handleAddMilestone,
   handleContractTypeChange,
   getClientName,
+  getUserName,
   clientNameOptions,
+  userNameOptions,
   contractDetails,
   setContractDetails,
   milestones,
-  // newMilestoneAmount,
+  spinning,
 }: AddContractPropType) => {
-  // console.log("check in add",newMilestoneAmount)
+  console.log("userNameOptions", userNameOptions);
+  const handleChange = (value: string[]) => {
+    console.log(`selected ${value}`);
+  };
+  const optionr: SelectProps["options"] = [];
+  for (let i = 10; i < 36; i++) {
+    optionr.push({
+      label: i.toString(36) + i,
+      value: i.toString(36) + i,
+    });
+  }
   // const [contractType, setContractType] = useState<string | null>(null);
 
   // const handleSubmit = (data: ContractDetails) => {
@@ -84,34 +99,6 @@ useEffect(()=>{
       date_of_signature: dateOfSignatureString,
     });
   };
-  // const validateComments = (_, value) => {
-  //   if (value && value.length > 5) {
-  //     return Promise.reject(new Error('Maximum 5 characters allowed'));
-  //   }
-  //   return Promise.resolve();
-  // };
-
-  // const validateStartDate = (rule: any, value: Moment | null) => {
-  //   if (
-  //     value &&
-  //     contractDetails.date_of_signature &&
-  //     contractDetails.end_date
-  //   ) {
-  //     const startDate = moment(value);
-  //     const dateOfSignature = moment(contractDetails.date_of_signature);
-  //     const endDate = moment(contractDetails.end_date);
-
-  //     if (startDate.isBefore(dateOfSignature)) {
-  //       return Promise.reject("Start Date must be after Date of Signature");
-  //     }
-
-  //     if (startDate.isAfter(endDate)) {
-  //       return Promise.reject("Start Date must be before End Date");
-  //     }
-  //   }
-
-  //   return Promise.resolve();
-  // };
 
   const validateEndDate = (rule: any, value: Moment | null) => {
     if (
@@ -600,6 +587,14 @@ useEffect(()=>{
                       <Select
                         mode="tags"
                         placeholder="Please select or type"
+                        allowClear
+                        options={userNameOptions}
+                        onSearch={getUserName}
+                        // showSearch={}
+                        // filterOption={true}
+                        // labelInValue={true}
+                        onChange={selectUser}
+                        // onSelect={selectUser}
                         style={{
                           width: "100%",
                           height: "100%",
@@ -649,6 +644,7 @@ useEffect(()=>{
                           //   action=""
                           customRequest={handleFileUpload}
                           maxCount={1}
+                          // fileList={fileList || []}
                           // showUploadList={false}
                         >
                           {/* <Button icon={<UploadOutlined />}>
@@ -688,17 +684,18 @@ useEffect(()=>{
                       }}
                     >
                       <Form.Item
-                        // labelCol={{ span: 1 }}
+                        // labelCol={{ span: 6 }}
                         wrapperCol={{ span: 24 }}
-                        style={{ width: "32rem", marginTop: "-1rem"}}
+                        style={{ width: "32rem", marginTop: "-1rem" }}
                         rules={[
                           {
                             max: 5,
-                            message: "Maximum 5 characters allowed for comments",
+                            message:
+                              "Maximum 5 characters allowed for comments",
                           },
                         ]}
-                        
-                       
+                        validateTrigger="onChange"
+                        name="comments"
                       >
                         <Input.TextArea
                           rows={4.5}
@@ -934,6 +931,14 @@ useEffect(()=>{
                       <Select
                         mode="tags"
                         placeholder="Please select or type"
+                        allowClear
+                        options={userNameOptions}
+                        onSearch={getUserName}
+                        // showSearch={}
+                        // filterOption={true}
+                        // labelInValue={true}
+                        onChange={selectUser}
+                        // onSelect={selectUser}
                         style={{
                           width: "100%",
                           height: "100%",
@@ -1027,8 +1032,9 @@ useEffect(()=>{
                         style={{ width: "32rem", marginTop: "-1rem" }}
                         rules={[
                           {
-                            max: 5,
-                            message: "Maximum 5 characters allowed for comments",
+                            max: 200,
+                            message:
+                              "Maximum 200 characters allowed for comments",
                           },
                         ]}
                         validateTrigger="onChange"
@@ -1037,8 +1043,8 @@ useEffect(()=>{
                         <Input.TextArea
                           rows={4.5}
                           placeholder="Enter comments and remarks..."
-                          value={contractDetails.comments}
-                          onChange={handleCommentsRemarksChange}  
+                          value={contractDetails.comments ?? ""}
+                          onChange={handleCommentsRemarksChange}
                         />
                       </Form.Item>
                     </div>
@@ -1046,7 +1052,10 @@ useEffect(()=>{
                 </div>
               </>
             )}
-            <Form.Item wrapperCol={{ offset: 4, span: 14 }} style={{marginRight: "15rem",}}>
+            <Form.Item
+              wrapperCol={{ offset: 4, span: 14 }}
+              style={{ marginRight: "15rem" }}
+            >
               <Button
                 type="primary"
                 htmlType="submit"
@@ -1060,6 +1069,7 @@ useEffect(()=>{
                 Add Contract
               </Button>
             </Form.Item>
+            <Spin spinning={spinning} fullscreen />
           </Form>
         </>
       </div>

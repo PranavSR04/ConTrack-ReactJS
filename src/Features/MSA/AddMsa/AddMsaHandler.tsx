@@ -1,56 +1,48 @@
 import React, { useContext, useEffect, useState } from 'react'
 import AddMsa from './AddMsa'
-import { Form, Modal, Spin, message } from 'antd';
+import { Form, message } from 'antd';
 import moment, { Moment } from 'moment';
 import { getapi } from './api/getapi';
-import axios from 'axios';
 import { postapi } from './api/postapi';
-import ListMsaHandler from '../ListMsa/ListMsaHandler';
 import { useNavigate } from 'react-router';
 import { NavCon } from '../../../Components/NavContext/NavContext';
 import { fetchNotification } from '../../../Components/NotificationList/Api/getNotifications';
+import { RcFile } from 'antd/es/upload';
 
 const AddMsaHandler = () => {
   const user_id: number = parseInt(localStorage.getItem('user_id') || "0");
- //console.log(user_id)
     const [form] = Form.useForm();
     const navigate=useNavigate();
     const[msaAdded,setMsaAdded]=useState<boolean>(false);
     const [spinning, setSpinning] = React.useState<boolean>(false);
-
+    const maxSize = 10 * 1024 * 1024;
     const [msaRefId,setMsaRefId]=useState<string>();
     const [fileName,setFileName]=useState<string>();
-    const [isLoading, setIsLoading] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [redirectToListMsa, setRedirectToListMsa] = useState(false); // State variable for redirection
-    const [showListMsa, setShowListMsa] = useState(false); // State variable for showing list MSA
-    const [showSpinner, setShowSpinner] = useState(false); // State variable for showing spinner
-    const[fullPageSpinner,setFullPageSpinner]=useState<boolean>(false);
-    const [start_date,setstart_date]=useState<string>();
+       const [start_date,setstart_date]=useState<string>();
     const[date_validate,setDate_validated]=useState<boolean>(false);
     const{setActiveNotificationCount}=useContext(NavCon);
 
-    useEffect( ()=>{
-        generateMsaId()
-  
-    },[]);
-    const generateMsaId= async ()=>{
-      try {
-        let uniqueIdGenerated = false;
-        let generatedId = "";
-        while (!uniqueIdGenerated) {
-          generatedId = `MSA${Math.floor(Math.random() * 1000)}`;
-          const exists =  await getapi(generatedId);
-                  if (!exists) {
-                      uniqueIdGenerated = true;
-                  }
+  useEffect(() => {
+    generateMsaId();
+  }, []);
+  const generateMsaId = async () => {
+    try {
+      let uniqueIdGenerated = false;
+      let generatedId = "";
+      while (!uniqueIdGenerated) {
+        generatedId = `MSA${Math.floor(Math.random() * 1000)}`;
+        const exists = await getapi(generatedId);
+        if (!exists) {
+          uniqueIdGenerated = true;
         }
-        setMsaRefId(generatedId ); 
-        setFormData({ ...formData, msa_ref_id: generatedId });
-      } catch (error) {
-        console.error("Error generating MSA ID:", error);
       }
+      setMsaRefId(generatedId);
+      setFormData({ ...formData, msa_ref_id: generatedId });
+    } catch (error) {
+      console.error("Error generating MSA ID:", error);
     }
+  };
 
     const [formData, setFormData] = useState({
         msa_ref_id: '',
@@ -61,7 +53,13 @@ const AddMsaHandler = () => {
         comments: '',
         file:null as File | null
       });
-
+      const beforeUpload = (file:RcFile) => {
+        if (file.size > maxSize) {
+          message.error('File must be smaller than 10MB!');
+          return false; // Cancel upload
+        }
+        return true; // Continue with upload
+      };
       const handleFileUpload = (info: any) => {
       try{
     
@@ -112,42 +110,33 @@ const AddMsaHandler = () => {
        
       }
       const handleOk=async()=>{
-        setFullPageSpinner(true)
         SubmitAddMsa();
       }
       const SubmitAddMsa=async()=>{
         try {
 
           console.log("after setting:", formData)
-          setIsLoading(true)
-          setShowSpinner(true);
           setSpinning(true);
 
-          //setFullPageSpinner(false);
-          const formDatatoSend = new FormData();
-          formDatatoSend.append('msa_ref_id', formData.msa_ref_id);
-          formDatatoSend.append('client_name', formData.client_name);
-          formDatatoSend.append('region', formData.region);
-        
-          // Format start_date and end_date
-          formDatatoSend.append('start_date', formData.start_date);
-          formDatatoSend.append('end_date', formData.end_date);
-          
-          formDatatoSend.append('comments', formData.comments);
-          formDatatoSend.append('file', formData.file||'');
-          
-          await postapi(formDatatoSend,user_id);
-          //console.log("Is this page posting after post")
+      //setFullPageSpinner(false);
+      const formDatatoSend = new FormData();
+      formDatatoSend.append("msa_ref_id", formData.msa_ref_id);
+      formDatatoSend.append("client_name", formData.client_name);
+      formDatatoSend.append("region", formData.region);
+
+      // Format start_date and end_date
+      formDatatoSend.append("start_date", formData.start_date);
+      formDatatoSend.append("end_date", formData.end_date);
+
+      formDatatoSend.append("comments", formData.comments);
+      formDatatoSend.append("file", formData.file || "");
+
+      await postapi(formDatatoSend, user_id);
+      //console.log("Is this page posting after post")
 
           setMsaAdded(true);
           // setIsModalVisible(false);
             setIsModalVisible(false);
-
-              setIsLoading(false);
-              setRedirectToListMsa(true);
-              setShowListMsa(true)
-          
-          
           form.resetFields();
           generateMsaId();
           const SENDTO_ID = parseInt(localStorage.getItem("user_id") || '0', 10);
@@ -160,14 +149,7 @@ const AddMsaHandler = () => {
         //setSpinning(false);
 
       }
-      const stopSpinning = () => {
-        setTimeout(() => {
-          setSpinning(false);
-        }, 2000); // 2000 milliseconds = 2 seconds
-      };
-      useEffect(() => {
-        stopSpinning();
-      }, []);
+
       const validateStartDate = async (value:any) => {
         if (value && formData.end_date && moment(value).isAfter(formData.end_date)) {
           throw new Error('End date must be after start date');
@@ -176,61 +158,55 @@ const AddMsaHandler = () => {
     
       
 
-      const handleCancel = () => {
-        setIsModalVisible(false);
-      };
-      console.log("msa added value before add msa",msaAdded)
-      const isFormFilled = () => {
-        console.log("test", fileName);
-        console.log("test clent name", formData.client_name);
-        if (
-          formData.client_name == "" ||
-          formData.region == "" ||
-          formData.start_date == "" ||
-          formData.end_date == "" ||
-          fileName == null
-        ) {
-          
-          return "field";
-        }else if(formData.end_date<=formData.start_date){
-          if(formData.end_date<=formData.start_date){
-            //message.error("End Date must be greater than Start Date")
-            setDate_validated(true)
-          }else{
-            setDate_validated(false)
-          }
-          return "date";
-        } else {
-          return false;
-        }
-      };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  console.log("msa added value before add msa", msaAdded);
+  const isFormFilled = () => {
+    console.log("test", fileName);
+    console.log("test clent name", formData.client_name);
+    if (
+      formData.client_name == "" ||
+      formData.region == "" ||
+      formData.start_date == "" ||
+      formData.end_date == "" ||
+      fileName == null
+    ) {
+      return "field";
+    } else if (formData.end_date <= formData.start_date) {
+      if (formData.end_date <= formData.start_date) {
+        //message.error("End Date must be greater than Start Date")
+        setDate_validated(true);
+      } else {
+        setDate_validated(false);
+      }
+      return "date";
+    } else {
+      return false;
+    }
+  };
   return (
     <div>
-     
-   
         <AddMsa
           msaRefId={msaRefId}
           handleFileUpload={handleFileUpload}
           handleInputChange={handleInputChange}
           handleDateChange={handleDateChange}
           handleEndDateChange={handleEndDateChange}
-          SubmitAddMsa={SubmitAddMsa}
           handleAddMsa={handleAddMsa}
           isModalVisible={isModalVisible}
           handleCancel={handleCancel}
-          isLoading={isLoading}
           fileName={fileName}
           msaAdded={msaAdded}
           validateStartDate={validateStartDate}
           handleOk={handleOk}
-          fullPageSpinner={fullPageSpinner}
-          isFormFilled={isFormFilled}
           start_date={start_date}
           date_validate={date_validate}
           spinning={spinning}
+          beforeUpload={beforeUpload}
         />
     </div>
-  )
-}
+  );
+};
 
-export default AddMsaHandler
+export default AddMsaHandler;
