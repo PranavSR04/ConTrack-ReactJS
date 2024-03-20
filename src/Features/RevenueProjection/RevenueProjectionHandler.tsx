@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import RevenueProjection from "./RevenueProjection";
-import { Auth } from "../../Components/AuthContext/AuthContext";
 import { CheckboxOptionType, CheckboxValueType } from "antd/es/checkbox/Group";
 import { Checkbox } from "antd";
 import { RevenueProjectionHandlerPropType, SelectedFiltersType } from "./types";
 
 const RevenueProjectionHandler = ({ id }: RevenueProjectionHandlerPropType) => {
-	// const { logout } = useContext(Auth);
+
 	const [filter, setFilter] = useState<string>("Monthly");
 	const access_token = localStorage.getItem("access_token");
 	const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -24,7 +23,6 @@ const RevenueProjectionHandler = ({ id }: RevenueProjectionHandlerPropType) => {
     setFilterStartDate(dateStrings[0]);
     setFilterEndDate(dateStrings[1]);
 
-    // Here you can further process the dates or date strings as needed
 }
 
 	const showFilterModal = () => {
@@ -72,7 +70,6 @@ const RevenueProjectionHandler = ({ id }: RevenueProjectionHandlerPropType) => {
 	};
 
 	const applyFilters = () => {
-		// Implement logic to apply filters and fetch data based on selected filters
 		console.log("Selected filters:", selectedFilters);
 	};
 

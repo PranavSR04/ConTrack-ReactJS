@@ -93,41 +93,7 @@ const AppRoutes = () => {
                 }
               ></Route>
 
-              {/* {ROLE_ID === 1 || ROLE_ID === undefined ? (
-                <Route
-                  path="/Manage User"
-                  element={
-                    <>
-                      <NavBarHandler />
-                      <SideBar>
-                        <ManageUsersHandler />
-                      </SideBar>
-                    </>
-                  }
-                ></Route>
-              ) : (
-                <Route
-                  path="/Manage User"
-                  element={
-                    <>
-                      <AccessDenied />
-                    </>
-                  }
-                />
-              )} */}
-              {ROLE_ID === 1 && (
-                <Route
-                  path="/ManageUser"
-                  element={
-                    <>
-                      <NavBarHandler />
-                      <SideBar>
-                        <ManageUsersHandler />
-                      </SideBar>
-                    </>
-                  }
-                ></Route>
-              )}
+              { ROLE_ID===1 && <Route path="/ManageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>}
 
               <Route
                 path="/AllContracts"

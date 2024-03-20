@@ -21,6 +21,8 @@ const SideBar = ({ children }: SideBarPropType) => {
     const storedIndex = localStorage.getItem("activeIndex");
     return storedIndex ? parseInt(storedIndex, 10) : 0;
   });
+
+  
   const handleLogout = async () => {
     try {
       access_token && (await logout());
@@ -55,13 +57,12 @@ const SideBar = ({ children }: SideBarPropType) => {
       
     }
   }, [location.pathname]);
+
   const commonSideItems = [
     { path: "/Dashboard", name: "Dashboard", icon: <FaBars /> },
     { path: "/MSA Overview", name: "MSA", icon: <FaFileAlt /> },
-    { path: "/AllContracts", name: "AllContracts", icon: <FaCopy /> },
-    { path: "/MyContracts", name: "MyContracts", icon: <FaFileAlt /> },
-    // { path: "/AllContracts", name: "Contracts", icon: <FaCopy /> },
-    // { path: "/MyContracts", name: "My Contracts", icon: <FaFileAlt /> },
+    { path: "/AllContracts", name: "All Contracts", icon: <FaCopy /> },
+    { path: "/MyContracts", name: "My Contracts", icon: <FaFileAlt /> },
     { path: "/Revenue", name: "Revenue", icon: <FaRegChartBar /> },
   ];
 

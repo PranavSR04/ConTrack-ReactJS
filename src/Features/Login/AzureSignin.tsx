@@ -12,35 +12,20 @@ import { callMsGraph } from "../../Config/graph";
 
 export const SignInButton = () => {
   const { instance } = useMsal();
-
-//   const handleLogin = async (loginType: string) => {
-//     if (loginType === "popup") {
-//       await instance.loginPopup(loginRequest).catch((e) => {
-//         console.log(e);
-//       });
-//     } else if (loginType === "redirect") {
-//       await instance.loginRedirect(loginRequest).catch((e) => {
-//         console.log(e);
-//       });
-//     }
-//   };
-  
+ 
 const handleLogin = async (loginType: string) => {
-    // setLoading(true);
+
     if (loginType === "popup") {
-        console.log("HElooooo");
+  
       try {
-        console.log("%%%%");
 
         const response = await instance.loginPopup(loginRequest);
         console.log("hello",response.accessToken)
         const accessToken = response.accessToken;
         const newGraph = await callMsGraph(response.accessToken)
-        // const login_response =  await axios.get('http://127.0.0.1:8000/api/v1/users/login/')
         console.log(newGraph)
         console.log(newGraph.userPrincipalName)
-        // navigate('/home')
-        // onLoginSuccess();
+
       } catch (e) {
         console.log('error')
         console.error(e);
