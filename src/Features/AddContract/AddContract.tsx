@@ -364,7 +364,7 @@ useEffect(()=>{
                       }}
                     >
                       <Form.Item
-                        label="Total Contract Value"
+                        label="Total Contract Value (USD)"
                         name="estimated_amount"
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 8 }}
@@ -426,7 +426,7 @@ useEffect(()=>{
                       </div>
                       <div style={{ width: "20%", marginRight: "1rem" }}>
                         <div style={{ marginBottom: "0.5rem" }}>
-                          Payment Amount(US$)
+                          Payment Amount(USD)
                         </div>
                       </div>
                     </div>
@@ -533,9 +533,17 @@ useEffect(()=>{
                               // initialValue={newMilestoneAmount}
                               
                             >
+                               <Input
+                               style={{display:"none"}}
+                               value={milestone.amount?milestone.amount:0}
+                               
+                               />
+                             
                               <InputNumber
                                 style={{ width: "100%" }}
-                                // value={milestone.amount}
+                                // onBeforeInput={()=>{milestone.amount?milestone.amount:0}}
+                                value={milestone.amount || 0}
+                                disabled
                                 // value={newMilestoneAmount}
                                 
                               />
@@ -733,7 +741,7 @@ useEffect(()=>{
                       }}
                     >
                       <Form.Item
-                        label="Total Contract Value"
+                        label="Total Contract Value (USD)"
                         name="estimated_amount"
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 8 }}

@@ -107,13 +107,14 @@ const RevenueProjection = ({
 						</div>
 					}
 				>
+					<div data-testid="line-chart">
 					<LineChartHandler
 						filter={filter}
 						selectedFilters={selectedFilters}
 						id={revenueid}
             filterStartDate={filterStartDate}
             filterEndDate={filterEndDate}
-					/>
+					/></div>
 				</Card>
 			</div>
 		</div>

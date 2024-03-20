@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/prefer-screen-queries */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ScatterPlot from '../../Components/RevenueScatterPlot/ScatterPlot';
