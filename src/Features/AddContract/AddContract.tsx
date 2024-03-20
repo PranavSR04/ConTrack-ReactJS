@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddContractHandler from "./AddContractHandler";
 import { AddContractPropType, ContractDetails, Milestone } from "./types";
 import styles from "./AddContract.module.css";
+// import bcstyles from "../../Components/BreadCrumbs/breadcrumbs.module.css";
 
 import {
   AutoComplete,
@@ -19,10 +20,13 @@ import {
   PlusOutlined,
   CloseCircleOutlined,
   UploadOutlined,
+  UnderlineOutlined,
 } from "@ant-design/icons";
 import Toast from "../../Components/Toast/Toast";
 import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 import moment, { Moment } from "moment";
+import { rgbToRgb, rgbaToArgbHex } from "@ctrl/tinycolor";
+import flex from "antd/lib/flex";
 
 const AddContract = ({
   contractAdded,
@@ -59,19 +63,12 @@ const AddContract = ({
       value: i.toString(36) + i,
     });
   }
-  // const [contractType, setContractType] = useState<string | null>(null);
 
-  // const handleSubmit = (data: ContractDetails) => {
-  //   // Handle the form submission data
-  //   console.log("Form Data:", data);
-  //   // You can make API calls, dispatch actions, etc. here
-  // };
-
-  const[upMiles,setUPMiles]=useState<Milestone[]>();
-console.log(milestones);
-useEffect(()=>{
-  setUPMiles(milestones);
-},[milestones])
+  const [upMiles, setUPMiles] = useState<Milestone[]>();
+  console.log(milestones);
+  useEffect(() => {
+    setUPMiles(milestones);
+  }, [milestones]);
 
   const handleStartDateChange = (value: Moment | null) => {
     const startDateString = value ? value.format("YYYY-MM-DD") : "";
@@ -87,9 +84,6 @@ useEffect(()=>{
       ...contractDetails,
       end_date: endDateString,
     });
-    // Here you can submit the end_date directly to the database
-    // Example:
-    // submitEndDateToDatabase(value);
   };
 
   const handleDateOfSignatureChange = (value: Moment | null) => {
@@ -123,11 +117,69 @@ useEffect(()=>{
     }
     return Promise.resolve();
   };
+  const checkPercentage = (_: any, value: number) => {
+    if (value > 100) {
+      return Promise.reject(new Error("% > 100"));
+    }
+    return Promise.resolve();
+  };
+
+  // const checkSumOfPercentage = (
+  //   _: any,
+  //   allValues: { milestones: any[]; percentage: number }
+  // ) => {
+  //   let total = 0;
+  //   allValues.milestones.forEach((milestone: { percentage: number }) => {
+  //     total += milestone.percentage || 0;
+  //   });
+  //   total += allValues.percentage || 0; // Include the current milestone's percentage
+  //   if (total !== 100) {
+  //     return Promise.reject(new Error("Total percentage must be 100"));
+  //   }
+  //   return Promise.resolve();
+  // };
+
+  const checkSumOfPercentage = (index: number, value: any) => {
+    let total = value; // Start with the current milestone's value
+    milestones.forEach((milestone, i) => {
+      if (i !== index) {
+        total += milestone.percentage || 0;
+      }
+    });
+
+    if (total !== 100) {
+      return Promise.reject(new Error("% error"));
+      // return Promise.reject();
+    }
+    return Promise.resolve();
+  };
+
+  // const checkSumOfPercentage = (index: number, value: any) => {
+  //   let total = 0;
+  //   milestones.forEach((milestone, i) => {
+  //     if (i !== index) {
+  //       total += milestone.percentage || 0;
+  //     }
+  //   });
+
+  //   if (total >= 100) {
+  //     return Promise.reject(new Error("Total percentage must not exceed 100"));
+  //   }
+  //   return Promise.resolve();
+  // };
 
   return (
     <>
       <div className="container">
-        <BreadCrumbs style={{ marginLeft: "10rem", marginTop: "0.5rem" }} />
+        <BreadCrumbs
+          style={{
+            marginLeft: "10rem",
+            marginTop: "0.7rem",
+            fontSize: 17,
+            // color: "red !important",
+            fontStyle: "italic",
+          }}
+        />
         <h1
           style={{
             marginLeft: "10rem",
@@ -249,9 +301,6 @@ useEffect(()=>{
                       required: true,
                       message: "Please select a Start Date",
                     },
-                    // {
-                    //   validator: validateStartDate,
-                    // },
                   ]}
                 >
                   <DatePicker
@@ -454,7 +503,12 @@ useEffect(()=>{
                             name={`milestones[${index}].milestones`}
                             labelCol={{ span: 24 }}
                             wrapperCol={{ span: 24 }}
-                            required
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please enter milestone description!",
+                              },
+                            ]}
                           >
                             <Input
                               value={milestone.milestones || ""}
@@ -481,7 +535,13 @@ useEffect(()=>{
                             name={`milestones[${index}].expectedCompletionDate`}
                             labelCol={{ span: 24 }}
                             wrapperCol={{ span: 24 }}
-                            required
+                            rules={[
+                              {
+                                required: true,
+                                message:
+                                  "Please enter Expected Completion Date!",
+                              },
+                            ]}
                           >
                             <DatePicker
                               style={{ width: "100%" }}
@@ -503,51 +563,64 @@ useEffect(()=>{
                             marginTop: "-1.7rem",
                           }}
                         >
-                            <Form.Item
-                              name={`milestones[${index}].percentage`}
-                              labelCol={{ span: 20 }}
-                              wrapperCol={{ span: 20 }}
-                              required
-                            >
-                              <InputNumber
-                                style={{ width: "100%" }}
-                                onChange={(value) => handlePaymentPercentageChange(index, value as number)}
-                              />
-
-                            </Form.Item>
-                          </div>
-
-                          <div
-                            style={{
-                              width: "20%",
-                              marginRight: "1rem",
-                              marginBottom: "0.5rem",
-                              marginTop: "-1.7rem",
-                            }}
+                          <Form.Item
+                            name={`milestones[${index}].percentage`}
+                            labelCol={{ span: 20 }}
+                            wrapperCol={{ span: 20 }}
+                            required
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please input percentage!",
+                              },
+                              { validator: checkPercentage },
+                              {
+                                validator: (_, value) =>
+                                  checkSumOfPercentage(index, value),
+                                validateTrigger: "onSubmit",
+                              },
+                            ]}
                           >
-                            <Form.Item
-                              name={`milestones[${index}].amount`}
-                              labelCol={{ span: 20 }}
-                              wrapperCol={{ span: 20 }}
-                              required
-                              // initialValue={newMilestoneAmount}
-                              
-                            >
-                               <Input
-                               style={{display:"none"}}
-                               value={milestone.amount?milestone.amount:0}
-                               
-                               />
-                             
-                              <InputNumber
-                                style={{ width: "100%" }}
-                                // onBeforeInput={()=>{milestone.amount?milestone.amount:0}}
-                                value={milestone.amount || 0}
-                                disabled
-                                // value={newMilestoneAmount}
-                                
-                              />
-                            </Form.Item>
+                            <InputNumber
+                              style={{ width: "100%" }}
+                              onChange={(value) =>
+                                handlePaymentPercentageChange(
+                                  index,
+                                  value as number
+                                )
+                              }
+                            />
+                          </Form.Item>
+                        </div>
+
+                        <div
+                          style={{
+                            width: "20%",
+                            marginRight: "1rem",
+                            marginBottom: "0.5rem",
+                            marginTop: "-1.7rem",
+                          }}
+                        >
+                          <Form.Item
+                            name={`milestones[${index}].amount`}
+                            labelCol={{ span: 20 }}
+                            wrapperCol={{ span: 20 }}
+
+                            // initialValue={newMilestoneAmount}
+                          >
+                            <Input
+                              style={{ display: "none" }}
+                              value={milestone.amount ? milestone.amount : 0}
+                            />
+
+                            <InputNumber
+                              style={{ width: "100%" }}
+                              // onBeforeInput={()=>{milestone.amount?milestone.amount:0}}
+                              value={milestone.amount || 0}
+                              disabled
+                              // value={newMilestoneAmount}
+                            />
+                          </Form.Item>
                         </div>
                         {index >= 0 && (
                           <Button
@@ -641,15 +714,9 @@ useEffect(()=>{
                       >
                         <Upload
                           accept=".pdf"
-                          //   action=""
                           customRequest={handleFileUpload}
                           maxCount={1}
-                          // fileList={fileList || []}
-                          // showUploadList={false}
                         >
-                          {/* <Button icon={<UploadOutlined />}>
-                            Click to Upload (Max: 50MB)
-                          </Button> */}
                           <div style={{ marginTop: "1rem" }}>
                             <p>Drag & drop or click to upload</p>
                             <Button icon={<UploadOutlined />}>
@@ -689,9 +756,9 @@ useEffect(()=>{
                         style={{ width: "32rem", marginTop: "-1rem" }}
                         rules={[
                           {
-                            max: 5,
+                            max: 200,
                             message:
-                              "Maximum 5 characters allowed for comments",
+                              "Maximum 200 characters allowed for comments",
                           },
                         ]}
                         validateTrigger="onChange"
@@ -830,7 +897,12 @@ useEffect(()=>{
                             name={`milestones[${index}].milestones`}
                             labelCol={{ span: 24 }}
                             wrapperCol={{ span: 24 }}
-                            required
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please enter milestone description!",
+                              },
+                            ]}
                           >
                             <Input
                               value={milestone.milestones || ""}
@@ -857,7 +929,13 @@ useEffect(()=>{
                             name={`milestones[${index}].expectedCompletionDate`}
                             labelCol={{ span: 24 }}
                             wrapperCol={{ span: 24 }}
-                            required
+                            rules={[
+                              {
+                                required: true,
+                                message:
+                                  "Please enter Expected Completion Date!",
+                              },
+                            ]}
                           >
                             <DatePicker
                               style={{ width: "100%" }}
@@ -884,12 +962,18 @@ useEffect(()=>{
                             name={`milestones[${index}].amount`}
                             labelCol={{ span: 20 }}
                             wrapperCol={{ span: 20 }}
-                            required
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please enter amount!",
+                              },
+                            ]}
                           >
                             <InputNumber
                               style={{ width: "100%" }}
                               value={milestone.amount}
                               onChange={(e) => handleAmount(e)}
+                              // onChange={(value) => handleAmount(index, value)}
                             />
                           </Form.Item>
                         </div>

@@ -5,7 +5,6 @@ import { AllContractsPropType, ContractData } from "./types";
 import { useNavigate } from "react-router";
 import { LoadingOutlined } from "@ant-design/icons";
 import Toast from "../../Components/Toast/Toast";
-import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 
 const AllContracts = ({
   columns,
