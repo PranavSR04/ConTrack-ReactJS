@@ -3,9 +3,9 @@ import { NotificationListPropType } from './types';
 import NotificationHandler from '../Notification/NotificationHandler';
 import styles from '../Notification/Notification.module.css';
 import { Drawer, Spin } from 'antd';
-import { NavCon } from '../NavContext/NavContext';
+import { NavContexts } from '../NavContext/NavContext';
 const NotificationList = ({notifications, isLoading, isError, error, viewMoreClick, hasViewMore,toggleNotifications}:NotificationListPropType) => {
-  const{open,onClose,showDrawer}=useContext(NavCon);
+  const{open,onClose}=useContext(NavContexts);
 
   console.log(open);
   return (

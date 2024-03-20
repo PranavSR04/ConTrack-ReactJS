@@ -7,7 +7,7 @@ import axios from 'axios';
 import { postapi } from './api/postapi';
 import ListMsaHandler from '../ListMsa/ListMsaHandler';
 import { useNavigate } from 'react-router';
-import { NavCon } from '../../../Components/NavContext/NavContext';
+import { NavContexts } from '../../../Components/NavContext/NavContext';
 import { fetchNotification } from '../../../Components/NotificationList/Api/getNotifications';
 
 const AddMsaHandler = () => {
@@ -28,7 +28,7 @@ const AddMsaHandler = () => {
     const[fullPageSpinner,setFullPageSpinner]=useState<boolean>(false);
     const [start_date,setstart_date]=useState<string>();
     const[date_validate,setDate_validated]=useState<boolean>(false);
-    const{setActiveNotificationCount}=useContext(NavCon);
+    const{setActiveNotificationCount}=useContext(NavContexts);
 
     useEffect( ()=>{
         generateMsaId()
