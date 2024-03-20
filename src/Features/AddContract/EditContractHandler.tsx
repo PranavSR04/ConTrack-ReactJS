@@ -72,6 +72,7 @@ const EditContractHandler = () => {
     ExistingMilestone[]
   >([]);
   const navigate = useNavigate();
+  const [spinning, setSpinning] = React.useState<boolean>(false);
 
   useEffect(() => {
     if (id) {
@@ -86,22 +87,6 @@ const EditContractHandler = () => {
       const contractData = data?.data;
       console.log("getContract api:", contractData);
       if (contractData) {
-        // console.log("Data",  contractData.data[0], contractData.data[0].contract_ref_id);
-        // const {
-        //   client_name,
-        //   contract_ref_id,
-        //   du,
-        //   start_date,
-        //   end_date,
-        //   date_of_signature,
-        //   contract_type,
-        //   milestones,
-        //   estimated_amount,
-        // } = contractData.data[0];
-        // console.log("Cname", client_name);
-        // console.log("Start Date", start_date);
-        // console.log("ContractRef ID", contract_ref_id);
-        // console.log("du", contractDetails.du);
         setContractDetails(contractData.data[0]);
         setExistingMilestone(contractData.data[0].milestones);
       }
@@ -313,11 +298,12 @@ const EditContractHandler = () => {
       };
 
       console.log("Updated Contract Details:", updatedContractDetails);
+      setSpinning(true);
       await editContract(updatedContractDetails, CON_ID);
       console.log("Contract Updated Successfully!");
       setContractEdited(true);
       //   navigate("/AllContracts");
-      navigate("/All Contracts", {
+      navigate("/AllContracts", {
         state: { edited: contractEdited as boolean },
       });
     } catch (error: any) {
@@ -327,35 +313,35 @@ const EditContractHandler = () => {
   };
 
   const handleMilestoneChange = (
-      index: number,
-      field: string,
-      value: string | dayjs.Dayjs | number | null
-    ) => {
-      console.log("index", index);
-      console.log("filed", field);
-      console.log("value", value);
+    index: number,
+    field: string,
+    value: string | dayjs.Dayjs | number | null
+  ) => {
+    console.log("index", index);
+    console.log("filed", field);
+    console.log("value", value);
 
-      let convertedValue: Date | null = null;
-      // Convert dayjs object to Date
-      if (dayjs.isDayjs(value)) {
-        convertedValue = (value as dayjs.Dayjs).toDate();
-      }
-      console.log("conv value", convertedValue);
-      const updatedMilestones = [...milestones];
-      updatedMilestones[index] = {
-        ...updatedMilestones[index],
-        [field]: dayjs.isDayjs(value) ? convertedValue : value,
-      };
-      setMilestones(updatedMilestones);
-
-      // Update contractDetails as well if needed
-      const updatedContractDetails = {
-        ...contractDetails,
-        milestones: updatedMilestones,
-      };
-      console.log(updatedContractDetails);
-      setContractDetails(updatedContractDetails);
+    let convertedValue: Date | null = null;
+    // Convert dayjs object to Date
+    if (dayjs.isDayjs(value)) {
+      convertedValue = (value as dayjs.Dayjs).toDate();
+    }
+    console.log("conv value", convertedValue);
+    const updatedMilestones = [...milestones];
+    updatedMilestones[index] = {
+      ...updatedMilestones[index],
+      [field]: dayjs.isDayjs(value) ? convertedValue : value,
     };
+    setMilestones(updatedMilestones);
+
+    // Update contractDetails as well if needed
+    const updatedContractDetails = {
+      ...contractDetails,
+      milestones: updatedMilestones,
+    };
+    console.log(updatedContractDetails);
+    setContractDetails(updatedContractDetails);
+  };
 
   // const handleMilestoneChange = (
   //     index: number,
@@ -427,8 +413,6 @@ const EditContractHandler = () => {
   //   setContractDetails(updatedContractDetails);
   // };
 
-
-
   console.log("setContractDetails. milestone", contractDetails.milestones);
   useEffect(() => {
     let responses;
@@ -484,6 +468,7 @@ const EditContractHandler = () => {
       setContractDetails={setContractDetails}
       milestones={milestones}
       existingMilestone={existingMilestone}
+      spinning={spinning}
       //   milestones={existingMilestone}
     />
   );

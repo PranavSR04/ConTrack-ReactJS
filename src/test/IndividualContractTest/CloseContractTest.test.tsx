@@ -1,7 +1,9 @@
+/* eslint-disable testing-library/prefer-screen-queries */
 import { fireEvent, render } from "@testing-library/react";
 import { CloseContractPropType } from "../../Features/IndividualContract/CloseContract/types";
 import CloseContract from "../../Features/IndividualContract/CloseContract/CloseContract";
 import { Button } from "antd";
+import React from "react";
 
 describe("IndividualContract component", () => {
   it("renders without crashing", () => {
