@@ -16,6 +16,7 @@ import {
   InputNumber,
   Menu,
   Select,
+  Spin,
   Upload,
 } from "antd";
 import {
@@ -47,6 +48,7 @@ const EditContract = ({
   setContractDetails,
   milestones,
   existingMilestone,
+  spinning,
 }: EditContractPropType) => {
   console.log("############3", contractDetails.client_name);
   const onFinish = (values: any) => {
@@ -450,7 +452,7 @@ const EditContract = ({
                                 wrapperCol={{ span: 20 }}
                                 required
                                 initialValue={milestone.percentage}
-                              > 
+                              >
                                 <InputNumber
                                   style={{ width: "100%" }}
                                   onChange={(value) =>
@@ -787,11 +789,9 @@ const EditContract = ({
                       customRequest={handleFileUpload}
                     >
                       <div style={{ marginTop: "1rem" }}>
-                            <p>Drag & drop or click to upload</p>
-                            <Button icon={<UploadOutlined />}>
-                              Select File
-                            </Button>
-                          </div>
+                        <p>Drag & drop or click to upload</p>
+                        <Button icon={<UploadOutlined />}>Select File</Button>
+                      </div>
                     </Upload>
                   </div>
                 </div>
@@ -835,7 +835,7 @@ const EditContract = ({
                 justifyContent: "flex-end",
                 marginRight: "53rem",
                 marginTop: "1rem",
-                paddingBottom:"1rem"
+                paddingBottom: "1rem",
               }}
             >
               <Button
@@ -851,6 +851,7 @@ const EditContract = ({
                 Update
               </Button>
             </div>
+            <Spin spinning={spinning} fullscreen />
           </Form>
         </>
       </div>
