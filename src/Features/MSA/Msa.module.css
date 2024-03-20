@@ -96,14 +96,11 @@
   color: white;
   /* flex:1; */
   justify-content: center;
- /* margin-right: 10rem; */
+
 }
 .modal_cancelbutton{
   flex: 1;
-    /* margin-right: 10rem; */
-    /* margin-right: 12rem; */
+
 
 }
-.modal_msa{
-   margin-top: 100rem;
-}
+

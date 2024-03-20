@@ -78,6 +78,7 @@ const EditMsa = ({
                 className={styles.AddMsaDetails_row1_col2}
                 name="client_name"
                 required
+                valuePropName={msaData.client_name}
                 label={
                   <div>
                     Client Name
