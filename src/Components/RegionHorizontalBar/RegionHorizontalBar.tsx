@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchDataFromApi } from './api/contractStatus';
 import { Bar } from 'react-chartjs-2';
-import { apiData, data, optionType } from './types';
+import { apiData, data } from './types';
 import { ChartOptions } from 'chart.js';
 
 const RegionHorizontalBar = () => {
@@ -61,8 +61,6 @@ const RegionHorizontalBar = () => {
             {regionData&& <Bar data={regionData} options={options} />}
             
         </div>
-       
     );
 }
-
 export default RegionHorizontalBar

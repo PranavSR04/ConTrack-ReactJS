@@ -12,21 +12,11 @@ import DashBoardContractCountHandler from "../../Components/DashBoardContractsCo
 import DashBoardMsaCountHandler from "../../Components/DashBoardContractsCount/DashBoardMsaCountHandler";
 import DoughnutChartHandler from "../../Components/DoughnutChart/DoughnutChartHandler";
 import RegionHorizontalBar from "../../Components/RegionHorizontalBar/RegionHorizontalBar";
-import BreadCrumbs from "../../Components/BreadCrumbs/Breadcrumbs";
 
 const Dashboard = () => {
-  const user_id = localStorage.getItem("user_id");
-  const userString = localStorage.getItem("user") as string;
-  const userObject = JSON.parse(userString);
-  const user_name = userObject?.first_name;
   return (
     < >
-      {/* <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "1rem" }} /> */}
       <div className={styles["dashboard-div1"]}>
-        {/* <h2 className={styles['dashboard-name']}>Hello, <span style={{color:'#DC143C'}}>{user_name}</span> </h2> */}
-        {/* <Card >
-      <ContractsCount/>
-    </Card> */}
         <div className={styles["dash-row1-div"]}>
           <div className={styles["dash-revenue-div"]}>
             <div className={styles["dash-revenue-div-month"]}>
@@ -50,7 +40,6 @@ const Dashboard = () => {
             <DashBoardNotificationListHandler />
           </div>
         </div>
-
     <div className={styles['dash-row1-charts']}>
     <div className={styles['dash-row1-barchart']}>
       <Card className={styles['dash-row2-ducharts']}><BarChartHandler/> </Card>  
@@ -59,7 +48,6 @@ const Dashboard = () => {
       <DoughnutChartHandler />
       </div> 
     </div>
-    
 <div  className={styles['dash-row2-charts']}>
   <Card style={{backgroundColor:'white',marginRight:'.8rem'}}>      
     <ScatterPlotHandler/>
