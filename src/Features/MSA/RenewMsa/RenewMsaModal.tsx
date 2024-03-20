@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Modal } from 'antd'
 import { RenewMsaModalPropsType } from './types'
+import styles from "../Msa.module.css";
 
 const RenewMsaModal = ({submitRenewMsa, visible, onCancel}:RenewMsaModalPropsType) => {
   return (
@@ -12,7 +13,7 @@ const RenewMsaModal = ({submitRenewMsa, visible, onCancel}:RenewMsaModalPropsTyp
         footer={[
           <Button
             key="ok"
-            type="primary"
+            className={styles.modal_okbutton}
             onClick={submitRenewMsa}
           >
             Yes

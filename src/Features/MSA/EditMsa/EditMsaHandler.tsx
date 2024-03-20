@@ -62,11 +62,13 @@ const EditMsaHandler = () => {
           end_date: end_date,
           msa_doclink: msa_doclink, 
         }));
+        
       }
     } catch (error) {
       console.error("Error generating MSA ID:", error);
     }
   };
+  console.log(msaData)
   // Update form data with MSA data when msaData or formData.file changes
   useEffect(() => {
     setFormData({
@@ -82,6 +84,7 @@ const EditMsaHandler = () => {
       console.log("filepdf:", filePdf);
     }
   }, [msaData, filePdf]);
+  console.log(formData)
   //Function to cancel file 
   const fileCancel = () => {
     setShowFile(false)
