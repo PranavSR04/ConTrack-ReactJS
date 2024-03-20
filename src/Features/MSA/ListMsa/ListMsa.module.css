@@ -63,12 +63,13 @@
     margin-left: 65%;
     margin-top: 1%;
     border-color: transparent;
-    width:9rem;
+    width:7rem;
     margin-bottom: 1%;
     border-radius: 0.5rem;
      background-color:#DC143C;
      color: white;
-     font-family: "Montserrat", sans-serif;
+     /* font-family: "Montserrat", sans-serif; */
+     
 }
 .ListMsa_edit_btn,
 .ListMsa_renew_btn{
