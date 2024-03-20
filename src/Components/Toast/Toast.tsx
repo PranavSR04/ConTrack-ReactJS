@@ -12,12 +12,11 @@ const Toast = ( {message,messageType}:ToastProps) => {
     noti[type]({
       message: message,
       placement: 'bottomRight',
-      // style: { backgroundColor: 'crimson' }
     });
   };
   
   useEffect(() => {
-    const dynamicMessage = message;
+    const dynamicMessage = message; //get the contents from the toast
     const dynamicType = messageType;
     openNotificationWithIcon(dynamicType, dynamicMessage);
   }, []); 
@@ -25,9 +24,7 @@ const Toast = ( {message,messageType}:ToastProps) => {
   return (
     <>
       {contextHolder}
-
     </>
   );
 };
-
 export default Toast;

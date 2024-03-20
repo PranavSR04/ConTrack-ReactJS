@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchDataFromApi } from './api/contractStatus';
 import DoughnutChart from './DoughnutChart';
 import { apiData } from './types';
@@ -6,11 +6,9 @@ import { apiData } from './types';
 const DoughnutChartHandler = () => {
     const [contractData, setContractData] = useState<apiData>();
     const [loading, setLoading] = useState<boolean>(true);
-
     useEffect(() => {
-        fetchData();
+        fetchData(); //fetch data uplon loading
     }, []);
-
     const fetchData = async () => {
         try {
             const result = await fetchDataFromApi();
@@ -39,7 +37,6 @@ const DoughnutChartHandler = () => {
             },
         ],
     };
-
     const options = {
       plugins: {
         legend: {

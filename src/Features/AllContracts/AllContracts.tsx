@@ -23,11 +23,10 @@ const AllContracts = ({
   handleSegmentChange
 }: AllContractsPropType) => {
   const navigate = useNavigate();
-  const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
+  const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10); //get loged in users role
 
   return (
     <>
-      {/* <BreadCrumbs style={{ marginLeft: "15rem", marginTop: "2rem" }} />; */}
       <h3 className={styles["contracts-h1"]}>{pageTitle}</h3>
       <div className={styles["contracts-table"]}>
         <div className={styles["contracts-buttons"]}>
@@ -40,11 +39,10 @@ const AllContracts = ({
           </div>
           {ROLE_ID !== 3 && isMyContracts && (
             <div className={styles["contracts-buttons-addedBy"]}>
-              <ConfigProvider
+              <ConfigProvider //show selection slider
                 theme={{
                   token: {
                     borderRadius: 20,
-                    // borderRadiusLG: 50,
                   },
                   components: {
                     Segmented: {
@@ -57,7 +55,7 @@ const AllContracts = ({
                 <div className={styles.ListMsa_Details_Table_row1_msabutton}>
                   <Segmented
                     options={["All", "Added","Associated"]}
-                    defaultValue="All"
+                    defaultValue="All" 
                     size="middle"
                     onChange={(value) => {
                       handleSegmentChange(value);
@@ -67,7 +65,7 @@ const AllContracts = ({
               </ConfigProvider>
             </div>
           )}
-          {ROLE_ID !== 3 && (
+          {ROLE_ID !== 3 && ( //show button only isnt reader
             <Button
               className={styles["contracts-addContract"]}
               onClick={() => navigate("Add Contract")}
@@ -80,12 +78,12 @@ const AllContracts = ({
           className={styles["contracts-tableHead"]}
           columns={columns as ColumnsType<ContractData>}
           dataSource={data.map((item) => ({ ...item, key: item.id }))}
-          locale={locale}
+          locale={locale} //empty message
           pagination={{
             ...pagination,
             position: ["bottomCenter"],
             itemRender: (current, type, originalElement) => {
-              if (type === "page") {
+              if (type === "page") { //change color of current active page number
                 return (
                   <a
                     style={{
@@ -115,16 +113,13 @@ const AllContracts = ({
             ),
             spinning: loading,
           }}
-        ></Table>
-        {contractAddToast && (
-          <Toast messageType="success" message="Contract Added"></Toast>
+        ></Table> 
+        {contractAddToast && (    //show toasts if corresponding values received
+          <Toast messageType="success" message="Contract Added"></Toast> 
         )}
         {contractEditToast && (
           <Toast messageType="success" message="Contract Edited"></Toast>
         )}
-        {/* {loading && <Spin size="large" />} */}
-        {/* {loading && <Spin className={styles.spinner}
-    indicator={<LoadingOutlined style={{ fontSize: 30 }} spin />} />} */}
       </div>
     </>
   );
