@@ -5,8 +5,6 @@ import { title } from "process";
 import { MilestonesPropType } from "./types";
 
 const Milestones = ({milestones, isCompletedCount}: MilestonesPropType) => {
-    console.log("checking milesones:", milestones)
-    console.log("completedCount:", isCompletedCount);
   return (
     <>
       <div className={`${styles.milestones}`}>
