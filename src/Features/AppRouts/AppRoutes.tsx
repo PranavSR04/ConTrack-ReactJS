@@ -71,6 +71,17 @@ const AppRoutes = () => {
                 }
               />
               <Route
+                path="/Dashboard/:contract_ref_id/Edit Contract"
+                element={
+                  <>
+                    <NavBarHandler />
+                    <SideBar>
+                      <EditContractHandler />
+                    </SideBar>
+                  </>
+                }
+              />
+              <Route
                 path="/Revenue"
                 element={
                   <>
@@ -104,7 +115,19 @@ const AppRoutes = () => {
                   }
                 />
               )} */}
-              { ROLE_ID===1 && <Route path="/ManageUser" element={<><NavBarHandler/><SideBar><ManageUsersHandler/></SideBar></>}></Route>}
+              {ROLE_ID === 1 && (
+                <Route
+                  path="/ManageUser"
+                  element={
+                    <>
+                      <NavBarHandler />
+                      <SideBar>
+                        <ManageUsersHandler />
+                      </SideBar>
+                    </>
+                  }
+                ></Route>
+              )}
 
               <Route
                 path="/AllContracts"

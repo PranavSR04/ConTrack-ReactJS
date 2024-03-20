@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchRevenueProjection } from '../../Features/RevenueProjection/api/getRevenueProjection';
 import { AxiosError } from 'axios';
 import DashBoardRevenue from './DashBoardRevenue';
+//Component to handle monthly revenue data fetching and rendering.
 const DashBoardMonthlyRevenueHandler = () => {
   const [revenueData, setRevenueData] = useState<{ [key: string]: number } | undefined>();
   const [error, setError] = useState<any>();
@@ -12,24 +13,26 @@ const DashBoardMonthlyRevenueHandler = () => {
   useEffect(() => {
     fetchMonthRevenue();
   }, []);
-
+ // Function to fetch monthly revenue data
   const fetchMonthRevenue = async () => {
     const requestBody = {
       type: 'monthly',
     };
  
     try {
+        // Fetch revenue projection data
       const { data }: { data: { [key: string]: number } } = await fetchRevenueProjection(undefined, requestBody);
       console.log(data)
       if (data instanceof AxiosError) {
         console.log(data.response?.data);
         setError(data.response?.data);
       } else {
+         // Get current month and its revenue
         const currentDate = new Date();
         const currentMonth = currentDate.toLocaleString('en-US', { month: 'long' });
         const currentYear = currentDate.getFullYear();
         const currentMonthKey = `${currentMonth}, ${currentYear}`;
-        
+         // Get previous month and its revenue
         const currentMonthRevenue = data[currentMonthKey];
         setCurrentMonthRevenue(currentMonthRevenue);
         setRevenueData(data);

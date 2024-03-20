@@ -31,7 +31,8 @@ const RenewMsa = ({
         style={{
           marginLeft: "16rem",
           marginTop: "0.5rem",
-          fontSize: 17,
+          fontSize: 16,
+          // color: "red !important",
           fontStyle: "italic",
         }}
       />

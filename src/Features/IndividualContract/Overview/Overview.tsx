@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import styles from "./Overview.module.css";
 import { Card } from "antd";
 import { OverviewPropType } from "./types";
-import MilestonesHandler from "../Milestones/MilestonesHandler";
-import { lowerCase } from "lodash";
 
 const Overview = ({
   dateOfSignature,
@@ -97,7 +95,11 @@ const Overview = ({
             <h5
               className={`${styles.maincontainer__overviewpayment__content__list__value}`}
             >
-              {estimatedAmount / 1000000}M USD
+              {estimatedAmount !== 0
+                ? estimatedAmount / 1000000 > 1
+                  ? `${estimatedAmount / 1000000}M`
+                  : `${estimatedAmount / 1000}K`
+                : 0}{" USD"}
             </h5>
           </div>
           <div

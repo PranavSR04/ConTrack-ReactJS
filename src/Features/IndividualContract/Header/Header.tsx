@@ -3,7 +3,6 @@ import { HeaderPropType } from "./types";
 import styles from "./Header.module.css";
 import { CSVLink } from "react-csv";
 import BreadCrumbs from "../../../Components/BreadCrumbs/Breadcrumbs";
-import { useNavigate } from "react-router";
 
 const Header = ({
   clientName,
@@ -22,7 +21,7 @@ const Header = ({
         style={{
           // marginLeft: "3rem",
           marginTop: "0.7rem",
-          fontSize: 17,
+          fontSize: 16,
           // color: "red !important",
           fontStyle: "italic",
         }}
