@@ -52,55 +52,5 @@ body{
   margin-right: 100px;
 }
 .container_text {
-  flex-grow: 1; /* Allow the text to occupy remaining space */
+  flex-grow: 1;
 }
-/* .added p{
-    background-color: #D9A0F3;
-    color: #1F4E94;
-    height: 20px;
-    width: 60px;
-    margin-left: 21px;
-    border-radius: 20px;
-    text-align: center;
-    margin-bottom: 10px;
-  } */
-  .edited p{
-    background-color: #f29573;
-    color: #cb3c09;
-    height: 20px;
-    width: 60px;
-    margin-left: 21px;
-    border-radius: 20px;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  .renewed p{
-    background-color: #ACF3A0;
-    color: #1F9423;
-    height: 20px;
-    width: 60px;
-    margin-left: 21px;
-    border-radius: 20px;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  .expired p{
-    background-color: #DC143C;
-    color: #5F2828;
-    height: 20px;
-    width: 60px;
-    margin-left: 21px;
-    border-radius: 20px;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  .expiring p{
-    background-color: #F2E291;
-    color: #9F7D24;
-    height: 20px;
-    width: 60px;
-    margin-left: 21px;
-    border-radius: 20px;
-    text-align: center;
-    margin-bottom: 10px;
-  }
