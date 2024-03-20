@@ -11,19 +11,19 @@
 .BreadCrumbs li {
   display: inline;
   margin-right: 5px;
-  color: inherit; /* Ensures it inherits parent's color */
+  color: inherit;
 }
 
 .BreadCrumbs li::after {
   content: "/";
   margin-left: 5px;
   margin-right: 5px;
-  color: aqua; /* Separator color */
+  color: aqua;
 }
 
 .BreadCrumbs li:last-child {
   font-weight: bold;
-  color: red; /* Active page color */
+  color: red;
 }
 
 .BreadCrumbs li:hover {
