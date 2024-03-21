@@ -68,7 +68,7 @@ const SideBar = ({ children }: SideBarPropType) => {
 
   const superadminSideItem = {
     path: "/ManageUser",
-    name: "ManageUser",
+    name: "Manage User",
     icon: <FaUserCog />,
   };
   const sideBarItem =

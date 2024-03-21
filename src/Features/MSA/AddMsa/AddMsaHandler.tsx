@@ -126,9 +126,11 @@ const AddMsaHandler = () => {
   };
   // Function to submit the MSA data
   const SubmitAddMsa = async () => {
+    console.log("Insie MSA");
     try {
       setSpinning(true);
       // Create a new FormData object and append form data
+      console.log("Inside submit");
       const formDatatoSend = new FormData();
       formDatatoSend.append("msa_ref_id", formData.msa_ref_id);
       formDatatoSend.append("client_name", formData.client_name);
@@ -141,14 +143,23 @@ const AddMsaHandler = () => {
       formDatatoSend.append("file", formData.file || "");
       // Post form data to the API
       await postapi(formDatatoSend, user_id);
-
+      // setSpinning(false);
+      console.log("After submit");
+      // setMsaAdded(true);
+      // setIsModalVisible(false);
+      // form.resetFields();
+      // generateMsaId();
+      // navigate("/MSA Overview", { state: { added: true } });
+    } catch (error) {
+      console.error("Error submitting form data:", error);
+    }finally{
+      setSpinning(false);
       setMsaAdded(true);
       setIsModalVisible(false);
       form.resetFields();
       generateMsaId();
       navigate("/MSA Overview", { state: { added: true } });
-    } catch (error) {
-      console.error("Error submitting form data:", error);
+
     }
   };
   // Function to validate start date against end date

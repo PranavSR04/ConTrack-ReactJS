@@ -225,17 +225,21 @@ const AddContractHandler = () => {
 
   // Function to handle form submission
   const handleSubmit = async () => {
+
     try {
       setSpinning(true);
       await addContract(contractDetails);
 
+      
+    } catch (error) {
+      console.log("Form not submitted");
+    }finally{
+      setSpinning(false);
       setContractAdded(true);
       console.log("Navigating from");
       navigate("/AllContracts", {
         state: { added: contractAdded as boolean },
       });
-    } catch (error) {
-      console.log("Form not submitted");
     }
   };
 

@@ -44,33 +44,36 @@ const LineChartHandler = ({
 	filterEndDate,
 	filterStartDate
 }: LineChartHandlerPtopType) => {
+
+
 	const [revenueData, setRevenueData] = useState<
 		RevenueProjectionData[] | undefined
 	>([]);
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(false);
 
-	useEffect(() => {
+	useEffect(() => {     //on window load fect the revenue data
 		fetRevenue();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [filter, selectedFilters,filterStartDate,filterEndDate]);
-	console.log(selectedFilters);
-	const fetRevenue = async () => {
+	console.log(selectedFilters); 
+
+	const fetRevenue = async () => {      
 		const requestBody = {
-			type: filter.toLowerCase(),
-			du: selectedFilters.du,
-			ctype: selectedFilters.cType,
-			startdate:filterStartDate,
-			enddate:filterEndDate
+			type: filter.toLowerCase(),   //Monthy or Quarterly or Yearly
+			du: selectedFilters.du,       //DU filters
+			ctype: selectedFilters.cType, //Contract Type Filters
+			startdate:filterStartDate,    //Date Filter (Start Date)
+			enddate:filterEndDate		  //Date Filter (End Date)
 		};
 		setLoading(true);
 		try {
 			console.log("inside fun");
 			const data = await fetchRevenueProjection(
-				id ? id : undefined,
+				id ? id : undefined,  //if id is in the request the fetch the individaul revenue or fetch all revenue
 				requestBody
 			);
-			if (data instanceof AxiosError) {
+			if (data instanceof AxiosError) {     // if Error occures set the error message
 				console.log(data.response?.data);
 				setRevenueData(undefined);
 				setError(data.response?.data);

@@ -31,10 +31,11 @@ import IndividualContractHandler from "../IndividualContract/IndividualContractH
 
 const AppRoutes = () => {
   const { roleId } = useContext(Auth);
-  // const ROLE_ID = roleId;
+ 
+  const ROLE_ID = roleId;
 
   console.log("ROLE ID from AUTH CONTEXT:", typeof roleId, roleId);
-  const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
+  // const ROLE_ID = parseInt(localStorage.getItem("role_id") || "0", 10);
 
   return (
     <div>

@@ -14,10 +14,10 @@ const RevenueProjectionHandler = ({ id }: RevenueProjectionHandlerPropType) => {
 	);
   const[filterStartDate,setFilterStartDate]=useState<string>();
   const[filterEndDate,setFilterEndDate]=useState<string>();
-	const duOptions = ["DU1", "DU2", "DU3", "DU4"];
+	const duOptions = ["DU1", "DU2", "DU3", "DU4"];  //Filter Options
 	const regionOptions = ["USA", "Canada", "Japan"];
 
-  const onhandledatechange = (dates: any, dateStrings: any) => {
+  const onhandledatechange = (dates: any, dateStrings: any) => {  //Setting the filtered date to String 
     console.log('Selected Dates:', dates);
     console.log('Formatted Date Strings:', dateStrings);
     setFilterStartDate(dateStrings[0]);
@@ -25,7 +25,7 @@ const RevenueProjectionHandler = ({ id }: RevenueProjectionHandlerPropType) => {
 
 }
 
-	const showFilterModal = () => {
+	const showFilterModal = () => {  //Setting the modal true
 		setIsFilterModalOpen(true);
 	};
 
@@ -50,7 +50,7 @@ const RevenueProjectionHandler = ({ id }: RevenueProjectionHandlerPropType) => {
 		console.log(selectedFilters);
 	};
 
-	const renderCheckboxGroup = (
+	const renderCheckboxGroup = (   //Common filter type
 		filterType: string,
 		options:
 			| (string | number | CheckboxOptionType<CheckboxValueType>)[]

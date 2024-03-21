@@ -5,6 +5,7 @@ export const editContract = async (
   contractData: EditContractDetails,
   CON_ID: number
 ) => {
+  console.log(contractData,CON_ID)
   try {
     const response = await axiosInstance.post(
       `/api/contracts/edit/${CON_ID}`,
