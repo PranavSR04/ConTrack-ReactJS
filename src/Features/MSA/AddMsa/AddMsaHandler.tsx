@@ -5,7 +5,6 @@ import moment, { Moment } from "moment";
 import { getapi } from "./api/getapi";
 import { postapi } from "./api/postapi";
 import { useNavigate } from "react-router";
-import { NavContexts } from "../../../Components/NavContext/NavContext";
 import { RcFile } from "antd/es/upload";
 
 const AddMsaHandler = () => {
@@ -146,7 +145,7 @@ const AddMsaHandler = () => {
       setIsModalVisible(false);
       form.resetFields();
       generateMsaId();
-      navigate("/MSA Overview", { state: { added: true } });
+      navigate("/MSAOverview", { state: { added: true } });
     } catch (error) {
       console.error("Error submitting form data:", error);
     }

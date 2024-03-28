@@ -1,14 +1,18 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Notification from './Notification';
-import { NotificationType } from './types';
+import { NotificationHandlerProps, NotificationType } from './types';
+import { useLocation, useNavigate } from 'react-router';
+import { NavContexts } from '../NavContext/NavContext';
 
-interface NotificationHandlerProps {
-    notification: NotificationType;
-}
 
 const NotificationHandler = ({ notification }:NotificationHandlerProps) => {
     const [difference, setDifference] = useState<string>('');
+    const [actionStyle, setActionStyle] = useState<string>("");
+    const [cardStyle, setCardStyle] = useState<string>("");
+    const { onClose } = useContext(NavContexts);
+    const navigate = useNavigate();
+    const location = useLocation();
     const stylename='Notificationstyle'
     useEffect(() => {
       const dateCalculation = (date: Date) => {
@@ -44,7 +48,100 @@ const NotificationHandler = ({ notification }:NotificationHandlerProps) => {
       const calculatedDifference = dateCalculation(updatedDate);
       setDifference(calculatedDifference);
   }, []);
-    return <Notification notification={notification} difference={difference} stylenames={stylename} />;
+  useEffect(() => 
+      {
+          if (notification.action.includes("Added")) 
+          {
+            setActionStyle(`${stylename}_added`);
+          } 
+          else if (notification.action === "Edited") 
+          {
+            setActionStyle(`${stylename}_edited`);
+          } 
+          else if (notification.action === "Expiring") 
+          {
+            setActionStyle(`${stylename}_expiring`);
+          } 
+          else if (notification.action === "Expired") 
+          {
+            setActionStyle(`${stylename}_expired`);
+          } 
+          else if (notification.action === "Renewed") 
+          {
+            setActionStyle(`${stylename}_renewed`);
+          }
+          setCardStyle(`${stylename}_cardStyle_right`)
+          
+      }, [notification.action, stylename]);
+      const ItemClickHandler = (notification: NotificationType) => 
+      {
+          const isFromMSAOverview = location.pathname.includes("/MSAOverview");
+          const isFromAllContracts = location.pathname.includes("/AllContracts");
+          const isFromMyContracts = location.pathname.includes("/MyContracts");
+          const isFromDashboard = location.pathname.includes("/Dashboard");
+          const isFromRevenue = location.pathname.includes("/Revenue");
+          const isFromManageUser = location.pathname.includes("/Manage User");
+          if (notification.contract_id) 
+          {
+                onClose();
+                navigate(`/AllContracts/${notification.contract_ref_id}`);  
+              
+              if (isFromMSAOverview) 
+              {
+                onClose();
+                navigate(`/MSAOverview/${notification.contract_ref_id}`, {
+                  state: { id: notification.contract_id },
+                });
+              } 
+              else if (isFromAllContracts) 
+              {
+                onClose();
+                navigate(`/AllContracts/${notification.contract_ref_id}`, {
+                  state: { id: notification.contract_id },
+                });
+              } 
+              else if (isFromDashboard) 
+              {
+                onClose();
+                navigate(`/Dashboard/${notification.contract_ref_id}`, {
+                  state: { id: notification.contract_id },
+                });
+              } 
+              else if (isFromMyContracts) 
+              {
+                onClose();
+                navigate(`/MyContracts/${notification.contract_ref_id}`, {
+                  state: { id: notification.contract_id },
+                });
+              } 
+              else if (isFromRevenue) 
+              {
+                onClose();
+                navigate(`/Revenue/${notification.contract_ref_id}`, {
+                  state: { id: notification.contract_id },
+                });
+              } 
+              else if (isFromManageUser) 
+              {
+                onClose();
+                navigate(`/Manage User/${notification.contract_ref_id}`, {
+                  state: { id: notification.contract_id },
+                });
+              } 
+              else {
+                onClose();
+                navigate(`/MSAOverview/${notification.contract_ref_id}`, {
+                  state: { id: notification.contract_id },
+                });
+              }
+          }
+          else
+          {
+              onClose();
+              navigate('/MSAOverview')
+          }
+      };
+    return <Notification notification={notification} difference={difference} actionStyle={actionStyle} stylenames={stylename} cardStyle={cardStyle} ItemClickHandler={ItemClickHandler}/>;
 }
 
 export default NotificationHandler;

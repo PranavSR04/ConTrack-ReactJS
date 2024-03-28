@@ -70,7 +70,7 @@ const ListMsa = ({
                 {ROLE_ID !== 3 && (
                   <button
                     className={styles.ListMsa_Details_Table_row1_col2_button}
-                    onClick={() => navigate("/MSA Overview/Add MSA")}
+                    onClick={() => navigate("/MSAOverview/Add MSA")}
                   >
                     + Add MSA
                   </button>

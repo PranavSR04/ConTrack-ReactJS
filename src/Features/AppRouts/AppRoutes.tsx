@@ -129,7 +129,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/MSA Overview"
+                path="/MSAOverview"
                 element={
                   <>
                     <NavBarHandler />
@@ -140,7 +140,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/MSA Overview/Add MSA"
+                path="/MSAOverview/Add MSA"
                 element={
                   <>
                     <NavBarHandler />
@@ -151,7 +151,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/MSA Overview/Edit MSA"
+                path="/MSAOverview/Edit MSA"
                 element={
                   <>
                     <NavBarHandler />
@@ -162,7 +162,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/MSA Overview/Renew MSA/"
+                path="/MSAOverview/Renew MSA/"
                 element={
                   <>
                     <NavBarHandler />
@@ -265,7 +265,7 @@ const AppRoutes = () => {
               />
 
               <Route
-                path="/MSA Overview/Edit MSA/:msa_ref_id"
+                path="/MSAOverview/Edit MSA/:msa_ref_id"
                 element={
                   <>
                     <NavBarHandler />
@@ -276,7 +276,7 @@ const AppRoutes = () => {
                 }
               />
               <Route
-                path="/MSA Overview/Renew MSA/:msa_ref_id"
+                path="/MSAOverview/Renew MSA/:msa_ref_id"
                 element={
                   <>
                     <NavBarHandler />
@@ -286,8 +286,8 @@ const AppRoutes = () => {
                   </>
                 }
               />
-              {/* <Route
-                path="/MSA Overview/:contract_ref_id/*"
+              <Route
+                path="/MSAOverview/:contract_ref_id/*"
                 element={
                   <>
                     <NavBarHandler />
@@ -297,7 +297,7 @@ const AppRoutes = () => {
                     <Outlet />
                   </>
                 }
-              /> */}
+              />
 
               <Route
                 path="/Edit Contract"
@@ -344,7 +344,7 @@ const AppRoutes = () => {
                 }
               ></Route>
               <Route
-                path="/MSA Overview/:contract_ref_id/Edit Contract"
+                path="/MSAOverview/:contract_ref_id/Edit Contract"
                 element={
                   <>
                     <NavBarHandler />

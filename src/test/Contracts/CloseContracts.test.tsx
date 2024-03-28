@@ -13,8 +13,6 @@ describe('CloseContract component', () => {
     };
 
     const { getByText } = render(<CloseContract {...props} />);
-
-    // Assert that the "Close Contract" button is rendered
     expect(getByText('Close Contract')).toBeInTheDocument();
   });
 

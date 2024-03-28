@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ListMsa from './ListMsa'
 import { MsaData, TableColumn } from './types';
 import { Button, Input} from 'antd';
@@ -9,14 +9,13 @@ import { FilterConfirmProps } from 'antd/es/table/interface';
 import { useLocation, useNavigate } from 'react-router';
 import { getapi_inactivemsa } from './api/getapi_inactivemsa';
 import tableStyles from './ListMsa.module.css'  ; 
+import { NavContexts } from '../../../Components/NavContext/NavContext';
 
 
 const ListMsaHandler = () => {
   const navigate=useNavigate();
   const location = useLocation();
-  const [added, setAdded] = useState(false);
-  const[edited,setEdited]=useState(false);
-  const[renew,setRenew]=useState(false);
+  const{setAdded,added,setEdited,edited,setRenew,renew}=useContext(NavContexts);
   const [data, setData] = useState<MsaData[]>([]);
   const [isEmptySearch, setIsEmptySearch] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -173,14 +172,14 @@ const showInactiveMSA=async()=>{
     // Function to navigate to the edit MSA page with the provided MSA reference ID
     const oneditPage = (msa_ref_id: string) => {
       setActionClicked(true);
-      navigate(`/MSA Overview/Edit MSA`, {
+      navigate(`/MSAOverview/Edit MSA`, {
         state: { msa_ref_id: msa_ref_id as string },
       });
     };
     // Function to navigate to the renew MSA page with the given MSA reference ID
     const onrenewPage = (msa_ref_id: string) => {
       setActionClicked(true);
-      navigate(`/MSA Overview/Renew MSA`, {
+      navigate(`/MSAOverview/Renew MSA`, {
         state: { msa_ref_id: msa_ref_id as string },
       });
     };

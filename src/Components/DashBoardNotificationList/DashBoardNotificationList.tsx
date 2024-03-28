@@ -7,11 +7,11 @@ import { Spin } from 'antd';
 //list the Dashboard notification 
 const DashBoardNotificationList=({notifications, isLoading, isError, error}:DashBoardNotificationListPropType) => {
   return (
-    <div className={styles.containerList}>
+    <div className={styles.DashBoard_Notification_Container}>
       <p>Latest Notifications</p>
-      {isLoading &&<Spin indicator={<LoadingOutlined style={{ fontSize: 20 }} spin />} />}
+      {isLoading &&<Spin indicator={<LoadingOutlined className={styles.DashBoard_Notification_Container_Spin} spin />} />}
       {isError && <p>No Notification</p>}
-      <div className={styles.listStyle}>
+      <div>
           {notifications.map(notification => (
               <DashBoardNotificationHandler key={notification.log_id} notification={notification} />
           ))}
