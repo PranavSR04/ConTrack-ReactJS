@@ -5,14 +5,14 @@ import styles from '../Notification/Notification.module.css';
 import { Drawer, Spin } from 'antd';
 import { NavContexts } from '../NavContext/NavContext';
 
-const NotificationList = ({notifications, isLoading, isError, error, viewMoreClick, hasViewMore,toggleNotifications}:NotificationListPropType) => {
+const NotificationList = ({notifications, isLoading, isError, error, viewMoreClick, hasViewMore}:NotificationListPropType) => {
   const{open,onClose}=useContext(NavContexts);
 
   console.log(open);
   return (
     <>
     <Drawer title="Notifications" onClose={onClose} open={open} className={styles.drawer}>
-    {isError && <p>No Notification</p>}
+    {isError && <p></p>}
     <div className={styles.listStyle}>
         {notifications.map(notification => (
             <NotificationHandler key={notification.log_id} notification={notification} />

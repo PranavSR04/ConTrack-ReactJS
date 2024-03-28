@@ -1,36 +1,10 @@
-body{
-    background-color: #F4F4F4;
-}
-.container{
-
-  display: flex;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow:0 0 4px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin: 2px 0 20px 4px;
-    height:80px;
-    width:320px;
-    transition: transform 0.3s ease;
-}
-.container:hover{
-  display: flex;
-  background-color: #f0eded;
-  border-radius: 10px;
-  padding: 16px;
-  margin: 2px 0 20px 4px;
-  height:80px;
-  width:320px;
-  transform: translateY(-5px);
-}
-.containerList{
+.DashBoard_Notification_Container{
     background-color: #ffffff;
     padding-left: 2%;
-    margin-left: 1.5%;
-    width: 19rem;
+    width: 300px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    height: 22rem;
+    height: 352px;
     overflow-y: auto;
     scrollbar-width: none; 
     -ms-overflow-style: none;
@@ -38,14 +12,6 @@ body{
     font-size: 15px;
     cursor: pointer;
 }
-.container_color{
-    margin-left: 380px;
-}
-
-.container_time,
-.container_action {
-  margin-right: 100px;
-}
-.container_text {
-  flex-grow: 1;
+.DashBoard_Notification_Container_Spin{
+    font-size: 20%;
 }

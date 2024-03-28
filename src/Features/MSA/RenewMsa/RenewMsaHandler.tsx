@@ -153,12 +153,12 @@ const RenewMsaHandler = () => {
           });
         // setMsaRenewed(true);
         setSpinning(false);
-        navigate("/MSA Overview", { state: { renew: true } });
+        navigate("/MSAOverview", { state: { renew: true } });
       }
     } catch (error) {
       console.error("Error submitting form data:", error);
       setSpinning(false);
-      navigate("/MSA Overview");
+      navigate("/MSAOverview");
     } finally {
       // Close the modal
       onCancel();

@@ -7,18 +7,24 @@ import NavBar from '../NavBar/NavBar';
 import { NavContexts } from '../NavContext/NavContext';
 
 const NotificationListHandler = () => {
+    const{added,edited,renew,contractAddToast,contractEditToast}=useContext(NavContexts);
     const [notifications, setNotifications] = useState<NotificationType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [page, setPage] = useState<number>(1);
     const [hasViewMore, setHasViewMore] = useState<boolean>(true);
-    const [showDrawer, setShowDrawer] = useState<boolean>(false);
     const{setActiveNotificationCount,activeNotificationCount}=useContext(NavContexts);
-
-    const toggleNotifications = () => {
-        setShowDrawer(prevState => !prevState);
-    };
+    const SENDTO_ID = parseInt(localStorage.getItem("user_id") || '0', 10);
+    useEffect(()=>{
+        const fetchCount = async () => {
+        const response = await fetchNotification(page, 1,SENDTO_ID);
+        const { data } = response;
+        const activenotifications=data.active_notifications_count;
+        setActiveNotificationCount(activenotifications)
+        }
+        fetchCount();
+    },[added,edited,renew,contractAddToast,contractEditToast])
     useEffect(() => {
         //For fetching notifications 
         const fetchData = async () => {
@@ -26,8 +32,6 @@ const NotificationListHandler = () => {
                 setIsLoading(true);
                 setIsError(false);
                 setError('');
-                const SENDTO_ID = parseInt(localStorage.getItem("user_id") || '0', 10);
-                console.log("user id from local",SENDTO_ID)
                 const response = await fetchNotification(page, 10,SENDTO_ID);//fetch the notification for a particular user
                 if (!('data' in response)) {
                     throw new Error('Invalid response structure');
@@ -37,8 +41,6 @@ const NotificationListHandler = () => {
                 if (!Array.isArray(data.NotificationListdisplay)) {
                     throw new Error('Notifications data is not an array');
                 }
-                const activenotification=data.active_notifications_count;
-                setActiveNotificationCount(activenotification)
                 if (page === 1) {//if the page is 1 then load the notification
                     setNotifications(data.NotificationListdisplay as NotificationType[]);
                 } else {
@@ -73,7 +75,7 @@ const NotificationListHandler = () => {
         };
 
         fetchData();
-    },[page]);
+    },[page,added,edited,renew,contractAddToast,contractEditToast]);
 
     const viewMoreClick = () => {
         setPage(prevPage => prevPage + 1);
@@ -87,7 +89,6 @@ const NotificationListHandler = () => {
     error={error}
     viewMoreClick={viewMoreClick}
     hasViewMore={hasViewMore}
-    toggleNotifications={toggleNotifications}
 />
 </>
 

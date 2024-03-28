@@ -18,7 +18,7 @@ const DashBoardNotificationListHandler = () => {
                     setIsError(false);
                     setError('');
         
-                    const response = await fetchNotification(1, 5,1); // Notification count is limited to 5 
+                    const response = await fetchNotification(1,5,1); // Notification count is limited to 5 
                     if (!('data' in response)) 
                     {
                         throw new Error('Invalid response structure');

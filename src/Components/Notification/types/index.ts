@@ -13,5 +13,11 @@ export interface NotificationType{
 export interface NotificationProps {
     notification: NotificationType;
     difference: string;
-    stylenames:string
+    actionStyle:string;
+    cardStyle:string;
+    stylenames:string;
+    ItemClickHandler: (notification: NotificationType) => void;
+}
+export interface NotificationHandlerProps {
+    notification: NotificationType;
 }

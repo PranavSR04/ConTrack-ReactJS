@@ -7,7 +7,6 @@ export interface NotificationListPropType{
     error: string;
     viewMoreClick: () => void;
     hasViewMore: boolean;
-    toggleNotifications:()=>void
 }
 export interface NotificationsResponse {
     data: {

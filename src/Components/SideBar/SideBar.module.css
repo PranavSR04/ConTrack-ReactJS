@@ -7,7 +7,8 @@
 .container_sidebar{
   padding-top: 1rem;
   background: #ffffff;
-  width: 13rem;
+  width: 16.4%;
+  max-width: 13rem;
   height: 100%;
   position: fixed;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.253);
@@ -15,7 +16,8 @@
 
 .container_sidebar_logout {
   background-color: black;
-  width: 13rem;
+  width: 16.4%;
+  max-width: 13rem;
   position: fixed;
   bottom: 0;
   left: 0;

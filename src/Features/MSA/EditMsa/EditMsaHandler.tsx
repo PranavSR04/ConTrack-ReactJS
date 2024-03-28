@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import EditMsa from "./EditMsa";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { LocationStateProps } from "./types";
@@ -7,6 +7,7 @@ import { Form, message } from "antd";
 import { postapi } from "./api/postapi";
 import { getapi } from "./api/getapi";
 import { RcFile } from "antd/es/upload";
+import { NavContexts } from "../../../Components/NavContext/NavContext";
 
 const EditMsaHandler = () => {
   const navigate=useNavigate();
@@ -38,6 +39,7 @@ const EditMsaHandler = () => {
     comments: "",
     file: null as RcFile | null  
   });
+  // setMsaEdited(false);
   // Call the autoFillMsa function with msa_ref_id in every render
   useEffect(() => {
     if (msa_ref_id) {
@@ -187,7 +189,7 @@ const SubmitEditMsa = async () => {
    
     form.resetFields();
     // Navigate to MSA Overview page with edited state
-    navigate("/MSA Overview", { state: { edited: true } });
+    navigate("/MSAOverview", { state: { edited: true } });
 
   } catch (error) {
     console.error("Error submitting form data:", error);
