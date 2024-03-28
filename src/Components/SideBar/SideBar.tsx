@@ -21,6 +21,8 @@ const SideBar = ({ children }: SideBarPropType) => {
     const storedIndex = localStorage.getItem("activeIndex");
     return storedIndex ? parseInt(storedIndex, 10) : 0;
   });
+
+  
   const handleLogout = async () => {
     try {
       access_token && (await logout());
@@ -55,6 +57,7 @@ const SideBar = ({ children }: SideBarPropType) => {
       
     }
   }, [location.pathname]);
+
   const commonSideItems = [
     { path: "/Dashboard", name: "Dashboard", icon: <FaBars /> },
     { path: "/MSAOverview", name: "MSA", icon: <FaFileAlt /> },

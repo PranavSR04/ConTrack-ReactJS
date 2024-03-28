@@ -18,7 +18,7 @@ const NavBar = ({username}:NavBarPropType) => {
 	return (
 		<>
 			<Nav className={styles.navbar}>
-				<NavbarBrand href="#dashboard">
+				<NavbarBrand>
 					<img src={logo} alt="contrack logo" className={styles.logo} />
 					ConTrack
 				</NavbarBrand>

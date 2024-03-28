@@ -21,10 +21,10 @@ const DocumentsUsersCommentsHandler = ({
     getContractDocuments(responses);
   }, [responses]);
 
+  // Function which is used to set the data required from response
   const getContractDocuments: DocumentsUsersCommentsHandlerType["getContractDocuments"] =
     (responses) => {
       if (responses && responses.data && responses.data.length > 0) {
-        // console.log("addendum", responses.data[0].addendum)
         setContractDocuments(responses.data[0].contract_doclink);
         setClientName(responses.data[0].client_name);
         setContractRefId(responses.data[0].contract_ref_id);

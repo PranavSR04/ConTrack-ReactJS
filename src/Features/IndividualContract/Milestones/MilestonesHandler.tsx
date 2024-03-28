@@ -16,6 +16,7 @@ const MilestonesHandler = ({
     getMilestones(responses);
   }, [responses]);
 
+  // Function which is used to set the data required from response
   const getMilestones: MilestonesHandlerType["getMilestones"] = (responses) => {
     if (responses && responses.data && responses.data.length > 0) {
       setMilestones(responses.data[0].milestones);
@@ -28,7 +29,6 @@ const MilestonesHandler = ({
             setIsCompletedCount(prev => prev + 1);
         }
       });
-    //   console.log("completedCount:", isCompletedCount)
     } else {
       setError("Failed to get response");
     }

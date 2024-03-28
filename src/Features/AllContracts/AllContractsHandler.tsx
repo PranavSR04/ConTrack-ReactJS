@@ -42,12 +42,11 @@ const AllContractsHandler = () => {
 
   const showExpired = (checked: boolean) => {
     //show expired contracts?
-    console.log(`switch to ${checked}`);
     setCheckedExpiring(checked);
     setSearchConditions({}); //clear search from Api
     setIsEmptySearch(true);
   };
-  const handleSegmentChange = (value: string) => {
+  const handleSegmentChange = (value: string) => { //function to handle segment slider
     if(value==='All'){
       setSlideroption('');
       clearSearch();
@@ -61,7 +60,6 @@ const AllContractsHandler = () => {
       clearSearch();
     }
   }
-  
 
   useEffect(() => {
     setSearchConditions({}); //clear search and search entry
@@ -78,6 +76,7 @@ const AllContractsHandler = () => {
   ]); // Refetch data when searchText or searchField changes
 
   useEffect(() => {
+    //get values from navigation to show props
     if (location.state && location.state.hasOwnProperty("added")) {
       setContractAddToast(true);
       setTimeout(() => {
@@ -96,7 +95,6 @@ const AllContractsHandler = () => {
       let location = window.location.href; //get the url path
       let locationPaths = location.split("/");
       let pagePath = locationPaths[locationPaths.length - 1]; //get the corresponding page path.
-      console.log("location", pagePath);
       //get Api for MyContracts
       if (pagePath === "MyContracts") {
         const USER_ID = localStorage.getItem("user_id") as string; //get user id
@@ -110,8 +108,7 @@ const AllContractsHandler = () => {
           slideroption
         );
         setData(result.data);
-        setPageTitle("MY CONTRACTS");
-
+        setPageTitle("MY CONTRACTS"); //dynamic page title
         setPagination({
           ...pagination,
           total: result.total,
@@ -127,9 +124,6 @@ const AllContractsHandler = () => {
         );
         setData(result.data);
         setPageTitle("CONTRACTS OVERVIEW");
-
-        console.log("result:", result.data);
-        console.log("toatal page", result.total);
         setPagination({
           ...pagination,
           total: result.total,
@@ -139,7 +133,7 @@ const AllContractsHandler = () => {
       setLoading(false);
     }
   };
-  const handleTableChange = (pagination: TablePaginationConfig) => {
+  const handleTableChange = (pagination: TablePaginationConfig) => { //pagination handle
     if ("current" in pagination && "pageSize" in pagination) {
       setPagination({
         current: pagination.current || 1,
@@ -154,7 +148,6 @@ const AllContractsHandler = () => {
       ...prevConditions,
       [selectedField]: selectedKeys,
     }));
-    console.log(searchConditions);
   };
 
   const clearSearch = () => {
@@ -166,7 +159,7 @@ const AllContractsHandler = () => {
     // Add a custom class to alternate rows
     return index % 2 === 0 ? tableStyles["oddRow"] : tableStyles["evenRow"];
   };
-
+//click function for each data row
   const rowClickHandler = (record: ContractData) => {
     if (!actionClicked) {
       navigate(`${record.contract_ref_id}`, {
@@ -174,6 +167,7 @@ const AllContractsHandler = () => {
       });
     }
   };
+  //search button components for each title
   const getColumnSearchProps = (dataIndex: string) => {
     return {
       filterDropdown: ({
@@ -214,7 +208,7 @@ const AllContractsHandler = () => {
       filterIcon: () => <SearchOutlined />,
     };
   };
-
+ //custom headings for selected data
   const customHeadings: Record<string, string> = {
     contract_ref_id: "Contract ID",
     client_name: "Client Name",
@@ -224,7 +218,6 @@ const AllContractsHandler = () => {
     contract_status: "Status",
     du: "DU",
   };
-
   const desiredColumnKeys = [
     "contract_ref_id",
     "client_name",
@@ -233,7 +226,7 @@ const AllContractsHandler = () => {
     "contract_type",
     "du",
   ];
-
+//map the data selected corresponding title
   const columns: TableColumn[] = desiredColumnKeys.map((key) => ({
     title: customHeadings[key],
     dataIndex: key,
@@ -247,14 +240,14 @@ const AllContractsHandler = () => {
     ),
   }));
 
-  const oneditPage = (contract_id: string) => {
+  const oneditPage = (contract_id: string) => { //edit button click
     setActionClicked(true);
     navigate(`Edit Contract`, {
       state: { id: contract_id as string },
     });
   };
 
-  columns.push({
+  columns.push({ //add status row to columns
     title: "Status",
     dataIndex: "contract_status",
     key: "contract_status",
@@ -263,8 +256,7 @@ const AllContractsHandler = () => {
     sortDirections: ["ascend", "descend"],
     ...getColumnSearchProps("contract_status"),
     render: (status: string, record: ContractData) => {
-      // let color = 'green'; // Default color
-      let className = "status-active";
+      let className = "status-active"; //default style
       if (status === "On Progress") {
         className = "status-onprogress";
       } else if (status === "Closed") {
@@ -279,14 +271,12 @@ const AllContractsHandler = () => {
           className={className}
           onClick={() => {
             rowClickHandler(record);
-          }}
-        >
+          }} >
           {status}
         </Tag>
       );
     },
   });
-
   {
     role_id !== 3 &&
       columns.push({
@@ -326,5 +316,4 @@ const AllContractsHandler = () => {
     </>
   );
 };
-
 export default AllContractsHandler;
