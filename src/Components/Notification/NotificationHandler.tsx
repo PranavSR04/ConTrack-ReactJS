@@ -7,6 +7,8 @@ import { NavContexts } from '../NavContext/NavContext';
 
 
 const NotificationHandler = ({ notification }:NotificationHandlerProps) => {
+    // const{added,edited,renew,contractAddToast,contractEditToast}=useContext(NavContexts);
+    const [currentTime, setCurrentTime] = useState(new Date().toLocaleString());
     const [difference, setDifference] = useState<string>('');
     const [actionStyle, setActionStyle] = useState<string>("");
     const [cardStyle, setCardStyle] = useState<string>("");
@@ -14,6 +16,17 @@ const NotificationHandler = ({ notification }:NotificationHandlerProps) => {
     const navigate = useNavigate();
     const location = useLocation();
     const stylename='Notificationstyle'
+
+    useEffect(() => {
+      const tick = () => {
+        setCurrentTime(new Date().toLocaleString());
+      };
+      const intervalId = setInterval(tick, 1000);
+      return () => {
+        clearInterval(intervalId);
+      };
+    }, []);
+
     useEffect(() => {
       const dateCalculation = (date: Date) => {
         const currentDate = new Date();
@@ -47,7 +60,7 @@ const NotificationHandler = ({ notification }:NotificationHandlerProps) => {
       const updatedDate = new Date(notification.updated_at);
       const calculatedDifference = dateCalculation(updatedDate);
       setDifference(calculatedDifference);
-  }, []);
+  }, [currentTime]);
   useEffect(() => 
       {
           if (notification.action.includes("Added")) 

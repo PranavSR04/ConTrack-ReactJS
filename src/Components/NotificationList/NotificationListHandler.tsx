@@ -75,7 +75,7 @@ const NotificationListHandler = () => {
         };
 
         fetchData();
-    },[page]);
+    },[page,added,edited,renew,contractAddToast,contractEditToast]);
 
     const viewMoreClick = () => {
         setPage(prevPage => prevPage + 1);

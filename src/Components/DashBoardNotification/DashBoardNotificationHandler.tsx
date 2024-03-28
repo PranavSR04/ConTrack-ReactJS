@@ -5,6 +5,7 @@ import { NavContexts } from '../NavContext/NavContext';
 import { useLocation, useNavigate } from 'react-router';
 
 const DashBoardNotificationHandler= ({notification}:DashBoardNotificationHandlerPropType) => {
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleString());
     const[difference,setDifference]=useState<string>(''); 
     const [actionStyle, setActionStyle] = useState<string>("");
     const [cardStyle, setCardStyle] = useState<string>("");
@@ -12,6 +13,15 @@ const DashBoardNotificationHandler= ({notification}:DashBoardNotificationHandler
     const navigate = useNavigate();
     const location = useLocation();
     const stylename='DashBoard_Notification_Style'; //For giving styles
+    useEffect(() => {
+      const tick = () => {
+        setCurrentTime(new Date().toLocaleString());
+      };
+      const intervalId = setInterval(tick, 1000);
+      return () => {
+        clearInterval(intervalId);
+      };
+    }, []);
     useEffect(() => {
          //Function to calculate time difference between current time and provided date.
           const dateCalculation = (date: Date) => {
@@ -46,7 +56,7 @@ const DashBoardNotificationHandler= ({notification}:DashBoardNotificationHandler
         const updatedDate = new Date(notification.updated_at);
         const calculatedDifference = dateCalculation(updatedDate);
         setDifference(calculatedDifference);
-      }, [notification.updated_at]);
+      }, [currentTime]);
       useEffect(() => 
       {
           if (notification.action.includes("Added")) 
